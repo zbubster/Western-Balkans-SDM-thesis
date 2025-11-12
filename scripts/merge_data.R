@@ -1,6 +1,4 @@
 
-
-# 1. Zadej kořenový adresář, kde chceš hledat
 cesta <- "/home/zbub/diplomka/data/occurence"
 
 # 2. Najdi všechny soubory *.gpkg, které obsahují "acc" v názvu (rekurzivně)
