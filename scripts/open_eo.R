@@ -30,6 +30,9 @@ library(openeo)
 con <- connect(host = "https://openeo.dataspace.copernicus.eu")
 login()
 
+# create processes obj
+p <- processes()
+
 #########################################
 describe_job(j1)
 describe_job("j-251129132925441dbff71cc872cbcc62")
@@ -41,13 +44,26 @@ x
 job <- describe_job("j-251129132925441dbff71cc872cbcc62")
 pg <- as(job, "Process")
 pg
-
-jobz <- list_jobs()
-jobz
 #########################################
 
-# create processes obj
-p <- processes()
+jobz <- list_jobs()
+as.data.frame(jobz)
+names <- c(rep("NDII", 9), rep("SAVI", 9), rep("NDVI", 9))
+
+dir_out <- "/media/zbub/DATA/S2/"
+if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
+############# PRASARNA #############
+############# PRASARNA #############
+############# PRASARNA #############
+for (i in 1:27) {
+  message(paste0("Job ", jobz[[i]]$id, " start"))
+  jobz[[i]]$namez <- names[i]
+  download_results(jobz[[i]], folder = paste0(dir_out, i, "_", jobz[[i]]$namez))
+  message(paste0("Job ", jobz[[i]]$id, " DONE"))
+}
+
+#########################################
+
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # NDVI
@@ -119,13 +135,6 @@ for (i in seq_along(result)) {
   )
   start_job(jobaky[[i]])
 }
-
-# download results
-dir_out <- "/media/zbub/DATA/S2/ndvi"
-if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
-download_results(, folder = dir_out)
-download_results(, folder = dir_out)
-download_results(, folder = dir_out)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # SAVI
@@ -206,13 +215,136 @@ for (i in seq_along(result)) {
   start_job(jobaky[[i]])
 }
 
-# download results
-dir_out <- "/media/zbub/DATA/S2/savi"
-if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
-download_results(, folder = dir_out)
-download_results(, folder = dir_out)
-download_results(, folder = dir_out)
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# NDII
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# prepare collection
+dc <- vector("list", length = length(tiles))
+for(i in seq_along(tiles)){
+  x <- p$load_collection(
+    id = "SENTINEL2_L2A",
+    spatial_extent = tiles[[i]], # spatial extent of study
+    temporal_extent = c("2022-05-01", "2022-08-31"), # year in the middle
+    bands = c("B08", "B11"),
+  )
+  dc[[i]] <- x
+}
+dc
+
+# create function and processing graph for SAVI
+ndii_fun <- function(x, context) {
+  osm <- x["B08"]
+  jed <- x["B11"]
+  (osm - jed) / (osm + jed)
+}
+
+ndii <- vector("list", length = length(dc))
+for(i in seq_along(dc)){
+  x <- p$apply(
+    data    = dc[[1]],
+    process = ndii_fun
+  )
+  ndii[[i]] <- x
+}
+
+# temporal reduction - median
+ndii_med <- vector("list", length = length(ndii))
+for(i in seq_along(ndii)){
+  x <- p$reduce_dimension(
+    data = ndii[[i]],
+    reducer = function(x, ctx) p$median(data = x),
+    dimension = "t"
+  )
+  ndii_med[[i]] <- x
+}
+
+# format of results
+result <- vector("list", length = length(ndii_med))
+for(i in seq_along(ndii_med)){
+  x <- p$save_result(
+    data = ndii_med[[i]],
+    format = "GTiff"
+  )
+  result[[i]] <- x
+}
+
+# send jobs to back-end
+jobaky <- vector("list", length(result))
+for (i in seq_along(result)) {
+  jobaky[[i]] <- create_job(
+    graph = result[[i]],
+    title = paste0("9_BALKANS_", i, " S2 NDII summer 2022")
+  )
+  start_job(jobaky[[i]])
+}
+
+jobaky[[2]] <- create_job(
+  graph = result[[2]],
+  title = paste0("9_BALKANS_", 2, " S2 NDII summer 2022")
+)
+start_job(jobaky[[2]])
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# 
+# NDMI
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# prepare collection
+dc <- vector("list", length = length(tiles))
+for(i in seq_along(tiles)){
+  x <- p$load_collection(
+    id = "SENTINEL2_L2A",
+    spatial_extent = tiles[[i]], # spatial extent of study
+    temporal_extent = c("2022-05-01", "2022-08-31"), # year in the middle
+    bands = c("B08", "B11"),
+  )
+  dc[[i]] <- x
+}
+dc
+
+# create function and processing graph for SAVI
+ndii_fun <- function(x, context) {
+  osm <- x["B08"]
+  jed <- x["B11"]
+  (osm - jed) / (osm + jed)
+}
+
+ndii <- vector("list", length = length(dc))
+for(i in seq_along(dc)){
+  x <- p$apply(
+    data    = dc[[1]],
+    process = ndii_fun
+  )
+  ndii[[i]] <- x
+}
+
+# temporal reduction - median
+ndii_med <- vector("list", length = length(ndii))
+for(i in seq_along(ndii)){
+  x <- p$reduce_dimension(
+    data = ndii[[i]],
+    reducer = function(x, ctx) p$median(data = x),
+    dimension = "t"
+  )
+  ndii_med[[i]] <- x
+}
+
+# format of results
+result <- vector("list", length = length(ndii_med))
+for(i in seq_along(ndii_med)){
+  x <- p$save_result(
+    data = ndii_med[[i]],
+    format = "GTiff"
+  )
+  result[[i]] <- x
+}
+
+# send jobs to back-end
+jobaky <- vector("list", length(result))
+for (i in seq_along(result)) {
+  jobaky[[i]] <- create_job(
+    graph = result[[i]],
+    title = paste0("9_BALKANS_", i, " S2 NDII summer 2022")
+  )
+  start_job(jobaky[[i]])
+}

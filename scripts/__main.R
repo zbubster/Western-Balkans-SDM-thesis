@@ -2,5 +2,5 @@
 library(here)
 
 source(here("scripts", "knihovnik.R"))
-knihovnik(terra, sf, dplyr, tidyr)
+knihovnik(terra, sf, dplyr, tidyr, openeo)
 
