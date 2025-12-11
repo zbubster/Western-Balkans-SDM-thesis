@@ -33,6 +33,10 @@ login()
 # create processes obj
 p <- processes()
 
+View(list_collections())
+describe_collection("SENTINEL2_L2A")
+s2 = describe_collection("COPERNICUS/S2") # or use the collection entry from the list, e.g. collections$`COPERNICUS/S2`
+print(s2)
 #########################################
 describe_job(j1)
 describe_job("j-251129132925441dbff71cc872cbcc62")
@@ -62,7 +66,52 @@ for (i in 1:27) {
   message(paste0("Job ", jobz[[i]]$id, " DONE"))
 }
 
+##########################################
+
+# MEDOID misto medianu!
+# CLOUD filtering, mozna tohle cely udelat jinak??
+cube <- cube$filter_metadata("eo:cloud_cover", "lte", 50)
+# odfiltrovat pixely podle bitu, viz sebastiaan script
+
 #########################################
+# cloud pokusy
+#########################################
+# tile5_for_cloud <- p$load_collection(
+#   id = "SENTINEL2_L2A",
+#   spatial_extent = tiles[[5]], # spatial extent of study
+#   temporal_extent = c("2022-05-01", "2022-08-31"), # year in the middle
+#   bands = c("B04","B08"), # red, NIR
+# )
+# 
+# OKbits <- c(4, 5, 6, 7, 11)
+# 
+# #View(list_processes())
+# describe_process("to_scl_dilation_mask")
+# p$not
+# p$mask_scl_dilation
+# describe_process("load_collection")
+# 
+# scl_cube <- p$load_collection(
+#   id = "SENTINEL2_L2A",
+#   spatial_extent = tiles[[5]],
+#   temporal_extent = c("2022-05-01", "2022-08-31"),
+#   bands = c("SCL"),
+# )
+# 
+# cloud_mask <- p$to_scl_dilation_mask(
+#   data              = scl_cube,
+#   kernel1_size      = 17,
+#   kernel2_size      = 77,
+#   erosion_kernel_size = 3,
+#   mask1_values      = c(2, 4, 5, 6, 7),
+#   mask2_values      = c(3, 8, 9, 10, 11)
+# )
+# 
+# tile5_for_cloud_masked <- p$mask(
+#   data = tile5_for_cloud,
+#   mask = cloud_mask
+# )
+
 
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
@@ -92,7 +141,7 @@ for(i in seq_along(tiles)){
     id = "SENTINEL2_L2A",
     spatial_extent = tiles[[i]], # spatial extent of study
     temporal_extent = c("2022-05-01", "2022-08-31"), # year in the middle
-    bands = c("B04","B08"), # red, NIR
+    bands = c("B04","B08", "SCL"), # red, NIR
   )
   dc[[i]] <- x
 }
@@ -288,6 +337,15 @@ start_job(jobaky[[2]])
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # NDMI
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+#Normalized difference
+#moisture index (NDMI)
+
+#(B8A - B11)/(B8A + B11) Higher pixel values
+#indicate higher moisture
+#content in vegetation.
+
+#(Gao, 1996)
 
 # prepare collection
 dc <- vector("list", length = length(tiles))

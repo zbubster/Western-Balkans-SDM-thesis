@@ -2,6 +2,8 @@
 
 library(here)
 
+extent <- vect("data/extent_raw.gpkg")
+extent2 <- vect("data/extent_raw_2.gpkg")
 
 chelsa_dir <- "/media/zbub/DATA/CHELSA/bio"
 dir.create(chelsa_dir, showWarnings = FALSE, recursive = TRUE)
@@ -111,4 +113,56 @@ for (fname in chelsa_files) {
   } else {
     message("Už existuje, přeskakuju: ", fname)
   }
+}
+
+files <- list.files(
+  path = chelsa_dir,
+  pattern = "\\.tif$",
+  full.names = TRUE
+)
+files
+
+# x <- rast(files[3])
+# plot(x)
+# plot(extent2, add = T)
+# crs(extent2) == crs(x)
+# crs(extent) == crs(x)
+# x <- crop(x, extent2)
+# plot(x)
+# xx <- project(extent, x)
+# plot(xx, add = T)
+
+
+for(i in seq_along(files)){
+  print(paste0("R_", i, "_load"))
+  r <- rast(files[i])
+  print(paste0("R_", i, "_crop_2"))
+  r <- crop(r, extent2)
+  print(paste0("R_", i, "_project"))
+  r <- project(r, extent)
+  print(paste0("R_", i, "_crop"))
+  r <- crop(r, extent)
+  print(paste0("R_", i, "_mask"))
+  r <- mask(r, extent)
+  n <- substr(files[i], 29, nchar(files[i]))
+  print(paste0("R_", i, "_write"))
+  writeRaster(r, filename = paste0("/media/zbub/DATA/CHELSA/processed/", n)) # dir out
+  print("GC")
+  rm(r, n); gc()
+}
+
+dir_in  <- "/media/zbub/DATA/CHELSA/processed"
+dir_out <- "/media/zbub/DATA/CHELSA/pngs_out"
+
+if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
+
+raster_files <- list.files(dir_in, pattern = "\\.tif$", full.names = TRUE)
+
+for (f in raster_files) {
+  r <- rast(f)
+  base_name <- tools::file_path_sans_ext(basename(f))
+  out_png   <- file.path(dir_out, paste0(base_name, ".png"))
+  png(out_png, width = 1200, height = 1000, res = 120)
+  plot(r, main = base_name)
+  dev.off()
 }
