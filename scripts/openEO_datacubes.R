@@ -60,9 +60,9 @@ for(i in seq_along(tiles)){
 }
 bboxes
 
-##################################################################################################################################
+################################################################################
 # DONE ABOVE
-##################################################################################################################################
+################################################################################
 
 SCL <- c("SCL")
 focal_bands <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12")
@@ -100,114 +100,74 @@ for(i in seq_along(bboxes)){
     method = "bilinear"
   )
   
-  results[[i]] <- dvacka
+  out <- p$save_result(
+    data = dvacka,
+    format = "NetCDF"
+  )
+  
+  results[[i]] <- out
 }
 
-results
-i <- 1
-jobs <- vector("list", length(results))
-# for(i in seq_along(results)){
-#   out <- p$save_result(results[[i]], format = "NetCDF")
-#   jobs[[i]] <- create_job(out, title = sprintf("SCLmasked_ALL_%02d_2022", i))
-#   start_job(jobs[[i]])
+jobaky <- vector("list", length(results))
+for(i in seq_along(jobaky)){
+  cat("Strating job", i, "/n")
+  jobaky[[i]] <- create_job(results[[i]], title = sprintf("SCLmasked_ALL_%02d_2022", i))
+  start_job(jobaky[[i]])
+}
+
+dir_out <- "/media/zbub/DATA/Sentinel2_datacubes/"
+if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
+ 
+# for (i in 1:27) {
+#   message(paste0("Job ", jobz[[i]]$id, " start"))
+#   jobz[[i]]$namez <- names[i]
+#   download_results(jobz[[i]], folder = paste0(dir_out, i, "_", jobz[[i]]$namez))
+#   message(paste0("Job ", jobz[[i]]$id, " DONE"))
 # }
+
+id <- unlist(jobz_df[1,"id"])
+name <- paste0(dir_out ,unlist(jobz_df[1, "title"]), ".nc")
+print(name)
+downname <- download_results(id, folder = dir_out)
+file.rename(unlist(downname), name)
+
+####################################
+
+r <- terra::rast("/media/zbub/DATA/Sentinel2_datacubes/SCLmasked_ALL_01_2022.nc")
+plot(r)
+plot(r[[102]])
+
+# r <- stars::read_ncdf("/media/zbub/DATA/Sentinel2_datacubes/SCLmasked_ALL_01_2022.nc")
+# plot(r)
+# plot(r[,,100])
+
+####################################
 
 list_jobs()
 
 jobz_names <- list_jobs() %>%
   names()
 
-describe_job(jobz_names[1])
-log_job(jobz_names[1])
+jobz_df <- list_jobs() %>%
+  as_tibble()
+jobz_df
+
+# describe_job(jobz_names[1])
+# log_job(jobz_names[1])
 
 #####################################
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# load collection
-
-# prepare collection
-dc <- vector("list", length = length(tiles))
-for(i in seq_along(tiles)){
-  x <- p$load_collection(
-    id = "SENTINEL2_L2A",
-    spatial_extent = tiles[[i]], # spatial extent of study
-    temporal_extent = temp_extent, # year in the middle
-    bands = bands, 
-  )
-  dc[[i]] <- x
-}
-dc
-
-# save result
-result <- vector("list", length = length(dc))
-for(i in seq_along(dc)){
-  x <- p$save_result(
-    data = dc[[i]],
-    format = "NetCDF"
-  )
-  result[[i]] <- x
-}
-result
-
-result <- result[45]
-
-# create and start jobs
-jobaky <- vector("list", length(result))
-for (i in seq_along(result)) {
-  jobaky[[i]] <- create_job(
-    graph = result[[i]],
-    title = paste0("bandy_81_BALKANS_", i, "_S2_summer_2022")
-  )
-  start_job(jobaky[[i]]) # send jobs to back-end
-}
-
-
-list_jobs()
-list_collections()
-
-
-jobz_df <- list_jobs() %>%
-  as_tibble()
-print(jobz_df, n = 100)
-
-x<-read_stars("/media/zbub/DATA/S2/openEO.nc")
-str(x)
-
-# Sentinel-2 SCL class codes and definitions
-scl_code <- dplyr::tibble(
-  SCL = 0:11,
-  SCL_name = c(
-    "No data",
-    "Saturated or defective",
-    "Dark area pixels",
-    "Cloud shadow",
-    "Vegetation",
-    "Bare soils",
-    "Water",
-    "Cloud low probability / Unclassified",
-    "Cloud medium probability",
-    "Cloud high probability",
-    "Thin cirrus",
-    "Snow or ice"
-  )
+SCL_name = c(
+  "No data",
+  "Saturated or defective",
+  "Dark area pixels",
+  "Cloud shadow",
+  "Vegetation",
+  "Bare soils",
+  "Water",
+  "Cloud low probability / Unclassified",
+  "Cloud medium probability",
+  "Cloud high probability",
+  "Thin cirrus",
+  "Snow or ice"
 )
-scl_code
-
