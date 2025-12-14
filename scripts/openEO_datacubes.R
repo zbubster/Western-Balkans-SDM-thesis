@@ -184,7 +184,7 @@ print(jobz_df, n = 100)
 
 # DOWNLOAD RESULTS
 
-# check dir_out and which processes you would like to download (head of the for cycle)
+# check dir_out and which jobs you would like to download (head of the for cycle)
 # !!! could take a lot of time and data !!!
 
 # for(i in seq_along(jobz_df)){
