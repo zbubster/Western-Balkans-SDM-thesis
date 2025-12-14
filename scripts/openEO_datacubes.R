@@ -167,28 +167,7 @@ for(i in seq_along(bboxes)){
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# DOWNLOAD RESULTS
-
-# check dir_out
-
-for(i in ###){
-  id <- unlist(jobz_df[i,"id"])
-  name <- paste0(dir_out ,unlist(jobz_df[i, "title"]), ".nc")
-  cat("Downloading tile", name, "\n")
-  downname <- download_results(id, folder = dir_out)
-  file.rename(unlist(downname), name)
-}
-
-####################################
-
-# vynucený start
-
-jobz_names
-
-for(i in 1:7){
-  print(i)
-  start_job(jobz_names[i])
-}
+# PROGRESS CONTROL
 
 jobz_names <- list_jobs() %>%
   names()
@@ -197,3 +176,23 @@ jobz_names
 jobz_df <- list_jobs() %>%
   as_tibble()
 print(jobz_df, n = 100)
+
+# log_job()
+# describe_job()
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# DOWNLOAD RESULTS
+
+# check dir_out and which processes you would like to download (head of the for cycle)
+# !!! could take a lot of time and data !!!
+
+# for(i in seq_along(jobz_df)){
+#   id <- unlist(jobz_df[i,"id"])
+#   name <- paste0(dir_out ,unlist(jobz_df[i, "title"]), ".nc")
+#   cat("Downloading tile", name, "\n")
+#   downname <- download_results(id, folder = dir_out)
+#   file.rename(unlist(downname), name)
+# }
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
