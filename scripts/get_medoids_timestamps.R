@@ -2,6 +2,9 @@
 # MEDOIDS
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
+# This script takes NetCDF files, which should contain observations for focal bands and applying "fun_medoid.R" on them. It produces medoid composites, which have one real observation for each band for one pixel.
+
+# Using terra::app() for parallel computation, cluster defined using "parallel" package.
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -71,5 +74,3 @@ for(i in seq_along(datacubes_names)){
   rm(nc, fun, t_by_row, t_vec, band_fac, band_vec, ord, nms)
   gc()
 }
-
-
