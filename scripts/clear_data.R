@@ -8,6 +8,8 @@ list.files("data/occurence/")
 
 TN <- st_read(here("data", "occurence", "TN_accurate_merged.gpkg"))
 field <- st_read(here("data", "occurence", "20_23_fieldworks.gpkg"))
+dir_out <- here("data", "occurence", "field_cleared")
+if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
 
 sort(unique(field$species))
 
@@ -24,7 +26,7 @@ field <- field %>%
       # all focal absent
       species %in% c("absence all focal", "absent all focal", "all focal absent") ~ "AFA",
       # gen ter
-      species %in% c("gentana tergestina", "gentian tergestina", "grntiana tergestina", "gentiana tergeatina") ~ "gentiana tergestina",
+      species %in% c("gentana tergestina", "gentian tergestina", "grntiana tergestina", "gentiana tergeatina", "gentiana sp") ~ "gentiana tergestina",
       # gen cru
       species == "gentiana crutiata" ~ "gentiana cruciata",
       # phyt pseudo
@@ -38,3 +40,23 @@ field <- field %>%
     )
   )
 
+# species list
+spec_list <- sort(unique(field$species))
+spec_list <- setdiff(spec_list, "AFA")  # drop "all focal absent"
+
+# loop over species
+for (sp in spec_list) {
+  
+  message("Starting species:", sp)
+  
+  tmp <- field
+  tmp$P_A <- as.integer(tmp$species == sp)
+  
+  words <- unlist(strsplit(sp, "\\s+"))
+  filename <- paste0(substr(words[1], 1, 3), "_", paste(words[-1], collapse = "_"), ".gpkg")
+  out_file <- file.path(dir_out, filename)
+  if (file.exists(out_file)) file.remove(out_file)
+  
+  st_write(tmp, out_file, layer = "points", quiet = TRUE)
+  message("Done and saved in", out_file)
+}
