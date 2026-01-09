@@ -111,6 +111,6 @@ medoid <- app(
 
 names(medoid) <- bands
 medoid
-plot(medoid[[5]])
+plot(medoid[[5]], add = T)
 writeRaster(medoid, "80_medoid.tiff")
 rm(medoid); gc()

@@ -185,7 +185,7 @@ print(jobz_df, n = 100)
 # DOWNLOAD RESULTS
 
 # check dir_out and which jobs you would like to download (head of the for cycle)
-# !!! could take a lot of time and data !!!
+# !!! could take a lot of time and internet data !!!
 
 # for(i in seq_along(jobz_df)){
 #   id <- unlist(jobz_df[i,"id"])
