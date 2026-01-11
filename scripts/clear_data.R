@@ -75,10 +75,9 @@ for (sp in spec_list) {
 # In this case I dont have explicit information about absences, so those data will be only merged with already existing layers
 
 TN <- st_read(here("data", "occurence", "TN_accurate_merged.gpkg"))
-TN
-TN$IMENALAT
 sort(unique(TN$IMENALAT))
 
+# produce species names comparable with field data
 TN <- TN %>%
   mutate(
     species = str_extract(tolower(IMENALAT), "^[a-z]+\\s+[a-z]+"),
@@ -86,78 +85,64 @@ TN <- TN %>%
     P_A = 1L
   ) %>%
   select(IDREF, species, P_A, geom)
-  
 
+# split dataset according to species
 TN_list <- split(TN, TN$species)
 str(TN_list)
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# Merge splitted TN dataset with field data
+
+# For each species present in TN dataset:
+# 1) load field data layer
+# 2) check CRS
+# 3) take correct part of TN_list and rbind it with field data
+# 4) overwrite original data in folder
 
 # Campanula marchesettii
 
 f <- st_read(here("data", "occurence", "field_cleared", "cam_marchesettii.gpkg"))
-
-stopifnot(
-  st_crs(TN_list$`campanula marchesettii`) == st_crs(f)
-)
-
+stopifnot(st_crs(TN_list$`campanula marchesettii`) == st_crs(f))
 merged <- TN_list$`campanula marchesettii` %>%
   dplyr::bind_rows(f)
-
 st_write(merged, here("data", "occurence", "field_cleared", "cam_marchesettii.gpkg"), delete_dsn = T)
 
 # Campanula velebitica
 
 f <- st_read(here("data", "occurence", "field_cleared", "cam_velebitica.gpkg"))
-
-stopifnot(
-  st_crs(TN_list$`campanula velebitica`) == st_crs(f)
-)
-
+stopifnot(st_crs(TN_list$`campanula velebitica`) == st_crs(f))
 merged <- TN_list$`campanula velebitica` %>%
   dplyr::bind_rows(f)
-
 st_write(merged, here("data", "occurence", "field_cleared", "cam_velebitica.gpkg"), delete_dsn = T)
 
 # Gentiana tergestina
 
 f <- st_read(here("data", "occurence", "field_cleared", "gen_tergestina.gpkg"))
-
-stopifnot(
-  st_crs(TN_list$`gentiana tergestina`) == st_crs(f)
-)
-
+stopifnot(st_crs(TN_list$`gentiana tergestina`) == st_crs(f))
 merged <- TN_list$`gentiana tergestina` %>%
   dplyr::bind_rows(f)
-
 st_write(merged, here("data", "occurence", "field_cleared", "gen_tergestina.gpkg"), delete_dsn = T)
 
 # Gentiana utriculosa
 
 f <- st_read(here("data", "occurence", "field_cleared", "gen_utriculosa.gpkg"))
-
-stopifnot(
-  st_crs(TN_list$`gentiana utriculosa`) == st_crs(f)
-)
-
+stopifnot(st_crs(TN_list$`gentiana utriculosa`) == st_crs(f))
 merged <- TN_list$`gentiana utriculosa` %>%
   dplyr::bind_rows(f)
-
 st_write(merged, here("data", "occurence", "field_cleared", "gen_utriculosa.gpkg"), delete_dsn = T)
 
 # Phyteuma orbiculare
 
 f <- st_read(here("data", "occurence", "field_cleared", "phy_orbiculare.gpkg"))
-
-stopifnot(
-  st_crs(TN_list$`phyteuma orbiculare`) == st_crs(f)
-)
-
+stopifnot(st_crs(TN_list$`phyteuma orbiculare`) == st_crs(f))
 merged <- TN_list$`phyteuma orbiculare` %>%
   dplyr::bind_rows(f)
-
 st_write(merged, here("data", "occurence", "field_cleared", "phy_orbiculare.gpkg"), delete_dsn = T)
 
 # Primula kitaibeliana
 
 merged <- TN_list$`primula kitaibeliana`
-
 st_write(merged, here("data", "occurence", "field_cleared", "pri_kitaibeliana.gpkg"), driver = "GPKG", delete_dsn = T)
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
