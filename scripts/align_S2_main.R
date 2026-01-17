@@ -7,15 +7,19 @@
 # Settings
 
 terraOptions(progress = 1)
-in_dir  <- here("data", "Sentinel2_medoids")
-out_dir <- here("data", "Sentinel2_medoids_aligned")
-ref_id  <- 42 # reference tile
+# in_dir <- here("data", "Sentinel2_medoids")
+in_dir <- "/media/zbub/DATA/Sentinel2_medoids/" 
+# out_dir <- here("data", "Sentinel2_medoids_aligned")
+out_dir <- "/media/zbub/DATA/Sentinel2_medoids_aligned_2/"
+ref_id <- 42 # reference tile
 pattern <- "\\.tif$"
 bandy <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12", "TIME")
 
 if(!dir.exists(out_dir)){
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 }
+
+setGDALconfig("GDAL_NUM_THREADS", "14")
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -74,22 +78,34 @@ for (i in seq_along(files)) {
   # names
   names(r) <- ref_names
   
+  # get original extent for later crop
+  e0 <- ext(r)
+  
   # create mask ‒ cells with data (only layer 1 taken into consideration)
   m <- !is.na(r[[1]])
   
-  # align cells (NN method)
-  # if CRS == CRS -> resample, if not -> project
-  if (!same.crs(r, template)) {
-    r_al <- project(r, template, method = "near")
-    m_al <- project(m, template, method = "near")
+  # buffer ‒ avoid edge errors
+  buf <- 40  # units = m
+  e_buf <- ext(xmin(e0)-buf, xmax(e0)+buf, ymin(e0)-buf, ymax(e0)+buf)
+  
+  # local target grid
+  tmpl_loc <- crop(template, e_buf, snap = "out")
+  
+  # align
+  if (!same.crs(r, tmpl_loc)) {
+    r_al <- project(r, tmpl_loc, method = "near", use_gdal = TRUE)
+    m_al <- project(m, tmpl_loc, method = "near", use_gdal = TRUE)
   } else {
-    r_al <- resample(r, template, method = "near")
-    m_al <- resample(m, template, method = "near")
+    r_al <- resample(r, tmpl_loc, method = "near")
+    m_al <- resample(m, tmpl_loc, method = "near")
   }
   
   # mask out cells, which originaly had NA (prevent extrapolation)
   m_al <- as.int(m_al)
   r_al <- mask(r_al, m_al, maskvalues = 0, updatevalue = NA)
+  
+  # crop aligned raster to original extent
+  r_al <- crop(r_al, e0, snap = "out")
   
   # write aligned raster
   out_file <- file.path(out_dir, sprintf("%03d_aligned.tif", i))
