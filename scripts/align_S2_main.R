@@ -12,7 +12,6 @@ in_dir <- "/media/zbub/DATA/Sentinel2_medoids/"
 # out_dir <- here("data", "Sentinel2_medoids_aligned")
 out_dir <- "/media/zbub/DATA/Sentinel2_medoids_aligned_2/"
 ref_id <- 42 # reference tile
-pattern <- "\\.tif$"
 bandy <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12", "TIME")
 
 if(!dir.exists(out_dir)){
@@ -27,7 +26,7 @@ if(!dir.exists(out_dir)){
 # Data load, etc
 
 # List files
-files <- list.files(in_dir, pattern = pattern, full.names = TRUE); message("Tiles loaded: ", length(files))
+files <- list.files(in_dir, pattern = "\\.tif$", full.names = TRUE); message("Tiles loaded: ", length(files))
 stopifnot(length(files) == 81)
 
 # Set reference
