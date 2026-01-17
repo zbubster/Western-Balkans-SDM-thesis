@@ -19,7 +19,8 @@ if(!dir.exists(out_dir)){
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 }
 
-setGDALconfig("GDAL_NUM_THREADS", "14")
+# cores allocation ‒ only if running localy!
+# setGDALconfig("GDAL_NUM_THREADS", "14")
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -47,9 +48,6 @@ template <- init(template, 1)  # fill template with constant, this should preven
 # Reference nlyr, rename layers 
 ref_nlyr <- nlyr(ref)
 ref_names <- bandy
-
-# Empty names vector
-aligned_files <- character(length(files))
 
 # GDAL write options
 wopt <- list(
@@ -111,13 +109,9 @@ for (i in seq_along(files)) {
   out_file <- file.path(out_dir, sprintf("%03d_aligned.tif", i))
   writeRaster(r_al, out_file, overwrite = TRUE, wopt = wopt)
   
-  aligned_files[i] <- out_file
-  
   # clean memory
   rm(r, m, r_al, m_al)
   gc()
 }
-
-message("Done. Aligned tiles written to: ", out_dir)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
