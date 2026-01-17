@@ -7,8 +7,8 @@
 # Settings
 
 terraOptions(progress = 1)
-in_dir  <- "/media/zbub/DATA/Sentinel2_medoids/"
-out_dir <- "/media/zbub/DATA/Sentinel2_aligned_medoids/"
+in_dir  <- here("data", "Sentinel2_medoids")
+out_dir <- here("data", "Sentinel2_medoids_aligned")
 ref_id  <- 42 # reference tile
 pattern <- "\\.tif$"
 bandy <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12", "TIME")
