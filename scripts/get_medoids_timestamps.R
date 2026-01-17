@@ -74,3 +74,4 @@ for(i in seq_along(datacubes_names)){
   rm(nc, fun, t_by_row, t_vec, band_fac, band_vec, ord, nms)
   gc()
 }
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
