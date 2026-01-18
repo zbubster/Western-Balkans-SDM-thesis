@@ -6,17 +6,27 @@
 
 # Settings
 
-terraOptions(progress = 1)
 # in_dir <- here("data", "Sentinel2_medoids")
 in_dir <- "/media/zbub/DATA/Sentinel2_medoids/" 
 # out_dir <- here("data", "Sentinel2_medoids_aligned")
 out_dir <- "/media/zbub/DATA/Sentinel2_medoids_aligned_2/"
-ref_id <- 42 # reference tile
-bandy <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12", "TIME")
 
 if(!dir.exists(out_dir)){
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 }
+
+# reference tile
+ref_id <- 42
+
+ref_names <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12", "TIME")
+
+# clamp settings
+spectral_bands <- c("B02", "B03", "B04", "B05", "B08", "B8A", "B11", "B12")
+clamp_upper <- 15000
+clamp_lower <- 0
+
+# other
+terraOptions(progress = 1)
 
 # cores allocation ‒ only if running localy!
 # setGDALconfig("GDAL_NUM_THREADS", "14")
@@ -44,9 +54,8 @@ ext_all <- Reduce(terra::union, lapply(files, function(f) ext(rast(f))))
 template <- extend(ref1, ext_all)
 template <- init(template, 1)  # fill template with constant, this should prevent unexpected behavior
 
-# Reference nlyr, rename layers 
+# Reference nlyr
 ref_nlyr <- nlyr(ref)
-ref_names <- bandy
 
 # GDAL write options
 wopt <- list(
@@ -103,6 +112,15 @@ for (i in seq_along(files)) {
   
   # crop aligned raster to original extent
   r_al <- crop(r_al, e0, snap = "out")
+  
+  # clamp spectral layers
+  # only spectral_bands (TIME excluded)
+  r_al[[spectral_bands]] <- terra::clamp(
+    r_al[[spectral_bands]],
+    lower  = clamp_lower,
+    upper  = clamp_upper,
+    values = T
+  )
   
   # write aligned raster
   out_file <- file.path(out_dir, sprintf("%03d_aligned.tif", i))
