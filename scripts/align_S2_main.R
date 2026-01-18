@@ -6,10 +6,8 @@
 
 # Settings
 
-# in_dir <- here("data", "Sentinel2_medoids")
-in_dir <- "/media/zbub/DATA/Sentinel2_medoids/" 
-# out_dir <- here("data", "Sentinel2_medoids_aligned")
-out_dir <- "/media/zbub/DATA/Sentinel2_medoids_aligned_2/"
+in_dir <- here("data", "Sentinel2_medoids")
+out_dir <- here("data", "Sentinel2_medoids_aligned")
 
 if(!dir.exists(out_dir)){
   dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
