@@ -6,38 +6,25 @@
 
 # Settings
 
-in_tif  <- here("data", "Sentinel2_MOSAIC.tif")
-in_bands <- c("B02","B03","B04","B05","B08","B8A","B11","B12", "TIME") # bands which should be in in_tif
-out_tif <- here("data", "Sentinel2_INDEX.tif")
+in_dir <- here("data", "Sentinel2_reflectance")
+out_dir <- here("data", "Sentinel2_indices") # output dir
+if(!dir.exists(out_dir)){
+  dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+}
+bandy <- c("B02","B03","B04","B05","B08","B8A","B11","B12")
 
 # parameters
-L_savi <- 0.5  # SAVI soil adjustment factor
-eps    <- 1e-12
+L_savi <- 0.5 # SAVI soil adjustment factor
+SAFE <- 1e-12 # constant for divide helper
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# load raster
-r <- rast(in_tif)
+# Load files, sort them and create virtual stack
+files <- list.files(in_dir, pattern = "\\.tif$", full.names = TRUE)
+bandz <- sub(".*(B0[2-8]|B8A|B11|B12).*", "\\1", basename(files))
+files <- files[match(bandy, bandz)] # sort bands acording to bandy
 
-# sanity: check required bands exist
-
-miss <- setdiff(in_bands, names(r))
-if (length(miss) > 0) {
-  stop("Missing bands in input raster: ", paste(miss, collapse = ", "))
-}
-
-# ---- convert to reflectance 0..1 if needed ----
-# (common for L2A: values 0..10000)
-mx <- global(r, fun = "max", na.rm = TRUE)[,1]
-if (is.finite(mx) && mx > 1.5) {
-  r <- r / 10000
-}
-
-# helpers
-safe_div <- function(n, d) {
-  d2 <- ifel(abs(d) < eps, NA, d)
-  n / d2
-}
+r <- rast(files)
 
 # extract bands
 B02 <- r[["B02"]]  # blue
@@ -49,7 +36,54 @@ B8A <- r[["B8A"]]  # narrow NIR
 B11 <- r[["B11"]]  # SWIR1
 B12 <- r[["B12"]]  # SWIR2
 
-# ---- indices ----
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# Safe divide
+# this function should prevent divide by zero
+safe_div <- function(citatel, jmenovatel) {
+  jmenovatel2 <- terra::ifel(abs(jmenovatel) < SAFE, NA, jmenovatel)
+  citatel / jmenovatel2
+}
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+
+
+idx <- terra::lapp(
+  r[[c("B08","B04")]],
+  fun = function(v) {
+    B08 <- v[1]
+    B04 <- v[2]
+    safe <- function(n, d) { d[abs(d) < SAFE] <- NA; n / d }
+    NDVI <- safe(B08 - B04, B08 + B04)
+  },
+  filename = "NDVI.tif",
+  overwrite = TRUE,
+  wopt = list(datatype="FLT4S", gdal=c("COMPRESS=LZW","TILED=YES","BIGTIFF=YES"))
+)
+
+names(idx) <- "NDVI"
+
+
+
+idx <- terra::app(
+  r[[c("B08","B04")]],
+  fun = function(v) {
+    B08 <- v[, 1]
+    B04 <- v[, 2]
+    d <- B08 + B04
+    d[abs(d) < SAFE] <- NA
+    (B08 - B04) / d
+  },
+  filename  = "NDVI.tif",
+  overwrite = TRUE,
+  wopt = list(datatype="FLT4S", gdal=c("COMPRESS=LZW","TILED=YES","BIGTIFF=YES")),
+  cores = 10
+)
+
+
+
+
 NDVI  <- safe_div(B08 - B04, B08 + B04)
 
 # EVI (standard MODIS-style coefficients)
