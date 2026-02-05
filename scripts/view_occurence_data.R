@@ -30,12 +30,11 @@ ext_wgs <- sf::st_transform(extent, 4326)
 tiles <- maptiles::get_tiles(
   x = ext_wgs,
   provider = "OpenStreetMap",
-  zoom = 12,
+  zoom = 9,
   crop = TRUE,
   project = TRUE
 )
 
-leaflet::leaflet() |>
-  leaflet::addRasterImage(tiles, opacity = 1) |>
-  leaflet::addPolygons(data = ext_wgs, fill = FALSE, weight = 3) |>
-  leaflet::addControl(maptiles::get_credit(tiles), position = "bottomright")
+plot(ext_wgs, add = T)
+genter_84 <- st_transform(genter, 4326)
+plot(genter_84[genter_84$P_A == 1,"species"], pch = 16, col = "red", add = T)
