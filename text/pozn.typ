@@ -3,6 +3,7 @@
     - jak se vyhnout dělání modelu pro model, existuje ekologická otázka, na kterou jsem schopný svou prací odpovědět?
         - hindcast/forecast
             - asi nejjednodušší způsob jak si zajistit klasickou "otázku a hypotézy"
+            - velikost vhodného areálu v LGM, v současnosti, ev. predikce změny areálu v budoucnosti
         - conservation
             - kde jsou v současnosti vhodné lokality a kam zaměřit ochranářské snahy, možná by to chtělo *aplikačního partnera?* (místní ochrana přírody)
         - vztah druhu s podmínkami prostředí
