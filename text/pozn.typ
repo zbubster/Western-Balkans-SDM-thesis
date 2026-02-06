@@ -31,7 +31,7 @@
         - _N_TN_ = počet záznamů z datasetu Toniho Nikoliče (*pouze presence*)
         - data _N_TN_ jsou pouze z území Chorvatska. pokud se hodnota _pres_  blíží hodnotě _N_TN_, jsou data akumulována v severní části AOI ‒ to samozřejmě nemusí být špatně, ale může :)
 
-#let data = csv("obj/tab/counts.csv")
+#let data = csv("obj/tab/counts_arranged.csv")
 #let head = data.first()
 #let body = data.slice(1)
 
@@ -52,3 +52,5 @@
                 - poměrně málo
             - *_Primula kiataibeliana_* ‒ TN 109 z 109
                 - všechna data od TN, ale na jihu už růst nemá
+                - absence points = 0 je výpočetní chyba, která vznikla při spojování našich terénních dat s daty Toniho Nikoliče (nemáme z terénu žádný prezenční bod pro primkit, takže nevznikla vrstva absenčních bodů, ke které bych pak připojil TN data). kdybychom se rozhodli primkit modelovat, tuhle chybu lehce napravím
+
