@@ -46,11 +46,27 @@
 
         - pro modelování vychází jako poměrně vhodné druhy:
             - *_Gentiana tergestina_* ‒ TN 105 z 291
+            #figure(
+                image("obj/pic/occurence_EDA/gentiana_tergestina.jpeg"),
+                caption:[Gentiana tergestina]
+                )
             - *_Phyteuma orbiculare_* ‒ TN 210 z 241 !!
                 - množství dat z Chorvatska je trochu nepoměrně vysoké vzhledem k tomu, že jsme ji nalézali i na jihu
+            #figure(
+                image("obj/pic/occurence_EDA/phyteuma_orbiculare.jpeg"),
+                caption:[Phyteuma orbiculare]
+            )
             - *_Saxifraga blavii_* ‒ TN 0 z 88
                 - poměrně málo
+            #figure(
+                image("obj/pic/occurence_EDA/saxifraga_blavii.jpeg"),
+                caption:[Saxifraga blavii]
+            )
             - *_Primula kiataibeliana_* ‒ TN 109 z 109
                 - všechna data od TN, ale na jihu už růst nemá
                 - absence points = 0 je výpočetní chyba, která vznikla při spojování našich terénních dat s daty Toniho Nikoliče (nemáme z terénu žádný prezenční bod pro primkit, takže nevznikla vrstva absenčních bodů, ke které bych pak připojil TN data). kdybychom se rozhodli primkit modelovat, tuhle chybu lehce napravím
+            #figure(
+                image("obj/pic/occurence_EDA/primula_kitaibeliana.jpeg"),
+                caption:[Primula kitaibeliana]
+            )
 
