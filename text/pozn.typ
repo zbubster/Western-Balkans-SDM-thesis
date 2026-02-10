@@ -131,6 +131,6 @@ Níže pár poznámek k vybraným druhům
     - 49 presencí je dle literatury poměrně dost málo na robustní model takového extentu, každopádně by stálo za to zkusit něco vymyslet
     #figure(
         image("obj/pic/occurence_EDA/gentiana_dinarica.jpeg"),
-        caption:[Phyteuma orbiculare]
+        caption:[Gentiana dinarica]
     )
 
