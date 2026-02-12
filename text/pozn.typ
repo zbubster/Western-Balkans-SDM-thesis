@@ -134,3 +134,49 @@ Níže pár poznámek k vybraným druhům
         caption:[Gentiana dinarica]
     )
 
+#line(length: 100%)
+= Poznámky z callu 12. února 2026
+#line(length: 100%)
++ *Kam práce směřuje*:
+  - primárně cílit na *vytvoření modelu na současných prediktorech*, pomocí kterého interpolujeme vztah druhu k prostředí v prostoru
+  - odvozený vztah *následně extrapolovat do jiného časového rámce* (LGM, budoucnost)
+  - argumentace přes:
+    - explorace ekologických vztahů rostlinny a prostředí
+    - ochrannářský potenciál výsledků
+    - evoluční expolrace (DOSTUDOVAT)
+      - např jak se mění historicky areály toho druhu
+      - jak přežila saxbla LGM, proč je její areál tak malý?
+  - _pokud zbyde čas a chuť:_
+    - pokusit se vytvořit model co nejvěrnější realitě
+    - využití RS dat, menší grain, asi vynechání CLIM, namísto GLIM použít ESDAC
+    - kouknout se, jak moc se rozcházejí modely v předpovědích
+    - kolik informace ztrácíme při použití modelů klimatických jako prediktory? resp jak moc to nadhodnocuje
+    - jaké jsou limitace RS based modelů?
++ *Jak to udělat*
+  - CHELSA bios, DEM a odvozené indexy (změny v čase neřešit), GLIM (ohlídat kvartérní horniny a vyřešit jejich labels při přenosu v čase)
+    - rešerše manipulace s prediktory při přenosu časem
+    - Stephan Dulinger??
+  - základní modely dělat na různých grainech:
+    - máme data 1*1 km pro klima
+    - 30*30 m DEM
+    - GLIM idk
+    + udělat model na grain = 1km
+      - zkusit spočítat terrain ruggedness z jemného DEM
+      - kromě absolutních hodnot velkých buňěk koukat i na SD hodnot buňek mateřských
+    + udělat jemnější model, grain = 100m
+      - rozdělit chelsa data na jemnější
+  - kde modelovat:
+    - kouknout jak jsou naše data rozložená na elevačním gradientu a zkusit posoudit, jestli by nešel někde udělat čistý řez (např 800 mnm)
+    - vybrat místa určená k modelování na základě landcoveru
+      - například odstranit všechny urban, fields atd plochy a modelovat jenom relevantní prostor
+  - sestavit seznam druhů, pro které tohle všechno uděláme
+    - _Gentiana tergestina_
+    - _Saxifraga blavii_
+    - _Phyteuma orbiculare_ vs _Phyteuma pseudorbiculare_
+      - je možné je shrnout do jednoho druhu orbiculare a vymodelovat spolu
+      - nebo porovnat oba druhy proti sobě (ALE vyloučit TN data, jelikož ti je asi nerozlišují)
+    - _Primula kitaibeliana_
+      - dořešit absence (dosekat je podle TN dat spíš ne), použít naše ABS
+    - jaké další druhy vezmeme?
+      - vytvořit seznam s argumentací pro a proti
+      - gen dinarica
