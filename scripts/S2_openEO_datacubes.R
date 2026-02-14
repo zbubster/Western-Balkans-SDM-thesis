@@ -41,7 +41,7 @@ if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE)
 # TILES & BBoxes
 
 # load script, which split given terra::vect to thirds
-source(here("scripts", "split_into_thirds.R"))
+source(here("scripts", "fun_split_into_thirds.R"))
 
 # apply splitter 4times
 level1 <- split_into_thirds(extent, "horizontal") # first splitting (= 3 tiles)

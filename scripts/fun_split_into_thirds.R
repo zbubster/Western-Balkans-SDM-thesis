@@ -1,8 +1,15 @@
-## split to three parts
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# FUNCTION split to three parts
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# This function takes spatial object (loaded with terra::vect) and splits
+# its extent into three separate extent returned in the list.
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 split_into_thirds <- function(x, direction = c("vertical", "horizontal")) {
   direction <- match.arg(direction)
-  e <- ext(x)
+  e <- terra::ext(x)
   
   if (direction == "horizontal") {
     h <- (ymax(e) - ymin(e)) / 3
