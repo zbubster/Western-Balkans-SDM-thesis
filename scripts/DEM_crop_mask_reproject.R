@@ -2,11 +2,11 @@
 # Crop, mask and reproject DEM
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# Load extent
+# Load extent and raster files, dirs
 
 extent <- sf::st_read(here("data", "extent_raw.gpkg"))
-
-out_fn  <- file.path(dir_out, "DEM30_mosaic_cropped.tif")
+dir_in <- "/media/zbub/DATA/DEM" # folder with raster files
+out_fn  <- file.path(dir_out, "DEM30_mosaic_cropped.tif") # where to save result
 
 # list files
 files <- list.files(
@@ -20,12 +20,14 @@ stopifnot(length(files) > 0)
 # load SpatRasterCollection
 rc <- terra::sprc(files)
 
-# create mosaic
+# create mosaic (merge rasters)
 r_mosaic <- terra::mosaic(rc)
 
 # crs check
 if (!terra::same.crs(r_mosaic, extent)) {
   aoi <- terra::project(extent, terra::crs(r_mosaic))
+} else {
+  aoi <- extent
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
@@ -38,10 +40,12 @@ r_final <- terra::project(r_mask, terra::crs(extent)) # output raster crs should
 terra::writeRaster(
   r_final,
   filename = out_fn,
-  overwrite = TRUE,
+  overwrite = F,
   wopt = list(gdal = c("COMPRESS=LZW", "TILED=YES"))
 )
 
-r_final
+plot(r_final)
+
+rm(r_crop, r_mask, r_final, rc, extent, aoi); gc()
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
