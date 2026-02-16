@@ -6,14 +6,16 @@
 # for example on the internet: https://viewer.esa-worldcover.org/worldcover/), than
 # merge them into one global mosaic, crop them according to study extent, mask outter
 # values as NA and reproject the final product to desired CRS (this is delivered from
-# polygon representing AOI ‒ extent obj).
+# reference RS layer).
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # Load data
 
 # dirs & files
 esa_dir <- here("data", "WORLDCOVER")
-extent <- vect(here("data", "extent_raw.gpkg")) # AOI, CRS for final output will be taken from this
+extent <- vect(here("data", "extent_raw.gpkg")) # AOI
+grid_ref <- terra::rast(here::here("data","Sentinel2_MOSAIC.tif")) # reference grid for reprojection to 3035
+grid_ref <- grid_ref[[1]] # keep only first layer
 # GDAL write options
 wopt <- list(
   datatype = "FLT4S",
@@ -64,23 +66,14 @@ terra::mask(
   wopt = wopt
   )
 
-# reproject to original extent CRS (3035)
+# reproject to reference CRS (3035)
 r <- terra::rast(here("data", "WORLDCOVER", "3_ESA_WC_mosaic_cropped_masked.tiff"))
 terra::project(
   r,
-  terra::crs(extent),
-  res = 10,
-  filename = here("data", "WORLDCOVER", "ESA_WC_3035_10.tiff"),
+  y = grid_ref,
+  method = "near",
+  filename = here("data", "WORLDCOVER", "ESA_WC_3035_20.tiff"),
   wopt = wopt
   )
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-r0 <- terra::rast(here::here("data","WORLDCOVER","3_ESA_WC_mosaic_cropped_masked.tiff"))
-r1 <- terra::rast(here::here("data","WORLDCOVER","ESA_WC_3035.tiff"))
-
-terra::nrow(r0); terra::ncol(r0); terra::res(r0); terra::datatype(r0)
-terra::nrow(r1); terra::ncol(r1); terra::res(r1); terra::datatype(r1)
-terra::res(r0); dim(r0); terra::datatype(r0)
-terra::res(r1); dim(r1); terra::datatype(r1)
-terra::as.int(r0)
