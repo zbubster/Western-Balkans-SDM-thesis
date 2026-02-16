@@ -1,9 +1,3 @@
-library(dplyr)
-library(terra)
-library(sf)
-library(maptiles)
-library(maps)
-
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # Occurence EDA, view
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
