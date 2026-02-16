@@ -68,9 +68,19 @@ terra::mask(
 r <- terra::rast(here("data", "WORLDCOVER", "3_ESA_WC_mosaic_cropped_masked.tiff"))
 terra::project(
   r,
-  y = terra::crs(extent),
-  filename = here("data", "WORLDCOVER", "ESA_WC_3035.tiff"),
+  terra::crs(extent),
+  res = 10,
+  filename = here("data", "WORLDCOVER", "ESA_WC_3035_10.tiff"),
   wopt = wopt
   )
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+r0 <- terra::rast(here::here("data","WORLDCOVER","3_ESA_WC_mosaic_cropped_masked.tiff"))
+r1 <- terra::rast(here::here("data","WORLDCOVER","ESA_WC_3035.tiff"))
+
+terra::nrow(r0); terra::ncol(r0); terra::res(r0); terra::datatype(r0)
+terra::nrow(r1); terra::ncol(r1); terra::res(r1); terra::datatype(r1)
+terra::res(r0); dim(r0); terra::datatype(r0)
+terra::res(r1); dim(r1); terra::datatype(r1)
+terra::as.int(r0)

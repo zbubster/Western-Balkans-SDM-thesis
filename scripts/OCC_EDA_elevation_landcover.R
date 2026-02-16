@@ -31,6 +31,16 @@ dem <- terra::rast("/media/zbub/DATA/DEM/DEM30_mosaic_cropped.tif")
 
 ex <- terra::extract(dem, pts_uniq)
 
+# set.seed(1)
+# area_df <- terra::spatSample(
+#   dem,
+#   size = 100000,
+#   method = "random",
+#   na.rm = TRUE,
+#   as.df = TRUE
+# )
+# z_area <- area_df[[1]]
+# z_area <- z_area[is.finite(z_area)]
 
 # vektory výšek
 z   <- ex$DEM
