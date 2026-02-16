@@ -10,6 +10,10 @@ terraOptions(progress = 1)
 in_dir <- here("data", "Sentinel2_medoids_aligned")
 out_file <- here("data", "Sentinel2_MOSAIC.tif")
 
+# reflectance
+in_dir <- here("data", "Sentinel2_reflectance_tiles_TIME")
+out_file <- here("data", "Sentinel2_MOSAIC.tif")
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # Prepare collection

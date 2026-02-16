@@ -6,6 +6,7 @@
 
 # Settings
 
+in_f <- here("data", "Sentinel2_MOSAIC.tif")
 in_dir <- here("data", "Sentinel2_reflectance")
 out_dir <- here("data", "Sentinel2_indices") # output dir
 if(!dir.exists(out_dir)){
@@ -81,10 +82,15 @@ idx <- terra::app(
   cores = 10
 )
 
+wopt <- list(
+  datatype = "FLT4S",  # float
+  gdal = c("COMPRESS=LZW", "TILED=YES", "BIGTIFF=YES")
+)
 
 
+NDVI  <- function(r){safe_div(r[["B08"]] - r[["B04"]], r[["B08"]] + r[["B04"]])}
+terra::chunk(r, fun = NDVI, filename = "x_ndvi.tif", wopt = wopt)
 
-NDVI  <- safe_div(B08 - B04, B08 + B04)
 
 # EVI (standard MODIS-style coefficients)
 EVI   <- 2.5 * safe_div(B08 - B04, (B08 + 6 * B04 - 7.5 * B02 + 1))
