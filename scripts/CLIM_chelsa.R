@@ -5,8 +5,6 @@
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 source(here("scripts", "fun_chelsa_bioclim_v21_crop_aoi.R"))
-
-#dir_out <- "/media/zbub/DATA/CHELSA/CHELSA_v21_bioclim_AOI"
 dir_out <- here("data", "CHELSA", "CHELSA_v21")
 extent <- sf::st_read(here("data", "extent_raw.gpkg"))
 
