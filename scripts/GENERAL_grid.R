@@ -46,12 +46,156 @@ source(here("scripts", "fun_reproject_tree_to_ref.R"))
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # CHELSA
 # use function, it returns same structure
+
+# reprojecting to master grid1000
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "original"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+  reference = ref_1000,
+  method = "bilinear",
+  tol = 1e-7
+  )
+
+# splitting into smaller grid 500
+# ORIGINAL DATA: CHELSA_1000
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_500"),
+  reference = ref_500,
+  method = "near",
+  tol = 1e-7
+)
+
+# splitting into smaller grid 200
+# ORIGINAL DATA: CHELSA_1000
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_200"),
+  reference = ref_200,
+  method = "near",
+  tol = 1e-7
+)
+
+# splitting into smaller grid 100
+# ORIGINAL DATA: CHELSA_1000
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_100"),
+  reference = ref_100,
+  method = "near",
+  tol = 1e-7
+)
+
+# splitting into smaller grid 20
+# ORIGINAL DATA: CHELSA_1000
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_20"),
+  reference = ref_20,
+  method = "near",
+  tol = 1e-7
+)
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # GEO
 # rasterize based on the reference
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # DEM
-# project
+
+# reprojecting from 30m to 20m, interpolation, bilinear
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "DEM", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "DEM", "DEM_20"),
+  reference = ref_20,
+  method = "bilinear",
+  tol = 1e-7
+)
+
+# from 30 to 100, aggregation, mean
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "DEM", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "DEM", "DEM_100"),
+  reference = ref_100,
+  method = "mean",
+  tol = 1e-7
+)
+
+# from 30 to 200, aggregation, mean
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "DEM", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "DEM", "DEM_200"),
+  reference = ref_200,
+  method = "mean",
+  tol = 1e-7
+)
+
+# from 30 to 500, aggregation, mean
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "DEM", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "DEM", "DEM_500"),
+  reference = ref_500,
+  method = "mean",
+  tol = 1e-7
+)
+
+# from 30 to 1000, aggregation, mean
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "DEM", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "DEM", "DEM_1000"),
+  reference = ref_1000,
+  method = "mean",
+  tol = 1e-7
+)
+
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# WC
+
+# reprojecting only, method near
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "WC", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "WC", "WC_20"),
+  reference = ref_20,
+  method = "near",
+  tol = 1e-7
+)
+
+# 100 aggregation, mode
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "WC", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "WC", "WC_100"),
+  reference = ref_100,
+  method = "mode",
+  tol = 1e-7
+)
+
+# 200 aggregation, mode
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "WC", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "WC", "WC_200"),
+  reference = ref_200,
+  method = "mode",
+  tol = 1e-7
+)
+
+# 500 aggregation, mode
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "WC", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "WC", "WC_500"),
+  reference = ref_500,
+  method = "mode",
+  tol = 1e-7
+)
+
+# 1000 aggregation, mode
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "WC", "base"),
+  root_out = here("data", "__COMPATIBILITY__", "WC", "WC_1000"),
+  reference = ref_1000,
+  method = "mode",
+  tol = 1e-7
+)
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # RS
 ### keep only in 20m resolution (it worked as template)

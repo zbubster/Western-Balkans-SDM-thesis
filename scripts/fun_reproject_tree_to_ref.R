@@ -11,7 +11,7 @@ reproject_tree_to_ref <- function(
     root_in,
     root_out,
     reference,
-    method = "near",
+    method,
     tol = 1e-7
 ) {
   # check inputs
