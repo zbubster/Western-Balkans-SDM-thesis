@@ -98,7 +98,18 @@ reproject_tree_to_ref(
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # GEO
-# rasterize based on the reference
+
+glim <- terra::vect(here("data", "__COMPATIBILITY__", "GEO", "glim.gpkg"))
+glim
+ref_20
+glim <- terra::project(
+  glim,
+  terra::crs(ref_20)
+)
+
+table(glim$geo_simple)
+table(glim$geo_full)
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # DEM
 
