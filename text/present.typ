@@ -72,11 +72,7 @@
 
 #slide(title: "Grain question", outlined: true)[
   #cols(columns: (35%,70%))[
-    - #lorem(10)
     - ahooj jak to jde ty stará vos ado jo dobrý
-    - #lorem(10)
-    - #lorem(10)
-    - #lorem(10)
   ][
     #figure(
       image("obj/pic/WC_gif/WC_grain.gif", height: 80%),
