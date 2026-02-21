@@ -13,7 +13,7 @@
 // The front slide is the first slide of your presentation
 #front-slide(
   title: "Modelling the Habitat Suitability of alpine plant species in the Western Balkans",
-  subtitle: [Labmeeting ‒ 17th of February 2026],
+  subtitle: [Labmeeting ‒ 24th of February 2026],
   authors: "Jakub Rataj & supervisor Jan Smyčka",
   //info: [#link("https://github.com/manjavacas/typslides")],
 )
@@ -70,8 +70,23 @@
 
   #framed(title: "Frame with title")[This text has been written using `#framed(title:"Frame with title")[text]`.]
 
+#slide(title: "Grain question", outlined: true)[
+  #cols(columns: (35%,70%))[
+    - #lorem(10)
+    - ahooj jak to jde ty stará vos ado jo dobrý
+    - #lorem(10)
+    - #lorem(10)
+    - #lorem(10)
+  ][
+    #figure(
+      image("obj/pic/WC_gif/WC_grain.gif", height: 80%),
+      caption: "Various grains"
+  )<grain>
+  ]
+  
+]
 
-#slide(title:"SDM principles")[
+#slide(title:"SDM principles", outlined: true)[
   #let schematic = image("obj/pic/Schematic_SDM.jpg", height: 75%)
   #let proj = image("obj/pic/sdm_projection.png", height: 75%)
 
