@@ -47,6 +47,13 @@ source(here("scripts", "fun_reproject_tree_to_ref.R"))
 # CHELSA
 # use function, it returns same structure
 
+# Original CHELSA data downloaded with CLIM_chelsa.R script were at the first reprojected
+# to reference grid 1000 m (as original CHELSA resolution is ~1*1 km). Those
+# CHELSA_1000 data worked as base for other reprojection to finer scale, BUT
+# only CHELSA_500 are done globally, since the number of rasters > 5000. Others will
+# be reprojected once some modelling decisions have been made.
+# Reprojections for recent data (1981-2010) are done for all resolutions.
+
 # reprojecting to master grid1000
 reproject_tree_to_ref(
   root_in = here("data", "__COMPATIBILITY__", "CHELSA", "original"),
@@ -66,31 +73,63 @@ reproject_tree_to_ref(
   tol = 1e-7
 )
 
-# splitting into smaller grid 200
-# ORIGINAL DATA: CHELSA_1000
+# # splitting into smaller grid 200
+# # ORIGINAL DATA: CHELSA_1000
+# reproject_tree_to_ref(
+#   root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+#   root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_200"),
+#   reference = ref_200,
+#   method = "near",
+#   tol = 1e-7
+# )
+# 
+# # splitting into smaller grid 100
+# # ORIGINAL DATA: CHELSA_1000
+# reproject_tree_to_ref(
+#   root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+#   root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_100"),
+#   reference = ref_100,
+#   method = "near",
+#   tol = 1e-7
+# )
+# 
+# # splitting into smaller grid 20
+# # ORIGINAL DATA: CHELSA_1000
+# reproject_tree_to_ref(
+#   root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
+#   root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_20"),
+#   reference = ref_20,
+#   method = "near",
+#   tol = 1e-7
+# )
+
 reproject_tree_to_ref(
-  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
-  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_200"),
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000", "CHELSA_v21", "1981-2010"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "RECENT", "500_1981-2010"),
+  reference = ref_500,
+  method = "near",
+  tol = 1e-7
+)
+
+reproject_tree_to_ref(
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000", "CHELSA_v21", "1981-2010"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "RECENT", "200_1981-2010"),
   reference = ref_200,
   method = "near",
   tol = 1e-7
 )
 
-# splitting into smaller grid 100
-# ORIGINAL DATA: CHELSA_1000
 reproject_tree_to_ref(
-  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
-  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_100"),
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000", "CHELSA_v21", "1981-2010"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "RECENT", "100_1981-2010"),
   reference = ref_100,
   method = "near",
   tol = 1e-7
 )
 
-# splitting into smaller grid 20
-# ORIGINAL DATA: CHELSA_1000
 reproject_tree_to_ref(
-  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000"),
-  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_20"),
+  root_in = here("data", "__COMPATIBILITY__", "CHELSA", "CHELSA_1000", "CHELSA_v21", "1981-2010"),
+  root_out = here("data", "__COMPATIBILITY__", "CHELSA", "RECENT", "20_1981-2010"),
   reference = ref_20,
   method = "near",
   tol = 1e-7
