@@ -5,7 +5,9 @@
 # Load data
 
 # data dir
-base_dir <- "data/occurence/__analysis__"
+base_dir <- here("data", "occurence", "__analysis__")
+# Extent
+extent <- st_read(here("data", "extent_raw.gpkg"))
 
 # get filenames and species names (from filenames)
 files <- base::list.files(base_dir, pattern = "\\.gpkg$", full.names = TRUE)
@@ -21,16 +23,14 @@ abs  <- purrr::map(all_sf, \(x) dplyr::filter(x, .data$P_A == 0) |> dplyr::selec
 
 # focal plants
 wanted <- c(
-  "gen_tergestina","phy_orbiculare",#"pri_kitaibeliana",
-  "cam_velebitica", "sax_blavii","cam_albanica","gen_utriculosa","gen_dinarica"
+  "gen_tergestina","phy_orbiculare", "pri_kitaibeliana",
+  "cam_velebitica", "sax_blavii","cam_albanica","gen_utriculosa","gen_dinarica", 
+  "phy_pseudorbiculare"
 )
 
 # subset lists to focal species
 speclist <- pres[wanted]
 abslist  <- abs[wanted]
-
-# Extent
-extent <- st_read("data/extent_raw.gpkg")
 
 # Base map
 tiles <- maptiles::get_tiles(
@@ -100,3 +100,43 @@ for (i in seq_along(speclist)) {
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# Table
+
+tab_pa <- purrr::imap_dfr(all_sf, \(x, nm) {
+  
+  dat <- sf::st_drop_geometry(x) |>
+    dplyr::mutate(
+      P_A = base::as.integer(P_A),
+      source = base::toupper(base::trimws(base::as.character(source)))
+    )
+  
+  n_total <- base::nrow(dat)
+  n_pa1   <- base::sum(dat$P_A == 1L, na.rm = TRUE)
+  n_pa0   <- base::sum(dat$P_A == 0L, na.rm = TRUE)
+  n_pa_na <- base::sum(base::is.na(dat$P_A))
+  
+  # presences only (P_A == 1)
+  n_pa1_fw <- base::sum(dat$P_A == 1L & dat$source == "FW", na.rm = TRUE)
+  n_pa1_tn <- base::sum(dat$P_A == 1L & dat$source == "TN", na.rm = TRUE)
+  
+  tibble::tibble(
+    species_id  = nm,  # list name (eg. "gen_tergestina")
+    Total = n_total,
+    Presences = n_pa1,
+    Absences = n_pa0,
+    #n_pa_na = n_pa_na,
+    #Pres_FW = n_pa1_fw,
+    Pres_TN = n_pa1_tn,
+    #prop_pa1_fw = base::ifelse(n_pa1 > 0, n_pa1_fw / n_pa1, NA_real_),
+    Proportion_TN = base::ifelse(n_pa1 > 0, n_pa1_tn / n_pa1, NA_real_),
+    #pct_pa1_fw = base::ifelse(n_pa1 > 0, 100 * n_pa1_fw / n_pa1, NA_real_),
+    #pct_pa1_tn = base::ifelse(n_pa1 > 0, 100 * n_pa1_tn / n_pa1, NA_real_)
+  )
+}) |>
+  dplyr::arrange(desc(Presences))
+
+# view
+print(tab_pa)
+
+# uložení do CSV (anglický oddělovač ,)
+readr::write_csv(tab_pa, here("text", "obj", "tab","pa_summary.csv"))

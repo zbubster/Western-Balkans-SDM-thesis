@@ -41,8 +41,11 @@ field <- field %>%
     )
   )
 
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# source col
+field <- field %>%
+  dplyr::mutate(source = "FW")
 
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # Produce single layers for each species
 
 # In this case points represent presences of mentioned species AND absences for all other species
@@ -82,9 +85,10 @@ TN <- TN %>%
   mutate(
     species = str_extract(tolower(IMENALAT), "^[a-z]+\\s+[a-z]+"),
     species = str_replace_all(species, "\\s+", " "),
-    P_A = 1L
+    P_A = 1L,
+    source = "TN"
   ) %>%
-  select(IDREF, species, P_A, geom)
+  select(IDREF, species, P_A, source, geom)
 
 # split dataset according to species
 TN_list <- split(TN, TN$species)
@@ -142,7 +146,9 @@ st_write(merged, here("data", "occurence", "field_cleared", "phy_orbiculare.gpkg
 
 # Primula kitaibeliana
 
-merged <- TN_list$`primula kitaibeliana`
-st_write(merged, here("data", "occurence", "field_cleared", "pri_kitaibeliana.gpkg"), driver = "GPKG", delete_dsn = T)
-
+f <- st_read(here("data", "occurence", "field_cleared", "pri_kitaibeliana.gpkg"))
+stopifnot(st_crs(TN_list$`primula kitaibeliana`) == st_crs(f))
+merged <- TN_list$`primula kitaibeliana` %>%
+  dplyr::bind_rows(f)
+st_write(merged, here("data", "occurence", "field_cleared", "pri_kitaibeliana.gpkg"), delete_dsn = T)
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
