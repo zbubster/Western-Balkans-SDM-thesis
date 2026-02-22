@@ -182,6 +182,49 @@
   ] 
 ]
 
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/abase.png", height: 120%)
+  )
+]
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/a20.png", height: 120%)
+  )
+]
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/a100.png", height: 120%)
+  )
+]
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/a200.png", height: 120%)
+  )
+]
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/a500.png", height: 120%)
+  )
+]
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/a1000.png", height: 120%)
+  )
+]
+#blank-slide()[
+  #align(
+    center,
+    image("obj/pic/WC/out.png", width: 100%)
+  )
+]
+
 #focus-slide("Predictors")
 
 #slide(title: "Predictors")[
