@@ -125,7 +125,7 @@
     )
   )
   #{
-    set text(19pt)
+    set text(15pt)
     [- _Gentiana tergestina_ is the most abundant species in our data.
   - _Phyteuma orbiculare_ is probably not differentiated from _pseudorbiculare_ in Croatian database.
     - modelling sister species with _Breiner 2015_ method?
@@ -297,12 +297,9 @@
   )
   - *CHELSA climate* dataset stands for main trends within AOI and  is  #stress([the only predictor that drives modeled distribution change over time]).
   - *DEM* derived indexes (e.g. TPI, TRI, HLI, slope, etc.) should represent #stress([the variability of microhabitat conditions]).
-  - *GLIM* represents geology, bedrocks were reclasified to 3 level factor based on _Chauvier 2021_ ‒ calcareous, siliceous, and mixed
-  - *LandCover* 
-]
-
-#slide(title: [RS predictors])[
-
+  - *GLIM* represents #stress([geology]), bedrocks were reclasified to 3 level factor based on _Chauvier 2021_ ‒ calcareous, siliceous, and mixed.
+  - *LandCover* uncertain usage, possibly only extent subsetting or if goal *3.* is to be made.
+  - *Sentinel 2 imagery* can serve as source for calculatuion spectral indices (EVI, BSI, NDMI, etc.) within goal *3.*
 ]
 
 #focus-slide("Conclusions")
@@ -317,7 +314,7 @@
 //]
 
 // Blank slide
-#blank-slide[
+/*#blank-slide[
 
   - Available #stress[themes]#footnote[Use them as *color* functions! e.g., `#reddy("your text")`]:
 
@@ -376,3 +373,4 @@
 // Bibliography
 //#let bib = bibliography("bibliography.bib")
 //#bibliography-slide(bib)
+*/

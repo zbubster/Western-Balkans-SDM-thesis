@@ -1,6 +1,6 @@
 predictor,original data,finnest; method,coarsest; method,temp extrapol
-CHELSA,30 arc sec,20 m; near,1 km,"Y, variable"
-DEM,30 m,20 m; bilinear,1 km; mean,"Y, unchanged"
-GLIM,vector,20 m; centroid,1 km; centroid,"Y, unchanged"
-LandCover,10 m,20 m; modus,1 km; modus,N
-Sentinel 2,10/20 m,20 m; medoid,20 m; medoid,N
+CHELSA,30 arc sec,20 m; near,1 km,T; variable
+DEM,30 m,20 m; bilinear,1 km mean,T; unchanged
+GLIM,vector,20 m; centroid,1 km; centroid,T; unchanged
+LandCover,10 m,20 m; modus,1 km; modus,F
+Sentinel 2,10/20 m,20 m; medoid,20 m; medoid,F
