@@ -5,10 +5,18 @@
   ratio: "16-9",
   theme: "bluey",
   font: "Fira Sans",
-  font-size: 20pt,
+  font-size: 15pt,
   link-style: "color",
   show-progress: true,
 )
+
+#slide()[
+  #cols(columns: (50%, 50%))[
+    #image("obj/pic/billa-na-horach.jpg")
+  ][
+    #image("obj/pic/auto_na_horach.jpg")
+  ]
+]
 
 // The front slide is the first slide of your presentation
 #front-slide(
@@ -29,9 +37,9 @@
 
 #slide(title: "Aims", outlined: true)[
   #framed(title: "Motivation and main aims")[
-  Based on limited knowledge about the distribution of the focal species,
+  Based on #stress("limited knowledge about the distribution") of the focal species,
   I would like to describe their current potential range, threats in the future & behaviour since the LGM.
-  I would also like to emplhisize weaknesses of this approach.
+  //I would also like to emplhisize weaknesses of this approach.
     + Coarse SDMs with temporal extrapolation
     + Various scale (grain) SDMs with comparision of information loss
     + _Fine models based on remote sensed predictors_
@@ -42,16 +50,13 @@
 
 #slide(title: "Aims, elaborated")[
   + #framed[Compose SDMs based on *coarse climate*, *topography* & *geology* data]
-    - evaluation of "simple" models and their ecological relevance (e.g. errors delivered by the climate models, samplesize, effect of the site specific microclimate)
-    - spatial interpolation
-    - temopral extrapolation (LGM, future scenarios)
+    - evaluation of "simple" models and their ecological relevance //(e.g. errors delivered by the climate models, samplesize, effect of the site specific microclimate)
+    - spatial interpolation & temopral extrapolation (LGM, future scenarios)
 
   + #framed[Composing SDMs with same data as in *1.*, but downscaling climate models]
     - comparing finer models with models delivered from *1.*
-    - estimate information lost in
-  
+    - estimate information lost with coarse grain models
   + #framed[Remote sensing SDMs]
-    - optional
     - 20 m grain (1.2 billions cells within AOI) ‒ very high computaional demands
     - ecology complicated, almost ecologically inexplainable, predictors indirect
     - BUT, predictors "directly" measured on the site and therefore "exact"
@@ -65,10 +70,9 @@
   #cols(columns: (40%, 60%))[
     #figure(schematic, caption: [Model fitting and evaluation])
   ][
-    #figure(proj, caption: [Model projection])
+    #figure(proj, caption: [Model projection into the novel environment])
   ]
 ]
-
 
 #focus-slide("Species")
 
@@ -122,7 +126,7 @@
   )
   #{
     set text(19pt)
-    [- _Gentiana tergestina_ most abundant
+    [- _Gentiana tergestina_ is the most abundant species in our data.
   - _Phyteuma orbiculare_ is probably not differentiated from _pseudorbiculare_ in Croatian database.
     - modelling sister species with _Breiner 2015_ method?
   - For _Primula kitaibeliana_ we have only Croatian presences and our absences.
@@ -130,17 +134,68 @@
   }
 ]
 
+#slide(title: [_Phyteuma (pseud)orbiculare_])[
+  #cols(columns: (30%, 70%))[
+    - Is it possible to #stress("distinguish between two species based only on their distribution") (and environmental requirements derived from it)?
+    - models based on limited N of observations
+      - N #reddy([_orbiculare_]) = 31
+      - N #greeny([_pseudorbiculare_]) = 22
+    → iterative modelling with 2-3 predictors → selection of "good" models → ensemble 
+  ][
+    #let pic = image("obj/pic/phyteumas.png")
+    #figure(
+      pic
+    )
+  ]
+]
+
+#slide(title: [_Saxifraga blavii_])[
+    #cols(columns: (30%, 70%))[
+    - Distribution "limited" to central Dinarides, but also restricted to mid-altitude parts.
+    - Could there be some postglacial recolonization tale?
+  ][
+    #let pic = image("obj/pic/sax_bla.png")
+    #figure(
+      pic
+    )
+  ]
+]
+
+#slide(title: [_Primula kitaibeliana_])[
+  #cols(columns: (30%, 70%))[
+    - No fieldwork presences, only absences. All data came from Croatian database.
+    - Euro+Med Plantbase:
+      - native to Croatia
+    - iNaturalist:
+      - 4 observations from BiH (2023, 2025)
+  ][
+    #let pic = image("obj/pic/prim_kit.png")
+    #figure(
+      pic
+    )
+  ]
+]
+
 #focus-slide("Extent")
 
-#slide(title: "Extent question")[
+#slide(title: "Extent", outlined: true)[
   - the extent of the study should be limited to the #stress("areas covered by the data")
   - interpolation between individual data "clusters"
   - sufficient sampling across environmental gradients (done spatially, but modeled in ecological space)
   #line(length: 100%)
+  - Should I reduce study extent for each species individualy?
   - How should I shrink my AOI?
     - based on the elevation ‒ as data were collected?
     - LandCover ‒ model only grassland areas?
     - keep current extent and quantify prediction error numericaly (e.g. method Shape)
+]
+
+#slide(title: "Extent ‒ spatial")[
+   #let pic = image("obj/pic/localities.png")
+  #figure(
+    pic, 
+    caption: [Spatial distribution of fieldwork localities. Pink polygon represent extent for which I obtained predictor data ‒ i.e. maximum extent of the study.]
+  )
 ]
 
 #slide(title: "Extent ‒ elevation")[
@@ -169,7 +224,7 @@
 
 #focus-slide("Grain")
 
-#slide(title: "Grain question", outlined: true)[
+#slide(title: "Grain", outlined: true)[
   #cols(columns: (35%,70%))[
     - one of the key question when we want to *asses distribution range changes* under different climate scenarios
     - does i make sense to temp extrapolate finner grain models than 1 km?
@@ -240,6 +295,20 @@
         ..body.flatten()
     )
   )
+  - *CHELSA climate* dataset stands for main trends within AOI and  is  #stress([the only predictor that drives modeled distribution change over time]).
+  - *DEM* derived indexes (e.g. TPI, TRI, HLI, slope, etc.) should represent #stress([the variability of microhabitat conditions]).
+  - *GLIM* represents geology, bedrocks were reclasified to 3 level factor based on _Chauvier 2021_ ‒ calcareous, siliceous, and mixed
+  - *LandCover* 
+]
+
+#slide(title: [RS predictors])[
+
+]
+
+#focus-slide("Conclusions")
+
+#slide(title: "Conclusions", outlined: true)[
+  - 
 ]
 
 // Focus slide
@@ -288,7 +357,7 @@
   ][
     #grayed[And this is
     #figure(
-      image("obj/pic/elevation_freq.png")
+      image("obj/pic/elevation.png")
     )<de>]
   ][
     #grayed[an example.
