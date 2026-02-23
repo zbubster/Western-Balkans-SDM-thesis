@@ -53,8 +53,7 @@
     - evaluation of "simple" models and their ecological relevance //(e.g. errors delivered by the climate models, samplesize, effect of the site specific microclimate)
     - spatial interpolation & temopral extrapolation (LGM, future scenarios)
 
-  + #framed[Composing SDMs with same data as in *1.*, but downscaling climate models]
-    - comparing finer models with models delivered from *1.*
+  + #framed[Composing SDMs on various grains]
     - estimate information lost with coarse grain models
   + #framed[Remote sensing SDMs]
     - 20 m grain (1.2 billions cells within AOI) ‒ very high computaional demands
@@ -183,7 +182,7 @@
   - interpolation between individual data "clusters"
   - sufficient sampling across environmental gradients (done spatially, but modeled in ecological space)
   #line(length: 100%)
-  - Should I reduce study extent for each species individualy?
+  - Should I reduce study extent for each species individualy, if at all?
   - How should I shrink my AOI?
     - based on the elevation ‒ as data were collected?
     - LandCover ‒ model only grassland areas?
@@ -225,15 +224,19 @@
 #focus-slide("Grain")
 
 #slide(title: "Grain", outlined: true)[
-  #cols(columns: (35%,70%))[
-    - one of the key question when we want to *asses distribution range changes* under different climate scenarios
-    - does i make sense to temp extrapolate finner grain models than 1 km?
-      - only varying predictor is climate with 1 km resolution, but finer scale topography could answer something
+  #cols(columns: (40%,70%))[
+    - one of the key question when we want to #stress([asses suitable habitat distribution range])
+    - effect on derived species response curves
+    - filedwork data were "collected on grain" ca 100 m
+    - predictors obtained on various grains (from 20 m to 1 km), upscaling is less problematic than downscaling
+    - for #stress([second goal]) I would like to perform modelling on grains:
+      - 1000 m (white)
+      - 500 m (purple)
+      - 200 m (reddisch)
+      - 100 m (yellow)
+
   ][
-    #figure(
-      image("obj/pic/WC_gif/WC_grain.gif", height: 80%),
-      caption: "Various grains"
-  )<grain>
+    #image("obj/pic/grid.png", height: 100%)
   ] 
 ]
 
@@ -283,7 +286,7 @@
 #focus-slide("Predictors")
 
 #slide(title: "Predictors")[
-  #let data = csv("obj/tab/predictors_grain.csv")
+  #let data = csv("obj/tab/predictors_grain.csv", delimiter: ",")
   #let body = data.slice(1)
   #let head = data.first()
   #align(
@@ -305,7 +308,19 @@
 #focus-slide("Conclusions")
 
 #slide(title: "Conclusions", outlined: true)[
-  - 
+  - all data prepared, but there is still a lot left: modelling itself
+  + focus on coarse models (1 km)
+    - spatially interpolate on the present environment
+    - highlight model limitations (neglecting microhabitat conditions)
+    - transfer extracted relationships onto novel environments; once again analyze limitations
+    - suitable habitat range change analysis
+  + modelling on various grains using present environment data
+    - explore predicted suitable habitat area
+    - ? temporal extrapolation on finner grain than 1 km ?
+  - questions which should be resolved ASAP:
+    + Should I reduce extent of the study at all? If yes, which method should be used? For all species globaly (based on the distribution of filedwork presences/absences)? Or for each individually based on its presences?
+    + Does it make sense to extrapolate into novel environments models with finner resolution than 1 km? Only varying predictor would be 1 km based climate, but finner topography could show something.
+    + Spatial autocorraletion...
 ]
 
 // Focus slide
