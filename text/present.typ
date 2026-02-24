@@ -10,13 +10,13 @@
   show-progress: true,
 )
 
-#slide()[
+/*#slide()[
   #cols(columns: (50%, 50%))[
     #image("obj/pic/billa-na-horach.jpg")
   ][
     #image("obj/pic/auto_na_horach.jpg")
   ]
-]
+]*/
 
 // The front slide is the first slide of your presentation
 #front-slide(
@@ -175,6 +175,28 @@
   ]
 ]
 
+#focus-slide("Predictors")
+
+#slide(title: "Predictors")[
+  #let data = csv("obj/tab/predictors_grain.csv", delimiter: ",")
+  #let body = data.slice(1)
+  #let head = data.first()
+  #align(
+    center,
+    table(
+        align: left,
+        columns: head.len(),
+        ..head.map(h => [*#h*]),
+        ..body.flatten()
+    )
+  )
+  - *CHELSA climate* dataset stands for main trends within AOI and  is  #stress([the only predictor that drives modeled distribution change over time]).
+  - *DEM* derived indexes (e.g. TPI, TRI, HLI, slope, etc.) should represent #stress([the variability of microhabitat conditions]).
+  - *GLIM* represents #stress([geology]), bedrocks were reclasified to 3 level factor based on _Chauvier 2021_ ‒ calcareous, siliceous, and mixed.
+  - *LandCover* uncertain usage, possibly only extent subsetting or if goal *3.* is to be made.
+  - *Sentinel 2 imagery* can serve as source for calculatuion spectral indices (EVI, BSI, NDMI, etc.) within goal *3.*
+]
+
 #focus-slide("Extent")
 
 #slide(title: "Extent", outlined: true)[
@@ -283,28 +305,6 @@
   )
 ]
 
-#focus-slide("Predictors")
-
-#slide(title: "Predictors")[
-  #let data = csv("obj/tab/predictors_grain.csv", delimiter: ",")
-  #let body = data.slice(1)
-  #let head = data.first()
-  #align(
-    center,
-    table(
-        align: left,
-        columns: head.len(),
-        ..head.map(h => [*#h*]),
-        ..body.flatten()
-    )
-  )
-  - *CHELSA climate* dataset stands for main trends within AOI and  is  #stress([the only predictor that drives modeled distribution change over time]).
-  - *DEM* derived indexes (e.g. TPI, TRI, HLI, slope, etc.) should represent #stress([the variability of microhabitat conditions]).
-  - *GLIM* represents #stress([geology]), bedrocks were reclasified to 3 level factor based on _Chauvier 2021_ ‒ calcareous, siliceous, and mixed.
-  - *LandCover* uncertain usage, possibly only extent subsetting or if goal *3.* is to be made.
-  - *Sentinel 2 imagery* can serve as source for calculatuion spectral indices (EVI, BSI, NDMI, etc.) within goal *3.*
-]
-
 #focus-slide("Conclusions")
 
 #slide(title: "Conclusions", outlined: true)[
@@ -317,9 +317,10 @@
   + modelling on various grains using present environment data
     - explore predicted suitable habitat area
     - ? temporal extrapolation on finner grain than 1 km ?
-  - questions which should be resolved ASAP:
-    + Should I reduce extent of the study at all? If yes, which method should be used? For all species globaly (based on the distribution of filedwork presences/absences)? Or for each individually based on its presences?
+  - questions which should be resolved:
+    + Should I reduce extent of the study at all? If yes, which method should be used? For all species globaly (based on the distribution of filedwork presences/absences)? Or for each individually based only on its presences?
     + Does it make sense to extrapolate into novel environments models with finner resolution than 1 km? Only varying predictor would be 1 km based climate, but finner topography could show something.
+    + How could I measure errors between models on different grains?
     + Spatial autocorraletion...
 ]
 
