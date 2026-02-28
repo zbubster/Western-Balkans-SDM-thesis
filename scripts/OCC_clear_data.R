@@ -61,6 +61,8 @@ for (sp in spec_list) {
   
   tmp <- field
   tmp$P_A <- as.integer(tmp$species == sp)
+  tmp <- tmp %>%
+    filter(locality != "DUMMY")
   
   words <- unlist(strsplit(sp, "\\s+"))
   filename <- paste0(substr(words[1], 1, 3), "_", paste(words[-1], collapse = "_"), ".gpkg")
@@ -151,4 +153,5 @@ stopifnot(st_crs(TN_list$`primula kitaibeliana`) == st_crs(f))
 merged <- TN_list$`primula kitaibeliana` %>%
   dplyr::bind_rows(f)
 st_write(merged, here("data", "occurence", "field_cleared", "pri_kitaibeliana.gpkg"), delete_dsn = T)
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
