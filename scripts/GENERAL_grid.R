@@ -138,16 +138,67 @@ reproject_tree_to_ref(
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # GEO
 
-glim <- terra::vect(here("data", "__COMPATIBILITY__", "GEO", "glim.gpkg"))
-glim
-ref_20
+glim <- sf::st_read(here("data", "__COMPATIBILITY__", "GEO", "glim.gpkg"))
+
+table(glim$geo_simple)
+glim <- glim %>%
+  mutate(
+    ID = case_when(
+      geo_simple == "Calcareous" ~ 1,
+      geo_simple == "Mixed" ~ 2,
+      geo_simple == "Siliceous" ~ 3,
+      geo_simple == "Other" ~ 9,
+      TRUE ~ 9
+    )
+  ) %>%
+  terra::vect()
+
 glim <- terra::project(
   glim,
   terra::crs(ref_20)
 )
 
-table(glim$geo_simple)
-table(glim$geo_full)
+terra::rasterize(
+  glim,
+  ref_20,
+  field = "ID",
+  filename = here("data", "__COMPATIBILITY__", "GEO", "glim_20.tiff"),
+  wopt = wopt
+)
+
+terra::rasterize(
+  glim,
+  ref_100,
+  field = "ID",
+  filename = here("data", "__COMPATIBILITY__", "GEO", "glim_100.tiff"),
+  wopt = wopt
+)
+
+terra::rasterize(
+  glim,
+  ref_200,
+  field = "ID",
+  filename = here("data", "__COMPATIBILITY__", "GEO", "glim_200.tiff"),
+  wopt = wopt
+)
+
+terra::rasterize(
+  glim,
+  ref_500,
+  field = "ID",
+  filename = here("data", "__COMPATIBILITY__", "GEO", "glim_500.tiff"),
+  wopt = wopt
+)
+
+terra::rasterize(
+  glim,
+  ref_1000,
+  field = "ID",
+  filename = here("data", "__COMPATIBILITY__", "GEO", "glim_1000.tiff"),
+  wopt = wopt
+)
+
+writeVector(glim, here("data", "__COMPATIBILITY__", "GEO", "glim_reprojected.gpkg"))
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # DEM
