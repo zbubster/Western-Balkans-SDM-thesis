@@ -40,3 +40,14 @@ for(i in seq_along(indices)){
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+hli_1000 <- spatialEco::hli(dem_1000)
+writeRaster(hli_1000, filename = file.path(dir_out, "hli_1000.tif"))
+hli_500 <- spatialEco::hli(dem_500)
+writeRaster(hli_500, filename = file.path(dir_out, "hli_500.tif"))
+hli_200 <- spatialEco::hli(dem_200)
+writeRaster(hli_200, filename = file.path(dir_out, "hli_200.tif"))
+hli_100 <- spatialEco::hli(dem_100)
+writeRaster(hli_100, filename = file.path(dir_out, "hli_100.tif"))
+hli_20 <- spatialEco::hli(dem_20)
+writeRaster(hli_20, filename = file.path(dir_out, "hli_20.tif"))
