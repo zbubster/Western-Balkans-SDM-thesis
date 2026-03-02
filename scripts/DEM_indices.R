@@ -40,6 +40,8 @@ for(i in seq_along(indices)){
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# Heat load index
+# using spatialEco package
 
 hli_1000 <- spatialEco::hli(dem_1000)
 writeRaster(hli_1000, filename = file.path(dir_out, "hli_1000.tif"))
@@ -49,5 +51,18 @@ hli_200 <- spatialEco::hli(dem_200)
 writeRaster(hli_200, filename = file.path(dir_out, "hli_200.tif"))
 hli_100 <- spatialEco::hli(dem_100)
 writeRaster(hli_100, filename = file.path(dir_out, "hli_100.tif"))
-hli_20 <- spatialEco::hli(dem_20)
-writeRaster(hli_20, filename = file.path(dir_out, "hli_20.tif"))
+# hli_20 <- spatialEco::hli(dem_20)
+# writeRaster(hli_20, filename = file.path(dir_out, "hli_20.tif"))
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# TWI
+
+source(here("scripts", "fun_twi.R"))
+
+calc_twi(dem_1000, dem_units = "m", neighbors = 8, output_dir = file.path(dir_out, "twi_1000"))
+calc_twi(dem_500, dem_units = "m", neighbors = 8, output_dir = file.path(dir_out, "twi_500"))
+calc_twi(dem_200, dem_units = "m", neighbors = 8, output_dir = file.path(dir_out, "twi_200"))
+calc_twi(dem_100, dem_units = "m", neighbors = 8, output_dir = file.path(dir_out, "twi_100"))
+# calc_twi(dem_20, dem_units = "m", neighbors = 8, output_dir = file.path(dir_out, "twi_20"))
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
