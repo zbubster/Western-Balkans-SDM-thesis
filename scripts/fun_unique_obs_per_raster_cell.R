@@ -2,13 +2,11 @@
 # FUN ‒ keep unique points within cell
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# !! IMPORTANT !!
-# Data should be arranged as there are Presences firs, than Absences. If not,
-# Presences could be dropped and Absences kept, which is probably not wanted.
+# Presences are sorted first, so if Presence and Absence fall into the same
+# raster cell, Presence is kept and Absence is removed.
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# function:
 filter_pa_to_unique_cells <- function(spec, r, drop_outside = TRUE, keep_cell_id = FALSE) {
   
   # get coors & obs
@@ -18,7 +16,7 @@ filter_pa_to_unique_cells <- function(spec, r, drop_outside = TRUE, keep_cell_id
   # cell id
   cell <- terra::cellFromXY(r, xy)
   
-  # drop observations outside from raster extent
+  # drop observations outside raster extent
   if (drop_outside) {
     keep <- !base::is.na(cell)
     xy   <- xy[keep, , drop = FALSE]
@@ -26,7 +24,13 @@ filter_pa_to_unique_cells <- function(spec, r, drop_outside = TRUE, keep_cell_id
     cell <- cell[keep]
   }
   
-  # drop duplicated cell id
+  # sort so Presences go first
+  ord <- base::order(-obs, base::seq_along(obs))
+  xy   <- xy[ord, , drop = FALSE]
+  obs  <- obs[ord]
+  cell <- cell[ord]
+  
+  # keep only first record within each cell
   keep <- !base::duplicated(cell)
   
   # output
@@ -43,4 +47,5 @@ filter_pa_to_unique_cells <- function(spec, r, drop_outside = TRUE, keep_cell_id
   
   return(out)
 }
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
