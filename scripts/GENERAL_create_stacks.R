@@ -21,13 +21,14 @@ stack_dir <- here::here("data", "__COMPATIBILITY__", "STACKS")
 stack_out <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS__")
 if(!dir.exists(stack_out)){dir.create(stack_out)}
 
-#wopt <- 
+wopt <- list(gdal = c("COMPRESS=LZW", "TILED=YES"))
 
 # layer order
 pred_order <- c("glim", "aspect", "slope", "hli", "roughness", "TPI", "TRI", "TRIriley", "TRIrmsd", "twi")
 clim_order <- c(base::sprintf("bio%02d", 1:19), "scd")
 
 
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # 1000m
 
@@ -161,6 +162,6 @@ names(stack_20) <- base::c(
   base::sub("^CHELSA_(.+)_1981-2010_AOI\\.tif$", "\\1", base::basename(files_clim_20))
 )
 
-terra::writeRaster(stack_20, filename = file.path(stack_out, "stack_20.tif"))
+terra::writeRaster(stack_20, filename = file.path(stack_out, "stack_20.tif"), wopt = wopt)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
