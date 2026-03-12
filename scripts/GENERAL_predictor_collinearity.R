@@ -62,7 +62,7 @@ set.seed(seed)
 spsam <- function(l){
   vals <- terra::spatSample(
     l,
-    size = 130000,
+    size = 50000,
     method = "random",
     na.rm = TRUE,
     as.df = TRUE
