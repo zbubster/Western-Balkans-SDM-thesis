@@ -130,16 +130,16 @@ predictors <- c(
 # load collinearity function
 source(here::here("scripts", "fun_compute_collinear_metrices.R"))
 
-# results dir
-res_dir <- here::here(out_dir, "results")
-if(!dir.exists(res_dir)) dir.create(res_dir)
-
 # Next sections use function "compute_collinearity_metrices()" on 
 # different lists (those with species responses on various grains & random
 # spatilly sampled from various grains). Results are saved within folder res_dir
 # for later inspection. Note, that function runs in loop over different objects
 # within list ‒ species on same grain/different grains ‒ with regenerating
 # layer name.
+
+# results dir
+res_dir <- here::here(out_dir, "results")
+if(!dir.exists(res_dir)) dir.create(res_dir)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # species 1000
