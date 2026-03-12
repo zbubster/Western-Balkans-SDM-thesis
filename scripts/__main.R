@@ -8,7 +8,7 @@ knihovnik(rlang, terra, sf, tidyverse, stars, ggplot2, biomod2, stringr, paralle
 
 terraOptions()
 terraOptions(
-  memmax = 90,
+  memmax = 50,
   todisk = TRUE,
   progress = 1
 )
