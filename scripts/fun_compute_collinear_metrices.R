@@ -20,7 +20,9 @@ compute_collinearity_metrices <- function(
     nm,
     response = "observ",
     predictors = NULL,
-    out_dir = NULL
+    out_dir = NULL,
+    max_cor = max_cor,
+    max_vif = max_vif
     ){
   
   if(!dir.exists(out_dir)){dir.create(out_dir)}
@@ -33,8 +35,8 @@ compute_collinearity_metrices <- function(
       df = l,
       responses = response,
       preference_order = predictors,
-      max_cor = 0.7,
-      max_vif = 7,
+      max_cor = max_cor,
+      max_vif = max_vif,
       quiet = T
     )
     # selected predictors
@@ -47,8 +49,8 @@ compute_collinearity_metrices <- function(
     out$main <- collinear::collinear(
       df = l,
       preference_order = predictors,
-      max_cor = 0.7,
-      max_vif = 7,
+      max_cor = max_cor,
+      max_vif = max_vif,
       quiet = T
     )
     sel <- out$main$result$selection
