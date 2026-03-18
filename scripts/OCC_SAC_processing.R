@@ -23,6 +23,9 @@ if (!base::dir.exists(dir_sac_info)) {
 # load function
 source(here::here("scripts", "fun_SAC.R"))
 
+# load background for plottinig
+raster <- terra::rast(here::here("data", "__COMPATIBILITY__", "MASK", "m500_1000.tif"))
+
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # list all .rds files
@@ -74,13 +77,11 @@ xxx <- "PO_200m"
 xxx <- "PO_100m"
 xxx <- "PO_20m"
 
-
 xxx <- "PP_1000m"
 xxx <- "PP_500m"
 xxx <- "PP_200m"
 xxx <- "PP_100m"
 xxx <- "PP_20m"
-
 
 
 # load selected spec and matching SAC info
@@ -90,17 +91,21 @@ i
 
 base::set.seed(722085415)
 
+grDevices::pdf(file = file.path(dir_sac_info, paste0(xxx, ".pdf")), title = xxx)
 # run with parameters that you can change each time
 spec_out <- spatial_cv(
   spec = s,
   sac_info_rds = i,
-  k = 8,
+  k = 10,
   selection = "random",
-  iteration = 100,
+  iteration = 700,
   crs_epsg = 3035,
   plot_sa = TRUE,
-  progress = TRUE
+  plot_hex = TRUE,
+  progress = TRUE,
+  background = raster
 )
+grDevices::dev.off()
 
 # save result under the same name as input file
 out_file <- base::file.path(dir_out, paste0(xxx, ".rds"))

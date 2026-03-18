@@ -25,7 +25,10 @@ spatial_cv <- function(
     iteration = 100, # see blockCV::cv_spatial
     crs_epsg = 3035, 
     plot_sa = FALSE, # plot blockCV::cv_spatial_autocor
-    progress = TRUE){
+    plot_hex = FALSE, # plot blockCV::cv_spatial
+    progress = TRUE,
+    background = NULL # plot background (raster with same CRS)
+    ){
   
   # transform spec list to df
   df <- base::data.frame(
@@ -57,6 +60,7 @@ spatial_cv <- function(
     x = sf_u,
     column = "PA",
     plot = plot_sa,
+    r = background,
     progress = progress
   )
   
@@ -73,7 +77,9 @@ spatial_cv <- function(
     selection = selection,
     iteration = iteration,
     biomod2 = TRUE,
-    progress = progress
+    progress = progress,
+    plot = plot_hex,
+    r = background
   )
   
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
