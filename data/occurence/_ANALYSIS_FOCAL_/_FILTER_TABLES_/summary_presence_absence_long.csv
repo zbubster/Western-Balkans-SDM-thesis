@@ -1,0 +1,26 @@
+file,species_code,species_name,grain,presence_n,absence_n
+GT_20m.rds,GT,Gentiana tergestina,20m,245,491
+GT_100m.rds,GT,Gentiana tergestina,100m,242,418
+GT_200m.rds,GT,Gentiana tergestina,200m,234,357
+GT_500m.rds,GT,Gentiana tergestina,500m,188,265
+GT_1000m.rds,GT,Gentiana tergestina,1000m,136,179
+PK_20m.rds,PK,Primula kitaibeliana,20m,76,677
+PK_100m.rds,PK,Primula kitaibeliana,100m,70,601
+PK_200m.rds,PK,Primula kitaibeliana,200m,65,533
+PK_500m.rds,PK,Primula kitaibeliana,500m,53,399
+PK_1000m.rds,PK,Primula kitaibeliana,1000m,43,272
+PO_20m.rds,PO,Phyteuma orbiculare,20m,31,646
+PO_100m.rds,PO,Phyteuma orbiculare,100m,31,570
+PO_200m.rds,PO,Phyteuma orbiculare,200m,30,503
+PO_500m.rds,PO,Phyteuma orbiculare,500m,24,375
+PO_1000m.rds,PO,Phyteuma orbiculare,1000m,21,251
+PP_20m.rds,PP,Phyteuma pseudorbiculare,20m,22,655
+PP_100m.rds,PP,Phyteuma pseudorbiculare,100m,22,579
+PP_200m.rds,PP,Phyteuma pseudorbiculare,200m,22,511
+PP_500m.rds,PP,Phyteuma pseudorbiculare,500m,22,377
+PP_1000m.rds,PP,Phyteuma pseudorbiculare,1000m,20,252
+SB_20m.rds,SB,Saxifraga blavii,20m,88,589
+SB_100m.rds,SB,Saxifraga blavii,100m,88,513
+SB_200m.rds,SB,Saxifraga blavii,200m,85,448
+SB_500m.rds,SB,Saxifraga blavii,500m,72,327
+SB_1000m.rds,SB,Saxifraga blavii,1000m,53,219
