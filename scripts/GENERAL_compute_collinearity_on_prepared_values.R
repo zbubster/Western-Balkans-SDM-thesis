@@ -21,10 +21,11 @@ v_100 <- readRDS(file = file.path(here::here(values_dir, "v_100.rds")))
 
 # define prefered order of predictors based on ecological knowledge
 predictors <- c(
-  "glim", "slope", "northness", "eastness", "aspect", "hli", "twi", "scd",
-  "TPI", "TRI", "TRIriley", "TRIrmsd", "roughness", 
+  "glim", "northness", "scd", "TPI", "TRI", "slope", 
   "bio18", "bio04", "bio05", "bio06", "bio13", "bio14","bio19",
+  "TRIriley", "TRIrmsd", "roughness", 
   "bio09", "bio10", "bio11", "bio12", "bio07", "bio08", "bio01", "bio15", "bio16", 
+  "eastness", "aspect", "hli", "twi", 
   "bio17", "bio02", "bio03")
 
 # load collinearity function
