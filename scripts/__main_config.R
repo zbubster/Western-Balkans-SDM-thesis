@@ -10,12 +10,14 @@ knihovnik(rlang, terra, sf, tidyverse,
           blockCV, usdm, openeo, collinear,
           corrplot, vegan, rnaturalearth)
 
-# terraOptions()
-# terraOptions(
-#   memmax = 50,
-#   todisk = TRUE,
-#   progress = 1
-# )
+tmp_dir <- "../terra_tmp"
+if(!dir.exists(tmp_dir)) dir.create(tmp_dir)
+
+terraOptions(
+  tempdir = tmp_dir,
+  todisk = TRUE,
+  progress = 1
+)
 
 #RColorBrewer
 #viridis
