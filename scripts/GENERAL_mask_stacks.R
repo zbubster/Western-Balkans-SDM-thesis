@@ -6,14 +6,14 @@
 
 # Config
 
-stacks_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS__")
+stacks_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS__", "coastline_masked")
 masks_dir <- here::here("data", "__COMPATIBILITY__", "MASK")
 out_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS_MASKED__")
 if(!dir.exists(out_dir)){dir.create(out_dir)}
 
 # load rasters
 files <- list.files(stacks_dir)
-nums <- as.numeric(sub("stack_(\\d+)\\.tif", "\\1", files))
+nums <- as.numeric(sub("r_(\\d+)\\.tif", "\\1", files))
 files <- files[order(nums)]
 
 r_100 <- terra::rast(file.path(stacks_dir, files[1]))
@@ -33,9 +33,9 @@ m_1000 <- terra::rast(file.path(masks_dir, masks[4]))
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-terra::mask(r_1000, m_1000, filename = file.path(out_dir, "r_1000.tif"))
-terra::mask(r_500, m_500, filename = file.path(out_dir, "r_500.tif"))
-terra::mask(r_200, m_200, filename = file.path(out_dir, "r_200.tif"))
-terra::mask(r_100, m_100, filename = file.path(out_dir, "r_100.tif"))
+terra::mask(r_1000, m_1000, filename = file.path(out_dir, "r_1000.tif"), overwrite = TRUE)
+terra::mask(r_500, m_500, filename = file.path(out_dir, "r_500.tif"), overwrite = TRUE)
+terra::mask(r_200, m_200, filename = file.path(out_dir, "r_200.tif"), overwrite = TRUE)
+terra::mask(r_100, m_100, filename = file.path(out_dir, "r_100.tif"), overwrite = TRUE)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
