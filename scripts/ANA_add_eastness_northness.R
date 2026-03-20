@@ -28,7 +28,7 @@ r <- lapply(r, north_east)
 
 # save updated rasterstacks
 for(i in seq_along(r)){
-  file <- file.path(rasters_dir, paste0(names(r)[i], "_NE.tif"))
+  file <- file.path(rasters_dir, "NE", paste0(names(r)[i], ".tif"))
   terra::writeRaster(r[[i]], filename = file)
 }
 
