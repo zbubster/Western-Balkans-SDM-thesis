@@ -55,13 +55,14 @@ extract_selected_predictors <- function(x, set_name) {
   out <- out[!base::vapply(out, base::is.null, logical(1))]
   out <- base::do.call(base::rbind, out)
   rownames(out) <- NULL
-  return(out)
+  out
 }
 
 # apply function over all list items
+set_names <- base::paste0("set_", base::seq_along(all_res))
 selected_df <- base::lapply(
-  base::names(all_res),
-  function(nm) extract_selected_predictors(all_res[[nm]], nm)
+  base::seq_along(all_res),
+  function(i) extract_selected_predictors(all_res[[i]], set_names[i])
 )
 
 # create a df from list
