@@ -40,7 +40,10 @@ selected_rds <- here::here("data", "predictors_collinearity", "results")
 TFtable <- read.csv(file = file.path(selected_rds, "selected_truefalse.csv"))
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# function
+# functions
+
+# FUN 1
+# extract selected predictors for given grain
 
 get_selected_raster <- function(r, TFtable, grain_value, species_value = NULL) {
   
@@ -69,170 +72,8 @@ get_selected_raster <- function(r, TFtable, grain_value, species_value = NULL) {
   ras[[names(ras) %in% preds]]
 }
 
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# apply function over all species, save as ALL truefalse selected predictors
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-GT_rasters <- list(
-  r_GT_1000 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 1000,
-    species_value = "GT"
-  ),
-  r_GT_500 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 500,
-    species_value = "GT"
-  ),
-  r_GT_200 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 200,
-    species_value = "GT"
-  ),
-  r_GT_100 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 100,
-    species_value = "GT"
-  )
-)
-
-file <- file.path(TF_stacks_dir, "GT_all.rds")
-saveRDS(GT_rasters, file = file)
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-SB_rasters <- list(
-  r_SB_1000 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 1000,
-    species_value = "SB"
-  ),
-  r_SB_500 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 500,
-    species_value = "SB"
-  ),
-  r_SB_200 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 200,
-    species_value = "SB"
-  ),
-  r_SB_100 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 100,
-    species_value = "SB"
-  )
-)
-
-file <- file.path(TF_stacks_dir, "SB_all.rds")
-saveRDS(SB_rasters, file = file)
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-PK_rasters <- list(
-  r_PK_1000 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 1000,
-    species_value = "PK"
-  ),
-  r_PK_500 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 500,
-    species_value = "PK"
-  ),
-  r_PK_200 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 200,
-    species_value = "PK"
-  ),
-  r_PK_100 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 100,
-    species_value = "PK"
-  )
-)
-
-file <- file.path(TF_stacks_dir, "PK_all.rds")
-saveRDS(PK_rasters, file = file)
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-PO_rasters <- list(
-  r_PO_1000 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 1000,
-    species_value = "PO"
-  ),
-  r_PO_500 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 500,
-    species_value = "PO"
-  ),
-  r_PO_200 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 200,
-    species_value = "PO"
-  ),
-  r_PO_100 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 100,
-    species_value = "PO"
-  )
-)
-
-file <- file.path(TF_stacks_dir, "PO_all.rds")
-saveRDS(PO_rasters, file = file)
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-PP_rasters <- list(
-  r_PP_1000 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 1000,
-    species_value = "PP"
-  ),
-  r_PP_500 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 500,
-    species_value = "PP"
-  ),
-  r_PP_200 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 200,
-    species_value = "PP"
-  ),
-  r_PP_100 <- get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 100,
-    species_value = "PP"
-  )
-)
-
-file <- file.path(TF_stacks_dir, "PP_all.rds")
-saveRDS(PP_rasters, file = file)
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# get common predictors over all grains
+# FUN 2
+# get shared predictors acros all grain levels
 
 select_common_predictors <- function(list){
   common <- Reduce(intersect, lapply(list, names))
@@ -240,26 +81,81 @@ select_common_predictors <- function(list){
   return(rasters)
 }
 
-# apply function and save as COMMON predictors for each SPEC
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# apply functions over all species
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-GT_common <- select_common_predictors(GT_rasters)
-file <- file.path(TF_stacks_dir, "GT_common.rds")
-saveRDS(GT_common, file = file)
+# sp <- "GT"
+# sp <- "SB"
+# sp <- "PK"
+# sp <- "PO"
+# sp <- "PP"
 
-SB_common <- select_common_predictors(SB_rasters)
-file <- file.path(TF_stacks_dir, "SB_common.rds")
-saveRDS(SB_common, file = file)
+# apply function to get collinearity selected rasters
 
-PK_common <- select_common_predictors(PK_rasters)
-file <- file.path(TF_stacks_dir, "PK_common.rds")
-saveRDS(PK_common, file = file)
+rasters <- list(
+  r_1000 = get_selected_raster(
+    r = r,
+    TFtable = TFtable,
+    grain_value = 1000,
+    species_value = sp
+  ),
+  r_500 = get_selected_raster(
+    r = r,
+    TFtable = TFtable,
+    grain_value = 500,
+    species_value = sp
+  ),
+  r_200 = get_selected_raster(
+    r = r,
+    TFtable = TFtable,
+    grain_value = 200,
+    species_value = sp
+  ),
+  r_100 = get_selected_raster(
+    r = r,
+    TFtable = TFtable,
+    grain_value = 100,
+    species_value = sp
+  )
+)
 
-PO_common <- select_common_predictors(PO_rasters)
-file <- file.path(TF_stacks_dir, "PO_common.rds")
-saveRDS(PO_common, file = file)
+# apply common function to get shared predictors
 
-PP_common <- select_common_predictors(PP_rasters)
-file <- file.path(TF_stacks_dir, "PP_common.rds")
-saveRDS(PP_common, file = file)
+common <- select_common_predictors(rasters)
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# save results
+
+# GDAL write options
+wopt <- list(
+  gdal = c("COMPRESS=LZW", "TILED=YES")
+)
+
+# ALL rasters
+
+# define folder where to save results
+folder <- file.path(TF_stacks_dir, paste0(sp, "_all_selected"))
+if(!dir.exists(folder)) dir.create(folder)
+# loop over raster list
+for(i in seq_along(rasters)){
+  name <- names(rasters)[i]
+  file <- file.path(folder, paste0(name, ".tif"))
+  terra::writeRaster(rasters[[i]], filename = file, wopt = wopt, overwrite = T)
+  print(file)
+}
+
+# COMMON rasters
+
+# define folder where to save results
+folder <- file.path(TF_stacks_dir, paste0(sp, "_common"))
+if(!dir.exists(folder)) dir.create(folder)
+# loop over raster list
+for(i in seq_along(common)){
+  name <- names(common)[i]
+  file <- file.path(folder, paste0(name, ".tif"))
+  terra::writeRaster(common[[i]], filename = file, wopt = wopt, overwrite = T)
+  print(file)
+}
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
