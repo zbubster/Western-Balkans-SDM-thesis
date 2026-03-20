@@ -12,6 +12,7 @@ filter_pa_to_unique_cells <- function(spec, r, drop_outside = TRUE, keep_cell_id
   # get coors & obs
   xy <- base::as.data.frame(spec$coor)[, c("X", "Y"), drop = FALSE]
   obs <- base::as.numeric(spec$observations)
+  source <- as.character(spec$source)
   
   # cell id
   cell <- terra::cellFromXY(r, xy)
@@ -37,7 +38,8 @@ filter_pa_to_unique_cells <- function(spec, r, drop_outside = TRUE, keep_cell_id
   out <- list(
     species = spec$species,
     observations = obs[keep],
-    coor = xy[keep, , drop = FALSE]
+    coor = xy[keep, , drop = FALSE],
+    source = source[keep]
   )
   
   # if cell id is wanted

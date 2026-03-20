@@ -52,7 +52,8 @@ o %>%
   dplyr::transmute(
     P_A,
     X = sf::st_coordinates(geom)[, 1],
-    Y = sf::st_coordinates(geom)[, 2]
+    Y = sf::st_coordinates(geom)[, 2],
+    source
   ) %>%
   sf::st_drop_geometry() %>%
   dplyr::arrange(dplyr::desc(P_A)) %>%
@@ -60,7 +61,8 @@ o %>%
     list(
       species = n,
       observations = base::as.numeric(.$P_A),
-      coor = base::as.data.frame(.[, c("X", "Y"), drop = FALSE])
+      coor = base::as.data.frame(.[, c("X", "Y"), drop = FALSE]),
+      source = .$source
     )
   } %>%
   base::saveRDS(file.path(dir_out, oo))
@@ -86,7 +88,8 @@ o %>%
   dplyr::transmute(
     P_A,
     X = sf::st_coordinates(geom)[, 1],
-    Y = sf::st_coordinates(geom)[, 2]
+    Y = sf::st_coordinates(geom)[, 2],
+    source
   ) %>%
   sf::st_drop_geometry() %>%
   dplyr::arrange(dplyr::desc(P_A)) %>%
@@ -94,7 +97,8 @@ o %>%
     list(
       species = n,
       observations = base::as.numeric(.$P_A),
-      coor = base::as.data.frame(.[, c("X", "Y"), drop = FALSE])
+      coor = base::as.data.frame(.[, c("X", "Y"), drop = FALSE]),
+      source = .$source
     )
   } %>%
   base::saveRDS(file.path(dir_out, oo))
