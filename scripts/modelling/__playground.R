@@ -1,13 +1,13 @@
 
 
-r <- terra::rast("data/__ANALYSIS__/STACKS_FULL/SB_common/r_500.tif")
-s <- readRDS("data/__ANALYSIS__/OCC/weights/SB_500m.rds")
+r <- terra::rast("data/__ANALYSIS__/STACKS_FULL/PP_common/r_500.tif")
+s <- readRDS("data/__ANALYSIS__/OCC/weights/PP_500m.rds")
 
-mod_dir <- here::here("models", "grain", "SB")
+mod_dir <- here::here("models", "grain", "PP")
 if(!dir.exists(mod_dir)) dir.create(mod_dir, recursive = T)
 
 data <- biomod2::BIOMOD_FormatingData(
-  resp.name = "Saxbla_100m",
+  resp.name = "Phytpseudo_500m",
   resp.var = s$observations,
   resp.xy = s$coor,
   expl.var = r,
@@ -30,7 +30,7 @@ models <- biomod2::BIOMOD_Modeling(
   var.import = 10,
   weights = s$weights,
   scale.models = FALSE,
-  nb.cpu = 12,
+  nb.cpu = 3,
   seed.val = 722085415,
   do.progress = TRUE
 )
@@ -52,7 +52,7 @@ bm_PlotVarImpBoxplot(bm.out = models, group.by = c('algo', 'expl.var', 'run'))
 
 # Represent response curves
 bm_PlotResponseCurves(bm.out = models, 
-                      models.chosen = get_built_models(models)[c(6:24)],
+                      models.chosen = get_built_models(models),
                       fixed.var = 'median')
 bm_PlotResponseCurves(bm.out = models, 
                       models.chosen = get_built_models(models)[c(1, 4, 8, 10, 13)],
@@ -70,8 +70,7 @@ bm_ModelAnalysis(bm.mod = models,
 myBiomodEM <- BIOMOD_EnsembleModeling(bm.mod = models,
                                       models.chosen = 'all',
                                       em.by = 'all',
-                                      em.algo = c('EMmedian', 'EMmean', 'EMwmean',
-                                                  'EMca', 'EMci', 'EMcv'),
+                                      em.algo = c('EMwmean'),
                                       metric.select = c('AUCroc'),
                                       metric.select.thresh = c(0.7),
                                       metric.eval = c('TSS', 'AUCroc'),
@@ -131,10 +130,10 @@ get_built_models(myBiomodEM)
 myBiomodEMProj <- BIOMOD_EnsembleForecasting(bm.em = myBiomodEM,
                                              proj.name = 'CurrentEM',
                                              new.env = r,
-                                             models.chosen = "Saxbla.100m_EMwmeanByAUCroc_mergedData_mergedRun_mergedAlgo",
+                                             models.chosen = 'all',
                                              metric.binary = 'all',
                                              metric.filter = 'all',
-                                             nb.cpu = 2,
+                                             nb.cpu = 3,
                                              keep.in.memory = FALSE)
 myBiomodEMProj
 plot(myBiomodEMProj)
