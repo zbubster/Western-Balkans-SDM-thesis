@@ -180,3 +180,32 @@ Níže pár poznámek k vybraným druhům
     - jaké další druhy vezmeme?
       - vytvořit seznam s argumentací pro a proti
       - gen dinarica
+#line(length: 100%)
+= Poznámky ke callu 3. dubna 2026
+#line(length: 100%)
++ *Váhy pozorování*
+    - idea dát větší váhu presencím, protože jsou jistější než absence (to vychází z metodiky sběru, kytku jsme mohli přehlédnout)
+    - nyní je to nastavené tak, že všechny presnece mají dohromady stejnou váhu jako absence, tj prevalence 0.5
+    - dále jsem FW presnece zvýhodňoval proti TN presnecím a to v poměru 2:1
+    - modelovat opakovaně při různých vahách?
++ *Prediktory*
+    - budu přepočítávat, integrace nových prediktorů
+        - půdní prediktory pro současnou predikci
+        - DEM prediktory vzniklé agregací jemnějších buňek:
+            - SD, range, min, max
+            - možná nahrazení zavedených indexů TRI, TPI?
+    - vybírám je na základě multikolinearity (korelace a VIF)
+    - hodnoty prediktorů
+        - náhodně
+        - z buňky pozorování a to pro každý grain level
+    → finálně bych vybral ty prediktory, které se vejdou do thresholdu ve všech kombinacích
+    - jaký je rozumný poměr mezi klimatickými a topografickými prediktory?
+    - co když jde o extrapolaci v čase? je vhodné tam dát víc clim prediktorů, protože to jsou ty, které se "změní". topografii budu uvažovat stejnou, takže možná nedává smysl mít tam jenom cca 2 clim a 4 topo
+    - 
++ *AOI*
+    - opustil jsem ořez podle elevace či LC, nedává to smysl při extrapolaci v čase
+    - použití metody Shape jako míru nejistoty predikce v prostoru
+        - počítá, jak moc je daná kombinace prediktorů "nová", resp v mnohorozměrném prostoru její vzdálenost od všech pozorování
++ *AOB*
+    - _Gentiana dinarica_ haha lol zapomněl jsem na ni
+    - má smysl extrapolovat do LGM/budoucnosti i jiný grain než 1000 m?
