@@ -14,12 +14,13 @@ stopifnot(terra::compareGeom(base, ref_20))
 
 # set outdir
 dir_out <- here::here("data", "__COMPATIBILITY__", "WC", "INFORMED")
+if(!dir.exists(dir_out)) dir.create(dir_out)
 
 # load function
 source(here::here("scripts", "fun_informed_aggregation.R"))
 
 # wopt, cores
-ncores <- 12
+ncores <- 15
 wopt <- list(
   gdal = c("COMPRESS=LZW", "TILED=YES", "BIGTIFF=YES")
 )
