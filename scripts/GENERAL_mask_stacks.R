@@ -8,7 +8,7 @@
 
 stacks_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS__", "coastline_masked")
 masks_dir <- here::here("data", "__COMPATIBILITY__", "MASK")
-out_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS_MASKED__")
+out_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS_ELEV_MASKED__")
 if(!dir.exists(out_dir)){dir.create(out_dir)}
 
 # load rasters
