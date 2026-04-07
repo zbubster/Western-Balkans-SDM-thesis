@@ -206,6 +206,11 @@ Níže pár poznámek k vybraným druhům
     - opustil jsem ořez podle elevace či LC, nedává to smysl při extrapolaci v čase
     - použití metody Shape jako míru nejistoty predikce v prostoru
         - počítá, jak moc je daná kombinace prediktorů "nová", resp v mnohorozměrném prostoru její vzdálenost od všech pozorování
++ *Spatial autocorrelation & cross validation*
+    - abych omezil prostorovou autokorelaci, rozdělil jsme pozorování do crossvalidačních foldů
+    - foldy jsou navrženy tak, aby jejich velikost odpovídala "dosahu" prostorové autokorelace a díky tomu byly tréninkové a validační sady na sobě nezávislé
+    - balíček _blockCV_ umí vracet foldy už jako připravenou CV tabulku pro _biomod2_ funkce, což je příjemné
+    - podmínka: v každé tréninkové a validační sadě musí být vždy alespoň jedna presence, což vede k tomu, že u vzácných druhů mám např jen 2 sady, tzn 2 opakování trénování a validování
 + *AOB*
     - _Gentiana dinarica_ haha lol zapomněl jsem na ni
     - má smysl extrapolovat do LGM/budoucnosti i jiný grain než 1000 m?
