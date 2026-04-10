@@ -16,8 +16,6 @@ presence_share <- 0.5 # inicial PA prevalence
 fw_tn_ratio <- 2 # FW presences are 2 times valueable than TN data
 normalize_to_n <- TRUE
 
-
-
 dir_in  <- here::here("data", "__ANALYSIS__", "OCC")
 dir_out <- here::here("data", "__ANALYSIS__", "OCC", "weights")
 

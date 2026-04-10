@@ -1,4 +1,9 @@
 file,species_code,species_name,grain,presence_n,absence_n
+GD_20m.rds,GD,Gentiana dinarica,20m,49,628
+GD_100m.rds,GD,Gentiana dinarica,100m,49,552
+GD_200m.rds,GD,Gentiana dinarica,200m,48,485
+GD_500m.rds,GD,Gentiana dinarica,500m,44,355
+GD_1000m.rds,GD,Gentiana dinarica,1000m,32,240
 GT_20m.rds,GT,Gentiana tergestina,20m,245,491
 GT_100m.rds,GT,Gentiana tergestina,100m,242,418
 GT_200m.rds,GT,Gentiana tergestina,200m,234,357
