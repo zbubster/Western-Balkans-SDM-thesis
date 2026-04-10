@@ -53,6 +53,12 @@ for(i in seq_along(rds_files)){
 # Manually run spatial_cv function
 
 # current
+xxx <- "GD_1000m"
+xxx <- "GD_500m"
+xxx <- "GD_200m"
+xxx <- "GD_100m"
+xxx <- "GD_20m"
+
 xxx <- "GT_1000m"
 xxx <- "GT_500m"
 xxx <- "GT_200m"
@@ -96,9 +102,9 @@ grDevices::pdf(file = file.path(dir_sac_info, paste0(xxx, ".pdf")), title = xxx)
 spec_out <- spatial_cv(
   spec = s,
   sac_info_rds = i,
-  k = 10,
+  k = 7,
   selection = "random",
-  iteration = 700,
+  iteration = 800,
   crs_epsg = 3035,
   plot_sa = TRUE,
   plot_hex = TRUE,

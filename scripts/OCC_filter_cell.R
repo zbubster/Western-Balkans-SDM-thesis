@@ -32,7 +32,8 @@ s[[2]] <- base::readRDS(file.path(dir_in, "SB.rds"))
 s[[3]] <- base::readRDS(file.path(dir_in, "PK.rds"))
 s[[4]] <- base::readRDS(file.path(dir_in, "PO.rds"))
 s[[5]] <- base::readRDS(file.path(dir_in, "PP.rds"))
-names(s) <- c("GT", "SB", "PK", "PO", "PP")
+s[[6]] <- base::readRDS(file.path(dir_in, "GD.rds"))
+names(s) <- c("GT", "SB", "PK", "PO", "PP", "GD")
 
 # Rasters
 r <- list()
