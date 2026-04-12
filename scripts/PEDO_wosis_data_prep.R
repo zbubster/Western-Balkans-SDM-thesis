@@ -42,6 +42,7 @@ for(i in seq_along(r)){
   message("Projected")
   r[[i]] <- terra::mask(r[[i]], extent)
   message("Masked")
+  r[[i]] <- terra::mask(r[[i]], extent)
   message("DONE")
 }
 
@@ -51,10 +52,10 @@ names(r[[3]]) <- "predicted_USDA_suborder_class"
 names(r[[4]]) <- "avail_soil_water_capacity_until_wilting_point"
 
 # save processed data
-terra::writeRaster(r[[1]], here::here("data", "WOSIS", "BDTICM_processed.tif"))
-terra::writeRaster(r[[2]], here::here("data", "WOSIS", "PHIHOX_processed.tif"))
-terra::writeRaster(r[[3]], here::here("data", "WOSIS", "TAXOUSDA_processed.tif"))
-terra::writeRaster(r[[4]], here::here("data", "WOSIS", "WWP_processed.tif"))
+terra::writeRaster(r[[1]], here::here("data", "WOSIS", "BDTICM_processed.tif"), overwrite = T)
+terra::writeRaster(r[[2]], here::here("data", "WOSIS", "PHIHOX_processed.tif"), overwrite = T)
+terra::writeRaster(r[[3]], here::here("data", "WOSIS", "TAXOUSDA_processed.tif"), overwrite = T)
+terra::writeRaster(r[[4]], here::here("data", "WOSIS", "WWP_processed.tif"), overwrite = T)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # Prepare resolution sets
@@ -83,7 +84,6 @@ for(i in seq_along(r)){
       x,
       ref,
       method = metoda,
-      align_only = TRUE,
       filename = file_out,
       overwrite = TRUE,
       wopt = wopt
