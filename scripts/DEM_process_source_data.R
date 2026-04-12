@@ -5,7 +5,7 @@
 # Load extent and raster files, dirs
 
 extent <- sf::st_read(here("data", "extent_raw.gpkg"))
-dir_in <- "/media/zbub/DATA/DEM" # folder with raster files
+dir_in <- here("data", "DEM") # folder with raster files
 out_fn  <- file.path(dir_out, "DEM30_mosaic_cropped.tif") # where to save result
 
 # list files
