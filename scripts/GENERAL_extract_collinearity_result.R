@@ -7,7 +7,8 @@
 # Config
 
 # results dir
-res_dir <- here::here("data", "predictors_collinearity", "results")
+res_dir <- here::here("data", "__predictors_collinearity__", "noextrapol", "results")
+res_dir <- here::here("data", "__predictors_collinearity__", "extrapol", "results")
 
 # load all lists into list
 all_res <- list(

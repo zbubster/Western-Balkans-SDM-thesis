@@ -6,38 +6,31 @@
 #   1. ALL raster stacks with layers which were selected by collinearity filter
 #     in given grain level
 #   2. COMMON raster stacks with only those predictors, which were selected by 
-#     collinearity filter in the all grain levels
+#     collinearity filter in the all grain levels for given species
 # 
-# NOTE: TF_stacks_dir & rasters_dir define over which rasters should this be made
-# (in this case it is ELEV-rasters masked with elevation and FULL-full extent rasters)
+# NOTE: out_stacks_dir & source_stacks_dir define over which rasters should this be made
 # 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # rasters outputs
+out_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "noextrapol")
+if(!dir.exists(out_stacks_dir)) dir.create(out_stacks_dir, recursive = T)
 
-# TF_stacks_dir <- here::here("data", "__ANALYSIS__", "STACKS_ELEV")
-# if(!dir.exists(TF_stacks_dir)) dir.create(TF_stacks_dir)
-# 
-# TF_stacks_dir <- here::here("data", "__ANALYSIS__", "STACKS_FULL")
-# if(!dir.exists(TF_stacks_dir)) dir.create(TF_stacks_dir)
+# load rasters
+source_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent")
+
+# load collinearity results
+selected_rds <- here::here("data", "__predictors_collinearity__", "noextrapol", "results")
+TFtable <- read.csv(file = file.path(selected_rds, "selected_truefalse.csv"))
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# load rasters
-
-# rasters_dir <- here::here("data", "__ANALYSIS__", "ELEV", "NE")
-# rasters_dir <- here::here("data", "__ANALYSIS__", "FULL", "NE")
-
 r <- list(
-  r_1000 = terra::rast(file.path(rasters_dir, "r_1000.tif")),
-  r_500 = terra::rast(file.path(rasters_dir, "r_500.tif")),
-  r_200 = terra::rast(file.path(rasters_dir, "r_200.tif")),
-  r_100 = terra::rast(file.path(rasters_dir, "r_100.tif"))
+  r_1000 = terra::rast(file.path(source_stacks_dir, "r_1000.tif")),
+  r_500 = terra::rast(file.path(source_stacks_dir, "r_500.tif")),
+  r_200 = terra::rast(file.path(source_stacks_dir, "r_200.tif")),
+  r_100 = terra::rast(file.path(source_stacks_dir, "r_100.tif"))
 )
-
-# load colienarity result table
-selected_rds <- here::here("data", "predictors_collinearity", "results")
-TFtable <- read.csv(file = file.path(selected_rds, "selected_truefalse.csv"))
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # functions
@@ -85,6 +78,7 @@ select_common_predictors <- function(list){
 # apply functions over all species
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
+# sp <- "GD"
 # sp <- "GT"
 # sp <- "SB"
 # sp <- "PK"
@@ -135,7 +129,7 @@ wopt <- list(
 # ALL rasters
 
 # define folder where to save results
-folder <- file.path(TF_stacks_dir, paste0(sp, "_all_selected"))
+folder <- file.path(out_stacks_dir, paste0(sp, "_all_selected"))
 if(!dir.exists(folder)) dir.create(folder)
 # loop over raster list
 for(i in seq_along(rasters)){
@@ -148,7 +142,7 @@ for(i in seq_along(rasters)){
 # COMMON rasters
 
 # define folder where to save results
-folder <- file.path(TF_stacks_dir, paste0(sp, "_common"))
+folder <- file.path(out_stacks_dir, paste0(sp, "_common"))
 if(!dir.exists(folder)) dir.create(folder)
 # loop over raster list
 for(i in seq_along(common)){
