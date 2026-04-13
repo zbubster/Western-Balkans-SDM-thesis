@@ -9,6 +9,11 @@
 # necessary for plotting; name of the response collumn, if present;
 # character vector of predictors (this also stands for preference_order
 # in collinear function) and output directory.
+#
+# NOTE: Predictors given with 'predictors' argument are alsu used as filter
+# of the 'df'. Missing names are filterred out and not analyzed. This could
+# be useful when exploring collinearity of stacks for different purpose:
+# ig. leaving out Landcover when preparing for temporal extrapolation.
 # 
 # Function returns list of statistics and correlation matrices plots,
 # which are saved within out_dir.
@@ -29,38 +34,65 @@ compute_collinearity_metrices <- function(
   # prepare output list
   out <- list()
   
+  # prepare predictors
+  if (base::is.null(predictors)) {
+    stop("Argument `predictors` must not be NULL.")
+  }
+  
+  predictors <- base::as.character(predictors)
+  predictors <- predictors[!base::is.na(predictors)]
+  predictors <- base::unique(predictors)
+  
+  # drop response
+  predictors_req <- base::setdiff(predictors, response)
+  
+  # drop unwanted predictors
+  predictors_ok <- base::intersect(predictors_req, base::names(l))
+  
+  # predictors check
+  predictors_missing <- base::setdiff(predictors_req, base::names(l))
+  if (base::length(predictors_missing) > 0) {
+    warning(
+      "These predictors were not found in `l` and were ignored: ",
+      paste(predictors_missing, collapse = ", ")
+    )
+  }
+  if (base::length(predictors_ok) == 0) {
+    stop("No valid predictors remain after filtering.")
+  }
+  
   # main collinear function (two paths)
   if(response %in% names(l)){
     out$main <- collinear::collinear(
       df = l,
       responses = response,
-      preference_order = predictors,
+      predictors = predictors_ok,
+      preference_order = predictors_ok,
       max_cor = max_cor,
       max_vif = max_vif,
-      quiet = T
+      quiet = TRUE
     )
     # selected predictors
-    sel <- out$main$observ$selection
-    out$selected_predictors <- base::intersect(sel, predictors)
+    out$selected_predictors <- out$main$observ$selection
     
   } else {
     
     # path without response variable
     out$main <- collinear::collinear(
       df = l,
-      preference_order = predictors,
+      predictors = predictors_ok,
+      preference_order = predictors_ok,
       max_cor = max_cor,
       max_vif = max_vif,
-      quiet = T
+      quiet = TRUE
     )
-    sel <- out$main$result$selection
-    out$selected_predictors <- base::intersect(sel, predictors)
+    out$selected_predictors <- out$main$result$selection
   }
   
   # compute correlation matrix for all variables
   out$cor_mat <- collinear::cor_matrix(
     df = l,
-    predictors = predictors,
+    predictors = predictors_ok,
     quiet = T
   )
   # compute corrmat for selcted variables

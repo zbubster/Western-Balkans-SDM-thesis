@@ -6,7 +6,7 @@
 
 # Config
 
-out_dir <- here::here("data", "predictors_collinearity")
+out_dir <- here::here("data", "__predictors_collinearity__")
 
 # load extracted values
 values_dir <- here::here(out_dir, "values")
