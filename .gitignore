@@ -1,5 +1,22 @@
 # my folders, files
 /papers/
+/data/CHELSA/
+/data/DEM30_mosaic_cropped.tif
+/data/GEO/
+/data/Sentinel2_MOSAIC.tif
+/data/Sentinel2_medoids/
+/data/Sentinel2_medoids_aligned/
+/data/Sentinel2_reflectance_tiles_TIME/
+/data/WORLDCOVER/
+/data/WOSIS/
+/data/__ANALYSIS__/ELEV/
+/data/__ANALYSIS__/FULL/
+/data/__ANALYSIS__/STACKS_ELEV/
+/data/__ANALYSIS__/STACKS_FULL/
+/data/__COMPATIBILITY__/
+/data/__PREDICTORS_STACKS__/
+/models/
+
 
 # History files
 .Rhistory

@@ -7,7 +7,7 @@
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-dir_out <- "/media/zbub/DATA/DEM"
+dir_out <- here("data", "DEM")
 if (!dir.exists(dir_out)) dir.create(dir_out, recursive = TRUE, showWarnings = FALSE)
 
 # Load extent of AOI

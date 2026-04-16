@@ -4,13 +4,13 @@
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-stacks_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS__")
-out_dir <- here::here(stacks_dir, "coastline_masked")
+stacks_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS_OUT__")
+out_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent")
 if(!dir.exists(out_dir)) dir.create(out_dir)
 
 # load rasters
 files <- list.files(stacks_dir)
-nums <- as.numeric(sub("stack_(\\d+)\\.tif", "\\1", files))
+nums <- as.integer(regmatches(files, regexpr("\\d+", files)))
 files <- files[order(nums)]
 
 r_100 <- terra::rast(file.path(stacks_dir, files[1]))

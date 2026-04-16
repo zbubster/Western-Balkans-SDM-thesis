@@ -7,10 +7,14 @@
 # Config
 
 # where should be cormats and other info stored
-out_dir <- here::here("data", "predictors_collinearity")
+out_dir <- here::here("data", "__predictors_collinearity__")
 if(!dir.exists(out_dir)){dir.create(out_dir)}
 
-rasters_dir <- here::here("data", "__COMPATIBILITY__", "STACKS", "__STACKS_MASKED__")
+values_dir <- here::here(out_dir, "values")
+if(!dir.exists(values_dir)) dir.create(values_dir)
+
+
+rasters_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent")
 r <- list()
 for(i in seq_along(list.files(rasters_dir))){
   n <- list.files(rasters_dir)[i]
@@ -18,10 +22,10 @@ for(i in seq_along(list.files(rasters_dir))){
   names(r)[i] <- n
 }
 
-species_dir <- here::here("data", "occurence", "_ANALYSIS_FOCAL_", "_FILTER_")
+species_dir <- here::here("data", "__ANALYSIS__", "OCC")
 s <- list()
-for(i in seq_along(list.files(species_dir))){
-  n <- list.files(species_dir)[i]
+for(i in seq_along(list.files(species_dir, pattern = "*.rds"))){
+  n <- list.files(species_dir, pattern = "*.rds")[i]
   s[[i]] <- base::readRDS(file.path(species_dir, n))
   names(s)[i] <- n
 }
@@ -90,26 +94,20 @@ v_500 <- extract_predictor_values_on_observations(s_500, raster = r$r_500.tif)
 v_200 <- extract_predictor_values_on_observations(s_200, raster = r$r_200.tif)
 v_100 <- extract_predictor_values_on_observations(s_100, raster = r$r_100.tif)
 
-# convert selected predictors
-specpred <- function(l){
-  # geo to factor 
-  l$glim <- as.factor(l$glim)
-  # aspect to orientation
-  l$northness <- cos(l$aspect*pi/180)
-  l$eastness <- sin(l$aspect*pi/180)
-  
+# convert selected predictors to factors
+pred_factors <- function(l){
+  l$bedrock <- as.factor(l$bedrock)
+  l$landcover <- as.factor(l$landcover)
   return(l)
 }
 
-v_random <- lapply(v, specpred)
-v_1000 <- lapply(v_1000, specpred)
-v_500 <- lapply(v_500, specpred)
-v_200 <- lapply(v_200, specpred)
-v_100 <- lapply(v_100, specpred)
+v_random <- lapply(v, pred_factors)
+v_1000 <- lapply(v_1000, pred_factors)
+v_500 <- lapply(v_500, pred_factors)
+v_200 <- lapply(v_200, pred_factors)
+v_100 <- lapply(v_100, pred_factors)
 
 # save extracted values
-values_dir <- here::here(out_dir, "values")
-if(!dir.exists(values_dir)) dir.create(values_dir)
 saveRDS(v_random, file = file.path(here::here(values_dir, "v_random.rds")))
 saveRDS(v_1000, file = file.path(here::here(values_dir, "v_1000.rds")))
 saveRDS(v_500, file = file.path(here::here(values_dir, "v_500.rds")))
