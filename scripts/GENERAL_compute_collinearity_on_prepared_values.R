@@ -40,36 +40,41 @@ available_predictors <- names(v_random$r_100.tif)
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # no extrapol
 
-# stack_type <- "noextrapol"
-# 
-# # PRIORITY
-# predictors <- c(
-#   "bio06", "bio05", "bio10", "bio11", "scd", "landcover", "pH_in_H2O", "northness", "HLI", "TWI", "soil_water_cap", "dem_sd", "dem_range",
-#   "TPI", "TRI", "TRI_riley", "TRI_rmsd", "bio18", "bio19", "bio04", "bio01", "slope", "aspect", "depth_to_bedrock",
-#   "aspect", "eastness", "bedrock", "dem_median"
-# )
-# # REST
-# diff <- dplyr::setdiff(available_predictors, predictors)
-# predictors <- c(predictors, diff)
-# # NOGO
-# predictors <- predictors[!(predictors %in% c("bio02", "bio03", "bio08", "bio09", "bio15"))]
-# 
-# max_cor <- 0.7
-# max_vif <- 7
+stack_type <- "noextrapol"
+
+# PRIORITY
+predictors <- c(
+  "bio06", "bio05", "bio10", "bio11", "scd", "landcover", "northness", "bio14", "bio12", "HLI", "TWI", "dem_range", "dem_sd",
+  "slope", "TPI", "TRI", "TRI_riley", "TRI_rmsd", "bio18", "bio19", "bio04", "bio01", "bedrock",
+  "eastness", "dem_median", "aspect",  "depth_to_bedrock", "pH_in_H2O",  "soil_water_cap"
+)
+# REST
+diff <- dplyr::setdiff(available_predictors, predictors)
+predictors <- c(predictors, diff)
+# NOGO
+predictors <- predictors[!(predictors %in% c("bio02", "bio03", "bio08", "bio09", "bio15", "flowdir"))]
+
+max_cor <- 0.7
+max_vif <- 7
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # for extrapolation
 
 stack_type <- "extrapol"
+
+# PRIORITY
 predictors <- c(
   "bio10", "bio11", "northness", "scd", "bio06", "bio05", "dem_sd", "dem_range",
-  "TPI", "TRI", "TRI_riley", "TRI_rmsd", "bio18", "bio19", "bio04", "bio01", "slope",
-  "aspect", "eastness", "bedrock", "dem_median"
+  "TPI", "TRI", "TRI_riley", "TRI_rmsd", "bio18", "bio19", "bio04", "bio01", "slope", 
+  "eastness", "bedrock", "dem_median", "aspect"
 )
+# REST
 diff <- dplyr::setdiff(available_predictors, predictors)
-diff <- diff[!(diff %in% c("bio02", "bio03", "bio08", "bio09", "bio15", "landcover", 
-                           "pH_in_H2O", "HLI", "soil_water_cap", "depth_to_bedrock", "TWI"))]
 predictors <- c(predictors, diff)
+# NOGO
+predictors <- predictors[!(predictors %in% c("bio02", "bio03", "bio08", "bio09", "bio15", "landcover", 
+                           "pH_in_H2O", "HLI", "soil_water_cap", "depth_to_bedrock", "TWI", "flowdir"))]
+
 max_cor <- 0.7
 max_vif <- 7
 

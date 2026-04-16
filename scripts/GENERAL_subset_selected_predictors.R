@@ -78,78 +78,80 @@ select_common_predictors <- function(list){
 # apply functions over all species
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# sp <- "GD"
-# sp <- "GT"
-# sp <- "SB"
-# sp <- "PK"
-# sp <- "PO"
-# sp <- "PP"
+species <- c("GD", "GT", "SB", "PK", "PO", "PP")
 
-# apply function to get collinearity selected rasters
-
-rasters <- list(
-  r_1000 = get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 1000,
-    species_value = sp
-  ),
-  r_500 = get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 500,
-    species_value = sp
-  ),
-  r_200 = get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 200,
-    species_value = sp
-  ),
-  r_100 = get_selected_raster(
-    r = r,
-    TFtable = TFtable,
-    grain_value = 100,
-    species_value = sp
+for(i in seq_along(species)){
+  
+  sp <- species[i]
+  
+  message("Working on: ", sp)
+  
+  # apply function to get collinearity selected rasters
+  
+  rasters <- list(
+    r_1000 = get_selected_raster(
+      r = r,
+      TFtable = TFtable,
+      grain_value = 1000,
+      species_value = sp
+    ),
+    r_500 = get_selected_raster(
+      r = r,
+      TFtable = TFtable,
+      grain_value = 500,
+      species_value = sp
+    ),
+    r_200 = get_selected_raster(
+      r = r,
+      TFtable = TFtable,
+      grain_value = 200,
+      species_value = sp
+    ),
+    r_100 = get_selected_raster(
+      r = r,
+      TFtable = TFtable,
+      grain_value = 100,
+      species_value = sp
+    )
   )
-)
-
-# apply common function to get shared predictors
-
-common <- select_common_predictors(rasters)
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# save results
-
-# GDAL write options
-wopt <- list(
-  gdal = c("COMPRESS=LZW", "TILED=YES")
-)
-
-# ALL rasters
-
-# define folder where to save results
-folder <- file.path(out_stacks_dir, paste0(sp, "_all_selected"))
-if(!dir.exists(folder)) dir.create(folder)
-# loop over raster list
-for(i in seq_along(rasters)){
-  name <- names(rasters)[i]
-  file <- file.path(folder, paste0(name, ".tif"))
-  terra::writeRaster(rasters[[i]], filename = file, wopt = wopt, overwrite = T)
-  print(file)
-}
-
-# COMMON rasters
-
-# define folder where to save results
-folder <- file.path(out_stacks_dir, paste0(sp, "_common"))
-if(!dir.exists(folder)) dir.create(folder)
-# loop over raster list
-for(i in seq_along(common)){
-  name <- names(common)[i]
-  file <- file.path(folder, paste0(name, ".tif"))
-  terra::writeRaster(common[[i]], filename = file, wopt = wopt, overwrite = T)
-  print(file)
+  
+  # apply common function to get shared predictors
+  
+  common <- select_common_predictors(rasters)
+  
+  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+  # save results
+  
+  # GDAL write options
+  wopt <- list(
+    gdal = c("COMPRESS=LZW", "TILED=YES")
+  )
+  
+  # ALL rasters
+  
+  # define folder where to save results
+  folder <- file.path(out_stacks_dir, paste0(sp, "_all_selected"))
+  if(!dir.exists(folder)) dir.create(folder)
+  # loop over raster list
+  for(i in seq_along(rasters)){
+    name <- names(rasters)[i]
+    file <- file.path(folder, paste0(name, ".tif"))
+    terra::writeRaster(rasters[[i]], filename = file, wopt = wopt, overwrite = T)
+    print(file)
+  }
+  
+  # COMMON rasters
+  
+  # define folder where to save results
+  folder <- file.path(out_stacks_dir, paste0(sp, "_common"))
+  if(!dir.exists(folder)) dir.create(folder)
+  # loop over raster list
+  for(i in seq_along(common)){
+    name <- names(common)[i]
+    file <- file.path(folder, paste0(name, ".tif"))
+    terra::writeRaster(common[[i]], filename = file, wopt = wopt, overwrite = T)
+    print(file)
+  }
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
