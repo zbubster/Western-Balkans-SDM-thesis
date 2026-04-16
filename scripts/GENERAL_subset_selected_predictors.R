@@ -12,16 +12,33 @@
 # 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# rasters outputs
-out_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "noextrapol")
-if(!dir.exists(out_stacks_dir)) dir.create(out_stacks_dir, recursive = T)
-
-# load rasters
-source_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent")
-
-# load collinearity results
-selected_rds <- here::here("data", "__predictors_collinearity__", "noextrapol", "results")
-TFtable <- read.csv(file = file.path(selected_rds, "selected_truefalse.csv"))
+# # NOEXTRAPOL
+# 
+# # rasters outputs
+# out_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "noextrapol")
+# if(!dir.exists(out_stacks_dir)) dir.create(out_stacks_dir, recursive = T)
+# 
+# # load rasters
+# source_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent")
+# 
+# # load collinearity results
+# selected_rds <- here::here("data", "__predictors_collinearity__", "noextrapol", "results")
+# TFtable <- read.csv(file = file.path(selected_rds, "selected_truefalse.csv"))
+# 
+# # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# 
+# # EXTRAPOL
+# 
+# # rasters outputs
+# out_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "extrapol")
+# if(!dir.exists(out_stacks_dir)) dir.create(out_stacks_dir, recursive = T)
+# 
+# # load rasters
+# source_stacks_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent")
+# 
+# # load collinearity results
+# selected_rds <- here::here("data", "__predictors_collinearity__", "extrapol", "results")
+# TFtable <- read.csv(file = file.path(selected_rds, "selected_truefalse.csv"))
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
