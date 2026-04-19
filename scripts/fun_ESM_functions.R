@@ -648,8 +648,6 @@ esm_fit_bivariate <- function(prep,
     for (pair in pairs) {
       pair_label <- base::paste(pair, collapse = " + ")
       
-      message("__", pair_label)
-      
       # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
       # loop over algos
       

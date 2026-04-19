@@ -95,31 +95,33 @@ for(i in seq_along(grains)){
     # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
     
     # plot response curves
-    prediktoraky <- unique(rc$variable)
-    prediktoraky_con <- prediktoraky[!(prediktoraky %in% c("landcover", "bedrock"))]
-    prediktoraky_fac <- prediktoraky[prediktoraky %in% c("landcover", "bedrock")]
+    # prediktoraky <- base::unique(rc$variable)
+    # prediktoraky_con <- prediktoraky[!(prediktoraky %in% base::c("landcover", "bedrock"))]
+    # prediktoraky_fac <- prediktoraky[prediktoraky %in% base::c("landcover", "bedrock")]
+    #
+    # # numeric predictors
+    # for(k in seq_along(prediktoraky_con)){
+    #   p <- prediktoraky_con[[k]]
+    #
+    #   grDevices::png(filename = base::file.path(resp_curv_dir, base::paste0(p, "_simple.png")))
+    #   plot_esm_response_numeric(rc, p)
+    #   grDevices::dev.off()
+    #
+    #   grDevices::png(filename = base::file.path(resp_curv_dir, base::paste0(p, "_complex.png")))
+    #   plot_esm_response_numeric_with_small(rc, p)
+    #   grDevices::dev.off()
+    # }
+    #
+    # # factor predictors
+    # for(l in seq_along(prediktoraky_fac)){
+    #   p <- prediktoraky_fac[[l]]
+    #
+    #   grDevices::pdf(file = base::file.path(resp_curv_dir, base::paste0(p, "_barplot.pdf")))
+    #   plot_esm_response_factor(rc, p)
+    #   grDevices::dev.off()
+    # }
     
-    # numeric predictors
-    for(k in seq_along(prediktoraky_con)){
-      p <- prediktoraky_con[[k]]
-      
-      png(filename = file.path(resp_curv_dir, paste0(p, "_simple.png")))
-      plot_esm_response_numeric(rc, p)
-      dev.off()
-      
-      png(filename = file.path(resp_curv_dir, paste0(p, "_complex.png")))
-      plot_esm_response_numeric_with_small(rc, p)
-      dev.off()
-    }
-    
-    # factor predictors
-    for(l in seq_along(prediktoraky_fac)){
-      p <- prediktoraky_fac[[l]]
-      
-      png(filename = file.path(resp_curv_dir, paste0(p, "_barplot.png")))
-      plot_esm_response_factor(rc, p)
-      dev.off()
-    }
+    gc()
   }
 }
 
