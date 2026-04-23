@@ -49,6 +49,17 @@ for(i in seq_along(grains)){
     
     # prepare data for modelling
     cats <- dplyr::intersect(names(pred), c("landcover", "bedrock"))
+    
+    # mask unwanted landcover class before modelling and projection
+    if ("landcover" %in% base::names(pred)) {
+      pred[["landcover"]] <- terra::ifel(
+        pred[["landcover"]] == 80,
+        NA,
+        pred[["landcover"]]
+      )
+    }
+    
+    # prepare data for modelling
     prep <- prepare_occ_for_modeling(occ = occ, pred = pred, factor_cols = cats)
     
     saveRDS(prep, file = file.path(mod_dir, "prepared_data.rds"))
@@ -76,7 +87,11 @@ for(i in seq_along(grains)){
       new_env = pred
     )
     
-    terra::writeRaster(proj, filename = file.path(mod_dir, "ESM_projection.tif"))
+    terra::writeRaster(
+      proj,
+      filename = file.path(mod_dir, "ESM_projection.tif"),
+      wopt = list(gdal = c("COMPRESS=LZW", "TILED=YES", "BIGTIFF=YES"))
+    )
     message("Raster projection saved.")
     
     # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
@@ -95,31 +110,31 @@ for(i in seq_along(grains)){
     # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
     
     # plot response curves
-    # prediktoraky <- base::unique(rc$variable)
-    # prediktoraky_con <- prediktoraky[!(prediktoraky %in% base::c("landcover", "bedrock"))]
-    # prediktoraky_fac <- prediktoraky[prediktoraky %in% base::c("landcover", "bedrock")]
-    #
-    # # numeric predictors
-    # for(k in seq_along(prediktoraky_con)){
-    #   p <- prediktoraky_con[[k]]
-    #
-    #   grDevices::png(filename = base::file.path(resp_curv_dir, base::paste0(p, "_simple.png")))
-    #   plot_esm_response_numeric(rc, p)
-    #   grDevices::dev.off()
-    #
-    #   grDevices::png(filename = base::file.path(resp_curv_dir, base::paste0(p, "_complex.png")))
-    #   plot_esm_response_numeric_with_small(rc, p)
-    #   grDevices::dev.off()
-    # }
-    #
-    # # factor predictors
-    # for(l in seq_along(prediktoraky_fac)){
-    #   p <- prediktoraky_fac[[l]]
-    #
-    #   grDevices::pdf(file = base::file.path(resp_curv_dir, base::paste0(p, "_barplot.pdf")))
-    #   plot_esm_response_factor(rc, p)
-    #   grDevices::dev.off()
-    # }
+    prediktoraky <- base::unique(rc$variable)
+    prediktoraky_con <- prediktoraky[!(prediktoraky %in% base::c("landcover", "bedrock"))]
+    prediktoraky_fac <- prediktoraky[prediktoraky %in% base::c("landcover", "bedrock")]
+
+    # numeric predictors
+    for(k in seq_along(prediktoraky_con)){
+      p <- prediktoraky_con[[k]]
+      
+      grDevices::png(filename = base::file.path(resp_curv_dir, base::paste0(p, "_simple.png")), width = 500, height = 400)
+      print(plot_esm_response_numeric(rc, p))
+      grDevices::dev.off()
+      
+      grDevices::png(filename = base::file.path(resp_curv_dir, base::paste0(p, "_complex.png")), width = 500, height = 400)
+      print(plot_esm_response_numeric_with_small(rc, p))
+      grDevices::dev.off()
+    }
+    
+    # factor predictors
+    for(l in seq_along(prediktoraky_fac)){
+      p <- prediktoraky_fac[[l]]
+      
+      grDevices::png(file = base::file.path(resp_curv_dir, base::paste0(p, "_barplot.png")), width = 500, height = 400)
+      print(plot_esm_response_factor(rc, p))
+      grDevices::dev.off()
+    }
     
     gc()
   }
