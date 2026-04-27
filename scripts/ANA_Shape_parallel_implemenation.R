@@ -38,6 +38,18 @@ tasks
 # detect available cores
 n_cores <- parallelly::availableCores()
 
+# define user library first
+user_lib <- Sys.getenv("R_LIBS_USER")
+
+# prepare library paths for workers
+main_libpaths <- unique(c(
+  user_lib,
+  .libPaths()
+))
+
+# apply the same library order in the main session
+.libPaths(main_libpaths)
+
 # prevent nested threading inside workers
 Sys.setenv(
   OMP_NUM_THREADS = "1",
@@ -47,15 +59,28 @@ Sys.setenv(
   NUMEXPR_NUM_THREADS = "1"
 )
 
-# create and register cluster
-cl <- parallelly::makeClusterPSOCK(n_cores)
+# create and register cluster with the correct library paths
+cl <- parallelly::makeClusterPSOCK(
+  workers = n_cores,
+  rscript_libs = main_libpaths
+)
+
 doParallel::registerDoParallel(cl)
 
 # always stop cluster at the end
-on.exit({
-  try(parallel::stopCluster(cl), silent = TRUE)
+base::on.exit({
+  base::try(parallel::stopCluster(cl), silent = TRUE)
 }, add = TRUE)
 
+# force the same library paths on workers
+parallel::clusterCall(
+  cl = cl,
+  fun = function(libpaths) {
+    base::.libPaths(libpaths)
+    NULL
+  },
+  libpaths = main_libpaths
+)
 # source helper functions on workers once
 parallel::clusterEvalQ(cl, {
   fun_file <- here::here("scripts", "fun_Shape.R")
@@ -82,7 +107,7 @@ parallel::clusterExport(
 
 res <- foreach::foreach(
   task_id = seq_len(nrow(tasks)),
-  .packages = c("terra", "dplyr", "here"),
+  .packages = c("terra", "dplyr", "here", "ggplot2"),
   .combine = "rbind",
   .errorhandling = "pass"
 ) %dopar% {
@@ -122,6 +147,8 @@ res <- foreach::foreach(
   )
 
 }
+
+print(res)
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # explicit cleanup
