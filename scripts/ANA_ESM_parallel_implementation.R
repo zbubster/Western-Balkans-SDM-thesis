@@ -168,7 +168,7 @@ res <- foreach::foreach(
       proj <- esm_project_bivariate(
         esm = esm,
         new_env = pred,
-        return_algorithms = TRUE
+        return_algorithms = FALSE
       )
       
       terra::writeRaster(
