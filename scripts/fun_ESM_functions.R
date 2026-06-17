@@ -16,6 +16,7 @@
 # FUN 12 ‒ plot_esm_response_numeric
 # FUN 13 ‒ plot_esm_response_numeric_with_small
 # FUN 14 ‒ plot_esm_response_factor
+# FUN 15 ‒ esm_weighted_mean_matrix
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -586,6 +587,11 @@ esm_validate_prep <- function(prep, predictors = NULL) {
 
 # this function incorporates functions above and produces one ensemble model
 
+# 1) fit and evaluate all bivariate models in CV;
+# 2) compute weights for bivariate models within each algorithm;
+# 3) build one ESM per algorithm;
+# 4) if more algorithms are used, build a second-level ensemble across algorithm ESMs.
+
 esm_fit_bivariate <- function(prep,
                               predictors = NULL,
                               algorithms = c("glm", "rf"),
@@ -596,30 +602,25 @@ esm_fit_bivariate <- function(prep,
                               gbm_interaction_depth = 2,
                               seed = 722085415) {
   
-  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-  # Validate prep object and get data, cv table and predictors
+  base::set.seed(seed)
   
+  # Validate prep object and get data, CV table and predictors
   valid <- esm_validate_prep(prep = prep, predictors = predictors)
   
   data <- valid$data
   cv <- valid$cv
   predictors <- valid$predictors
-  n <- base::nrow(data)
   
-  # get predictors pairs
+  n <- base::nrow(data)
   pairs <- utils::combn(predictors, 2, simplify = FALSE)
-  n <- base::nrow(data)
   
-  # prepare outputs
-  oof_pred <- base::rep(NA_real_, n)
-  run_ensemble_scores <- list()
   cv_scores <- list()
+  cv_predictions <- list()
+  
   row_id <- 0L
   
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-  # CV
-  
-  # check, if CV fold have enough obs
+  # Phase 1: fit all CV bivariate models and store validation predictions
   
   for (run_name in base::names(cv)) {
     
@@ -628,30 +629,25 @@ esm_fit_bivariate <- function(prep,
     train_idx <- cv[[run_name]]
     test_idx <- !cv[[run_name]]
     
-    test_rows <- base::which(test_idx)
-    
     y_train <- data$observ[train_idx]
     y_test <- data$observ[test_idx]
     
-    # check if there is enough observations
+    # Skip invalid folds
     if (base::sum(y_train == 1) < 5) next
     if (base::sum(y_train == 0) < 5) next
     if (base::sum(y_test == 1) < 1) next
     if (base::sum(y_test == 0) < 1) next
     
-    run_pred_list <- list()
-    run_score_df <- NULL
-    
-    # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-    # loop over predictor pairs
+    run_scores <- list()
+    run_predictions <- list()
     
     for (pair in pairs) {
+      
       pair_label <- base::paste(pair, collapse = " + ")
       
-      # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-      # loop over algos
-      
       for (algo in algorithms) {
+        
+        model_key <- base::paste(algo, pair_label, sep = "___")
         
         fit_obj <- base::tryCatch(
           esm_fit_small_model(
@@ -667,136 +663,73 @@ esm_fit_bivariate <- function(prep,
           error = function(e) NULL
         )
         
-        # if fit failed, moveon
-        if (base::is.null(fit_obj)) {
-          next
-        }
-        
-        # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-        # predict small model
+        if (base::is.null(fit_obj)) next
         
         pred_test <- base::tryCatch(
           esm_predict_small_model(
             model_obj = fit_obj,
             newdata = data[test_idx, , drop = FALSE]
           ),
-          error = function(e) rep(NA_real_, base::sum(test_idx))
+          error = function(e) base::rep(NA_real_, base::sum(test_idx))
         )
-        
-        # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-        # get sommersD
         
         dxy <- base::tryCatch(
           esm_somers_d(obs = y_test, pred = pred_test),
           error = function(e) NA_real_
         )
         
-        # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-        # add result to loop output object
         row_id <- row_id + 1L
         
-        run_pred_list[[row_id]] <- list(
-          run = run_name,
-          algo = algo,
-          pair = pair,
-          pred = pred_test
-        )
-        
-        score_row <- base::data.frame(
+        run_scores[[base::length(run_scores) + 1L]] <- base::data.frame(
           row_id = row_id,
           run = run_name,
           algo = algo,
           pred1 = pair[1],
           pred2 = pair[2],
           pair_label = pair_label,
+          model_key = model_key,
           somers_d = dxy,
           n_train = base::sum(train_idx),
           n_test = base::sum(test_idx),
           stringsAsFactors = FALSE
         )
         
-        if (base::is.null(run_score_df)) {
-          run_score_df <- score_row
-        } else {
-          run_score_df <- base::rbind(run_score_df, score_row)
-        }
+        run_predictions[[model_key]] <- pred_test
       }
     }
     
-    # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-    # which models keep for final ensemble
+    if (base::length(run_scores) == 0L) next
     
-    if (base::is.null(run_score_df) || base::nrow(run_score_df) == 0) {
-      next
-    }
-    
-    keep_run <- !base::is.na(run_score_df$somers_d) & run_score_df$somers_d > threshold
-    
-    if (base::sum(keep_run) > 0) {
-      w_run <- esm_make_weights(
-        x = run_score_df$somers_d[keep_run],
-        transform = weight_transform
-      )
-      
-      pred_mat <- base::sapply(
-        run_score_df$row_id[keep_run],
-        function(id) run_pred_list[[id]]$pred
-      )
-      
-      if (base::is.null(base::dim(pred_mat))) {
-        pred_mat <- base::matrix(pred_mat, ncol = 1)
-      }
-      
-      ens_run <- base::as.numeric(pred_mat %*% w_run)
-      oof_pred[test_rows] <- ens_run
-      
-      run_dxy <- esm_somers_d(obs = y_test, pred = ens_run)
-    } else {
-      ens_run <- rep(NA_real_, base::sum(test_idx))
-      run_dxy <- NA_real_
-    }
-    
-    run_ensemble_scores[[run_name]] <- base::data.frame(
-      run = run_name,
-      ensemble_somers_d = run_dxy,
-      n_test = base::sum(test_idx),
-      stringsAsFactors = FALSE
-    )
-    
-    cv_scores[[run_name]] <- run_score_df
+    cv_scores[[run_name]] <- base::do.call(base::rbind, run_scores)
+    cv_predictions[[run_name]] <- run_predictions
   }
   
   cv_scores_df <- base::do.call(base::rbind, cv_scores)
-  run_ensemble_scores_df <- base::do.call(base::rbind, run_ensemble_scores)
   
   if (base::is.null(cv_scores_df) || base::nrow(cv_scores_df) == 0) {
     base::stop("No valid CV models were fitted.")
   }
   
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-  # aggregate scores across runs
+  # Phase 2: aggregate bivariate model scores across CV runs
   
-  group_key <- base::paste(cv_scores_df$algo, cv_scores_df$pair_label, sep = "___")
-  group_levels <- base::unique(group_key)
-  
+  group_levels <- base::unique(cv_scores_df$model_key)
   model_scores_list <- vector(mode = "list", length = base::length(group_levels))
   
   for (i in base::seq_along(group_levels)) {
-    g <- group_levels[i]
-    idx <- group_key == g
     
-    sub <- cv_scores_df[idx, , drop = FALSE]
+    g <- group_levels[[i]]
+    sub <- cv_scores_df[cv_scores_df$model_key == g, , drop = FALSE]
+    
     mean_dxy <- base::mean(sub$somers_d, na.rm = TRUE)
-    
-    if (base::is.nan(mean_dxy)) {
-      mean_dxy <- NA_real_
-    }
+    if (base::is.nan(mean_dxy)) mean_dxy <- NA_real_
     
     model_scores_list[[i]] <- base::data.frame(
       algo = sub$algo[1],
       pred1 = sub$pred1[1],
       pred2 = sub$pred2[1],
       pair_label = sub$pair_label[1],
+      model_key = sub$model_key[1],
       mean_somers_d = mean_dxy,
       sd_somers_d = stats::sd(sub$somers_d, na.rm = TRUE),
       n_valid_runs = base::sum(!base::is.na(sub$somers_d)),
@@ -805,24 +738,183 @@ esm_fit_bivariate <- function(prep,
   }
   
   model_scores <- base::do.call(base::rbind, model_scores_list)
-  model_scores$keep <- !base::is.na(model_scores$mean_somers_d) & model_scores$mean_somers_d > threshold
+  
+  # ecospat logic: models no better than random are assigned zero weight
+  model_scores$keep <- !base::is.na(model_scores$mean_somers_d) &
+    model_scores$mean_somers_d > threshold
   
   if (!base::any(model_scores$keep)) {
     base::stop("No pair-algorithm combination passed the threshold.")
   }
   
-  model_scores$weight <- 0
-  model_scores$weight[model_scores$keep] <- esm_make_weights(
-    x = model_scores$mean_somers_d[model_scores$keep],
+  model_scores$weight_within_algo <- 0
+  
+  for (algo in base::unique(model_scores$algo)) {
+    
+    idx <- model_scores$algo == algo & model_scores$keep
+    
+    if (!base::any(idx)) next
+    
+    model_scores$weight_within_algo[idx] <- esm_make_weights(
+      x = model_scores$mean_somers_d[idx],
+      transform = weight_transform
+    )
+  }
+  
+  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+  # Phase 3: build one cross-validated ESM per algorithm
+  
+  oof_algo_pred <- base::matrix(
+    NA_real_,
+    nrow = n,
+    ncol = base::length(algorithms),
+    dimnames = list(NULL, algorithms)
+  )
+  
+  run_ensemble_scores <- list()
+  
+  for (run_name in base::names(cv_predictions)) {
+    
+    train_idx <- cv[[run_name]]
+    test_idx <- !train_idx
+    test_rows <- base::which(test_idx)
+    y_test <- data$observ[test_idx]
+    
+    run_pred_list <- cv_predictions[[run_name]]
+    
+    for (algo in algorithms) {
+      
+      sub_scores <- model_scores[
+        model_scores$algo == algo &
+          model_scores$keep &
+          model_scores$model_key %in% base::names(run_pred_list),
+        ,
+        drop = FALSE
+      ]
+      
+      if (base::nrow(sub_scores) == 0L) next
+      
+      pred_mat <- base::sapply(
+        sub_scores$model_key,
+        function(x) run_pred_list[[x]]
+      )
+      
+      if (base::is.null(base::dim(pred_mat))) {
+        pred_mat <- base::matrix(pred_mat, ncol = 1)
+      }
+      
+      ens_algo <- esm_weighted_mean_matrix(
+        pred_mat = pred_mat,
+        weights = sub_scores$weight_within_algo
+      )
+      
+      oof_algo_pred[test_rows, algo] <- ens_algo
+      
+      run_dxy <- esm_somers_d(obs = y_test, pred = ens_algo)
+      
+      run_ensemble_scores[[base::length(run_ensemble_scores) + 1L]] <-
+        base::data.frame(
+          run = run_name,
+          algo = algo,
+          ensemble_level = "within_algorithm",
+          ensemble_somers_d = run_dxy,
+          n_test = base::sum(test_idx),
+          stringsAsFactors = FALSE
+        )
+    }
+  }
+  
+  run_ensemble_scores_df <- base::do.call(base::rbind, run_ensemble_scores)
+  
+  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+  # Phase 4: compute second-level weights across algorithm ESMs
+  
+  algorithm_scores_list <- list()
+  
+  for (algo in algorithms) {
+    
+    sub <- run_ensemble_scores_df[
+      run_ensemble_scores_df$algo == algo &
+        run_ensemble_scores_df$ensemble_level == "within_algorithm",
+      ,
+      drop = FALSE
+    ]
+    
+    mean_dxy <- base::mean(sub$ensemble_somers_d, na.rm = TRUE)
+    if (base::is.nan(mean_dxy)) mean_dxy <- NA_real_
+    
+    algorithm_scores_list[[base::length(algorithm_scores_list) + 1L]] <-
+      base::data.frame(
+        algo = algo,
+        mean_somers_d = mean_dxy,
+        sd_somers_d = stats::sd(sub$ensemble_somers_d, na.rm = TRUE),
+        n_valid_runs = base::sum(!base::is.na(sub$ensemble_somers_d)),
+        stringsAsFactors = FALSE
+      )
+  }
+  
+  algorithm_scores <- base::do.call(base::rbind, algorithm_scores_list)
+  algorithm_scores$keep <- !base::is.na(algorithm_scores$mean_somers_d) &
+    algorithm_scores$mean_somers_d > threshold
+  
+  if (!base::any(algorithm_scores$keep)) {
+    base::stop("No algorithm-level ESM passed the threshold.")
+  }
+  
+  algorithm_scores$weight_between_algos <- 0
+  algorithm_scores$weight_between_algos[algorithm_scores$keep] <- esm_make_weights(
+    x = algorithm_scores$mean_somers_d[algorithm_scores$keep],
     transform = weight_transform
   )
   
+  algo_weights <- stats::setNames(
+    algorithm_scores$weight_between_algos,
+    algorithm_scores$algo
+  )
+  
+  kept_algorithms <- algorithm_scores$algo[algorithm_scores$keep]
+  
+  oof_pred <- esm_weighted_mean_matrix(
+    pred_mat = oof_algo_pred[, kept_algorithms, drop = FALSE],
+    weights = algo_weights[kept_algorithms]
+  )
+  
+  # Evaluate the final second-level ensemble per CV run
+  final_run_scores <- list()
+  
+  for (run_name in base::names(cv)) {
+    
+    test_idx <- !cv[[run_name]]
+    
+    if (base::sum(test_idx) == 0L) next
+    
+    final_run_scores[[base::length(final_run_scores) + 1L]] <-
+      base::data.frame(
+        run = run_name,
+        algo = "EF",
+        ensemble_level = "between_algorithms",
+        ensemble_somers_d = esm_somers_d(
+          obs = data$observ[test_idx],
+          pred = oof_pred[test_idx]
+        ),
+        n_test = base::sum(test_idx),
+        stringsAsFactors = FALSE
+      )
+  }
+  
+  run_ensemble_scores_df <- base::rbind(
+    run_ensemble_scores_df,
+    base::do.call(base::rbind, final_run_scores)
+  )
+  
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-  # Refit kept models on full data
+  # Phase 5: refit kept bivariate models on full data for projection
   
   full_models <- list()
+  model_scores$refit_ok <- FALSE
   
   for (i in base::which(model_scores$keep)) {
+    
     pair <- base::c(model_scores$pred1[i], model_scores$pred2[i])
     algo <- model_scores$algo[i]
     
@@ -843,8 +935,9 @@ esm_fit_bivariate <- function(prep,
     )
     
     if (!base::is.null(fit_obj)) {
-      nm <- base::paste(algo, model_scores$pair_label[i], sep = "___")
+      nm <- model_scores$model_key[i]
       full_models[[nm]] <- fit_obj
+      model_scores$refit_ok[i] <- TRUE
     }
   }
   
@@ -852,29 +945,81 @@ esm_fit_bivariate <- function(prep,
     base::stop("All kept full models failed during refit.")
   }
   
-  # final SommersD for model
+  # If some full refits failed, renormalise bivariate weights within algorithm.
+  model_scores$weight_within_algo_refit <- 0
+  
+  for (algo in base::unique(model_scores$algo)) {
+    
+    idx <- model_scores$algo == algo & model_scores$keep & model_scores$refit_ok
+    
+    if (!base::any(idx)) next
+    
+    model_scores$weight_within_algo_refit[idx] <- esm_make_weights(
+      x = model_scores$mean_somers_d[idx],
+      transform = weight_transform
+    )
+  }
+  
+  # Remove algorithm ESMs that have no usable full models after refit.
+  for (algo in algorithm_scores$algo) {
+    has_full <- base::any(
+      model_scores$algo == algo &
+        model_scores$keep &
+        model_scores$refit_ok
+    )
+    if (!has_full) {
+      algorithm_scores$keep[algorithm_scores$algo == algo] <- FALSE
+      algorithm_scores$weight_between_algos[algorithm_scores$algo == algo] <- 0
+    }
+  }
+  
+  if (!base::any(algorithm_scores$keep)) {
+    base::stop("No algorithm-level ESM has usable full models after refit.")
+  }
+  
+  algorithm_scores$weight_between_algos[algorithm_scores$keep] <- esm_make_weights(
+    x = algorithm_scores$mean_somers_d[algorithm_scores$keep],
+    transform = weight_transform
+  )
+  
+  # Backwards-compatible final flattened weights.
+  # These are not used internally for projection, but they are useful for
+  # older helper functions that expect esm$model_scores$weight.
+  algo_weight_lookup <- stats::setNames(
+    algorithm_scores$weight_between_algos,
+    algorithm_scores$algo
+  )
+  
+  model_scores$weight <- model_scores$weight_within_algo_refit *
+    algo_weight_lookup[model_scores$algo]
+  
+  algorithm_scores$weight <- algorithm_scores$weight_between_algos
+  
   oof_somers_d <- esm_somers_d(obs = data$observ, pred = oof_pred)
   
   return(list(
     species = prep$species,
     data = data,
     predictors = predictors,
+    algorithms = algorithms,
     threshold = threshold,
     weight_transform = weight_transform,
     cv_scores = cv_scores_df,
     run_ensemble_scores = run_ensemble_scores_df,
     model_scores = model_scores,
+    algorithm_scores = algorithm_scores,
     full_models = full_models,
+    oof_algo_pred = oof_algo_pred,
     oof_pred = oof_pred,
-    oof_somers_d = oof_somers_d
+    oof_somers_d = oof_somers_d,
+    ensemble_logic = "bivariate models -> algorithm-specific ESMs -> optional algorithm ensemble"
   ))
 }
-
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # FUN 10 ‒ esm_project_bivariate
 
-esm_project_bivariate <- function(esm, new_env) {
+esm_project_bivariate <- function(esm, new_env, return_algorithms = FALSE) {
   
   if (!base::is.list(esm)) {
     base::stop("esm must be an object returned by esm_fit_bivariate().")
@@ -884,71 +1029,160 @@ esm_project_bivariate <- function(esm, new_env) {
     base::stop("esm$full_models is empty.")
   }
   
-  keep_scores <- esm$model_scores[esm$model_scores$keep, , drop = FALSE]
-  
-  if (base::nrow(keep_scores) == 0) {
-    base::stop("No kept models available for projection.")
+  if (base::is.null(esm$algorithm_scores)) {
+    base::stop("esm$algorithm_scores is missing. Refit the model with the Breiner-style esm_fit_bivariate().")
   }
   
-  model_names <- base::paste(
-    keep_scores$algo,
-    keep_scores$pair_label,
-    sep = "___"
-  )
+  model_scores <- esm$model_scores
+  algorithm_scores <- esm$algorithm_scores
   
-  weights <- stats::setNames(keep_scores$weight, model_names)
+  kept_algorithms <- algorithm_scores$algo[
+    algorithm_scores$keep &
+      algorithm_scores$weight_between_algos > 0
+  ]
+  
+  if (base::length(kept_algorithms) == 0L) {
+    base::stop("No kept algorithm-level ESMs available for projection.")
+  }
+  
+  algo_weights <- stats::setNames(
+    algorithm_scores$weight_between_algos,
+    algorithm_scores$algo
+  )
   
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
   # data.frame projection
-  
+
   if (base::is.data.frame(new_env)) {
-    num <- base::rep(0, base::nrow(new_env))
-    den <- base::rep(0, base::nrow(new_env))
     
-    for (nm in model_names) {
-      model_obj <- esm$full_models[[nm]]
-      w <- weights[[nm]]
+    algo_pred <- base::matrix(
+      NA_real_,
+      nrow = base::nrow(new_env),
+      ncol = base::length(kept_algorithms),
+      dimnames = list(NULL, kept_algorithms)
+    )
+    
+    for (algo in kept_algorithms) {
       
-      pred <- esm_predict_small_model(
-        model_obj = model_obj,
-        newdata = new_env
+      sub_scores <- model_scores[
+        model_scores$algo == algo &
+          model_scores$keep &
+          model_scores$refit_ok &
+          model_scores$weight_within_algo_refit > 0,
+        ,
+        drop = FALSE
+      ]
+      
+      if (base::nrow(sub_scores) == 0L) next
+      
+      pred_mat <- base::sapply(
+        sub_scores$model_key,
+        function(nm) {
+          esm_predict_small_model(
+            model_obj = esm$full_models[[nm]],
+            newdata = new_env
+          )
+        }
       )
       
-      ok <- !base::is.na(pred)
-      num[ok] <- num[ok] + pred[ok] * w
-      den[ok] <- den[ok] + w
+      if (base::is.null(base::dim(pred_mat))) {
+        pred_mat <- base::matrix(pred_mat, ncol = 1)
+      }
+      
+      algo_pred[, algo] <- esm_weighted_mean_matrix(
+        pred_mat = pred_mat,
+        weights = sub_scores$weight_within_algo_refit
+      )
     }
     
-    return(base::ifelse(den > 0, num / den, NA_real_))
+    final_pred <- esm_weighted_mean_matrix(
+      pred_mat = algo_pred[, kept_algorithms, drop = FALSE],
+      weights = algo_weights[kept_algorithms]
+    )
+    
+    if (return_algorithms) {
+      return(base::data.frame(esm = final_pred, algo_pred, check.names = FALSE))
+    }
+    
+    return(final_pred)
   }
   
   # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
   # SpatRaster projection
   
   if (inherits(new_env, "SpatRaster")) {
+    
+    algo_rasters <- list()
+    
+    for (algo in kept_algorithms) {
+      
+      sub_scores <- model_scores[
+        model_scores$algo == algo &
+          model_scores$keep &
+          model_scores$refit_ok &
+          model_scores$weight_within_algo_refit > 0,
+        ,
+        drop = FALSE
+      ]
+      
+      if (base::nrow(sub_scores) == 0L) next
+      
+      sum_r <- NULL
+      den_r <- NULL
+      
+      for (i in base::seq_len(base::nrow(sub_scores))) {
+        
+        nm <- sub_scores$model_key[i]
+        w <- sub_scores$weight_within_algo_refit[i]
+        model_obj <- esm$full_models[[nm]]
+        
+        r_sub <- terra::subset(new_env, model_obj$pair)
+        
+        pred_r <- terra::predict(
+          object = r_sub,
+          model = model_obj,
+          fun = function(model, data) {
+            esm_predict_small_model(
+              model_obj = model,
+              newdata = base::as.data.frame(data)
+            )
+          },
+          na.rm = FALSE
+        )
+        
+        num_add <- terra::ifel(base::is.na(pred_r), 0, pred_r * w)
+        den_add <- terra::ifel(base::is.na(pred_r), 0, w)
+        
+        if (base::is.null(sum_r)) {
+          sum_r <- num_add
+          den_r <- den_add
+        } else {
+          sum_r <- sum_r + num_add
+          den_r <- den_r + den_add
+        }
+      }
+      
+      algo_out <- terra::ifel(den_r == 0, NA, sum_r / den_r)
+      base::names(algo_out) <- algo
+      algo_rasters[[algo]] <- algo_out
+    }
+    
+    if (base::length(algo_rasters) == 0L) {
+      base::stop("No algorithm-level projections could be created.")
+    }
+    
+    algo_stack <- do.call(c, algo_rasters)
+    
     sum_r <- NULL
     den_r <- NULL
     
-    for (nm in model_names) {
-      model_obj <- esm$full_models[[nm]]
-      w <- weights[[nm]]
+    for (algo in base::names(algo_rasters)) {
       
-      r_sub <- terra::subset(new_env, model_obj$pair)
+      w <- algo_weights[[algo]]
+      pred_r <- algo_stack[[algo]]
       
-      pred_r <- terra::predict(
-        object = r_sub,
-        model = model_obj,
-        fun = function(model, data) {
-          esm_predict_small_model(
-            model_obj = model,
-            newdata = base::as.data.frame(data)
-          )
-        },
-        na.rm = FALSE
-      )
-      
-      num_add <- terra::ifel(is.na(pred_r), 0, pred_r * w)
-      den_add <- terra::ifel(is.na(pred_r), 0, w)
+      num_add <- terra::ifel(base::is.na(pred_r), 0, pred_r * w)
+      den_add <- terra::ifel(base::is.na(pred_r), 0, w)
       
       if (base::is.null(sum_r)) {
         sum_r <- num_add
@@ -959,10 +1193,14 @@ esm_project_bivariate <- function(esm, new_env) {
       }
     }
     
-    out <- terra::ifel(den_r == 0, NA, sum_r / den_r)
-    base::names(out) <- "esm"
+    final_r <- terra::ifel(den_r == 0, NA, sum_r / den_r)
+    base::names(final_r) <- "esm"
     
-    return(out)
+    if (return_algorithms) {
+      return(c(final_r, algo_stack))
+    }
+    
+    return(final_r)
   }
   
   base::stop("new_env must be either a data.frame or a terra::SpatRaster.")
@@ -1169,6 +1407,25 @@ plot_esm_response_factor <- function(rc, var) {
       title = base::paste("Ensemble response profile:", var)
     ) +
     ggplot2::theme_bw()
+}
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# FUN 15 ‒ ESM_weighted_mean_matrix
+
+esm_weighted_mean_matrix <- function(pred_mat, weights) {
+  
+  pred_mat <- base::as.matrix(pred_mat)
+  weights <- base::as.numeric(weights)
+  
+  if (base::ncol(pred_mat) != base::length(weights)) {
+    base::stop("Number of prediction columns must match number of weights.")
+  }
+  
+  num <- base::rowSums(base::sweep(pred_mat, 2, weights, `*`), na.rm = TRUE)
+  den <- base::rowSums(base::sweep(!base::is.na(pred_mat), 2, weights, `*`), na.rm = TRUE)
+  
+  base::ifelse(den > 0, num / den, NA_real_)
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #

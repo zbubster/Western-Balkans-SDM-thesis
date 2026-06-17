@@ -8,7 +8,7 @@ fun_file <- here::here("scripts", "fun_ESM_functions.R")
 source(fun_file)
 
 # main config
-grains <- c(100)
+grains <- c(1000, 500, 200, 100)
 species <- c("GD", "GT", "SB", "PK", "PO", "PP")
 modelling_id <- "recent_noextrapol_weights_common"
 occ_base_dir <- here::here("data", "__ANALYSIS__", "OCC", "weights")
@@ -25,6 +25,9 @@ tasks <- expand.grid(
   stringsAsFactors = FALSE
 )
 
+tasks
+tasks <- tasks %>%
+  arrange(desc(tasks$grain))
 tasks
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
@@ -105,7 +108,7 @@ res <- foreach::foreach(
   pred <- terra::rast(path_to_pred)
   
   # define output directories
-  mod_dir <- here::here("models", "ESM", modelling_id, sp, as.character(grain))
+  mod_dir <- here::here("models", "ESM_Breiner", modelling_id, sp, as.character(grain))
   if(!dir.exists(mod_dir)) {
     dir.create(mod_dir, recursive = TRUE, showWarnings = FALSE)
   }
@@ -164,7 +167,8 @@ res <- foreach::foreach(
       
       proj <- esm_project_bivariate(
         esm = esm,
-        new_env = pred
+        new_env = pred,
+        return_algorithms = TRUE
       )
       
       terra::writeRaster(
@@ -253,7 +257,7 @@ res <- foreach::foreach(
 
 print(res)
 
-summary_dir <- here::here("models", "ESM", modelling_id)
+summary_dir <- here::here("models", "ESM_Breiner", modelling_id)
 if(!dir.exists(summary_dir)) dir.create(summary_dir, recursive = T)
 saveRDS(res, file = file.path(summary_dir, "run_summary.rds"))
 
