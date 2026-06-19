@@ -142,6 +142,15 @@
 *Keywords:* [[[key words]]]
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+// přehled použitých zkratek
+#pagebreak()
+#heading(level: 1, numbering: none, outlined: false)[Přehled použitých zkratek]
+
+LGM ‒ last glacial maximum, poslední glaciální maximum
+
+HCO ‒ holocene climatic optimum, holocénní klimatické optimum
+
+// # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
 
 #pagebreak()
@@ -169,11 +178,42 @@
 === Data o výskytech druhů
 === Modelovací prediktory
 ==== CHELSA
+
+bio01-bio19, scd, trace21k
+
 ==== Copernicus DEM
 ==== GLIM
 ==== WoSIS
-=== Příprava dat
+
+bez využití v temporálních projekcích
+
+==== Landcover
+
+bez využití v temporálních projekcích
+
+== Příprava dat
+=== Modelovací měřítko GRAIN
+=== Prostorová autokorelace výskytových dat CV folds
+=== Kolinearita prediktorů
+=== Datové sady pro modelování
+
+druh, grain, colinearity set, purpose
+
 == Modelování vhodnosti stanoviště
+
+koncep ESM, fitování modelu, algoritmy
+
+== Projekce
+=== Projekce v prostoru
+=== Projekce v prostoru a čase
+
+Vypočítané modely byly promítnuty do dvou historických a jednoho budoucího časového řezu.
+Jako reprezentativní body v minulosti jsem zvolil poslední glaciální maximum (LGM, 21k BP)
+a holocénní klimatické optimum (HCO, 8k BP). Jelikož se v obou případech jedná o sporné vymezení
+konkrétních událostí (např. @davis2003 ukazují, že HCO se v jižní Evropě neprojevovalo tak silně jako v Evropě severní),
+je nutné vnímat zvolené časové řezy jako částečně arbitrární rozhodnutí.
+
+== Metoda Shape jako odhad projekční extrpolace v prostoru
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
@@ -194,3 +234,7 @@
 // literatura
 #pagebreak()
 = Literatura
+
+#bibliography(
+  "lit/literatura.bib",
+  style: "copernicus")
