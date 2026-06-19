@@ -145,7 +145,7 @@
 // obsah
 
 #pagebreak()
-#outline(title: [Obsah], depth: 3)
+#outline(title: [Obsah], depth: 10)
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // úvod
@@ -156,11 +156,24 @@
 #set par(justify: true, leading: 0.65em, first-line-indent: 0.75cm)
 
 = Úvod
+== x
+== Cíle práce
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // metodika
 #pagebreak()
 = Metodika
+== Prostorové vymezení práce
+== Druhy Rostlin
+== Vstupní data
+=== Data o výskytech druhů
+=== Modelovací prediktory
+==== CHELSA
+==== Copernicus DEM
+==== GLIM
+==== WoSIS
+=== Příprava dat
+== Modelování vhodnosti stanoviště
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
@@ -176,3 +189,8 @@
 // závěr
 #pagebreak()
 = Závěr
+
+// # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+// literatura
+#pagebreak()
+= Literatura
