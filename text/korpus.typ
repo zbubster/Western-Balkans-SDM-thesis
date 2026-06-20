@@ -25,7 +25,7 @@
   numbering: none,
 )
 #set text(font: "Libertinus Serif", size: 12pt, lang: "cs")
-#set par(justify: true, leading: 0.65em)
+#set par(justify: true, leading: 2.5mm)
 
 // chapter numbering
 #set heading(numbering: "1.")
@@ -214,6 +214,15 @@ konkrétních událostí (např. @davis2003 ukazují, že HCO se v jižní Evrop
 je nutné vnímat zvolené časové řezy jako částečně arbitrární rozhodnutí.
 
 == Metoda Shape jako odhad projekční extrpolace v prostoru
+
+Metoda Shape představuje nástroj určený k posouzení míry extrapolace při prostorové či časové projekci modelů rozšíření druhů.
+Jejím principem je porovnání podmínek prostředí v projekční oblasti s podmínkami, na jejichž základě byl model kalibrován.
+Pro každý bod, resp. rastrovou buňku, je v mnohorozměrném environmentálním prostoru vyhledán nejbližší trénovací bod a je mezi nimi vypočtena Mahalanobisova vzdálenost, tj. multivariační vzdálenost.
+Takto vypočtená vzdálenost je následně škálována rozptylem trénovacích dat, čímž vzniká bezrozměrná metrika vyjadřující míru environmentální novosti dané lokality.
+Nízké hodnoty metody Shape odpovídají podmínkám blízkým trénovacím datům, a tedy lokalitám, kde model interpoluje v rámci známého environmentálního prostoru.
+Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, které nejsou v trénovacích datech výrazněji zastoupeny, a predikce v daných lokalitách je proto zatížena vyšší nejistotou.
+Výhodou této metody je skutečnost, že při výpočtu nevychází pouze z centroidu trénovacích dat, ale zohledňuje jejich skutečné rozložení v environmentálním prostoru.
+Díky tomu lépe vystihuje celkový rozsah trénovacích podmínek a umožňuje rozlišit oblasti, kde model v prostoru interpoluje a kde už dochází k extrapolaci.
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
