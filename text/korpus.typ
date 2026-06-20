@@ -25,7 +25,14 @@
   numbering: none,
 )
 #set text(font: "Libertinus Serif", size: 12pt, lang: "cs")
-#set par(justify: true, leading: 2.5mm)
+#set par(
+  justify: true,
+  leading: 0.65em,
+  first-line-indent: (
+    amount: 1.25em,
+    all: true,
+  ),
+)
 
 // chapter numbering
 #set heading(numbering: "1.")
@@ -176,12 +183,20 @@ HCO ‒ holocene climatic optimum, holocénní klimatické optimum
 == Druhy Rostlin
 == Vstupní data
 === Data o výskytech druhů
+
+vlastní sběr, TN, váhy udělené outsource datům
+
 === Modelovací prediktory
 ==== CHELSA
 
 bio01-bio19, scd, trace21k
 
+Pro projekci modelů na historické klimatické podmínky byl použit dataset CHELSA-TraCE21k-bioclim #cite(<chelsa_trace21k_bioclim_2025>, form: "normal"), který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
+
 ==== Copernicus DEM
+
+
+
 ==== GLIM
 ==== WoSIS
 
@@ -206,7 +221,7 @@ koncep ESM, fitování modelu, algoritmy
 == Projekce
 === Projekce v prostoru
 === Projekce v prostoru a čase
-
+[[[]]]
 Vypočítané modely byly promítnuty do dvou historických a jednoho budoucího časového řezu.
 Jako reprezentativní body v minulosti jsem zvolil poslední glaciální maximum (LGM, 21k BP)
 a holocénní klimatické optimum (HCO, 8k BP). Jelikož se v obou případech jedná o sporné vymezení
@@ -229,6 +244,19 @@ Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, 
   image("obj/pic/shape.jpg"),
   caption: [Grafické znázornění metody Shape v zjednodušeném dvourozměrném prostoru. *(a)* Reprezentuje výpočet Mahalanobisových vzdáleností mezi projekčním bodem a všemi trénovacími body. Nejnižší vzdálenost vyznačena oranžově. *(b)* Vyjádření metriky Shape _S#sub[pi]_ pro projekční body. _A_ značí disperzní faktor trénovacích dat. Vyšší hodnota _S#sub[pi]_ značí vyšší míru environmentální novosti a tudíž vyšší míru extrapolace modelu. Převzato z #cite(<shape_2023>, form: "prose")]
 )
+
+== Prohlášení k metodám
+
+Veškeré analýzy byly provedeny v prostředí R, verze 4.2.2 ‒ Innocent and Trusting @R s využitím těchto balíčků: _terra_, _sf_, _tidyverse_, _maptiles_, _blockCV_, _openeo_,
+_collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _parallelly_, _Hmisc_, _gbm_, _mgcv_, _rpart_, _earth_, _ranger_, _maps_ & _spatialEco_.
+
+Vizualizace a kontrola výstupních rastrů probíhala v programu QGIS, verze 3.28.9 ‒ Firenze @QGIS_software.
+
+Část výpočtů byla provedena s využitím výpočetních zdrojů MetaCentra.
+#linebreak()
+Computational resources were provided by the e-INFRA CZ project (ID:90254), supported by the Ministry of Education, Youth and Sports of the Czech Republic.
+
+Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese https://github.com/zbubster/Western-Balkans-SDM-thesis.
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky

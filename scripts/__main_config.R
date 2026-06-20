@@ -3,27 +3,15 @@
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 library(here)
 
-packages <- c(
-  "tidyverse", "sf", "terra", "stars", "ggplot2",
-  "biomod2", "remotes", "stringr", "parallelly", "parallel",
-  "purrr", "maptiles", "blockCV", "usdm", "openeo", "collinear",
-  "corrplot", "vegan", "rnaturalearth", "flexsdm", "foreach", "doParallel"
-)
-
-for (pkg in packages) {
-  if (!require(pkg, character.only = TRUE, quietly = TRUE)) {
-    install.packages(pkg, dependencies = TRUE)
-    library(pkg, character.only = TRUE)
-  }
-}
-
 source(here("scripts", "knihovnik.R"))
-knihovnik(rlang, terra, sf, tidyverse,
-          stars, ggplot2, biomod2, stringr,
+knihovnik(terra, sf, tidyverse, ggplot2, stringr,
           parallelly, parallel, purrr, maptiles,
-          blockCV, usdm, openeo, collinear,
-          corrplot, vegan, rnaturalearth,
-          flexsdm, foreach, doParallel)
+          blockCV, openeo, collinear,
+          corrplot, rnaturalearth, dplyr,
+          flexsdm, foreach, doParallel
+          Hmisc, gbm, mgcv, rpart, earth, ranger,
+          maps, spatialEco, readr, tidyr, tibble
+          )
 
 # remotes::install_github("sjevelazco/flexsdm@HEAD")
 
