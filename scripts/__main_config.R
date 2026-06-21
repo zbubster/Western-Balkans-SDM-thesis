@@ -8,10 +8,10 @@ knihovnik(terra, sf, tidyverse, ggplot2, stringr,
           parallelly, parallel, purrr, maptiles,
           blockCV, openeo, collinear,
           corrplot, rnaturalearth, dplyr,
-          flexsdm, foreach, doParallel
+          flexsdm, foreach, doParallel,
           Hmisc, gbm, mgcv, rpart, earth, ranger,
           maps, spatialEco, readr, tidyr, tibble
-          )
+)
 
 # remotes::install_github("sjevelazco/flexsdm@HEAD")
 
