@@ -189,9 +189,11 @@ vlastní sběr, TN, váhy udělené outsource datům
 === Modelovací prediktory
 ==== CHELSA
 
-bio01-bio19, scd, trace21k
+bio01-bio19, scd
 
-Pro projekci modelů na historické klimatické podmínky byl použit dataset CHELSA-TraCE21k-bioclim #cite(<chelsa_trace21k_bioclim_2025>, form: "normal"), který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
+@chelsa_bioclim_data @chelsa_bioclim_model
+
+Pro projekci modelů na historické klimatické podmínky byl použit dataset CHELSA-TraCE21k-bioclim @chelsa_trace_data @chelsa_trace_model, který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
 
 ==== Copernicus DEM
 
