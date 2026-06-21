@@ -8,12 +8,16 @@ fun_file <- here::here("scripts", "fun_ESM_functions.R")
 source(fun_file)
 
 # main config
-grains <- c(1000, 500, 200, 100)
-species <- c("GD", "GT", "SB", "PK", "PO", "PP")
-modelling_id <- "recent_noextrapol_weights_common"
+#grains <- c(1000, 500, 200, 100)
+grains <- c(100)
+#species <- c("GD", "GT", "SB", "PK", "PO", "PP")
+#species <- c("SB", "PO", "PK")
+#species <- c("SB")
+species <- c("GD", "GT", "PK")
+modelling_id <- "recent_extrapol_weights_all_selected"
 occ_base_dir <- here::here("data", "__ANALYSIS__", "OCC", "weights")
-pred_base_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "noextrapol")
-collinearity_type <- "_common"
+pred_base_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "extrapol")
+collinearity_type <- "_all_selected"
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -108,7 +112,7 @@ res <- foreach::foreach(
   pred <- terra::rast(path_to_pred)
   
   # define output directories
-  mod_dir <- here::here("models", "ESM_Breiner", modelling_id, sp, as.character(grain))
+  mod_dir <- here::here("models", "ESM", modelling_id, sp, as.character(grain))
   if(!dir.exists(mod_dir)) {
     dir.create(mod_dir, recursive = TRUE, showWarnings = FALSE)
   }
@@ -257,7 +261,7 @@ res <- foreach::foreach(
 
 print(res)
 
-summary_dir <- here::here("models", "ESM_Breiner", modelling_id)
+summary_dir <- here::here("models", "ESM", modelling_id)
 if(!dir.exists(summary_dir)) dir.create(summary_dir, recursive = T)
 saveRDS(res, file = file.path(summary_dir, "run_summary.rds"))
 
