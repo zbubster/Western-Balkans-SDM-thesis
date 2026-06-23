@@ -9,8 +9,8 @@
 # The final species-specific subset is controlled by selected_truefalse.csv.
 
 # User input
-# period <- "2011-2040"
-period <- "2041-2070"
+period <- "2011-2040"
+# period <- "2041-2070"
 # period <- "2071-2100"
 
 # Optional filters
