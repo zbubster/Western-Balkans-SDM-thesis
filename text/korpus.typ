@@ -157,6 +157,18 @@ LGM ‒ last glacial maximum, poslední glaciální maximum
 
 HCO ‒ holocene climatic optimum, holocénní klimatické optimum
 
+DEM ‒ digital elevation model, digitální model reliéfu
+
+TPI
+
+TRI
+
+HLI
+
+TWI
+
+ESM
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
 
@@ -203,7 +215,9 @@ Jedním z důležitých metodických rozhodnutí při přípravě environmentál
 V této práci byl zvolen dataset CHELSA @chelsa_bioclim_model @chelsa_bioclim_data, a to především kvůli jeho vhodnosti pro modelování v topograficky členitých oblastech. @bobrowski_2017 
 
 Dataset CHELSA-BIOCLIM je globální klimatický dataset s vysokým prostorovým rozlišením 30 úhlových sekund (cca 1 km#super([2])).
-Vychází z hrubších klimatických dat, která jsou zpřesněna pomocí topografických modelů, jejichž využití umožňuje kromě výpočtu vlivu nadmořské výšky i zohlednění topografické sitace na proudění vzduchu. V táto práci jsou využity bioklimatické charakteristiky podchycující roční a sezónní variability klimatu v prostoru, tzv. BIOs. @chelsa_bioclim_model
+Vychází z hrubších klimatických dat, která jsou zpřesněna pomocí topografických modelů, jejichž využití umožňuje kromě výpočtu vlivu nadmořské výšky i zohlednění topografické sitace na proudění vzduchu. V táto práci jsou využity bioklimatické charakteristiky podchycující roční a sezónní variability klimatu v prostoru (bio01-bio19). @chelsa_bioclim_model
+Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je na daném místě přítomna sněhová pokrývka (snow cover days, scd).
+
 Kromě charakterizace současného klimatu poskytuje dataset CHELSA-BIOCLIM i pro tři časové řezy (2011–2040, 2041–2070 & 2071–2100) modely extrapolující klima do budoucnosti (tzv. earth system models: GFDL-ESM4,
 IPSL-CM6A-LR, MPI-ESM 1-2-HR, MRI-ESM2-0,
 & UKESM1-0-LL) na základě různých emisních scénářů (shared socioeconomic pathways: ssp126, ssp370 & ssp585 @oneil__cmip6_2016).
@@ -216,7 +230,25 @@ S ohledem na zachování metodické konzistence mezi jednotlivými časovými ř
 
 ==== Copernicus DEM
 
+Pro analýzu topografie byl v této práci použit globální elevační dataset _Copernicus DEM 30_ s prostorovým rozlišením 30 m#super([2]). @copernicus_DEM
+Tento model je odvozen z dat mise dálkového průzkumu Země TanDEM-X a poskytuje tak nejpřesnější prostorové i absolutní zaměření poměrů na daných lokalitách mezi prediktory využitými v této práci.
 
+Data byla získána prostřednictvím prostorového požadavku ve službě Copernicus Data Space Ecosystem @CDSE zprostředkovaného _openEO_ klientem v prostředí R. @openeo_R Stažené rastrové dlaždice byly následně sloučeny do mozaiky, oříznuty a maskovány polygonem zájmového území.
+
+Topografické prediktory využité v této práci lze rozdělit do dvou skupin podle toho, jak popisují prostorové fenomény. První skupina charakterizuje vztah cílové buňky k jejímu okolí pomocí pohyblivého okna 3×3 buňky, tedy lokální topografický kontext. Druhá skupina popisuje vnitřní elevační variabilitu dané buňky při převodu z jemnějšího na hrubší prostorové měřítko.
+
+Pro první skupinu byl nejprve vytvořen DEM odpovídajícícho měřítka pomocí agregace původních dat _Copernicus DEM 30_. Hodnoty byly agregovány podle mediánu. Z takto vzniklého modelu byly pomocí _terra::terrain()_ [[[citace]]] vypočteny vrstvy _slope_, _aspect_, _TPI_, _TRI_, _TRIriley_, _TRIrmsd_, _roughness_ a _flowdir_. _TPI_ vyjadřuje rozdíl mezi výškou středové buňky a průměrem okolních buněk [[[citace]]], _TRI_ průměr absolutních výškových rozdílů mezi středovou buňkou a okolím a _roughness_ rozdíl mezi maximální a minimální hodnotou v rámci pohyblivého okna. Prediktory _TRI_riley_ & _TRI_rmsd_ jsou deriváty jednoduššího _TRI_ snažící se lépe zachytit elevační variabilitu v geomorfologicky členitých oblastech. Jde o odmocninu součtu čtvercových rozdílů (_TRI_riley_) [[[citace]]] a o odmocninu průměru čtvercových rozdílů (_TRI_rmsd_) [[[citace]]].
+
+Tato skupina topografických prediktorů byla následně rozšířena o prediktory _eastness_ a _northness_ [[[citace]]] odvozené z orientace svahu (_aspect_) jako sinus, respektive kosinus orientace převedené na radiány. Tyto proměnné vyjadřují východní a severní složku orientace svahu.
+Dalším rozšířením je _HLI_ (heat load index), který byl vypočten funkcí _spatialEco::hli()_ [[[citace]]]. Tato metrika vyjadřuje potenciální teplotní zatížení svahu a kombinuje informaci o sklonu (_slope_) a aspektu (_aspect_), přičemž hodnoty se pohybují od chladnějších po teplejší loaklity. @HLI
+Posledním prediktorem počítaným pomocí pohyblivého okna byl _TWI_ (topographic wetness index), který byl vypočítán na základě směru odtoku (_flowdir_), akumulované přispívající ploše (lokální "povodí") a sklonu (_slope_) v radiánech. Výsledný index byl vypočten jako logaritmus poměru specifické přispívající plochy a tangens sklonu.
+[[[vzorec??]]]
+
+Druhá skupina zahrnuje prediktory vzniklé během agregace jemných základních dat _Copernicus DEM 30_ do hrubšího prostorového měřítka. Z originálních dat byly ‒ kromě _dem_median_, který sloužil jako podklad prediktorů první skupiny ‒ během agregace vypočteny proměnné _dem_sd_ (směrodatná odchylka nadmořských výšek), _dem_min_ (minimální nadmořská výška), _dem_max_ (maximální nadmořská výška) & _dem_range_ (rozdíl mezi maximální a minimální nadmořskou výškou).
+
+Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenitu reliéfu uvnitř jedné modelovací buňky.
+
+[[[TABULKA DEM prediktorů]]]
 
 ==== GLIM
 ==== WoSIS
@@ -297,6 +329,7 @@ Pro vyšší důvěryhodnost projekcí je proto vhodné pracovat s více klimati
 Dalším problematickým aspektem globálních klimatických modelů jsou extrapolace klimatu do hisotrických období.
 #cite(<rentier_2025>, form: "prose") ukázali, že rekonstrukce ekologických fenoménů na základě klimatických projekcí se silně odlišují mezi jednotlivými datasety i mezi rekonstrukcemi založenými na proxy ukazatelích, přičemž slabší výsledky se projevovaly u klimatických datasetů s hrubším měřítkem. 
 Chybovost klimatických modelů navíc vykazovala obecný trend k vyšším teplotám během LGM, obzvlášť v horských oblastech. @rentier_2025
+Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, asi kvůli složitému downscl který to trochu přehání[[[]]]
 
 Volba klimatického datasetu je tedy kruciální pro důvěryhodné modely současného a rekonstrukci historického rozšíření vhodných stanovišť.
 
