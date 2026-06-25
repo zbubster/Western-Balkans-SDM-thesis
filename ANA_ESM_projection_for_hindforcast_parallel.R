@@ -16,14 +16,28 @@ modelling_id <- "recent_extrapol_weights_all_selected"
 
 # id of new projection
 #projection_id <- "060_all_selected"
-projection_id <- "190_all_selected"
+#projection_id <- "190_all_selected"
+#projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp370"
+#projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp585"
+#projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp126"
+#projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp370"
+projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp585"
 
 # BACHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# pred_base_dir <- here::here(
+#   "data",
+#   "__PREDICTORS_STACKS__",
+#   "hindcast",
+#   "trace21k_-060", #################################################
+#   "selected_predictors_stacks",
+#   "extrapol"
+# )
+
 pred_base_dir <- here::here(
   "data",
   "__PREDICTORS_STACKS__",
-  "hindcast",
-  "trace21k_-190", #################################################
+  "forecast",
+  "2071-2100_MPI-ESM1-2-HR_ssp585",
   "selected_predictors_stacks",
   "extrapol"
 )
@@ -99,6 +113,7 @@ parallel::clusterExport(
 
 # PARALLEL LOOP
 
+Sys.time()
 res <- foreach::foreach(
   task_id = base::seq_len(base::nrow(tasks)),
   .packages = c(
@@ -274,7 +289,7 @@ res <- foreach::foreach(
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # save run summary
-
+Sys.time()
 base::print(res)
 
 summary_dir <- here::here(
