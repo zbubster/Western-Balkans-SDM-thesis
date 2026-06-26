@@ -37,6 +37,11 @@
 // chapter numbering
 #set heading(numbering: "1.")
 
+// tables: caption TOP
+#show figure.where(kind: table): set figure.caption(position: top)
+// figures: caption BOTTOM
+#show figure.where(kind: image): set figure.caption(position: bottom)
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // helpers
 
@@ -153,6 +158,8 @@
 #pagebreak()
 #heading(level: 1, numbering: none, outlined: false)[Přehled použitých zkratek]
 
+[[[seřadit podle abecedy]]]
+
 LGM ‒ last glacial maximum, poslední glaciální maximum
 
 HCO ‒ holocene climatic optimum, holocénní klimatické optimum
@@ -168,6 +175,8 @@ HLI
 TWI
 
 ESM
+
+GLiM
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
@@ -185,6 +194,7 @@ ESM
 
 = Úvod
 == x
+Dalším důležitým prediktorem používaným v modelech rozšíření vhodných stanovišť je informace o geologickém podloží. Zohlednění substrátu přináší do modelu důležitou informaci, jelikož ovlivňuje vlastnosti půdy, dostupnost živin, půdní reakci i vodní režim stanoviště. [[[citace]]] Zejména u rostlin tak může zachycovat ekologické gradienty, které nejsou plně postižitelné klimatickými a topografickými proměnnými, přičemž zařazení geologického substrátu do modelu může zlepšit predikci rozšíření potenciálně vhodných stanovišť, obzvlášť v horských a geologicky heterogenních územích. @chauvier_2021 @dubuis_2012
 
 blablabla studium změny klimatu je důležité
 
@@ -245,12 +255,60 @@ Posledním prediktorem počítaným pomocí pohyblivého okna byl _TWI_ (topogra
 [[[vzorec??]]]
 
 Druhá skupina zahrnuje prediktory vzniklé během agregace jemných základních dat _Copernicus DEM 30_ do hrubšího prostorového měřítka. Z originálních dat byly ‒ kromě _dem_median_, který sloužil jako podklad prediktorů první skupiny ‒ během agregace vypočteny proměnné _dem_sd_ (směrodatná odchylka nadmořských výšek), _dem_min_ (minimální nadmořská výška), _dem_max_ (maximální nadmořská výška) & _dem_range_ (rozdíl mezi maximální a minimální nadmořskou výškou).
-
 Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenitu reliéfu uvnitř jedné modelovací buňky.
 
 [[[TABULKA DEM prediktorů]]]
 
 ==== GLIM
+
+Geologické podloží je v této práci reprezentováno vrstvou GLiM (Global Lithological Map, @GLIM). Tento projekt poskytuje globální vektorovou mapu pevninských geologických jednotek.
+Pro spolehlivěší pokrytí jednotlivých skupin hornin výskytovými daty byla vrstva nejprve reklasifikována do 3 tříd: _karbonátové_, _silikátové_ a _smíšené_ podloží (viz @tab:glim). Reklasifikace proběhla po vzoru práce #cite(<chauvier_2021>, form: "prose").
+V druhém kroku byla reklasifikovaná vrstva rasterizována podle centroidu do všech využitých rozlišení buňek.
+
+#figure(
+  table(
+    columns: (1fr, 1fr),
+    inset: 4pt,
+    align: left,
+    stroke: none,
+    
+    table.hline(stroke: 1.2pt),
+
+    table.header(
+      [*Kategorie použité v této práci*
+      #linebreak()
+      podle #cite(<chauvier_2021>, form: "prose")],
+      [*Původní kategorie GLIM*
+      #linebreak()
+      podle #cite(<GLIM>, form: "prose")],
+    ),
+
+    table.hline(stroke: 0.5pt),
+    [Calcareous], [Carbonate sedimentary rocks],
+    [_karbonáty_], [Basic plutonic rocks],
+    [], [Basic volcanic rocks],
+
+    table.hline(stroke: 0.5pt),
+    [Siliceous], [Siliciclastic sedimentary rocks],
+    [_silikáty_], [Metamorphic rocks],
+    [], [Acid plutonic rocks],
+    [], [Acid volcanic rocks],
+
+    table.hline(stroke: 0.5pt),
+    [Mixed], [Unconsolidated sediments],
+    [_smíšené_], [Mixed sedimentary rocks],
+    [], [Pyroclastics],
+    [], [Evaporites],
+    [], [Intermediate plutonic rocks],
+    [], [Intermediate volcanic rocks],
+
+    table.hline(stroke: 1.2pt),
+  ),
+  caption: [
+    Přehled reklasifikace geologického podloží.
+    /*Přehled reklasifikace původních kategorií do tří základních typů geologického podloží podle práce #cite(<chauvier_2021>, form: "prose").*/]
+) <tab:glim>
+
 ==== WoSIS
 
 bez využití v temporálních projekcích
@@ -312,6 +370,8 @@ Vizualizace a kontrola výstupních rastrů probíhala v programu QGIS, verze 3.
 Computational resources were provided by the e-INFRA CZ project (ID:90254), supported by the Ministry of Education, Youth and Sports of the Czech Republic.
 
 Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese https://github.com/zbubster/Western-Balkans-SDM-thesis.
+
+[[[využití ChatGPT]]]
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
