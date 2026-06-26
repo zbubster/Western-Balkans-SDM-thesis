@@ -21,7 +21,8 @@ modelling_id <- "recent_extrapol_weights_all_selected"
 #projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp585"
 #projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp126"
 #projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp370"
-projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp585"
+#projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp585"
+#projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp126"
 
 # BACHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 # pred_base_dir <- here::here(
@@ -37,7 +38,7 @@ pred_base_dir <- here::here(
   "data",
   "__PREDICTORS_STACKS__",
   "forecast",
-  "2071-2100_MPI-ESM1-2-HR_ssp585",
+  "2071-2100_MPI-ESM1-2-HR_ssp126",
   "selected_predictors_stacks",
   "extrapol"
 )
