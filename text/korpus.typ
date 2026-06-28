@@ -270,6 +270,179 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 
 [[[TABULKA DEM prediktorů]]]
 
+#pagebreak()
+#set page(flipped: true)
+
+#{
+  //zalamovani figure pres stranky
+  show figure.where(kind: table): set block(breakable: true) 
+
+  figure(
+    table(
+      columns: (0.9fr, 1.7fr, 0.8fr, 1.8fr, 3.6fr, 1.3fr),
+      inset: 5pt,
+      align: (left, left, center, left, left, right),
+      stroke: none,
+
+      table.hline(stroke: 1.2pt),
+
+      table.header(
+        [*Zkratka*],
+        [*Plný název*],
+        [*Jednotky*],
+        [*Vzorec / způsob výpočtu*],
+        [*Slovní popis výpočtu*],
+        [*Citace*],
+      ),
+
+      table.hline(stroke: 0.5pt),
+
+      table.cell(colspan: 6)[
+        *Relativní topografické prediktory* \
+        Prediktory počítané z DEM v cílovém rozlišení: popisují vztah středové buňky k okolním buňkám v rámci pohyblivého okna.
+      ],
+
+      table.hline(stroke: 0.5pt),
+
+      [`aspect`],
+      [_Aspect_],
+      [°],
+      [Orientace svahu odvozená z lokálního gradientu DEM v okolí buňky.],
+      [Orientace svahu odvozená z lokálního gradientu DEM v okolí buňky.],
+      [balíček terra],
+
+      [`slope`],
+      [_Slope_],
+      [°],
+      [Sklon povrchu odvozený z lokálního gradientu DEM v okolí buňky.],
+      [Sklon povrchu odvozený z lokálního gradientu DEM v okolí buňky.],
+      [balíček terra],
+
+      [`eastness`],
+      [_Eastness_],
+      [–],
+      [`sin(aspect * $pi$ / 180)`],
+      [Sinus aspektu převedeného ze stupňů na radiány; vyjadřuje východo-západní složku orientace svahu.],
+      [balíček terra],
+
+      [`northness`],
+      [_Northness_],
+      [–],
+      [`cos(aspect * $pi$ / 180)`],
+      [Kosinus aspektu převedeného ze stupňů na radiány; vyjadřuje severo-jižní složku orientace svahu.],
+      [balíček terra],
+
+      [`HLI`],
+      [_Heat Load Index_],
+      [–],
+      [`hli(slope, aspect, latitude)`],
+      [Index potenciálního teplotního zatížení svahu odvozený ze sklonu, aspektu a zeměpisné polohy.],
+      [McCune a Keon 2002; balíček spatialEco],
+
+      [`flowdir`],
+      [_Flow direction_],
+      [kód],
+      [`direction of steepest downslope neighbour`],
+      [Směr odtoku určený podle sousední buňky s největším poklesem v osmiokolí.],
+      [balíček terra],
+
+      [`TWI`],
+      [_Topographic Wetness Index_],
+      [–],
+      [`ln(((A/w) + 0.000001) / tan(slope))`],
+      [Logaritmický poměr specifické přispívající plochy a sklonu svahu; vyšší hodnoty indikují potenciálně vlhčí místa.],
+      [Beven a Kirkby 1979; vlastní výpočet],
+
+      [`TPI`],
+      [_Topographic Position Index_],
+      [m],
+      [`z0 - mean(zi)`],
+      [Rozdíl mezi výškou středové buňky a průměrnou výškou okolních buněk v okně 3 × 3.],
+      [balíček terra],
+
+      [`roughness`],
+      [_Roughness_],
+      [m],
+      [$max(z_0, z_i) - min(z_0, z_i)$],
+      [Rozdíl mezi nejvyšší a nejnižší hodnotou výšky v okolí 3 × 3 buněk.],
+      [balíček terra],
+
+      [`TRI`],
+      [_Terrain Ruggedness Index_],
+      [m],
+      [$(1 / n) sum_i abs(z_0 - z_i)$],
+      [Průměr absolutních výškových rozdílů mezi středovou buňkou a okolními buňkami.],
+      [balíček terra],
+
+      [`TRI_riley`],
+      [_Terrain Ruggedness Index -- Riley_],
+      [m],
+      [$sqrt(sum_i (z_0 - z_i)^2)$],
+      [Odmocnina ze součtu čtvercových výškových rozdílů mezi středovou buňkou a okolními buňkami.],
+      [Riley et al. 1999],
+
+      [`TRI_rmsd`],
+      [_Terrain Ruggedness Index -- RMSD_],
+      [m],
+      [$sqrt((1 / n) sum_i (z_0 - z_i)^2)$],
+      [Odmocnina z průměru čtvercových výškových rozdílů mezi středovou buňkou a okolními buňkami.],
+      [balíček terra],
+
+      table.hline(stroke: 0.5pt),
+
+      table.cell(colspan: 6)[
+        *Agregační topografické prediktory* \
+        Prediktory vzniklé během agregace originálních dat do cílového rozlišení: popisují elevační variabilitu uvnitř jedné modelovací buňky.
+      ],
+
+      table.hline(stroke: 0.5pt),
+
+      [`dem_median`],
+      [_Median elevation_],
+      [m],
+      [`median(zj)`],
+      [Medián výšek 20m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [vlastní výpočet],
+
+      [`dem_sd`],
+      [_Elevation standard deviation_],
+      [m],
+      [`sd(zj)`],
+      [Směrodatná odchylka výšek 20m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [vlastní výpočet],
+
+      [`dem_max`],
+      [_Maximum elevation_],
+      [m],
+      [$max(z_j)$],
+      [Maximální výška 20m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [vlastní výpočet],
+
+      [`dem_min`],
+      [_Minimum elevation_],
+      [m],
+      [$min(z_j)$],
+      [Minimální výška 20m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [vlastní výpočet],
+
+      [`dem_range`],
+      [_Elevation range_],
+      [m],
+      [$max(z_j) - min(z_j)$],
+      [Rozdíl mezi maximální a minimální výškou 20m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [vlastní výpočet],
+
+      table.hline(stroke: 1.2pt),
+    ),
+    caption: [
+      Přehled topografických prediktorů odvozených z digitálního modelu reliéfu.
+    ]
+  )
+} <tab:dem-predictors>
+
+#pagebreak()
+#set page(flipped: false)
+
 ==== GLIM
 
 Geologické podloží je v této práci reprezentováno vrstvou GLiM (Global Lithological Map, @GLIM). Tento projekt poskytuje globální vektorovou mapu pevninských geologických jednotek.
@@ -323,11 +496,15 @@ V druhém kroku byla reklasifikovaná vrstva rasterizována podle centroidu do v
 ==== WoSIS
 
 Pro doplnění prediktorové sádky o informaci o půdních poměrech byly použity tři vrstvy z databáze _SoilGrids250m_ @soilgrids_250m.
-Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v centimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10. 
+Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v centimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10.
+
+Vzhledem k tomu, že originální data jsou poskytována v hrubším měřítku, než nejjemnější měřítko využité v této práci.
 
 [[[bez využití v temporálních projekcích]]]
 
 ==== Landcover
+
+@landcover_data
 
 bez využití v temporálních projekcích
 
@@ -381,13 +558,38 @@ _collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _p
 
 Vizualizace a kontrola výstupních rastrů probíhala v programu QGIS, verze 3.28.9 ‒ Firenze @QGIS_software.
 
+#line(length: 100%)
+
 Část výpočtů byla provedena s využitím výpočetních zdrojů MetaCentra.
-#linebreak()
-Computational resources were provided by the e-INFRA CZ project (ID:90254), supported by the Ministry of Education, Youth and Sports of the Czech Republic.
+
+#align(
+  left
+)[
+  #block(
+    width: 80%
+  )[
+    Computational resources were provided by the e-INFRA CZ project (ID:90254), supported by the Ministry of Education, Youth and Sports of the Czech Republic.
+  ]
+]
+
+#line(length: 100%)
+
+Prohlašuji, že při přípravě předložené práce byly použity následující nástroje AI uvedenými způsoby:
+
+#align(
+  left
+)[
+  #block(
+    width: 80%
+  )[
+    *ChatGPT* v období *1. 11. 2025 – 7. 8. 2026*, popis použití: generování kódu k analýze dat, generování kódu využitého k sazbě práce, vyhledávání publikací a zpracování výtahů z nich.
+  ]
+]
+Po použití uvedených nástrojů umělé inteligence jsem důkladně revidoval a upravil obsah podle potřeby a plně přejímám odpovědnost za výslednou podobu práce.
+
+#line(length: 100%)
 
 Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese https://github.com/zbubster/Western-Balkans-SDM-thesis.
-
-[[[využití ChatGPT]]]
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
