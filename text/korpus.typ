@@ -34,6 +34,9 @@
   ),
 )
 
+// words splitting on the end of the line turned off
+#set text(hyphenate: false)
+
 // chapter numbering
 #set heading(numbering: "1.")
 
@@ -256,42 +259,43 @@ Tento model je odvozen z dat mise dálkového průzkumu Země TanDEM-X a poskytu
 
 Data byla získána prostřednictvím prostorového požadavku ve službě Copernicus Data Space Ecosystem @CDSE zprostředkovaného _openEO_ klientem v prostředí R. @openeo_R Stažené rastrové dlaždice byly následně sloučeny do mozaiky, oříznuty a maskovány polygonem zájmového území.
 
-Topografické prediktory využité v této práci lze rozdělit do dvou skupin podle toho, jak popisují prostorové fenomény. První skupina charakterizuje vztah cílové buňky k jejímu okolí pomocí pohyblivého okna 3*3 buňky, tedy lokální topografický kontext. Druhá skupina popisuje vnitřní elevační variabilitu dané buňky při převodu z jemnějšího na hrubší prostorové měřítko.
+Topografické prediktory využité v této práci lze rozdělit do dvou skupin podle toho, jak popisují prostorové fenomény. První skupina charakterizuje vztah cílové buňky k jejímu okolí pomocí pohyblivého okna 3*3 buňky, tedy lokální topografický kontext. Druhá skupina popisuje vnitřní elevační variabilitu dané buňky při převodu z jemnějšího na hrubší prostorové měřítko. Přehled topografických prediktorů viz @tab:dem.
 
-Pro první skupinu byl nejprve vytvořen DEM odpovídajícícho měřítka pomocí agregace původních dat _Copernicus DEM 30_. Hodnoty byly agregovány podle mediánu. Z takto vzniklého modelu byly pomocí _terra::terrain()_ [[[citace]]] vypočteny vrstvy _slope_, _aspect_, _TPI_, _TRI_, _TRIriley_, _TRIrmsd_, _roughness_ a _flowdir_. _TPI_ vyjadřuje rozdíl mezi výškou středové buňky a průměrem okolních buněk [[[citace]]], _TRI_ průměr absolutních výškových rozdílů mezi středovou buňkou a okolím a _roughness_ rozdíl mezi maximální a minimální hodnotou v rámci pohyblivého okna. Prediktory _TRI_riley_ & _TRI_rmsd_ jsou deriváty jednoduššího _TRI_ snažící se lépe zachytit elevační variabilitu v geomorfologicky členitých oblastech. Jde o odmocninu součtu čtvercových rozdílů (_TRI_riley_) [[[citace]]] a o odmocninu průměru čtvercových rozdílů (_TRI_rmsd_) [[[citace]]].
+Pro první skupinu byl nejprve vytvořen DEM odpovídajícícho měřítka pomocí agregace původních dat _Copernicus DEM 30_. Hodnoty byly agregovány podle mediánu. Z takto vzniklého modelu byly pomocí _terra::terrain()_ @terra vypočteny vrstvy _slope_, _aspect_, _TPI_, _TRI_, _TRIriley_, _TRIrmsd_, _roughness_ a _flowdir_.
+_TPI_ vyjadřuje rozdíl mezi výškou středové buňky a průměrem okolních buněk @TPI_weiss2001. Kladné hodnoty indexu značí lokálně vyvýšené pozice, například hřbety, a záporné hodnoty lokální sníženiny. Hodnoty okolo nuly představují plochý terén. 
+_TRI_ průměr absolutních výškových rozdílů mezi středovou buňkou a okolím a _roughness_ rozdíl mezi maximální a minimální hodnotou v rámci pohyblivého okna. Prediktory _TRI_riley_ & _TRI_rmsd_ jsou deriváty jednoduššího _TRI_ snažící se lépe zachytit elevační variabilitu v geomorfologicky členitých oblastech. Jde o odmocninu součtu čtvercových rozdílů (_TRI_riley_, @TRI) a o odmocninu průměru čtvercových rozdílů (_TRI_rmsd_, @wilson_2007_GDAL).
 
-Tato skupina topografických prediktorů byla následně rozšířena o prediktory _eastness_ a _northness_ [[[citace]]] odvozené z orientace svahu (_aspect_) jako sinus, respektive kosinus orientace převedené na radiány. Tyto proměnné vyjadřují východní a severní složku orientace svahu.
-Dalším rozšířením je _HLI_ (heat load index), který byl vypočten funkcí _spatialEco::hli()_ [[[citace]]]. Tato metrika vyjadřuje potenciální teplotní zatížení svahu a kombinuje informaci o sklonu (_slope_) a aspektu (_aspect_), přičemž hodnoty se pohybují od chladnějších po teplejší loaklity. @HLI
-Posledním prediktorem počítaným pomocí pohyblivého okna byl _TWI_ (topographic wetness index), který byl vypočítán na základě směru odtoku (_flowdir_), akumulované přispívající ploše (lokální "povodí") a sklonu (_slope_) v radiánech. Výsledný index byl vypočten jako logaritmus poměru specifické přispívající plochy a tangens sklonu.
-[[[vzorec??]]]
+Tato skupina topografických prediktorů byla následně rozšířena o prediktory _eastness_ a _northness_ odvozené z orientace svahu (_aspect_) jako sinus, respektive kosinus orientace svahu převedené na radiány. Tyto proměnné vyjadřují východo-západní a severo-jižní složky orientace svahu. V navazujících modelech byly použity jako zástupné prediktory za _aspect_ samotný, jelikož tento prediktor vykazuje kruhový charakter (359°`~`1°) a není vhodný pro běžné algoritmy.
+Dalším rozšířením je _HLI_ (heat load index, @HLI), který byl vypočten funkcí _spatialEco::hli()_ @spatialEco. Tato metrika vyjadřuje potenciální teplotní zatížení svahu a kombinuje informaci o sklonu (_slope_) a aspektu (_aspect_), přičemž hodnoty se pohybují od chladnějších po teplejší loaklity. @HLI
+Posledním prediktorem počítaným pomocí pohyblivého okna byl _TWI_ (topographic wetness index, @TWI), který byl vypočítán na základě směru odtoku (_flowdir_), akumulované přispívající ploše (lokální "povodí") a sklonu (_slope_) v radiánech. Výsledný index byl vypočten jako logaritmus poměru specifické přispívající plochy a tangens sklonu.
 
 Druhá skupina zahrnuje prediktory vzniklé během agregace jemných základních dat _Copernicus DEM 30_ do hrubšího prostorového měřítka. Z originálních dat byly ‒ kromě _dem_median_, který sloužil jako podklad prediktorů první skupiny ‒ během agregace vypočteny proměnné _dem_sd_ (směrodatná odchylka nadmořských výšek), _dem_min_ (minimální nadmořská výška), _dem_max_ (maximální nadmořská výška) & _dem_range_ (rozdíl mezi maximální a minimální nadmořskou výškou).
 Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenitu reliéfu uvnitř jedné modelovací buňky.
 
-[[[TABULKA DEM prediktorů]]]
-
 #pagebreak()
 #set page(flipped: true)
 
-#{
+#[
   //zalamovani figure pres stranky
-  show figure.where(kind: table): set block(breakable: true) 
+  #show figure.where(kind: table): set block(breakable: true) 
 
-  figure(
+  #figure(
     table(
-      columns: (0.9fr, 1.7fr, 0.8fr, 1.8fr, 3.6fr, 1.3fr),
-      inset: 5pt,
-      align: (left, left, center, left, left, right),
+      columns: (10%, 15%, 7%, 15%, 40%, 13%),
+      //columns: (0.9fr, 1.7fr, 0.8fr, 1.8fr, 3.6fr, 1.5fr),
+      align: (left, left, center, center, left, right),
+      inset: 4.5583pt,
       stroke: none,
+      //stroke: red,
 
       table.hline(stroke: 1.2pt),
 
       table.header(
         [*Zkratka*],
-        [*Plný název*],
+        [*Název*],
         [*Jednotky*],
-        [*Vzorec / způsob výpočtu*],
-        [*Slovní popis výpočtu*],
+        [*Způsob výpočtu*],
+        [*Popis výpočtu*],
         [*Citace*],
       ),
 
@@ -306,87 +310,87 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 
       [`aspect`],
       [_Aspect_],
-      [°],
-      [Orientace svahu odvozená z lokálního gradientu DEM v okolí buňky.],
-      [Orientace svahu odvozená z lokálního gradientu DEM v okolí buňky.],
-      [balíček terra],
+      [stupně],
+      [_terra::terrain_],
+      [Orientace svahu odvozená z relativní elevace okolních buňek.],
+      [#cite(<terra>, form: "prose"), #cite(<slope_aspect_neigh8>, form: "prose")],
 
       [`slope`],
       [_Slope_],
-      [°],
-      [Sklon povrchu odvozený z lokálního gradientu DEM v okolí buňky.],
-      [Sklon povrchu odvozený z lokálního gradientu DEM v okolí buňky.],
-      [balíček terra],
+      [stupně],
+      [_terra::terrain_],
+      [Sklon povrchu odvozený z relativní elevace okolních buňek.],
+      [#cite(<terra>, form: "prose"), #cite(<slope_aspect_neigh8>, form: "prose")],
 
       [`eastness`],
       [_Eastness_],
-      [–],
-      [`sin(aspect * $pi$ / 180)`],
-      [Sinus aspektu převedeného ze stupňů na radiány; vyjadřuje východo-západní složku orientace svahu.],
-      [balíček terra],
+      [‒],
+      [sin(aspect)],
+      [Sinus aspektu v radiánech; vyjadřuje východo-západní složku orientace svahu.],
+      [‒],
 
       [`northness`],
       [_Northness_],
-      [–],
-      [`cos(aspect * $pi$ / 180)`],
-      [Kosinus aspektu převedeného ze stupňů na radiány; vyjadřuje severo-jižní složku orientace svahu.],
-      [balíček terra],
+      [‒],
+      [cos(aspect)],
+      [Kosinus aspektu v radiánech; vyjadřuje severo-jižní složku orientace svahu.],
+      [‒],
 
       [`HLI`],
       [_Heat Load Index_],
-      [–],
-      [`hli(slope, aspect, latitude)`],
-      [Index potenciálního teplotního zatížení svahu odvozený ze sklonu, aspektu a zeměpisné polohy.],
-      [McCune a Keon 2002; balíček spatialEco],
+      [‒],
+      [_spatialEco::hli_],
+      [Index potenciálního teplotního zatížení svahu odvozený ze sklonu, orientace a zeměpisné šířky.],
+      [#cite(<spatialEco>, form: "prose"), #cite(<HLI>, form: "prose")],
 
       [`flowdir`],
       [_Flow direction_],
-      [kód],
-      [`direction of steepest downslope neighbour`],
-      [Směr odtoku určený podle sousední buňky s největším poklesem v osmiokolí.],
-      [balíček terra],
+      [‒],
+      [_terra::terrain_],
+      [Směr odtoku určený podle sousední buňky s nejmenší elevací.],
+      [#cite(<terra>, form: "prose")],
 
       [`TWI`],
       [_Topographic Wetness Index_],
-      [–],
-      [`ln(((A/w) + 0.000001) / tan(slope))`],
-      [Logaritmický poměr specifické přispívající plochy a sklonu svahu; vyšší hodnoty indikují potenciálně vlhčí místa.],
-      [Beven a Kirkby 1979; vlastní výpočet],
+      [‒],
+      [$ln(a / tan(beta))$],
+      [Logaritmický poměr specifické přispívající plochy $a$ a sklonu svahu $beta$; vyšší hodnoty indikují potenciálně vlhčí místa.],
+      [#cite(<TWI>, form: "prose")],
 
       [`TPI`],
       [_Topographic Position Index_],
-      [m],
-      [`z0 - mean(zi)`],
-      [Rozdíl mezi výškou středové buňky a průměrnou výškou okolních buněk v okně 3 × 3.],
-      [balíček terra],
+      [metry],
+      [$z_0 - 1/8 sum_(i=1)^8 z_i$],
+      [Rozdíl mezi výškou středové buňky a průměrnou výškou okolních buněk.],
+      [#cite(<terra>, form: "prose"), #cite(<TPI_weiss2001>, form: "prose"), #cite(<wilson_2007_GDAL>, form: "prose")],
 
       [`roughness`],
       [_Roughness_],
-      [m],
+      [metry],
       [$max(z_0, z_i) - min(z_0, z_i)$],
-      [Rozdíl mezi nejvyšší a nejnižší hodnotou výšky v okolí 3 × 3 buněk.],
-      [balíček terra],
+      [Rozdíl mezi nejvyšší a nejnižší hodnotou výšky v rámci pohyblivého okna.],
+      [#cite(<terra>, form: "prose"), #cite(<wilson_2007_GDAL>, form: "prose")],
 
       [`TRI`],
       [_Terrain Ruggedness Index_],
-      [m],
-      [$(1 / n) sum_i abs(z_0 - z_i)$],
-      [Průměr absolutních výškových rozdílů mezi středovou buňkou a okolními buňkami.],
-      [balíček terra],
+      [metry],
+      [$(1 / n) sum_i abs(z_0 - z_i)$ #v(0.1pt) _terra::terrain_],
+      [Průměr absolutních výškových rozdílů mezi středovou buňkou a okolím.],
+      [#cite(<terra>, form: "prose"), #cite(<wilson_2007_GDAL>, form: "prose")],
 
       [`TRI_riley`],
       [_Terrain Ruggedness Index -- Riley_],
-      [m],
-      [$sqrt(sum_i (z_0 - z_i)^2)$],
+      [metry],
+      [$sqrt(sum_i (z_0 - z_i)^2)$ #v(0.1pt) _terra::terrain_],
       [Odmocnina ze součtu čtvercových výškových rozdílů mezi středovou buňkou a okolními buňkami.],
-      [Riley et al. 1999],
+      [#cite(<terra>, form: "prose"), #cite(<TRI>, form: "prose")],
 
       [`TRI_rmsd`],
       [_Terrain Ruggedness Index -- RMSD_],
-      [m],
-      [$sqrt((1 / n) sum_i (z_0 - z_i)^2)$],
+      [metry],
+      [$sqrt((1 / n) sum_i (z_0 - z_i)^2)$ #v(0.1pt) _terra::terrain_],
       [Odmocnina z průměru čtvercových výškových rozdílů mezi středovou buňkou a okolními buňkami.],
-      [balíček terra],
+      [#cite(<terra>, form: "prose"), #cite(<wilson_2007_GDAL>, form: "prose")],
 
       table.hline(stroke: 0.5pt),
 
@@ -399,46 +403,46 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 
       [`dem_median`],
       [_Median elevation_],
-      [m],
-      [`median(zj)`],
-      [Medián výšek 20m buněk agregovaných do jedné buňky cílového rozlišení.],
-      [vlastní výpočet],
+      [metry],
+      [median(z#sub("j"))],
+      [Medián elevací 30m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [‒],
 
       [`dem_sd`],
       [_Elevation standard deviation_],
-      [m],
-      [`sd(zj)`],
-      [Směrodatná odchylka výšek 20m buněk agregovaných do jedné buňky cílového rozlišení.],
-      [vlastní výpočet],
+      [metry],
+      [sd(z#sub("j"))],
+      [Směrodatná odchylka elevací 30m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [‒],
 
       [`dem_max`],
       [_Maximum elevation_],
-      [m],
+      [metry],
       [$max(z_j)$],
-      [Maximální výška 20m buněk agregovaných do jedné buňky cílového rozlišení.],
-      [vlastní výpočet],
+      [Maximální elevace 30m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [‒],
 
       [`dem_min`],
       [_Minimum elevation_],
-      [m],
+      [metry],
       [$min(z_j)$],
-      [Minimální výška 20m buněk agregovaných do jedné buňky cílového rozlišení.],
-      [vlastní výpočet],
+      [Minimální elevace 30m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [‒],
 
       [`dem_range`],
       [_Elevation range_],
-      [m],
+      [metry],
       [$max(z_j) - min(z_j)$],
-      [Rozdíl mezi maximální a minimální výškou 20m buněk agregovaných do jedné buňky cílového rozlišení.],
-      [vlastní výpočet],
+      [Rozdíl mezi maximální a minimální elevací 30m buněk agregovaných do jedné buňky cílového rozlišení.],
+      [‒],
 
       table.hline(stroke: 1.2pt),
     ),
     caption: [
-      Přehled topografických prediktorů odvozených z digitálního modelu reliéfu.
+      Přehled topografických prediktorů odvozených z digitálního modelu reliéfu DEM. Ve vzorcích $z_0$ reprezentuje elevaci buňky, pro kterou je daný parametr počítán, $z_i$ ukazuje na sousední buňky v rámci pohyblivého okna a $z_j$ se vztahuje k buňkám, které byly agregovány do menšího rozlišení.
     ]
-  )
-} <tab:dem-predictors>
+  ) <tab:dem>
+]
 
 #pagebreak()
 #set page(flipped: false)
@@ -499,6 +503,8 @@ Pro doplnění prediktorové sádky o informaci o půdních poměrech byly použ
 Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v centimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10.
 
 Vzhledem k tomu, že originální data jsou poskytována v hrubším měřítku, než nejjemnější měřítko využité v této práci.
+bilinear,
+pak mean
 
 [[[bez využití v temporálních projekcích]]]
 
@@ -622,7 +628,8 @@ Modely je obecně potřeba interpretovat s opatrností.
 // literatura
 #pagebreak()
 = Literatura
-
+#v(12pt)
 #bibliography(
   "lit/literatura.bib",
-  style: "copernicus")
+  style: "copernicus",
+  title: none)
