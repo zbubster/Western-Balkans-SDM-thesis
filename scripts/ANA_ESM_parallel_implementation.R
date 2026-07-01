@@ -9,15 +9,16 @@ source(fun_file)
 
 # main config
 #grains <- c(1000, 500, 200, 100)
-grains <- c(100)
-#species <- c("GD", "GT", "SB", "PK", "PO", "PP")
+#grains <- c(500)
+grains <- c(200, 100)
+species <- c("GD", "GT", "SB", "PK", "PO", "PP")
 #species <- c("SB", "PO", "PK")
 #species <- c("SB")
-species <- c("GD", "GT", "PK")
-modelling_id <- "recent_extrapol_weights_all_selected"
+#species <- c("GD", "GT", "PK")
+modelling_id <- "recent_noextrapol_weights_common"
 occ_base_dir <- here::here("data", "__ANALYSIS__", "OCC", "weights")
-pred_base_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "extrapol")
-collinearity_type <- "_all_selected"
+pred_base_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "noextrapol")
+collinearity_type <- "_common"
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
