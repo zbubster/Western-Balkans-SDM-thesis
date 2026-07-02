@@ -162,6 +162,7 @@
 #heading(level: 1, numbering: none, outlined: false)[Přehled použitých zkratek]
 
 [[[seřadit podle abecedy]]]
+[[[převést na tabulku]]]
 
 LGM ‒ last glacial maximum, poslední glaciální maximum
 
@@ -180,6 +181,10 @@ TWI
 ESM
 
 GLiM
+
+SDM ‒ species distribution modelling, modelování rozšíření druhů,
+#linebreak() #h(50pt) 
+modelování rozšíření potenciálně vhodných stanovišť
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
@@ -228,9 +233,17 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 vlastní sběr, TN, váhy udělené outsource datům
 
 === Modelovací prediktory
-==== CHELSA
 
-[[[bio01-bio19, scd]]]
+V rámci této práce byly k trénování modelů rozšíření vhodných stanovišť využity prediktory z pěti základních skupin:
++ *klimatické* prediktory charakterizující na hrubém měřítku variabilitu teploty a srážek
++ *topografické* prediktory jejichž účelem je postihnout jemnější variabilitu mikrostanovišťních podmínek
++ *horninový* substrát sloužící jako základní charakteristika geologických poměrů na regionální úrovni
++ *půdní* prediktory rozvíjejí informaci o půdních poměrech na úrovni lokalit a je možné považovat je za ekologicky relevantnější než samotný geologický substrát [[[zdroj]]]
++ *krajinný pokryv* klasifikuje povrch Země do základních kategorií [[[louka-les]]] a jako jediný prediktor přináší do modelů informaci, která je vzdáleně schopna charakterizovat ovlivnění rozšíření vhodných stanovišť biotickými faktory [[[zdroj]]]
+
+==== Klimatické prediktory
+
+[[[bio01-bio19, scd TABULKA]]]
 
 Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
@@ -252,7 +265,7 @@ S ohledem na zachování metodické konzistence mezi jednotlivými časovými ř
 
 [[[process využití v diplomce]]]
 
-==== Copernicus DEM
+==== Topografické prediktory
 
 Pro analýzu topografie byl v této práci použit globální elevační dataset _Copernicus DEM 30_ s prostorovým rozlišením 30 m#super([2]). @copernicus_DEM
 Tento model je odvozen z dat mise dálkového průzkumu Země TanDEM-X a poskytuje tak nejpřesnější prostorové i absolutní zaměření poměrů na daných lokalitách mezi prediktory využitými v této práci.
@@ -447,7 +460,7 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 #pagebreak()
 #set page(flipped: false)
 
-==== GLIM
+==== Horninový substrát
 
 Geologické podloží je v této práci reprezentováno vrstvou GLiM (Global Lithological Map, @GLIM). Tento projekt poskytuje globální vektorovou mapu pevninských geologických jednotek.
 Pro spolehlivěší pokrytí jednotlivých skupin hornin výskytovými daty byla vrstva nejprve reklasifikována do 3 tříd: _karbonátové_, _silikátové_ a _smíšené_ podloží (viz @tab:glim). Reklasifikace proběhla po vzoru práce #cite(<chauvier_2021>, form: "prose").
@@ -497,22 +510,25 @@ V druhém kroku byla reklasifikovaná vrstva rasterizována podle centroidu do v
     /*Přehled reklasifikace původních kategorií do tří základních typů geologického podloží podle práce #cite(<chauvier_2021>, form: "prose").*/]
 ) <tab:glim>
 
-==== WoSIS
+==== Půdní prediktory
 
 Pro doplnění prediktorové sádky o informaci o půdních poměrech byly použity tři vrstvy z databáze _SoilGrids250m_ @soilgrids_250m.
 Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v centimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10.
 
-Vzhledem k tomu, že originální data jsou poskytována v hrubším měřítku, než nejjemnější měřítko využité v této práci.
-bilinear,
-pak mean
+Vzhledem k tomu, že originální data jsou poskytována v hrubším měřítku, než nejjemnější měřítko využité v této práci, byla data pro rozlišení 100 a 200 m interpolována pomocí bilineární funkce. V případě agregace originálních dat do rozlišení 500 a 1000 m byl vypočítán průměr hodnot původních buňek.
 
-[[[bez využití v temporálních projekcích]]]
+Vzhledem k tomu, že půdní charakteristiky jsou v čase relativně dynamické, byly tyto prediktory využity pouze k trénování modelů, jejichž účelem nebylo extrapolovat rozšíření vhodných stanovišť do historických podmínek, případně do budoucnosti, ale pouze charakterizovat co nejvěrněji současné rozšíření.
 
-==== Landcover
+==== Krajinný pokryv
 
-@landcover_data
+Krajinný pokryv je v této práci reprezentován datasetem ESA WorldCover 2021. Tato data představují globální klasifikaci zemského povrchu v prostorovém rozlišení 10 m založenou na snímcích družic Sentinel-1 a Sentinel-2 @landcover_data. Dataset byl v této práci použit jako kategorický prediktor zachycující současný biotopový stav lokalit.
 
-bez využití v temporálních projekcích
+Data byla ručně stažena na základě prostorového dotazu z oficiálních #link("https://esa-worldcover.org/en")[stránek projektu].
+Připravené dlaždice byly nejprve sloučeny do jedné mozaiky, oříznuty a maskovány polygonem studovaného území a následně reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe. Základní vrstva byla dále informovaně agregována do rozlišení 100, 200, 500 a 1000 m podle modální hodnoty, přičemž byla zvýhodňována kategorie _bare/sparse vegetation_: v případě, že v buňce cílového rozlišení činil podíl této kategorie alespoň 5 %, byla celá buňka klasifikována jako _bare/sparse vegetation_. Tento postup měl omezit ztrátu prostorově málo rozsáhlých, avšak pro horské druhy potenciálně významných otevřených stanovišť při převodu do hrubšího rozlišení.
+
+[[[kategorie LC]]]
+
+Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená na datech dálkového průzkumu Země a jde tudíž o prostorově velmi přesný produkt s poměrně vysokou rozlišovací přesností. Určitou nevýhodou pro využití v SDM je ‒ podobně jako u půdních prediktorů ‒ nepřenositelnost v čase. Z tohoto důvodu nebyl krajinný pokryv zařazen do modelů určených pro temporální extrapolaci.
 
 == Příprava dat
 === Modelovací měřítko GRAIN
@@ -596,6 +612,8 @@ Po použití uvedených nástrojů umělé inteligence jsem důkladně revidoval
 #line(length: 100%)
 
 Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese https://github.com/zbubster/Western-Balkans-SDM-thesis.
+
+[[[vytvořit release a odkazovat na něj]]]
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
