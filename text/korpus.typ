@@ -202,6 +202,8 @@ MARS ‒ multivariate adaptive regression splines
 
 GAM ‒ generalized additive models, zobecněné aditivní modely
 
+AUC ‒ area under the receiver operating characteristic curve, plocha pod ROC křivkou
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
 
@@ -259,8 +261,6 @@ V rámci této práce byly k trénování modelů rozšíření vhodných stanov
 
 ==== Klimatické prediktory
 
-[[[bio01-bio19, scd TABULKA]]]
-
 Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
 [[[možná do úvodu?? ↑↑↑]]]
@@ -270,6 +270,73 @@ V této práci byl zvolen dataset CHELSA @chelsa_bioclim_model @chelsa_bioclim_d
 Dataset CHELSA-BIOCLIM je globální klimatický dataset s vysokým prostorovým rozlišením 30 úhlových sekund (cca 1 km#super([2])).
 Vychází z hrubších klimatických dat, která jsou zpřesněna pomocí topografických modelů, jejichž využití umožňuje kromě výpočtu vlivu nadmořské výšky i zohlednění topografické sitace na proudění vzduchu. V táto práci jsou využity bioklimatické charakteristiky podchycující roční a sezónní variability klimatu v prostoru (bio01-bio19). @chelsa_bioclim_model
 Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je na daném místě přítomna sněhová pokrývka (snow cover days, scd).
+
+#figure(
+  table(
+    //columns: (0.8fr, 1.2fr, 4.5fr),
+    columns: (10%, 20%, 70%),
+    inset: 4pt,
+    align: (left + horizon, center + horizon, left),
+    stroke: none,
+
+    table.hline(stroke: 1.2pt),
+
+    table.header(
+      [*Kód*],
+      [*Jednotky*],
+      [*Význam*],
+    ),
+
+    table.hline(stroke: 0.5pt),
+
+    [bio01], [°C], [Průměrná roční teplota vypočítaná jako průměr průměrných měsíčních teplot za celý rok.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio02], [°C], [Průměrný denní teplotní rozsah vypočítaný jako průměr měsíčních rozdílů mezi maximální a minimální denní teplotou (_tasmax − tasmin_).],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio03], [°C], [Isotermalita: 100 × bio02 / bio07; porovnává denní teplotní variabilitu s ročním teplotním rozsahem.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio04], [°C/100], [Teplotní sezonalita vyjádřená směrodatnou odchylkou průměrných měsíčních teplot.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio05], [°C], [Nejvyšší měsíční průměr denních maximálních teplot (_tasmax_) v průběhu roku; vyjadřuje extrémní teplotní podmínky v nejteplejším období.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio06], [°C], [Nejnižší měsíční průměr denních minimálních teplot (_tasmin_) v průběhu roku; charakterizuje intenzitu zimního chladu.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio07], [°C], [Roční teplotní rozsah vypočítaný jako bio05 − bio06; vyjadřuje rozdíl mezi nejteplejším a nejchladnějším měsícem.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio08], [°C], [Průměrná měsíční teplota během nejvlhčího tříměsíčního období roku.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio09], [°C], [Průměrná měsíční teplota během nejsuššího tříměsíčního období roku.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio10], [°C], [Průměrná měsíční teplota během nejteplejšího tříměsíčního období roku.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio11], [°C], [Průměrná měsíční teplota během nejchladnějšího tříměsíčního období roku.],
+
+    table.hline(stroke: 0.75pt),
+
+    [bio12], [$"kg" m^(-2) "rok"^(-1)$], [Součet měsíčních úhrnů srážek za celý rok.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio13], [$"kg" m^(-2) "měsíc"^(-1)$], [Nejvyšší měsíční úhrn srážek.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio14], [$"kg" m^(-2) "měsíc"^(-1)$], [Nejnižší měsíční úhrn srážek.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio15], [$"kg" m^(-2)$], [Koeficient variability měsíčních úhrnů srážek vypočítaný jako 100 × směrodatná odchylka / průměr.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio16], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejvlhčího tříměsíčního období roku.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio17], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejsuššího tříměsíčního období roku.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio18], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejteplejšího tříměsíčního období roku.],
+    table.hline(start: 2, end: 3, stroke: 0.25pt),
+    [bio19], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejchladnějšího tříměsíčního období roku.],
+
+    table.hline(stroke: 0.75pt),
+
+    [scd], [dny], [Počet dní v roce, kdy je na zemském povrchu přítomna sněhová pokrývka.],
+
+    table.hline(stroke: 1.2pt),
+  ),
+  caption: [Přehled použitých bioklimatických prediktorů datasetů CHELSA-BIOCLIM a CHELSA-TraCE21k-bioclim.]
+) <tab:chelsa>
 
 Kromě charakterizace současného klimatu poskytuje dataset CHELSA-BIOCLIM i pro tři časové řezy (2011–2040, 2041–2070 & 2071–2100) modely extrapolující klima do budoucnosti (tzv. earth system models: GFDL-ESM4,
 IPSL-CM6A-LR, MPI-ESM 1-2-HR, MRI-ESM2-0,
@@ -559,9 +626,7 @@ druh, grain, colinearity set, purpose
 
 == Modelování vhodnosti stanoviště
 
-koncep ESM, fitování modelu, algoritmy
-
-Modely druhového rozšíření byly vytvářeny metodou ensemble of small models (_ESM_) podle metodiky [[[]]]. Tento přístup byl zvolen kvůli relativně malému počtu pozorování modelovaných druhů a současně potřebě pracovat s větším množstvím environmentálních prediktorů. Vytvoření jednoho komplexního modelu obsahujícího všechny prediktory současně by v takové situaci mohlo vést k overfittingu. Metoda ESM tomuto riziku předchází tak, že namísto jednoho komplexního modelu vytváří všechny možné kombinace jednoduchých bivariátních modelů, které jsou testovány samostatně [[[]]].
+Modely druhového rozšíření byly vytvářeny metodou ensemble of small models (_ESM_) podle metodiky #cite(<breiner_2015>, form: "prose"). Tento přístup byl zvolen kvůli relativně malému počtu pozorování modelovaných druhů a současně potřebě pracovat s větším množstvím environmentálních prediktorů. Vytvoření jednoho komplexního modelu obsahujícího všechny prediktory současně by v takové situaci mohlo vést k overfittingu. Metoda ESM tomuto riziku předchází tak, že namísto jednoho komplexního modelu vytváří všechny možné kombinace jednoduchých bivariátních modelů, které jsou testovány samostatně @lomba_2010 @breiner_2015.
 
 Modelování probíhalo samostatně pro jednotlivé druhy a pro jednotlivá prostorová rozlišení prediktorů. Nejprve byly k bodovým výskytovým datům přiřazeny hodnoty všech prediktorů z příslušného souboru prediktorů. Každý záznam tak obsahoval informaci o presenci nebo absenci druhu, koordináty, váhu observace a hodnoty environmentálních prediktorů. Záznamy, pro které nebyla dostupná hodnota některého z použitých prediktorů, byly vyloučeny. Kategorické prediktory byly pro účely modelování převedeny na faktory.
 
@@ -573,11 +638,11 @@ $
 
 Pro všechny rostlinné druhy a pro všechna rozlišení prediktorů bo použito těchto 6 algoritmů: zobecněné lineární modely (_GLM_, #cite(<R>, form: "prose")), boosted regression trees (_GBM_, #cite(<gbm>, form: "prose")), zobecněné aditivní modely (_GAM_, #cite(<mgcv>, form: "prose")), klasifikační stromy (_CTA_, #cite(<rpart>, form: "prose")), multivariate adaptive regression splines (_MARS_, #cite(<earth>, form: "prose")) a random forest (_RF_, #cite(<ranger>, form: "prose")).
 
-Jednotlivé bivariátní modely byly trénovány na předem připravených prostorových podmnožinách (CV fold, viz [[[kapitola??]]] @fig:ESM) observačních dat, kde část dat byla použita k fitování modelu a část k jeho testování. Výsledky této křížové validace byly pro každou jednu podmnožinu kvantifikovány pomocí Somersova D (dále také jako _S-D_, #cite(<somersD>, form: "prose") #cite(<Hmisc>, form: "prose")) [[[vzorec sD]]].
+Jednotlivé bivariátní modely byly trénovány na předem připravených prostorových podmnožinách (CV fold, viz [[[kapitola??]]] @fig:ESM) observačních dat, kde část dat byla použita k fitování modelu a část k jeho testování. Výsledky této křížové validace byly pro každou jednu podmnožinu kvantifikovány pomocí Somersova D (dále také jako _S-D_, #cite(<somersD>, form: "prose") #cite(<Hmisc>, form: "prose")).
 
 $ "Somersovo D" = 2 times ("AUC" - 0.5) $
 
-Tato metrika vyjadřuje diskriminační schopnost modelu, kde kladné hodnoty značí lepší než náhodné rozlišení presencí a absencí, zatímco nulové nebo záporné hodnoty ukazují na model s horší rozlišovací schopností než model náhodný.
+Tato metrika vychází z běžně používaného AUC (_area under the receiver operating characteristic curve_), nabývá hodnot od _-1_ do _1_ a vyjadřuje diskriminační schopnost modelu, kde kladné hodnoty značí lepší než náhodné rozlišení presencí a absencí, zatímco nulové nebo záporné hodnoty ukazují na model s horší rozlišovací schopností než model náhodný.
 
 V dalším kroku byly hodnoty Somersova D pro daný bivariátní model zprůměrovány a podrobeny porovnání s hraniční hodnotou 0. Bivariátní modely s průměrným S-D $<=$ 0 byly z dalších ananlýz vyloučeny.
 
@@ -659,14 +724,14 @@ Prohlašuji, že při přípravě předložené práce byly použity následují
   #block(
     width: 80%
   )[
-    *ChatGPT* v období *1. 11. 2025 – 7. 8. 2026*, popis použití: generování kódu k analýze dat, generování kódu využitého k sazbě práce, vyhledávání publikací a zpracování výtahů z nich.
+    *ChatGPT* v období *1. 11. 2025 – 7. 8. 2026*, popis použití: generování kódu k analýze dat, generování kódu využitého k sazbě práce, vyhledávání publikací a zpracování výtahů z nich, návrhy textů.
   ]
 ]
 Po použití uvedených nástrojů umělé inteligence jsem důkladně revidoval a upravil obsah podle potřeby a plně přejímám odpovědnost za výslednou podobu práce.
 
 #line(length: 100%)
 
-Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese https://github.com/zbubster/Western-Balkans-SDM-thesis.
+Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese #link("https://github.com/zbubster/Western-Balkans-SDM-thesis")[https://github.com/zbubster/Western-Balkans-SDM-thesis].
 
 [[[vytvořit release a odkazovat na něj]]]
 
@@ -708,7 +773,8 @@ Modely je obecně potřeba interpretovat s opatrností.
 #v(12pt)
 #bibliography((
   "lit/literatura.bib",
-  "lit/software.bib"
+  "lit/software.bib",
+  "lit/predictors.bib"
 ),
   style: "copernicus",
   title: none)
