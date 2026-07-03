@@ -186,6 +186,8 @@ SDM ‒ species distribution modelling, modelování rozšíření druhů,
 #linebreak() #h(50pt) 
 modelování rozšíření potenciálně vhodných stanovišť
 
+EO, DPZ ‒ Earth observing, dálkový průzkum Země
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
 
@@ -278,7 +280,7 @@ Pro první skupinu byl nejprve vytvořen DEM odpovídajícícho měřítka pomoc
 _TPI_ vyjadřuje rozdíl mezi výškou středové buňky a průměrem okolních buněk @TPI_weiss2001. Kladné hodnoty indexu značí lokálně vyvýšené pozice, například hřbety, a záporné hodnoty lokální sníženiny. Hodnoty okolo nuly představují plochý terén. 
 _TRI_ průměr absolutních výškových rozdílů mezi středovou buňkou a okolím a _roughness_ rozdíl mezi maximální a minimální hodnotou v rámci pohyblivého okna. Prediktory _TRI_riley_ & _TRI_rmsd_ jsou deriváty jednoduššího _TRI_ snažící se lépe zachytit elevační variabilitu v geomorfologicky členitých oblastech. Jde o odmocninu součtu čtvercových rozdílů (_TRI_riley_, @TRI) a o odmocninu průměru čtvercových rozdílů (_TRI_rmsd_, @wilson_2007_GDAL).
 
-Tato skupina topografických prediktorů byla následně rozšířena o prediktory _eastness_ a _northness_ odvozené z orientace svahu (_aspect_) jako sinus, respektive kosinus orientace svahu převedené na radiány. Tyto proměnné vyjadřují východo-západní a severo-jižní složky orientace svahu. V navazujících modelech byly použity jako zástupné prediktory za _aspect_ samotný, jelikož tento prediktor vykazuje kruhový charakter (359°`~`1°) a není vhodný pro běžné algoritmy.
+Tato skupina topografických prediktorů byla následně rozšířena o prediktory _eastness_ a _northness_ odvozené z orientace svahu (_aspect_) jako sinus, respektive kosinus orientace svahu převedené na radiány. Tyto proměnné vyjadřují východo-západní a severo-jižní složky orientace svahu. V navazujících modelech byly použity jako zástupné prediktory za _aspect_ samotný, jelikož tento prediktor vykazuje kruhový charakter (360° = 0°) a není vhodný pro běžné algoritmy @wilson_2007_GDAL.
 Dalším rozšířením je _HLI_ (heat load index, @HLI), který byl vypočten funkcí _spatialEco::hli()_ @spatialEco. Tato metrika vyjadřuje potenciální teplotní zatížení svahu a kombinuje informaci o sklonu (_slope_) a aspektu (_aspect_), přičemž hodnoty se pohybují od chladnějších po teplejší loaklity. @HLI
 Posledním prediktorem počítaným pomocí pohyblivého okna byl _TWI_ (topographic wetness index, @TWI), který byl vypočítán na základě směru odtoku (_flowdir_), akumulované přispívající ploše (lokální "povodí") a sklonu (_slope_) v radiánech. Výsledný index byl vypočten jako logaritmus poměru specifické přispívající plochy a tangens sklonu.
 
@@ -533,6 +535,9 @@ Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená n
 == Příprava dat
 === Modelovací měřítko GRAIN
 === Prostorová autokorelace výskytových dat CV folds
+
+Data byla rozdělena do předem připravených prostorových foldů, přičemž v každém validačním kole byla část dat použita k fitování modelu a prostorově oddělená část k jeho testování. Tento postup měl omezit nadhodnocení predikční úspěšnosti, které může vznikat při náhodném dělení prostorově autokorelovaných dat, protože blízké lokality si bývají environmentálně i biologicky podobnější než lokality vzdálené [[[bahn_2012, valavi_2019]]].
+
 === Kolinearita prediktorů
 === Datové sady pro modelování
 
@@ -541,6 +546,41 @@ druh, grain, colinearity set, purpose
 == Modelování vhodnosti stanoviště
 
 koncep ESM, fitování modelu, algoritmy
+
+Modely druhového rozšíření byly vytvářeny metodou ensemble of small models (ESM) podle metodiky [[[]]]. Tento přístup byl zvolen kvůli relativně malému počtu pozorování modelovaných druhů a současně potřebě pracovat s větším množstvím environmentálních prediktorů. Vytvoření jednoho komplexního modelu obsahujícího všechny prediktory současně by v takové situaci mohlo vést k overfittingu. Metoda ESM tomuto riziku předchází tak, že namísto jednoho komplexního modelu vytváří všechny možné kombinace jednoduchých bivariátních modelů, které jsou testovány samostatně [[[]]].
+
+Modelování probíhalo samostatně pro jednotlivé druhy a pro jednotlivá prostorová rozlišení prediktorů. Nejprve byly k bodovým výskytovým datům přiřazeny hodnoty všech prediktorů z příslušného souboru prediktorů. Každý záznam tak obsahoval informaci o presenci nebo absenci druhu, koordináty, váhu observace a hodnoty environmentálních prediktorů. Záznamy, pro které nebyla dostupná hodnota některého z použitých prediktorů, byly vyloučeny. Kategorické prediktory byly pro účely modelování převedeny na faktory.
+
+Samotný modelovací proces začal vytvořením všech dostupných bivariátních kombinací pro každý použitý algoritmus:
+
+$
+N_"modelů" = N_"biv. kombinací prediktorů" times N_"algoritmů"
+$
+
+Pro všechny rostlinné druhy a pro všechna rozlišení prediktorů bo použito těchto 6 algoritmů: zobecněné lineární modely (_GLM_, [[[]]]), boosted regression trees (_GBM_, [[[]]]), zobecněné aditivní modely (_GAM_, [[[]]]), klasifikační stromy (_CTA_, [[[]]]), multivariate adaptive regression splines (_MARS_, [[[]]]) a random forest (_RF_, [[[]]]).
+
+Jednotlivé bivariátní modely byly trénovány na předem připravených prostorových podmnožinách (CV fold, viz [[[]]] @fig:ESM) observačních dat, kde část dat byla použita k fitování modelu a část k jeho testování. Výsledky této křížové validace byly pro každou jednu podmnožinu kvantifikovány pomocí Somersova D (S-D) [[[citace, vzorec sD]]]. Tato metrika vyjadřuje diskriminační schopnost modelu, kde kladné hodnoty značí lepší než náhodné rozlišení presencí a absencí, zatímco nulové nebo záporné hodnoty ukazují na model s horší rozlišovací schopností než model náhodný.
+
+V dalším kroku byly hodnoty Somersova D pro daný bivariátní model zprůměrovány a podrobeny porovnání s hraniční hodnotou 0. Bivariátní modely s průměrným S-D $<=$ 0 byly z dalších ananlýz vyloučeny.
+
+Z bivariátních modelů, které prošly sítem, byl sestaven algoritmický soubor predikcí (algo-ESM, viz @fig:ESM), přičemž příspěvek jednotlivých bivariátních modelů byl vážen jejich průměrným výkonem. Modely s vyšší hodnotou S-D tak měly v algo-ESM větší vliv než modely s nižší, avšak stále kladnou úspěšností. Soubor predikcí byl sestaven pro každý algoritmus samostatně.
+
+Predikce takto sestavených algo-ESM byla následně znovu vyhodnocena podle testovacích částí předpřipravených CV foldů a analogicky jako v kroku výše bylo vypočteno průměrné Somerovo D pro daný algo-ESM a porovnáno s hraniční hodnotou, přičemž algo-ESM s průměrným S-D $<=$ 0 byly z dalších analýz opět vyloučeny. Pokud v tomto kroku nastala situace, že S-D#sub("algo-ESM") $<=$ 0, došlo v daném běhu k efektivnímu vyloučení celé větve algoritmu z modelovacího procesu.
+
+Po dokončení validačního procesu byly ponechané bivariátní modely znovu trénovány na celém dostupném datasetu. Tento krok zajistil, že finální ESM model využíval pro odhad vztahu mezi výskytem druhu a prostředím všechna cenná dostupná data. Relativní příspěvky jednotlivých bivariátních modelů natrénovaných na celém datasetu byly váženy přes váhy získané v prvním kroku sestavování algo-ESM a zároveň přes váhu algoritmu jako celku. Efektivní příspěvek bivariátního modelu je možné vyjádřit jako:
+
+$
+w_"efektivní" = w_"bivariátní model" times w_"mateřský algo-ESM"
+$
+
+kde $w_"efektivní"$ vyjadřuje intenzitu příspěvku bivariátního modelu do celkového ESM, $w_"bivariátní model"$ vyjadřuje váhu daného bivariátního modelu mezi všemi ostatními bivariátními modely stejného algoritmu a $w_"mateřský algo-ESM"$ vyjadřuje váhu celého algoritmu.
+
+#figure(
+  image("obj/pic/ESM_schema.png", height: 75%),
+  caption: [
+    Schematické znázornění modelovacího procesu ESM.
+  ]
+) <fig:ESM>
 
 == Projekce
 === Projekce v prostoru
@@ -631,9 +671,13 @@ Pro vyšší důvěryhodnost projekcí je proto vhodné pracovat s více klimati
 Dalším problematickým aspektem globálních klimatických modelů jsou extrapolace klimatu do hisotrických období.
 #cite(<rentier_2025>, form: "prose") ukázali, že rekonstrukce ekologických fenoménů na základě klimatických projekcí se silně odlišují mezi jednotlivými datasety i mezi rekonstrukcemi založenými na proxy ukazatelích, přičemž slabší výsledky se projevovaly u klimatických datasetů s hrubším měřítkem. 
 Chybovost klimatických modelů navíc vykazovala obecný trend k vyšším teplotám během LGM, obzvlášť v horských oblastech. @rentier_2025
-Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, asi kvůli složitému downscl který to trochu přehání[[[]]]
+Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, a to pravděpodobně kvůli nadprůměrně složitému procesu interpolace a zjemnňování originálních dat z meteorologických stanic, který v případě odlehlých horských oblastí vytvéřel za velké množství statistického šumu s 
 
 Volba klimatického datasetu je tedy kruciální pro důvěryhodné modely současného a rekonstrukci historického rozšíření vhodných stanovišť.
+
+V současné době je největší limitace datovými podklady, statistiku máme dostatečnou. Prediktorové sady vykazují značnou chybovost, obzvlášť v odlehlých oblastech. Geologické i půdní mapy jsou taky surově interpolované a založené na omezeném počtu pozorování. Nabízenou cestou jsou data z dálkového průzkumu Země, která se výše zmíněným nedostatkům vyhýbají: jsou měřena "přímo" na lokalitě, mají solidní časovou řadu a nadstandardní prostorové rozlišení. Na druhou stranu jsou produkty DPZ hůře ekologicky interpretovatelné a jejich zpracování vyžaduje vyšší nároky na výpočetní výkon.
+
+Ačkoliv využití DPZ jako prediktorů v SDM je v současnosti zkoumáno a dosavadní výsledky ukazují na sporné vylepšení modelů, v jiných oblastech monitoringu přírody a krajiny nastává jejich rozvoj. Příkladem může být efektivní monitorování sucha a požárů, 
 
 Modely je obecně potřeba interpretovat s opatrností.
 
