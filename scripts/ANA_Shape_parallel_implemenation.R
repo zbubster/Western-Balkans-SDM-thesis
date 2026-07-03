@@ -11,6 +11,7 @@ source(fun_file)
 # main config
 grains <- c(1000, 500, 200, 100)
 species <- c("GD", "GT", "SB", "PK", "PO", "PP")
+
 shape_id <- "recent_noextrapol_weights_common"
 occ_base_dir <- here::here("data", "__ANALYSIS__", "OCC", "weights")
 pred_base_dir <- here::here("data", "__PREDICTORS_STACKS__", "recent", "selected_predictors_stacks", "noextrapol")
