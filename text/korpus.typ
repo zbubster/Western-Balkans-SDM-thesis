@@ -248,7 +248,17 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 == Vstupní data
 === Data o výskytech druhů
 
-vlastní sběr, TN, váhy udělené outsource datům
+Výskytová data byla před modelováním převedena do jednotné podoby a připravena samostatně pro jednotlivé modelované druhy. V prvním kroku byly sjednoceny názvy taxonů a odstraněny nekonzistence vzniklé při zápisu terénních dat, jako na příklad překlepy a observační body s evidentně chybným prostorovým zaměřením.
+
+Pro každý fokální druh byla následně vytvořena samostatná vrstva obsahující všechny dostupné presence a absence, přičemž za absence daného druhu byly považovány globální absence (žádný z fokálních druhů se na lokalitě navyskytuje) a presence jiných druhů (na loklitě se vyskytuje druh X → absence pro všechny ostatní druhy).
+
+K terénním datům byly u druhů Gentiana tergestina a Primula kitaibeliana připojeny také externí nálezové záznamy, které nesly pouze informaci o přítomnosti. Tyto záznamy byly proto do dat zahrnuty až později a výhradně jako presence.
+
+Takto sestavené datové sady byly následně porovnány s referenčními rastry prediktorů ve všech využitých prostorových rozlišeních. Na výskytová data byl aplikován filtr, jehož účelem bylo, aby pro každou buňku referenčního rastru, která se překrývá s výskytovými daty, byl zachován pouze jeden výskytový záznam. V případě, že do jedné buňky spadalo více observačních dat, byly před absencemi preferovány presence. Výsledkem byly sady výskytových dat ve stejném prostorovém rozlišení jako sady prediktorů a očištěné o nadbytečné absenční body (ev. i body presenční, pokud spadalo více záznamů stejného druhu do identické rastrové buňky.)
+
+V dalším kroku byly jednotlivým pozorováním přiřazeny váhy, aby byla při modelování vyrovnána odlišná četnost presencí a absencí, zohledněn původ presenčních záznamů a také nejistota ohledně spolehlivosti absenčních bodů (např. přehlédnutí jedince). Celková váha byla rozdělena mezi presence a absence v poměru 1 : 1, takže obě třídy měly na fitování modelů stejný souhrnný vliv.
+
+[[[vlastní sběr, TN, váhy udělené outsource datům]]]
 
 ==== Prostorová autokorelace výskytových dat CV folds <chap:CV>
 
@@ -620,8 +630,7 @@ Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená n
 == Příprava dat
 === Modelovací měřítko GRAIN
 
-=== Kolinearita prediktorů
-=== Datové sady pro modelování
+=== Datové sady pro modelování, kolinearita prediktorů
 
 Před samotným modelováním byly pro všechny environmentální prediktory upraveny prostorové parametry tak, aby výsledné vrstvy byly prostorově jednotné. Jednotlivé vrstvy prediktorů byly zarovnány na společné referenční rastry, reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035) a maskovány podle polygonu studovaného území. Prediktory byly podle typu dat převzorkovány nebo agregovány do prostorových rozlišení využitých v této práci, čímž vznikla sada vzájemně kompatibilních rastrových vrstev pro modelovací měřítka 100, 200, 500 a 1000 m.
 
@@ -629,9 +638,36 @@ Z takto připravených vrstev byly následně vytvořeny výchozí rastrové sou
 
 Na připravených souborech byla následně posouzena kolinearita prediktorů. Hodnoty prediktorů byly extrahovány pro tuto analýzu extrahovány dvojím způsobem: (i) z buňek pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil  přístup první.
 
- Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ [[[]]]. V rámci procesu byla kolinearita posuzována pomocí párové Pearsnovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7. Výsledky byly vizualizovány pomocí balíčku _corrplot_ [[[]]].
+ Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ @collinear. V rámci procesu byla kolinearita posuzována pomocí párové Pearsnovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7. Výsledky byly vizualizovány pomocí balíčku _corrplot_ @corrplot.
 
 Automatizované rozhodování mezi kolineárními prediktory bylo doplněno předem stanoveným prioritním pořadím proměnných. Účelem tohoto pořadí bylo prioritizovat ekologicky relevantní prediktory a naopak upozadit prediktory s relativně komplikovanou interpretovatelností a evidentními artefakty (např. CHELSA-BIOCLIM: bio08, bio9 mají v oblasti Balkánského poloostrova velmi ostré prostorové přechody mezi hodnotami, které ‒ dle soukromé úvahy autora ‒ nemohou mít fyzikální opodstatnění).
+
+#table(
+  columns: (18%, 56%, 26%),
+  inset: 4pt,
+  align: left,
+  [Varianta], [Preferenční pořadí prediktorů], [Vyloučené prediktory],
+
+  [*Bez #linebreak() temporální extrapolace*],
+  [
+    #set par(justify: false)
+    #emph[bio06], #emph[bio05], #emph[bio10], #emph[bio11], #emph[scd], #emph[landcover], #emph[northness], #emph[bio14], #emph[bio12], #emph[HLI], #emph[TWI], #emph[dem_range], #emph[dem_sd], #emph[slope], #emph[TPI], #emph[TRI], #emph[TRI_riley], #emph[TRI_rmsd], #emph[bio18], #emph[bio19], #emph[bio04], #emph[bio01], #emph[bedrock], #emph[eastness], #emph[dem_median], #emph[aspect], #emph[depth_to_bedrock], #emph[pH_in_H2O], #emph[soil_water_cap], #emph[bio02], #emph[bio03], #emph[bio15]
+    ],
+  [
+    #set par(justify: false)
+    #emph[bio08], #emph[bio09], #emph[flowdir]
+    ],
+
+  [*Temporální extrapolace*],
+  [
+    #set par(justify: false)
+    #emph[bio10], #emph[bio11], #emph[northness], #emph[scd], #emph[bio06], #emph[bio05], #emph[dem_sd], #emph[dem_range], #emph[TPI], #emph[TRI], #emph[TRI_riley], #emph[TRI_rmsd], #emph[bio18], #emph[bio19], #emph[bio04], #emph[bio01], #emph[slope], #emph[eastness], #emph[bedrock], #emph[dem_median], #emph[aspect], #emph[bio02], #emph[bio03], #emph[bio15]
+    ],
+  [
+    #set par(justify: false)
+    #emph[bio08], #emph[bio09], #emph[landcover], #emph[pH_in_H2O], #emph[HLI], #emph[soil_water_cap], #emph[depth_to_bedrock], #emph[TWI], #emph[flowdir]
+    ],
+)
 
 Výsledkem filtrace byly dvě sady prediktorů pro každý druh. První sada zahrnovala všechny prediktory vybrané analýzou kolinearity, přičemž byl brán zřetel pouze na kolineární strukturu v dané kobinaci druh-prostorové rozlišení. Druhá sada byla omezena pouze na prediktory, které byly pro daný druh vybrány konzistentně napříč všemi prostorovými rozlišeními. Tato druhá společná sada umožnila srovnávat modely mezi různými prostorovými rozlišeními buňek, tj. modely trénované na stejné prediktorové sadě, avšak s jiným rozlišením. 
 
