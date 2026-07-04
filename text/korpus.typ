@@ -59,7 +59,7 @@
 
 #align(center)[
   #text(size: 16pt)[*Univerzita Karlova*]
-  #v(1.5mm)
+  #v(1mm)
   #text(size: 14pt)[*Přírodovědecká fakulta*]
 ]
 
@@ -67,15 +67,15 @@
 
 #align(center)[
   Studijní program:
-  #v(1.5mm)
+  #v(1mm)
   Botanika ‒ Geobotanika
 ]
 
 #v(10mm)
 
-#align(center)[#image(logo_path, width: 64mm)]
+#align(center)[#image(logo_path, width: 50mm)]
 
-#v(8mm)
+#v(10mm)
 
 #align(center)[
   *Bc. Jakub Rataj*
@@ -109,7 +109,7 @@
 
 #align(center)[Praha, 2026]
 
-#v(0.3fr)
+//#v(0.3fr)
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // prohlaseni, podekovani
@@ -249,6 +249,10 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 === Data o výskytech druhů
 
 vlastní sběr, TN, váhy udělené outsource datům
+
+==== Prostorová autokorelace výskytových dat CV folds <chap:CV>
+
+Data byla rozdělena do předem připravených prostorových foldů, přičemž v každém validačním kole byla část dat použita k fitování modelu a prostorově oddělená část k jeho testování. Tento postup měl omezit nadhodnocení predikční úspěšnosti, které může vznikat při náhodném dělení prostorově autokorelovaných dat, protože blízké lokality si bývají environmentálně i biologicky podobnější než lokality vzdálené [[[bahn_2012, valavi_2019]]].
 
 === Modelovací prediktory
 
@@ -615,14 +619,26 @@ Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená n
 
 == Příprava dat
 === Modelovací měřítko GRAIN
-=== Prostorová autokorelace výskytových dat CV folds
-
-Data byla rozdělena do předem připravených prostorových foldů, přičemž v každém validačním kole byla část dat použita k fitování modelu a prostorově oddělená část k jeho testování. Tento postup měl omezit nadhodnocení predikční úspěšnosti, které může vznikat při náhodném dělení prostorově autokorelovaných dat, protože blízké lokality si bývají environmentálně i biologicky podobnější než lokality vzdálené [[[bahn_2012, valavi_2019]]].
 
 === Kolinearita prediktorů
 === Datové sady pro modelování
 
-druh, grain, colinearity set, purpose
+Před samotným modelováním byly pro všechny environmentální prediktory upraveny prostorové parametry tak, aby výsledné vrstvy byly prostorově jednotné. Jednotlivé vrstvy prediktorů byly zarovnány na společné referenční rastry, reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035) a maskovány podle polygonu studovaného území. Prediktory byly podle typu dat převzorkovány nebo agregovány do prostorových rozlišení využitých v této práci, čímž vznikla sada vzájemně kompatibilních rastrových vrstev pro modelovací měřítka 100, 200, 500 a 1000 m.
+
+Z takto připravených vrstev byly následně vytvořeny výchozí rastrové soubory (stacks) obsahující všechny kandidátní environmentální prediktory dostupné pro dané prostorové rozlišení. Pro účely temporálních projekcí byla navíc připravena užší varianta prediktorových souborů, ze které byly vyloučeny prediktory reprezentujícíc v čase proměnlivé fenomény a tudíž nevhodné pro extrapolaci mimo současnost (krajinný pokryv a pedologické vrstvy).
+
+Na připravených souborech byla následně posouzena kolinearita prediktorů. Hodnoty prediktorů byly extrahovány pro tuto analýzu extrahovány dvojím způsobem: (i) z buňek pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil  přístup první.
+
+ Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ [[[]]]. V rámci procesu byla kolinearita posuzována pomocí párové Pearsnovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7. Výsledky byly vizualizovány pomocí balíčku _corrplot_ [[[]]].
+
+Automatizované rozhodování mezi kolineárními prediktory bylo doplněno předem stanoveným prioritním pořadím proměnných. Účelem tohoto pořadí bylo prioritizovat ekologicky relevantní prediktory a naopak upozadit prediktory s relativně komplikovanou interpretovatelností a evidentními artefakty (např. CHELSA-BIOCLIM: bio08, bio9 mají v oblasti Balkánského poloostrova velmi ostré prostorové přechody mezi hodnotami, které ‒ dle soukromé úvahy autora ‒ nemohou mít fyzikální opodstatnění).
+
+Výsledkem filtrace byly dvě sady prediktorů pro každý druh. První sada zahrnovala všechny prediktory vybrané analýzou kolinearity, přičemž byl brán zřetel pouze na kolineární strukturu v dané kobinaci druh-prostorové rozlišení. Druhá sada byla omezena pouze na prediktory, které byly pro daný druh vybrány konzistentně napříč všemi prostorovými rozlišeními. Tato druhá společná sada umožnila srovnávat modely mezi různými prostorovými rozlišeními buňek, tj. modely trénované na stejné prediktorové sadě, avšak s jiným rozlišením. 
+
+Takto vytvořené soubory prediktorů posloužily přímo jako vstupní data do navazujících analýz, tedy do samotného procesu modelování rozšíření vhodných stanovišť.
+
+
+[[[druh, grain, colinearity set, purpose]]]
 
 == Modelování vhodnosti stanoviště
 
@@ -638,7 +654,7 @@ $
 
 Pro všechny rostlinné druhy a pro všechna rozlišení prediktorů bo použito těchto 6 algoritmů: zobecněné lineární modely (_GLM_, #cite(<R>, form: "prose")), boosted regression trees (_GBM_, #cite(<gbm>, form: "prose")), zobecněné aditivní modely (_GAM_, #cite(<mgcv>, form: "prose")), klasifikační stromy (_CTA_, #cite(<rpart>, form: "prose")), multivariate adaptive regression splines (_MARS_, #cite(<earth>, form: "prose")) a random forest (_RF_, #cite(<ranger>, form: "prose")).
 
-Jednotlivé bivariátní modely byly trénovány na předem připravených prostorových podmnožinách (CV fold, viz [[[kapitola??]]] @fig:ESM) observačních dat, kde část dat byla použita k fitování modelu a část k jeho testování. Výsledky této křížové validace byly pro každou jednu podmnožinu kvantifikovány pomocí Somersova D (dále také jako _S-D_, #cite(<somersD>, form: "prose") #cite(<Hmisc>, form: "prose")).
+Jednotlivé bivariátní modely byly trénovány na předem připravených prostorových podmnožinách (CV fold, viz @chap:CV [[[kapitola??]]] @fig:ESM) observačních dat, kde část dat byla použita k fitování modelu a část k jeho testování. Výsledky této křížové validace byly pro každou jednu podmnožinu kvantifikovány pomocí Somersova D (dále také jako _S-D_, #cite(<somersD>, form: "prose") #cite(<Hmisc>, form: "prose")).
 
 $ "Somersovo D" = 2 times ("AUC" - 0.5) $
 
