@@ -170,6 +170,76 @@ observation weights
   publisher={Elsevier}
 }
 
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+SAC
+
+@article{dormann_2007,
+  title={Methods to account for spatial autocorrelation in the analysis of species distributional data: a review},
+  author={F. Dormann, Carsten and M. McPherson, Jana and B. Araújo, Miguel and Bivand, Roger and Bolliger, Janine and Carl, Gudrun and G. Davies, Richard and Hirzel, Alexandre and Jetz, Walter and Daniel Kissling, W and others},
+  journal={Ecography},
+  volume={30},
+  number={5},
+  pages={609--628},
+  year={2007},
+  publisher={Wiley Online Library}
+}
+
+@article{bahn_2013,
+  title={Testing the predictive performance of distribution models},
+  author={Bahn, Volker and McGill, Brian J},
+  journal={Oikos},
+  volume={122},
+  number={3},
+  pages={321--331},
+  year={2013},
+  publisher={Wiley Online Library}
+}
+
+@article{roberts_2016,
+author = {Roberts, David R. and Bahn, Volker and Ciuti, Simone and Boyce, Mark S. and Elith, Jane and Guillera-Arroita, Gurutzeta and Hauenstein, Severin and Lahoz-Monfort, José J. and Schröder, Boris and Thuiller, Wilfried and Warton, David I. and Wintle, Brendan A. and Hartig, Florian and Dormann, Carsten F.},
+title = {Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure},
+journal = {Ecography},
+volume = {40},
+number = {8},
+pages = {913-929},
+doi = {https://doi.org/10.1111/ecog.02881},
+url = {https://nsojournals.onlinelibrary.wiley.com/doi/abs/10.1111/ecog.02881},
+eprint = {https://nsojournals.onlinelibrary.wiley.com/doi/pdf/10.1111/ecog.02881},
+abstract = {Ecological data often show temporal, spatial, hierarchical (random effects), or phylogenetic structure. Modern statistical approaches are increasingly accounting for such dependencies. However, when performing cross-validation, these structures are regularly ignored, resulting in serious underestimation of predictive error. One cause for the poor performance of uncorrected (random) cross-validation, noted often by modellers, are dependence structures in the data that persist as dependence structures in model residuals, violating the assumption of independence. Even more concerning, because often overlooked, is that structured data also provides ample opportunity for overfitting with non-causal predictors. This problem can persist even if remedies such as autoregressive models, generalized least squares, or mixed models are used. Block cross-validation, where data are split strategically rather than randomly, can address these issues. However, the blocking strategy must be carefully considered. Blocking in space, time, random effects or phylogenetic distance, while accounting for dependencies in the data, may also unwittingly induce extrapolations by restricting the ranges or combinations of predictor variables available for model training, thus overestimating interpolation errors. On the other hand, deliberate blocking in predictor space may also improve error estimates when extrapolation is the modelling goal. Here, we review the ecological literature on non-random and blocked cross-validation approaches. We also provide a series of simulations and case studies, in which we show that, for all instances tested, block cross-validation is nearly universally more appropriate than random cross-validation if the goal is predicting to new data or predictor space, or for selecting causal predictors. We recommend that block cross-validation be used wherever dependence structures exist in a dataset, even if no correlation structure is visible in the fitted model residuals, or if the fitted models account for such correlations.},
+year = {2017}
+}
+
+@article{soley_2024_TOPTENHAZARDS,
+author = {Soley-Guardia, Mariano and Alvarado-Serrano, Diego F. and Anderson, Robert P.},
+title = {Top ten hazards to avoid when modeling species distributions: a didactic guide of assumptions, problems, and recommendations},
+journal = {Ecography},
+volume = {2024},
+number = {4},
+pages = {e06852},
+keywords = {assumptions, ENM, guidelines, principles, SDM, theory},
+doi = {https://doi.org/10.1111/ecog.06852},
+url = {https://nsojournals.onlinelibrary.wiley.com/doi/abs/10.1111/ecog.06852},
+eprint = {https://nsojournals.onlinelibrary.wiley.com/doi/pdf/10.1111/ecog.06852},
+abstract = {Species distribution models, also known as ecological niche models or habitat suitability models, have become commonplace for addressing fundamental and applied biodiversity questions. Although the field has progressed rapidly regarding theory and implementation, key assumptions are still frequently violated and recommendations inadvertently overlooked. This leads to poor models being published and used in real-world applications. In a structured, didactic treatment, we summarize what in our view constitute the ten most problematic issues, or hazards, negatively affecting implementation of correlative approaches to species distribution modeling (specifically those that model suitability by comparing the environments of a species' occurrence records with those of a background or pseudoabsence sample). For each hazard, we state relevant assumptions, detail problems that arise when violating them, and convey straightforward existing recommendations. We also discuss five major outstanding questions of active current research. We hope this contribution will promote more rigorous implementation of these valuable models and stimulate further advancements.},
+year = {2024}
+}
 
 
 
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+PREDICTORS COLLINEARITY
+
+@article{dormann2013collinearity,
+  title={Collinearity: a review of methods to deal with it and a simulation study evaluating their performance},
+  author={Dormann, Carsten F and Elith, Jane and Bacher, Sven and Buchmann, Carsten and Carl, Gudrun and Carré, Gabriel and Marquéz, Jaime R García and Gruber, Bernd and Lafourcade, Bruno and Leitao, Pedro J and others},
+  journal={Ecography},
+  volume={36},
+  number={1},
+  pages={27--46},
+  year={2013},
+  publisher={Wiley Online Library}
+}
