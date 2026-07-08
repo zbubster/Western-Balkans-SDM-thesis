@@ -100,7 +100,7 @@
 #v(5mm)
 
 #align(center)[
-  Vedoucí práce/Školitel:
+  Vedoucí práce:
   #v(1.5mm)
   #supervisor
 ]
