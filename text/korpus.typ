@@ -392,11 +392,14 @@ Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je 
   caption: [Přehled použitých bioklimatických prediktorů datasetů CHELSA-BIOCLIM a CHELSA-TraCE21k-bioclim.]
 ) <tab:chelsa>
 
-Kromě charakterizace současného klimatu poskytuje dataset CHELSA-BIOCLIM i pro tři časové řezy (2011–2040, 2041–2070 & 2071–2100) modely extrapolující klima do budoucnosti (tzv. earth system models: GFDL-ESM4,
-IPSL-CM6A-LR, MPI-ESM 1-2-HR, MRI-ESM2-0,
-& UKESM1-0-LL) na základě různých emisních scénářů SSP (shared socioeconomic pathways: ssp126, ssp370 & ssp585 @oneil__cmip6_2016).
-
-[[[citovat earth system modely nebo vynechat podle toho, který nakonec půjde ven]]]
+Kromě charakterizace současného klimatu poskytuje dataset CHELSA-BIOCLIM i pro tři časové řezy (2011–2040, 2041–2070 & 2071–2100) modely extrapolující klima do budoucnosti (tzv. earth system models:
+GFDL-ESM4 @GFDL-ESM,
+IPSL-CM6A-LR @IPSL-CM6A-LR,
+MPI-ESM 1-2-HR @MPI-ESM1-2-HR,
+MRI-ESM2-0 @MRI-ESM2-0,
+&
+UKESM1-0-LL @UKESM1-0-LL)
+na základě různých emisních scénářů SSP (shared socioeconomic pathways: ssp126, ssp370 & ssp585 @oneil__cmip6_2016).
 
 S ohledem na zachování metodické konzistence mezi jednotlivými časovými řezy byl pro projekci modelů na historické klimatické podmínky použit dataset CHELSA-TraCE21k-bioclim @chelsa_trace_data @chelsa_trace_model, který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
 
