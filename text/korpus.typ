@@ -208,6 +208,8 @@ GPS ‒
 
 CV ‒
 
+SSP ‒ shared socioeconomic pathways, scénáře socioekonomického vývoje
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // obsah
 
@@ -390,11 +392,14 @@ Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je 
   caption: [Přehled použitých bioklimatických prediktorů datasetů CHELSA-BIOCLIM a CHELSA-TraCE21k-bioclim.]
 ) <tab:chelsa>
 
-Kromě charakterizace současného klimatu poskytuje dataset CHELSA-BIOCLIM i pro tři časové řezy (2011–2040, 2041–2070 & 2071–2100) modely extrapolující klima do budoucnosti (tzv. earth system models: GFDL-ESM4,
-IPSL-CM6A-LR, MPI-ESM 1-2-HR, MRI-ESM2-0,
-& UKESM1-0-LL) na základě různých emisních scénářů (shared socioeconomic pathways: ssp126, ssp370 & ssp585 @oneil__cmip6_2016).
-
-[[[citovat earth system modely nebo vynechat podle toho, který nakonec půjde ven]]]
+Kromě charakterizace současného klimatu poskytuje dataset CHELSA-BIOCLIM i pro tři časové řezy (2011–2040, 2041–2070 & 2071–2100) modely extrapolující klima do budoucnosti (tzv. earth system models:
+GFDL-ESM4 @GFDL-ESM,
+IPSL-CM6A-LR @IPSL-CM6A-LR,
+MPI-ESM 1-2-HR @MPI-ESM1-2-HR,
+MRI-ESM2-0 @MRI-ESM2-0,
+&
+UKESM1-0-LL @UKESM1-0-LL)
+na základě různých emisních scénářů SSP (shared socioeconomic pathways: ssp126, ssp370 & ssp585 @oneil__cmip6_2016).
 
 S ohledem na zachování metodické konzistence mezi jednotlivými časovými řezy byl pro projekci modelů na historické klimatické podmínky použit dataset CHELSA-TraCE21k-bioclim @chelsa_trace_data @chelsa_trace_model, který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
 
@@ -754,10 +759,12 @@ kde $w_"efektivní"$ vyjadřuje intenzitu příspěvku bivariátního modelu do 
 === Projekce v prostoru
 === Projekce v prostoru a čase
 
-[[[co ta budoucí projekce]]]
-
 Vypočítané modely byly promítnuty do dvou historických a jednoho budoucího časového řezu. [[[]]]
 Jako reprezentativní body v minulosti byly vybrány dva časové řezy: poslední glaciální maximum (LGM, 21k BP) a holocénní klimatické optimum (HCO, 8k BP). Jelikož se v obou případech jedná o sporné vymezení konkrétních událostí (např. #cite(<davis2003>, form: "prose") ukazují, že HCO se v jižní Evropě neprojevovalo tak silně jako v Evropě severní), je nutné vnímat zvolené časové řezy jako částečně arbitrární rozhodnutí.
+
+Pro vyjádření budoucí potenciální vhodnosti stanovišť byly jednotlivé projekce agregovány napříč použitými klimatickými projekčními modely, přičemž časové řezy a scénáře SSP byly ponechány odděleně. Agregace probíhala samostatně pro každou kombinaci druhu, prostorového rozlišení, časového řezu a scénáře SSP. Výsledná konsenzuální projekce byla vypočtena jako průměr predikované vhodnosti stanoviště z jednotlivých projekcí založených na různých earth system models. Současně byla pro stejnou sadu projekcí vypočtena směrodatná odchylka, jako vyjádření mezimodelové variability. Tento postup byl zvolen, jelikož projekce rozšíření vhodných stanovišť do budoucích klimatických podmínek jsou zatíženy nejen nejistotou spojenou se samotným modelem rozšíření, ale také s volbou klimatického modelu a emisního scénáře. Ačkoli v literatuře se obvykle přistupuje k sofistikovanějším metodám spojování predikcí i jednoduchá agregace může omezit závislost interpretace na jednom konkrétním klimatickém modelu @araujo_2007. @araujo_2005 [[[]]]
+
+Směrodatná odchylka zde tedy nepředstavuje variabilitu v modelech samotných, ale jenom prostorové vyjádření rozdílů mezi projekcemi založenými na různých klimatických modelech v rámci stejného scénáře SSP.
 
 == Metoda Shape jako odhad projekční extrpolace v prostoru
 
