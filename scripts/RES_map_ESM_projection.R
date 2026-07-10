@@ -76,13 +76,13 @@ make_esm_projection_map <- function(
     aoi_negative_buffer_m = 1000,
     osm_type = "opentopomap",
     osm_zoomin = -1,
-    raster_alpha = 0.72,
-    palette = "magma",
+    raster_alpha = 0.75,
+    palette = "inferno",
     inset_xlim = c(6, 32),
     inset_ylim = c(33, 50),
     width_mm = 180,
     height_mm = 180,
-    dpi = 300,
+    dpi = 200,
     show_title = TRUE,
     overwrite = TRUE
 ) {
@@ -388,7 +388,47 @@ result <- make_esm_projection_map(
   grain = 1000
 )
 
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "inferno"
+)
 
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "plasma"
+)
+
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "viridis"
+)
+
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "cividis"
+)
+
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "rocket"
+)
+
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "mako"
+)
+
+result <- make_esm_projection_map(
+  species = "GT",
+  grain = 1000,
+  palette = "turbo"
+)
 
 
 
