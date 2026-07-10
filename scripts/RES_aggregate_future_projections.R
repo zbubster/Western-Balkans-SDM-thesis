@@ -14,12 +14,10 @@
 # main config
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# set this to the directory that directly contains species folders:
-# e.g. ".../GD", ".../GT", ".../PK", etc.
 base_dir <- here::here(
-  "data",
-  "__ESM_OUTPUTS__",
-  "recent_noextrapol_weights_common"
+  "models",
+  "ESM",
+  "recent_extrapol_weights_all_selected"
 )
 
 out_base_dir <- file.path(base_dir, "_future_aggregated")
