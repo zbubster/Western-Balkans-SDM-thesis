@@ -1,5 +1,5 @@
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# MAP ‒ current ESM projection
+# MAP ‒ selected palaeoclimate ESM projections (060 and 190)
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # Load crop+mask function
@@ -35,12 +35,13 @@ rosm::register_tile_source(
 rosm::osm.types()
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# FUN ‒ create one PNG map from one ESM_projection.tif
+# FUN ‒ create one PNG map from one selected palaeoclimate projection
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 make_esm_projection_map <- function(
     species,
     grain,
+    projection,
     model_id = "recent_extrapol_weights_all_selected",
     models_dir = here::here("models", "ESM"),
     outputs_dir = here::here("outputs", "ESM"),
@@ -63,6 +64,19 @@ make_esm_projection_map <- function(
   
   species <- toupper(species)
   grain <- as.integer(grain)
+  projection_number <- suppressWarnings(as.integer(projection))
+  
+  if (is.na(projection_number)) {
+    stop("Projection must be either 060 or 190.")
+  }
+  
+  projection <- sprintf("%03d", projection_number)
+  
+  if (!projection %in% c("060", "190")) {
+    stop("Unsupported projection: ", projection, ". Expected 060 or 190.")
+  }
+  
+  projection_id <- paste0(projection, "_all_selected")
   
   if (!species %in% names(species_names)) {
     stop(
@@ -71,26 +85,42 @@ make_esm_projection_map <- function(
     )
   }
   
-  if (!grain %in% c(100, 200, 500, 1000)) {
-    stop("Unsupported grain: ", grain, ".")
+  if (!grain %in% c(200, 500, 1000)) {
+    stop("Unsupported grain: ", grain, ". Expected 200, 500 or 1000 m.")
   }
+  
+  input_filename <- paste0(
+    "ESM_projection_",
+    projection_id,
+    ".tif"
+  )
   
   input_path <- file.path(
     models_dir,
     model_id,
     species,
     as.character(grain),
-    "ESM_projection.tif"
+    "projections",
+    projection_id,
+    input_filename
   )
   
   output_dir <- file.path(
     outputs_dir,
     model_id,
     species,
-    as.character(grain)
+    as.character(grain),
+    "projections",
+    projection_id
   )
   
-  output_path <- file.path(output_dir, "ESM_projection.png")
+  output_filename <- paste0(
+    "ESM_projection_",
+    projection_id,
+    ".png"
+  )
+  
+  output_path <- file.path(output_dir, output_filename)
   
   if (!file.exists(input_path)) {
     stop("Input raster does not exist: ", input_path)
@@ -210,7 +240,11 @@ make_esm_projection_map <- function(
       plot.margin = ggplot2::margin(2, 2, 2, 2)
     )
   
-  plot_title <- paste0(species_names[[species]], " — ", grain, " m")
+  plot_title <- paste0(
+    species_names[[species]],
+    " — ", grain, " m",
+    " — projection ", projection
+  )
   
   main_map <- ggplot2::ggplot() +
     ggspatial::annotation_map_tile(
@@ -296,7 +330,6 @@ make_esm_projection_map <- function(
       plot.margin = ggplot2::margin(8, 5, 5, 5)
     )
   
-  
   # Extract the horizontal colour bar and remove it from below the map.
   suitability_legend <- cowplot::get_legend(main_map)
   main_map <- main_map +
@@ -323,8 +356,8 @@ make_esm_projection_map <- function(
     ) +
     cowplot::draw_label(
       paste(
-        "Map data © OpenStreetMap contributors;",
-        "DEM: SRTM, Sonny;",
+        "© OpenStreetMap;",
+        "SRTM, Sonny;",
         "© OpenTopoMap"
       ),
       x = 0.97,
@@ -356,6 +389,9 @@ make_esm_projection_map <- function(
   
   invisible(
     list(
+      species = species,
+      grain = grain,
+      projection = projection,
       input = input_path,
       output = output_path,
       raster = esm,
@@ -370,26 +406,24 @@ make_esm_projection_map <- function(
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 sp <- c("GT", "GD", "PK", "PO", "PP", "SB")
-gr <- c(1000, 500, 200, 100)
+gr <- c(1000, 500, 200)
+projections <- c("060", "190")
 
-for(i in seq_along(gr)){
-  
-  # set grain
-  grain <- gr[[i]]
-  
-  for(j in seq_along(sp)){
-    
-    # set species
-    spec <- sp[[j]]
-    
-    # WHERE AM I?
-    message("__", grain, "__", spec, "__")  
-    
-    make_esm_projection_map(
-      species = spec,
-      grain = grain,
-      model_id = "recent_noextrapol_weights_common"
-    )
+for (projection in projections) {
+  for (grain in gr) {
+    for (spec in sp) {
+      message(
+        "__projection_", projection,
+        "__", grain,
+        "__", spec,
+        "__"
+      )
+      
+      make_esm_projection_map(
+        species = spec,
+        grain = grain,
+        projection = projection
+      )
+    }
   }
 }
-    

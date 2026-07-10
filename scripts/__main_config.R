@@ -22,7 +22,7 @@ if(!dir.exists(tmp_dir)) dir.create(tmp_dir)
 
 terraOptions(
   tempdir = tmp_dir,
-  todisk = TRUE,
+  todisk = FALSE,
   progress = 1
 )
 
