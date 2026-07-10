@@ -2,34 +2,7 @@
 # MAP ‒ current ESM projection
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# Packages required by this script and by fun_mask_visualization.R
-required_packages <- c(
-  "terra",
-  "sf",
-  "ggplot2",
-  "ggspatial",
-  "cowplot",
-  "rnaturalearth",
-  "rnaturalearthdata",
-  "here",
-  "scales",
-  "rosm",
-  "prettymapr"
-)
-
-missing_packages <- required_packages[
-  !vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
-]
-
-if (length(missing_packages) > 0) {
-  stop(
-    "Missing packages: ",
-    paste(missing_packages, collapse = ", "),
-    "."
-  )
-}
-
-# Load crop/mask function
+# Load crop+mask function
 source(here::here("scripts", "fun_mask_visualization.R"))
 
 if (!exists("crop_mask_aoi_land", mode = "function")) {
@@ -46,6 +19,7 @@ species_names <- c(
   PP = "Phyteuma pseudorbiculare"
 )
 
+# Add OpenTopoMap
 rosm::register_tile_source(
   opentopomap = rosm::source_from_url_format(
     url_format = "https://tile.opentopomap.org/${z}/${x}/${y}.png",
@@ -380,59 +354,29 @@ make_esm_projection_map <- function(
 
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# RUN ‒ edit these two values while tuning the map
+# RUN
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000
-)
+sp <- c("GT", "GD", "PK", "PO", "PP", "SB")
+gr <- c(1000, 500, 200, 100)
 
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "inferno"
-)
-
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "plasma"
-)
-
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "viridis"
-)
-
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "cividis"
-)
-
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "rocket"
-)
-
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "mako"
-)
-
-result <- make_esm_projection_map(
-  species = "GT",
-  grain = 1000,
-  palette = "turbo"
-)
-
-
-
-result <- make_esm_projection_map(
-  species = "GD",
-  grain = 1000
-)
+for(i in seq_along(gr)){
+  
+  # set grain
+  grain <- gr[[i]]
+  
+  for(j in seq_along(sp)){
+    
+    # set species
+    spec <- sp[[j]]
+    
+    # WHERE AM I?
+    message("__", grain, "__", spec, "__")  
+    
+    make_esm_projection_map(
+      species = spec,
+      grain = grain
+    )
+  }
+}
+    

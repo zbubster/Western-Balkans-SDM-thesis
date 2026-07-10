@@ -10,7 +10,9 @@ knihovnik(terra, sf, tidyverse, ggplot2, stringr,
           corrplot, rnaturalearth, dplyr,
           flexsdm, foreach, doParallel,
           Hmisc, gbm, mgcv, rpart, earth, ranger,
-          maps, spatialEco, readr, tidyr, tibble
+          maps, spatialEco, readr, tidyr, tibble,
+          prettymapr, rosm, scales, ggspatial, 
+          cowplot, rnaturalearthdata
 )
 
 # remotes::install_github("sjevelazco/flexsdm@HEAD")
