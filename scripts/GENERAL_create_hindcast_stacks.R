@@ -41,6 +41,43 @@ wopt <- list(
 # Helper functions
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
+harmonise_trace21k_units <- function(
+    x,
+    bio04_multiplier = 1
+) {
+  
+  absolute_temperature <- base::intersect(
+    c(
+      "bio01",
+      "bio05",
+      "bio06",
+      "bio08",
+      "bio09",
+      "bio10",
+      "bio11"
+    ),
+    base::names(x)
+  )
+  
+  if (base::length(absolute_temperature) > 0) {
+    x[[absolute_temperature]] <-
+      x[[absolute_temperature]] - 273.15
+  }
+  
+  # bio02 and bio07 are temperature differences.
+  # bio03 is dimensionless.
+  # bio04 is unaffected by the Kelvin–Celsius offset,
+  # but its scale may need harmonisation with CHELSA v2.1.
+  if (
+    "bio04" %in% base::names(x) &&
+    bio04_multiplier != 1
+  ) {
+    x[["bio04"]] <- x[["bio04"]] * bio04_multiplier
+  }
+  
+  x
+}
+
 make_dir <- function(path) {
   if (!base::dir.exists(path)) base::dir.create(path, recursive = TRUE)
 }
@@ -181,6 +218,11 @@ create_full_hindcast_stack <- function(grain, trace_slice) {
   
   stack <- terra::rast(files_all)
   names(stack) <- names(files_all)
+  
+  stack <- harmonise_trace21k_units(
+    x = stack,
+    bio04_multiplier = 1 # do nothing with bio4
+  )
   
   stack <- mask_stack_with_coastline(stack)
   

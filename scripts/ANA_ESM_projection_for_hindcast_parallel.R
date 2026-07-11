@@ -1,6 +1,6 @@
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 # ESM
-# projection-only
+# projection-only & hindcast only
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # load functions
@@ -14,34 +14,34 @@ species <- c("GD", "GT", "SB", "PK", "PO", "PP")
 # id of already fitted models
 modelling_id <- "recent_extrapol_weights_all_selected"
 
+
+# BACHA
+
 # id of new projection
 #projection_id <- "060_all_selected"
 #projection_id <- "190_all_selected"
-#projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp370"
-#projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp585"
-#projection_id <- "2041-2070_MPI-ESM1-2-HR_ssp126"
-#projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp370"
-#projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp585"
-#projection_id <- "2071-2100_MPI-ESM1-2-HR_ssp126"
 
-# BACHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-# pred_base_dir <- here::here(
-#   "data",
-#   "__PREDICTORS_STACKS__",
-#   "hindcast",
-#   "trace21k_-060", #################################################
-#   "selected_predictors_stacks",
-#   "extrapol"
-# )
+if(projection_id == "190_all_selected"){
+  pred_base_dir <- here::here(
+    "data",
+    "__PREDICTORS_STACKS__",
+    "hindcast",
+    "trace21k_-190",
+    "selected_predictors_stacks",
+    "extrapol"
+  )
+}
 
-pred_base_dir <- here::here(
-  "data",
-  "__PREDICTORS_STACKS__",
-  "forecast",
-  "2071-2100_MPI-ESM1-2-HR_ssp126",
-  "selected_predictors_stacks",
-  "extrapol"
-)
+if(projection_id == "060_all_selected"){
+  pred_base_dir <- here::here(
+    "data",
+    "__PREDICTORS_STACKS__",
+    "hindcast",
+    "trace21k_-060",
+    "selected_predictors_stacks",
+    "extrapol"
+  )
+}
 
 collinearity_type <- "_all_selected"
 
