@@ -1,5 +1,5 @@
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-# FUN ‒ ESM complete function workflow
+# FUN ‒ ESM functions
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 # FUN 1 ‒ prepare_occ_for_modeling
@@ -14,9 +14,10 @@
 # FUN 10 ‒ esm_project_bivariate
 # FUN 11 ‒ esm_response_curves_bivariate
 # FUN 12 ‒ plot_esm_response_numeric
-# FUN 13 ‒ plot_esm_response_numeric_with_small
-# FUN 14 ‒ plot_esm_response_factor
-# FUN 15 ‒ esm_weighted_mean_matrix
+# FUN 13 ‒ plot_esm_response_numeric_with_algorithms
+# FUN 14 ‒ plot_esm_response_numeric_with_small
+# FUN 15 ‒ plot_esm_response_factor
+# FUN 16 ‒ esm_weighted_mean_matrix
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
@@ -1208,48 +1209,186 @@ esm_project_bivariate <- function(esm, new_env, return_algorithms = FALSE) {
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# FUN 11 ‒ esm_response_curves_bivariate
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# FUN 11 - esm_response_curves_bivariate
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# compute response curves
+# Compute predictor-specific marginal response curves.
+#
+# For each predictor, only retained and successfully refitted bivariate models
+# containing that predictor are used. Their predictions are first combined
+# within each retained algorithm and then across algorithms.
+#
+# The weights of bivariate models are renormalised separately for every
+# predictor within every algorithm. Algorithm weights are subsequently
+# renormalised among algorithms that have at least one usable model containing
+# the predictor.
 
-esm_response_curves_bivariate <- function(esm,
-                                          vars = esm$predictors,
-                                          ref_data = esm$data,
-                                          n_points = 100,
-                                          probs = c(0.01, 0.99),
-                                          include_small_models = TRUE) {
+esm_response_curves_bivariate <- function(
+    esm,
+    vars = esm$predictors,
+    ref_data = esm$data,
+    n_points = 100,
+    probs = base::c(0.01, 0.99),
+    include_small_models = TRUE,
+    include_algorithm_curves = TRUE
+) {
   
   if (!base::is.list(esm)) {
     base::stop("esm must be an object returned by esm_fit_bivariate().")
   }
   
-  if (base::is.null(esm$full_models) || base::length(esm$full_models) == 0) {
+  if (base::is.null(esm$full_models) || base::length(esm$full_models) == 0L) {
     base::stop("esm$full_models is empty.")
   }
   
-  ref_data <- base::as.data.frame(ref_data)
-  
-  keep_scores <- esm$model_scores[esm$model_scores$keep, , drop = FALSE]
-  if (base::nrow(keep_scores) == 0) {
-    base::stop("No kept models available.")
+  if (base::is.null(esm$model_scores)) {
+    base::stop("esm$model_scores is missing.")
   }
   
-  model_names <- base::paste(
-    keep_scores$algo,
-    keep_scores$pair_label,
-    sep = "___"
+  if (base::is.null(esm$algorithm_scores)) {
+    base::stop("esm$algorithm_scores is missing.")
+  }
+  
+  if (!base::is.numeric(n_points) ||
+      base::length(n_points) != 1L ||
+      !base::is.finite(n_points) ||
+      n_points < 2) {
+    base::stop("n_points must be one finite number >= 2.")
+  }
+  
+  if (!base::is.numeric(probs) ||
+      base::length(probs) != 2L ||
+      base::any(!base::is.finite(probs)) ||
+      probs[1] < 0 ||
+      probs[2] > 1 ||
+      probs[1] >= probs[2]) {
+    base::stop(
+      "probs must contain two increasing finite probabilities between 0 and 1."
+    )
+  }
+  
+  ref_data <- base::as.data.frame(ref_data)
+  vars <- base::intersect(vars, base::names(ref_data))
+  
+  if (base::length(vars) == 0L) {
+    base::stop("None of vars is present in ref_data.")
+  }
+  
+  model_scores <- base::as.data.frame(esm$model_scores)
+  algorithm_scores <- base::as.data.frame(esm$algorithm_scores)
+  
+  required_model_cols <- base::c(
+    "algo",
+    "model_key",
+    "keep",
+    "refit_ok",
+    "weight_within_algo_refit"
   )
   
-  weights <- stats::setNames(keep_scores$weight, model_names)
+  missing_model_cols <- base::setdiff(
+    required_model_cols,
+    base::names(model_scores)
+  )
+  
+  if (base::length(missing_model_cols) > 0L) {
+    base::stop(
+      "esm$model_scores is missing: ",
+      base::paste(missing_model_cols, collapse = ", ")
+    )
+  }
+  
+  required_algorithm_cols <- base::c(
+    "algo",
+    "keep",
+    "weight_between_algos"
+  )
+  
+  missing_algorithm_cols <- base::setdiff(
+    required_algorithm_cols,
+    base::names(algorithm_scores)
+  )
+  
+  if (base::length(missing_algorithm_cols) > 0L) {
+    base::stop(
+      "esm$algorithm_scores is missing: ",
+      base::paste(missing_algorithm_cols, collapse = ", ")
+    )
+  }
+  
+  kept_algorithm_scores <- algorithm_scores[
+    !base::is.na(algorithm_scores$keep) &
+      algorithm_scores$keep &
+      base::is.finite(algorithm_scores$weight_between_algos) &
+      algorithm_scores$weight_between_algos > 0,
+    ,
+    drop = FALSE
+  ]
+  
+  if (base::nrow(kept_algorithm_scores) == 0L) {
+    base::stop("No retained algorithm-level ESM is available.")
+  }
+  
+  model_info <- model_scores[
+    model_scores$algo %in% kept_algorithm_scores$algo &
+      !base::is.na(model_scores$keep) &
+      model_scores$keep &
+      !base::is.na(model_scores$refit_ok) &
+      model_scores$refit_ok &
+      base::is.finite(model_scores$weight_within_algo_refit) &
+      model_scores$weight_within_algo_refit > 0 &
+      model_scores$model_key %in% base::names(esm$full_models),
+    ,
+    drop = FALSE
+  ]
+  
+  if (base::nrow(model_info) == 0L) {
+    base::stop("No usable retained and refitted bivariate models are available.")
+  }
+  
+  safe_mean <- function(x) {
+    if (base::length(x) == 0L || base::all(base::is.na(x))) {
+      return(NA_real_)
+    }
+    base::mean(x, na.rm = TRUE)
+  }
+  
+  safe_predict <- function(model_obj, newdata) {
+    pred <- base::tryCatch(
+      esm_predict_small_model(
+        model_obj = model_obj,
+        newdata = newdata
+      ),
+      error = function(e) {
+        base::warning(
+          "Prediction failed for one bivariate model: ",
+          base::conditionMessage(e),
+          call. = FALSE
+        )
+        base::rep(NA_real_, base::nrow(newdata))
+      }
+    )
+    
+    if (base::length(pred) != base::nrow(newdata)) {
+      base::warning(
+        "A bivariate model returned an unexpected number of predictions.",
+        call. = FALSE
+      )
+      return(base::rep(NA_real_, base::nrow(newdata)))
+    }
+    
+    base::as.numeric(pred)
+  }
+  
+  algorithm_original_weight_lookup <- stats::setNames(
+    kept_algorithm_scores$weight_between_algos,
+    kept_algorithm_scores$algo
+  )
   
   out <- list()
   out_id <- 0L
   
   for (v in vars) {
-    
-    if (!v %in% base::names(ref_data)) {
-      next
-    }
     
     x <- ref_data[[v]]
     is_fac <- base::is.factor(x)
@@ -1258,160 +1397,515 @@ esm_response_curves_bivariate <- function(esm,
       grid_vals <- base::levels(x)
       var_type <- "factor"
     } else {
-      rng <- stats::quantile(x, probs = probs, na.rm = TRUE)
-      grid_vals <- base::seq(rng[1], rng[2], length.out = n_points)
+      finite_x <- x[base::is.finite(x)]
+      
+      if (base::length(finite_x) == 0L) {
+        base::warning(
+          "Predictor '", v, "' has no finite values and was skipped.",
+          call. = FALSE
+        )
+        next
+      }
+      
+      rng <- stats::quantile(
+        x = finite_x,
+        probs = probs,
+        na.rm = TRUE,
+        names = FALSE
+      )
+      
+      if (rng[1] == rng[2]) {
+        grid_vals <- rng[1]
+      } else {
+        grid_vals <- base::seq(
+          from = rng[1],
+          to = rng[2],
+          length.out = base::as.integer(n_points)
+        )
+      }
+      
       var_type <- "numeric"
     }
     
-    res_list <- vector(mode = "list", length = base::length(grid_vals))
+    contains_variable <- base::vapply(
+      model_info$model_key,
+      function(model_key) {
+        v %in% esm$full_models[[model_key]]$pair
+      },
+      logical(1)
+    )
     
-    for (i in base::seq_along(grid_vals)) {
-      g <- grid_vals[i]
+    variable_model_info <- model_info[
+      contains_variable,
+      ,
+      drop = FALSE
+    ]
+    
+    if (base::nrow(variable_model_info) == 0L) {
+      base::warning(
+        "No usable bivariate model contains predictor '", v, "'.",
+        call. = FALSE
+      )
+      next
+    }
+    
+    variable_algorithms <- kept_algorithm_scores$algo[
+      kept_algorithm_scores$algo %in% base::unique(variable_model_info$algo)
+    ]
+    
+    variable_algorithm_scores <- kept_algorithm_scores[
+      base::match(variable_algorithms, kept_algorithm_scores$algo),
+      ,
+      drop = FALSE
+    ]
+    
+    # Predictor-specific second-level weights. Relative algorithm performance
+    # is retained, but weights sum to one only among algorithms that have at
+    # least one usable model containing the focal predictor.
+    variable_algorithm_scores$weight_between_algos_variable <- esm_make_weights(
+      x = variable_algorithm_scores$weight_between_algos,
+      transform = "identity"
+    )
+    
+    algorithm_variable_weight_lookup <- stats::setNames(
+      variable_algorithm_scores$weight_between_algos_variable,
+      variable_algorithm_scores$algo
+    )
+    
+    variable_model_info$weight_within_algo_original <-
+      variable_model_info$weight_within_algo_refit
+    variable_model_info$weight_within_algo_variable <- 0
+    
+    # Predictor-specific first-level weights. Within every algorithm, only
+    # bivariate models containing the focal predictor are normalised to one.
+    for (algo in variable_algorithms) {
+      idx <- variable_model_info$algo == algo
       
+      variable_model_info$weight_within_algo_variable[idx] <- esm_make_weights(
+        x = variable_model_info$weight_within_algo_refit[idx],
+        transform = "identity"
+      )
+    }
+    
+    variable_model_info$weight_between_algos_original <-
+      algorithm_original_weight_lookup[variable_model_info$algo]
+    variable_model_info$weight_between_algos_variable <-
+      algorithm_variable_weight_lookup[variable_model_info$algo]
+    variable_model_info$effective_weight_variable <-
+      variable_model_info$weight_within_algo_variable *
+      variable_model_info$weight_between_algos_variable
+    
+    for (grid_id in base::seq_along(grid_vals)) {
+      
+      g <- grid_vals[grid_id]
       newdata <- ref_data
       
       if (is_fac) {
-        newdata[[v]] <- base::factor(g, levels = base::levels(x))
+        newdata[[v]] <- base::factor(
+          g,
+          levels = base::levels(x)
+        )
         value_num <- NA_real_
         value_chr <- base::as.character(g)
       } else {
-        newdata[[v]] <- g
+        newdata[[v]] <- base::as.numeric(g)
         value_num <- base::as.numeric(g)
         value_chr <- base::as.character(g)
       }
       
-      small_vals <- base::rep(NA_real_, base::length(model_names))
-      base::names(small_vals) <- model_names
+      model_predictions <- base::setNames(
+        vector(
+          mode = "list",
+          length = base::nrow(variable_model_info)
+        ),
+        variable_model_info$model_key
+      )
       
-      for (nm in model_names) {
-        model_obj <- esm$full_models[[nm]]
-        
-        if (!v %in% model_obj$pair) {
-          next
-        }
-        
-        pred <- esm_predict_small_model(
-          model_obj = model_obj,
+      for (model_key in variable_model_info$model_key) {
+        model_predictions[[model_key]] <- safe_predict(
+          model_obj = esm$full_models[[model_key]],
           newdata = newdata
         )
+      }
+      
+      algorithm_row_predictions <- base::setNames(
+        vector(
+          mode = "list",
+          length = base::length(variable_algorithms)
+        ),
+        variable_algorithms
+      )
+      
+      for (algo in variable_algorithms) {
+        idx <- variable_model_info$algo == algo
+        model_keys <- variable_model_info$model_key[idx]
         
-        small_vals[nm] <- base::mean(pred, na.rm = TRUE)
-      }
-      
-      ok <- !base::is.na(small_vals)
-      
-      ensemble_val <- if (base::any(ok)) {
-        stats::weighted.mean(
-          x = small_vals[ok],
-          w = weights[ok],
-          na.rm = TRUE
+        pred_mat <- base::do.call(
+          base::cbind,
+          model_predictions[model_keys]
         )
-      } else {
-        NA_real_
+        
+        if (base::is.null(base::dim(pred_mat))) {
+          pred_mat <- base::matrix(pred_mat, ncol = 1L)
+        }
+        
+        algorithm_row_predictions[[algo]] <- esm_weighted_mean_matrix(
+          pred_mat = pred_mat,
+          weights = variable_model_info$weight_within_algo_variable[idx]
+        )
       }
       
-      base_row <- base::data.frame(
+      algorithm_pred_mat <- base::do.call(
+        base::cbind,
+        algorithm_row_predictions[variable_algorithms]
+      )
+      
+      if (base::is.null(base::dim(algorithm_pred_mat))) {
+        algorithm_pred_mat <- base::matrix(
+          algorithm_pred_mat,
+          ncol = 1L
+        )
+      }
+      
+      final_row_prediction <- esm_weighted_mean_matrix(
+        pred_mat = algorithm_pred_mat,
+        weights = variable_algorithm_scores$weight_between_algos_variable
+      )
+      
+      common <- base::data.frame(
         variable = v,
         var_type = var_type,
-        grid_id = i,
+        grid_id = grid_id,
         value_num = value_num,
         value_chr = value_chr,
-        ensemble = ensemble_val,
         stringsAsFactors = FALSE
       )
       
-      if (include_small_models) {
-        small_df <- base::data.frame(
-          variable = v,
-          var_type = var_type,
-          grid_id = i,
-          value_num = value_num,
-          value_chr = value_chr,
-          model = base::names(small_vals),
-          small_model = base::as.numeric(small_vals),
+      # Predictor-specific ensemble curve.
+      out_id <- out_id + 1L
+      out[[out_id]] <- base::cbind(
+        common,
+        base::data.frame(
+          curve_level = "ensemble",
+          curve_id = "predictor_ensemble",
+          algorithm = NA_character_,
+          prediction = safe_mean(final_row_prediction),
+          contains_variable = TRUE,
+          weight_within_algo_original = NA_real_,
+          weight_within_algo_variable = NA_real_,
+          weight_between_algos_original = 1,
+          weight_between_algos_variable = 1,
+          effective_weight_variable = 1,
           stringsAsFactors = FALSE
         )
-        
-        res_list[[i]] <- base::merge(
-          base_row,
-          small_df,
-          by = base::c("variable", "var_type", "grid_id", "value_num", "value_chr"),
-          all = TRUE
+      )
+      
+      # Predictor-specific algorithm curves.
+      if (include_algorithm_curves) {
+        algorithm_values <- base::vapply(
+          algorithm_row_predictions[variable_algorithms],
+          safe_mean,
+          numeric(1)
         )
-      } else {
-        res_list[[i]] <- base_row
+        
+        out_id <- out_id + 1L
+        out[[out_id]] <- base::cbind(
+          common[
+            base::rep(1L, base::length(variable_algorithms)),
+            ,
+            drop = FALSE
+          ],
+          base::data.frame(
+            curve_level = "algorithm",
+            curve_id = variable_algorithms,
+            algorithm = variable_algorithms,
+            prediction = base::as.numeric(algorithm_values),
+            contains_variable = TRUE,
+            weight_within_algo_original = NA_real_,
+            weight_within_algo_variable = NA_real_,
+            weight_between_algos_original =
+              variable_algorithm_scores$weight_between_algos,
+            weight_between_algos_variable =
+              variable_algorithm_scores$weight_between_algos_variable,
+            effective_weight_variable =
+              variable_algorithm_scores$weight_between_algos_variable,
+            stringsAsFactors = FALSE
+          )
+        )
+      }
+      
+      # Curves of individual retained bivariate models containing v.
+      if (include_small_models) {
+        small_values <- base::vapply(
+          model_predictions[variable_model_info$model_key],
+          safe_mean,
+          numeric(1)
+        )
+        
+        out_id <- out_id + 1L
+        out[[out_id]] <- base::cbind(
+          common[
+            base::rep(1L, base::nrow(variable_model_info)),
+            ,
+            drop = FALSE
+          ],
+          base::data.frame(
+            curve_level = "small_model",
+            curve_id = variable_model_info$model_key,
+            algorithm = variable_model_info$algo,
+            prediction = base::as.numeric(small_values),
+            contains_variable = TRUE,
+            weight_within_algo_original =
+              variable_model_info$weight_within_algo_original,
+            weight_within_algo_variable =
+              variable_model_info$weight_within_algo_variable,
+            weight_between_algos_original =
+              variable_model_info$weight_between_algos_original,
+            weight_between_algos_variable =
+              variable_model_info$weight_between_algos_variable,
+            effective_weight_variable =
+              variable_model_info$effective_weight_variable,
+            stringsAsFactors = FALSE
+          )
+        )
       }
     }
-    
-    out_id <- out_id + 1L
-    out[[out_id]] <- dplyr::bind_rows(res_list)
   }
   
-  dplyr::bind_rows(out)
+  if (base::length(out) == 0L) {
+    base::stop("No response curve could be calculated.")
+  }
+  
+  result <- base::do.call(base::rbind, out)
+  base::rownames(result) <- NULL
+  result
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-# FUN 12 ‒ plot_esm_response_numeric
+# FUN 12 - plot_esm_response_numeric
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 plot_esm_response_numeric <- function(rc, var) {
-  df <- rc[rc$variable == var & rc$var_type == "numeric", , drop = FALSE]
   
-  ggplot2::ggplot(df, ggplot2::aes(x = value_num, y = ensemble)) +
-    ggplot2::geom_line(linewidth = 1) +
+  df <- rc[
+    rc$variable == var &
+      rc$var_type == "numeric" &
+      rc$curve_level == "ensemble",
+    ,
+    drop = FALSE
+  ]
+  
+  if (base::nrow(df) == 0L) {
+    base::stop("No numeric ensemble response curve found for: ", var)
+  }
+  
+  ggplot2::ggplot(
+    df,
+    ggplot2::aes(x = value_num, y = prediction)
+  ) +
+    ggplot2::geom_line(linewidth = 1.1) +
+    ggplot2::scale_y_continuous(
+      breaks = base::seq(0, 1, by = 0.2),
+      expand = ggplot2::expansion(mult = base::c(0, 0))
+    ) +
+    ggplot2::coord_cartesian(
+      ylim = base::c(0, 1),
+      expand = FALSE
+    ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted suitability",
-      title = base::paste("Ensemble response curve:", var)
+      y = "Predicted probability of occurrence",
+      title = base::paste("Predictor-specific response curve:", var)
     ) +
     ggplot2::theme_bw()
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# FUN 13 - plot_esm_response_numeric_with_algorithms
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# FUN 13 ‒ plot_esm_response_numeric_with_small
+plot_esm_response_numeric_with_algorithms <- function(rc, var) {
+  
+  df_algorithm <- rc[
+    rc$variable == var &
+      rc$var_type == "numeric" &
+      rc$curve_level == "algorithm",
+    ,
+    drop = FALSE
+  ]
+  
+  df_ensemble <- rc[
+    rc$variable == var &
+      rc$var_type == "numeric" &
+      rc$curve_level == "ensemble",
+    ,
+    drop = FALSE
+  ]
+  
+  if (base::nrow(df_ensemble) == 0L) {
+    base::stop("No numeric ensemble response curve found for: ", var)
+  }
+  
+  ggplot2::ggplot() +
+    ggplot2::geom_line(
+      data = df_algorithm,
+      mapping = ggplot2::aes(
+        x = value_num,
+        y = prediction,
+        group = curve_id,
+        colour = algorithm
+      ),
+      linewidth = 0.8,
+      alpha = 0.85
+    ) +
+    ggplot2::geom_line(
+      data = df_ensemble,
+      mapping = ggplot2::aes(
+        x = value_num,
+        y = prediction
+      ),
+      linewidth = 1.3
+    ) +
+    ggplot2::scale_y_continuous(
+      breaks = base::seq(0, 1, by = 0.2),
+      expand = ggplot2::expansion(mult = base::c(0, 0))
+    ) +
+    ggplot2::coord_cartesian(
+      ylim = base::c(0, 1),
+      expand = FALSE
+    ) +
+    ggplot2::labs(
+      x = var,
+      y = "Predicted probability of occurrence",
+      colour = "Algorithm",
+      title = base::paste("Algorithm response curves:", var)
+    ) +
+    ggplot2::theme_bw()
+}
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+# FUN 14 - plot_esm_response_numeric_with_small
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 plot_esm_response_numeric_with_small <- function(rc, var) {
-  df <- rc[rc$variable == var & rc$var_type == "numeric", , drop = FALSE]
   
-  ggplot2::ggplot(df, ggplot2::aes(x = value_num)) +
+  df_small <- rc[
+    rc$variable == var &
+      rc$var_type == "numeric" &
+      rc$curve_level == "small_model",
+    ,
+    drop = FALSE
+  ]
+  
+  df_algorithm <- rc[
+    rc$variable == var &
+      rc$var_type == "numeric" &
+      rc$curve_level == "algorithm",
+    ,
+    drop = FALSE
+  ]
+  
+  df_ensemble <- rc[
+    rc$variable == var &
+      rc$var_type == "numeric" &
+      rc$curve_level == "ensemble",
+    ,
+    drop = FALSE
+  ]
+  
+  if (base::nrow(df_ensemble) == 0L) {
+    base::stop("No numeric ensemble response curve found for: ", var)
+  }
+  
+  ggplot2::ggplot() +
     ggplot2::geom_line(
-      ggplot2::aes(y = small_model, group = model),
-      alpha = 0.15
+      data = df_small,
+      mapping = ggplot2::aes(
+        x = value_num,
+        y = prediction,
+        group = curve_id,
+        colour = algorithm
+      ),
+      linewidth = 0.35,
+      alpha = 0.14,
+      show.legend = FALSE
     ) +
     ggplot2::geom_line(
-      ggplot2::aes(y = ensemble),
-      linewidth = 1.2
+      data = df_algorithm,
+      mapping = ggplot2::aes(
+        x = value_num,
+        y = prediction,
+        group = curve_id,
+        colour = algorithm
+      ),
+      linewidth = 0.9,
+      alpha = 0.9
+    ) +
+    ggplot2::geom_line(
+      data = df_ensemble,
+      mapping = ggplot2::aes(
+        x = value_num,
+        y = prediction
+      ),
+      linewidth = 1.4
+    ) +
+    ggplot2::scale_y_continuous(
+      breaks = base::seq(0, 1, by = 0.2),
+      expand = ggplot2::expansion(mult = base::c(0, 0))
+    ) +
+    ggplot2::coord_cartesian(
+      ylim = base::c(0, 1),
+      expand = FALSE
     ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted suitability",
-      title = base::paste("Ensemble response curve:", var)
+      y = "Predicted probability of occurrence",
+      colour = "Algorithm",
+      title = base::paste("Predictor-specific response curves:", var)
     ) +
     ggplot2::theme_bw()
 }
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-# FUN 14 ‒ plot_esm_response_factor
+# FUN 15 - plot_esm_response_factor
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 plot_esm_response_factor <- function(rc, var) {
-  df <- rc[rc$variable == var & rc$var_type == "factor", , drop = FALSE]
-  df <- df[!base::duplicated(df$grid_id), , drop = FALSE]
   
-  ggplot2::ggplot(df, ggplot2::aes(x = value_chr, y = ensemble)) +
+  df <- rc[
+    rc$variable == var &
+      rc$var_type == "factor" &
+      rc$curve_level == "ensemble",
+    ,
+    drop = FALSE
+  ]
+  
+  if (base::nrow(df) == 0L) {
+    base::stop("No factor ensemble response profile found for: ", var)
+  }
+  
+  ggplot2::ggplot(
+    df,
+    ggplot2::aes(x = value_chr, y = prediction)
+  ) +
     ggplot2::geom_col() +
+    ggplot2::scale_y_continuous(
+      breaks = base::seq(0, 1, by = 0.2),
+      expand = ggplot2::expansion(mult = base::c(0, 0))
+    ) +
+    ggplot2::coord_cartesian(
+      ylim = base::c(0, 1),
+      expand = FALSE
+    ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted suitability",
-      title = base::paste("Ensemble response profile:", var)
+      y = "Predicted probability of occurrence",
+      title = base::paste("Predictor-specific response profile:", var)
     ) +
     ggplot2::theme_bw()
 }
 
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-# FUN 15 ‒ ESM_weighted_mean_matrix
+# FUN 16 ‒ ESM_weighted_mean_matrix
 
 esm_weighted_mean_matrix <- function(pred_mat, weights) {
   
