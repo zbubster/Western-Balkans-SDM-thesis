@@ -188,7 +188,7 @@ modelování rozšíření potenciálně vhodných stanovišť
 
 EO, DPZ ‒ Earth observing, dálkový průzkum Země
 
-S-D ‒ Somerovo D
+S-D ‒ Somersovo D
 
 GLM ‒ generalized linear model, zobecněný lineární model
 
@@ -329,7 +329,7 @@ Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je 
   table(
     //columns: (0.8fr, 1.2fr, 4.5fr),
     columns: (10%, 20%, 70%),
-    inset: 4pt,
+    inset: 5pt,
     align: (left + horizon, center + horizon, left),
     stroke: none,
 
@@ -347,23 +347,23 @@ Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je 
     table.hline(start: 2, end: 3, stroke: 0.25pt),
     [bio02], [°C], [Průměrný denní teplotní rozsah vypočítaný jako průměr měsíčních rozdílů mezi maximální a minimální denní teplotou (_tasmax − tasmin_).],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio03], [°C], [Isotermalita: 100 × bio02 / bio07; porovnává denní teplotní variabilitu s ročním teplotním rozsahem.],
+    [bio03], [-], [Isotermalita: 100 × bio02 / bio07; porovnává denní teplotní variabilitu s ročním teplotním rozsahem.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
     [bio04], [°C/100], [Teplotní sezonalita vyjádřená směrodatnou odchylkou průměrných měsíčních teplot.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio05], [°C], [Nejvyšší měsíční průměr denních maximálních teplot (_tasmax_) v průběhu roku; vyjadřuje extrémní teplotní podmínky v nejteplejším období.],
+    [bio05], [°C], [Nejvyšší měsíční průměr denních maximálních teplot (_tasmax_) v průběhu roku.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio06], [°C], [Nejnižší měsíční průměr denních minimálních teplot (_tasmin_) v průběhu roku; charakterizuje intenzitu zimního chladu.],
+    [bio06], [°C], [Nejnižší měsíční průměr denních minimálních teplot (_tasmin_) v průběhu roku.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
     [bio07], [°C], [Roční teplotní rozsah vypočítaný jako bio05 − bio06; vyjadřuje rozdíl mezi nejteplejším a nejchladnějším měsícem.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio08], [°C], [Průměrná měsíční teplota během nejvlhčího tříměsíčního období roku.],
+    [bio08], [°C], [Průměrná měsíční teplota během nejvlhčího kvartálu.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio09], [°C], [Průměrná měsíční teplota během nejsuššího tříměsíčního období roku.],
+    [bio09], [°C], [Průměrná měsíční teplota během nejsuššího kvartálu.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio10], [°C], [Průměrná měsíční teplota během nejteplejšího tříměsíčního období roku.],
+    [bio10], [°C], [Průměrná měsíční teplota během nejteplejšího kvartálu.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio11], [°C], [Průměrná měsíční teplota během nejchladnějšího tříměsíčního období roku.],
+    [bio11], [°C], [Průměrná měsíční teplota během nejchladnějšího kvartálu.],
 
     table.hline(stroke: 0.75pt),
 
@@ -375,17 +375,17 @@ Do analýz navíc vstupoval i prediktor popisující počet dní v roce, kdy je 
     table.hline(start: 2, end: 3, stroke: 0.25pt),
     [bio15], [$"kg" m^(-2)$], [Koeficient variability měsíčních úhrnů srážek vypočítaný jako 100 × směrodatná odchylka / průměr.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio16], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejvlhčího tříměsíčního období roku.],
+    [bio16], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejvlhčího kvartálu.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio17], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejsuššího tříměsíčního období roku.],
+    [bio17], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejsuššího kvartálu.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio18], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejteplejšího tříměsíčního období roku.],
+    [bio18], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejteplejšího kvartálu.],
     table.hline(start: 2, end: 3, stroke: 0.25pt),
-    [bio19], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejchladnějšího tříměsíčního období roku.],
+    [bio19], [$"kg" m^(-2) "měsíc"^(-1)$], [Průměrný měsíční úhrn srážek během nejchladnějšího kvartálu.],
 
     table.hline(stroke: 0.75pt),
 
-    [scd], [dny], [Počet dní v roce, kdy je na zemském povrchu přítomna sněhová pokrývka.],
+    [scd], [dny], [Počet dní v roce, kdy je na povrchu přítomna sněhová pokrývka.],
 
     table.hline(stroke: 1.2pt),
   ),
@@ -399,7 +399,7 @@ MPI-ESM 1-2-HR @MPI-ESM1-2-HR,
 MRI-ESM2-0 @MRI-ESM2-0,
 &
 UKESM1-0-LL @UKESM1-0-LL)
-na základě různých emisních scénářů SSP (shared socioeconomic pathways: ssp126, ssp370 & ssp585 @oneil__cmip6_2016).
+na základě různých emisních scénářů SSP (shared socioeconomic pathways: SSP1.26, SSP3.70 & SSP5.85 @oneil__cmip6_2016).
 
 S ohledem na zachování metodické konzistence mezi jednotlivými časovými řezy byl pro projekci modelů na historické klimatické podmínky použit dataset CHELSA-TraCE21k-bioclim @chelsa_trace_data @chelsa_trace_model, který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
 
@@ -738,7 +738,7 @@ V dalším kroku byly hodnoty Somersova D pro daný bivariátní model zprůměr
 
 Z bivariátních modelů, které prošly sítem, byl sestaven algoritmický soubor predikcí (_algo-ESM_, viz @fig:ESM), přičemž příspěvek jednotlivých bivariátních modelů byl vážen jejich průměrným výkonem. Modely s vyšší hodnotou S-D tak měly v algo-ESM větší vliv než modely s nižší, avšak stále kladnou úspěšností. Soubor predikcí byl sestaven pro každý algoritmus samostatně.
 
-Predikce takto sestavených algo-ESM byla následně znovu vyhodnocena podle testovacích částí předpřipravených CV foldů a analogicky jako v kroku výše bylo vypočteno průměrné Somerovo D pro daný algo-ESM a porovnáno s hraniční hodnotou, přičemž algo-ESM s průměrným S-D $<=$ 0 byly z dalších analýz opět vyloučeny. Pokud v tomto kroku nastala situace, že S-D#sub("algo-ESM") $<=$ 0, došlo v daném běhu k efektivnímu vyloučení celé větve algoritmu z modelovacího procesu.
+Predikce takto sestavených algo-ESM byla následně znovu vyhodnocena podle testovacích částí předpřipravených CV foldů a analogicky jako v kroku výše bylo vypočteno průměrné Somersovo D pro daný algo-ESM a porovnáno s hraniční hodnotou, přičemž algo-ESM s průměrným S-D $<=$ 0 byly z dalších analýz opět vyloučeny. Pokud v tomto kroku nastala situace, že S-D#sub("algo-ESM") $<=$ 0, došlo v daném běhu k efektivnímu vyloučení celé větve algoritmu z modelovacího procesu.
 
 Po dokončení validačního procesu byly ponechané bivariátní modely znovu trénovány na celém dostupném datasetu. Tento krok zajistil, že finální ESM model využíval pro odhad vztahu mezi výskytem druhu a prostředím všechna cenná dostupná data. Relativní příspěvky jednotlivých bivariátních modelů natrénovaných na celém datasetu byly váženy přes váhy získané v prvním kroku sestavování algo-ESM a zároveň přes váhu algoritmu jako celku. Efektivní příspěvek bivariátního modelu je možné vyjádřit jako:
 
@@ -748,8 +748,10 @@ $
 
 kde $w_"efektivní"$ vyjadřuje intenzitu příspěvku bivariátního modelu do celkového ESM, $w_"bivariátní model"$ vyjadřuje váhu daného bivariátního modelu mezi všemi ostatními bivariátními modely stejného algoritmu a $w_"mateřský algo-ESM"$ vyjadřuje váhu celého algoritmu.
 
+Finální predikční výkonnost celého ensemble modelu byla vyjádřena pomocí jediné  hodnoty Somersova D. Tato souhrnná hodnota byla vypočítána během jednotlivých cross validačních kroků z (i) projekce vážených predikcí bivariátních modelů na testovací část datového souboru v rámci jednoho algoritmu a (ii) projekce vážených predikcí jednotlivých algoritmických ESM na testovací část datového souboru. Tím vznikla dvojitě vážená predikce pro každý jeden testovací bod a po proběhnutí procesu na všech cross validačních souborech byly tyto predikce spojeny do jednoho vektoru a na něm spočítáno finální Somersovo D pro celý model.
+
 #figure(
-  image("obj/pic/ESM_schema.png", height: 75%),
+  image("obj/pic/ESM_schema.png", height: 90%),
   caption: [
     Schematické znázornění modelovacího procesu ESM.
   ]
@@ -788,7 +790,9 @@ Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, 
 == Prohlášení k metodám
 
 Veškeré analýzy byly provedeny v prostředí R, verze 4.2.2 ‒ Innocent and Trusting @R s využitím těchto balíčků: _terra_, _sf_, _tidyverse_, _maptiles_, _blockCV_, _openeo_,
-_collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _parallelly_, _Hmisc_, _gbm_, _mgcv_, _rpart_, _earth_, _ranger_, _maps_ & _spatialEco_.
+_collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _parallelly_, _Hmisc_, _gbm_, _mgcv_, _rpart_, _earth_, _ranger_, _maps_ & _spatialEco_. 
+
+[[[doplnit]]]
 
 Vizualizace a kontrola výstupních rastrů probíhala v programu QGIS, verze 3.28.9 ‒ Firenze @QGIS_software.
 
