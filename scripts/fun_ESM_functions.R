@@ -1513,7 +1513,7 @@ esm_response_curves_bivariate <- function(
         value_chr <- base::as.character(g)
       }
       
-      model_predictions <- base::setNames(
+      model_predictions <- stats::setNames(
         vector(
           mode = "list",
           length = base::nrow(variable_model_info)
@@ -1528,7 +1528,7 @@ esm_response_curves_bivariate <- function(
         )
       }
       
-      algorithm_row_predictions <- base::setNames(
+      algorithm_row_predictions <- stats::setNames(
         vector(
           mode = "list",
           length = base::length(variable_algorithms)
@@ -1714,8 +1714,8 @@ plot_esm_response_numeric <- function(rc, var) {
     ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted probability of occurrence",
-      title = base::paste("Predictor-specific response curve:", var)
+      y = "Pravděpodobnost",
+      title = base::paste("Křivka odpovědi:", var)
     ) +
     ggplot2::theme_bw()
 }
@@ -1776,9 +1776,9 @@ plot_esm_response_numeric_with_algorithms <- function(rc, var) {
     ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted probability of occurrence",
-      colour = "Algorithm",
-      title = base::paste("Algorithm response curves:", var)
+      y = "Pravděpodobnost",
+      colour = "Algoritmus",
+      title = base::paste("Algoritmická křivka:", var)
     ) +
     ggplot2::theme_bw()
 }
@@ -1797,14 +1797,6 @@ plot_esm_response_numeric_with_small <- function(rc, var) {
     drop = FALSE
   ]
   
-  df_algorithm <- rc[
-    rc$variable == var &
-      rc$var_type == "numeric" &
-      rc$curve_level == "algorithm",
-    ,
-    drop = FALSE
-  ]
-  
   df_ensemble <- rc[
     rc$variable == var &
       rc$var_type == "numeric" &
@@ -1812,6 +1804,12 @@ plot_esm_response_numeric_with_small <- function(rc, var) {
     ,
     drop = FALSE
   ]
+  
+  df_small$small_curve_group <- base::interaction(
+    df_small$algorithm,
+    df_small$curve_id,
+    drop = TRUE
+  )
   
   if (base::nrow(df_ensemble) == 0L) {
     base::stop("No numeric ensemble response curve found for: ", var)
@@ -1823,23 +1821,10 @@ plot_esm_response_numeric_with_small <- function(rc, var) {
       mapping = ggplot2::aes(
         x = value_num,
         y = prediction,
-        group = curve_id,
-        colour = algorithm
+        group = small_curve_group
       ),
       linewidth = 0.35,
-      alpha = 0.14,
-      show.legend = FALSE
-    ) +
-    ggplot2::geom_line(
-      data = df_algorithm,
-      mapping = ggplot2::aes(
-        x = value_num,
-        y = prediction,
-        group = curve_id,
-        colour = algorithm
-      ),
-      linewidth = 0.9,
-      alpha = 0.9
+      alpha = 0.14
     ) +
     ggplot2::geom_line(
       data = df_ensemble,
@@ -1859,9 +1844,8 @@ plot_esm_response_numeric_with_small <- function(rc, var) {
     ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted probability of occurrence",
-      colour = "Algorithm",
-      title = base::paste("Predictor-specific response curves:", var)
+      y = "Pravděpodobnost",
+      title = base::paste("Křivka odpovědi:", var)
     ) +
     ggplot2::theme_bw()
 }
@@ -1899,8 +1883,8 @@ plot_esm_response_factor <- function(rc, var) {
     ) +
     ggplot2::labs(
       x = var,
-      y = "Predicted probability of occurrence",
-      title = base::paste("Predictor-specific response profile:", var)
+      y = "Pravděpodobnost",
+      title = base::paste("Křivka odpovědi:", var)
     ) +
     ggplot2::theme_bw()
 }
