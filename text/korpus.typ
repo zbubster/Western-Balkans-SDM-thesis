@@ -918,6 +918,885 @@ Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejn
 #pagebreak()
 #set page(flipped: false)
 
+extrapol_all
+
+#figure(
+  text(size: 8pt)[
+    #table(
+      //columns: ( 1.45fr,0.65fr, 0.65fr, 4.2fr, 0.95fr, 0.95fr, 0.85fr ),
+      columns: ( 14%, 9%, 8%, 45%, 6%, 8%, 10% ),
+      align: (left + horizon, center + horizon, center + horizon, left + horizon, center + horizon, center + horizon, center + horizon),
+      inset: (3pt),
+      //stroke: 0.35pt + luma(180),
+      stroke: none,
+      //fill: (x, y) => if y == 0 { luma(235) } else { none },
+
+      table.header(
+        [*Druh*],
+        [*Rozlišení*],
+        [*$N_"pred"$*],
+        [*Prediktory*],
+        [*$N_"biv"$*],
+        [*$N_"TRUE"$*],
+        [*Somersovo $D$*],
+      ),
+
+      table.hline(stroke: 1.3pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Gentiana \ dinarica_],
+      [1000],
+      [10],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, bio04, bio10, bio18, bio19")],
+      [270],
+      [189],
+      [0,671],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [173],
+      [0,721],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [151],
+      [0,453],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [173],
+      [0,616],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Gentiana \ tergestina_],
+      [1000],
+      [10],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, bio04, bio10, bio18, bio19")],
+      [270],
+      [208],
+      [0,390],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [160],
+      [0,437],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [164],
+      [0,480],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [163],
+      [0,404],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Primula \ kitaibeliana_],
+      [1000],
+      [11],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, TRI, bio04, bio10, bio18, bio19")],
+      [330],
+      [250],
+      [−0,137],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [10],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, bio04, bio10, bio18, bio19")],
+      [270],
+      [212],
+      [0,697],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [172],
+      [0,839],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [174],
+      [0,787],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Phyteuma \ orbiculare_],
+      [1000],
+      [10],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, bio04, bio10, bio18, bio19")],
+      [270],
+      [202],
+      [0,778],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [168],
+      [0,702],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [177],
+      [0,627],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [175],
+      [0,691],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Phyteuma \ pseudorbiculare_],
+      [1000],
+      [10],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, bio04, bio10, bio18, bio19")],
+      [270],
+      [196],
+      [0,694],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [135],
+      [0,565],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [149],
+      [0,706],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [155],
+      [0,616],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Saxifraga \ blavii_],
+      [1000],
+      [10],
+      [#text("dem_sd, eastness, bedrock, northness, slope, TPI, bio04, bio10, bio18, bio19")],
+      [270],
+      [202],
+      [0,693],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [164],
+      [0,564],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [152],
+      [0,649],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [9],
+      [#text("dem_sd, eastness, bedrock, northness, TPI, bio04, bio10, bio18, bio19")],
+      [216],
+      [166],
+      [0,462],
+
+      table.hline(stroke: 1.2pt),
+    )
+  ],
+  caption: [
+    Souhrnná tabulka pro modely určené k extrapolaci odvozené závislosti mezi výskytem druhu a prostředím v čase. *$N_"pred"$* představuje absoultní počet prediktorů využitých k modelování, *$N_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$N_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
+  ],
+) <tab:esm_summary_1>
+
+
+
+
+
+
+
+
+
+#figure(
+  text(size: 8pt)[
+    #table(
+      columns: (13%, 7%, 7%, 52%, 6%, 7%, 8%),
+      align: (
+        left + horizon,
+        center + horizon,
+        center + horizon,
+        left + horizon,
+        center + horizon,
+        center + horizon,
+        center + horizon,
+      ),
+      inset: (4pt),
+      stroke: none,
+
+      table.header(
+        [*Druh*],
+        [*Rozlišení*],
+        [*$N_"pred"$*],
+        [*Prediktory*],
+        [*$N_"biv"$*],
+        [*$N_"TRUE"$*],
+        [*Somersovo $D$*],
+      ),
+
+      table.hline(stroke: 1.3pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Gentiana \ dinarica_],
+      [1000],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, eastness, landcover, bedrock, HLI, northness, TPI, TRI, TWI, bio04, bio06, bio12, bio14")],
+      [546],
+      [375],
+      [0,733],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [13],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio07, bio12, bio14")],
+      [468],
+      [382],
+      [0,722],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio07, bio12, bio14")],
+      [546],
+      [406],
+      [0,597],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [13],
+      [#text("depth_to_bedrock, aspect, soil_water_cap, dem_range, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio12, bio14")],
+      [468],
+      [373],
+      [0,702],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Gentiana \ tergestina_],
+      [1000],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TPI, TWI, bio04, bio06, bio12, bio14")],
+      [546],
+      [394],
+      [0,356],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [12],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")],
+      [396],
+      [274],
+      [0,412],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [13],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio04, bio06, bio12, bio14")],
+      [468],
+      [368],
+      [0,519],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [11],
+      [#text("soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")],
+      [330],
+      [259],
+      [0,426],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Primula \ kitaibeliana_],
+      [1000],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TPI, TWI, bio04, bio06, bio12, bio14")],
+      [546],
+      [440],
+      [0,433],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [12],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")],
+      [396],
+      [315],
+      [0,690],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [13],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio04, bio06, bio12, bio14")],
+      [468],
+      [362],
+      [0,904],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [11],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, HLI, northness, TWI, bio06, bio12, bio14")],
+      [330],
+      [253],
+      [0,895],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Phyteuma \ orbiculare_],
+      [1000],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, eastness, landcover, bedrock, HLI, northness, TPI, TRI, TWI, bio04, bio06, bio12, bio14")],
+      [546],
+      [386],
+      [0,728],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [13],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio07, bio12, bio14")],
+      [468],
+      [333],
+      [0,554],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio07, bio12, bio14")],
+      [546],
+      [404],
+      [0,542],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [13],
+      [#text("depth_to_bedrock, aspect, soil_water_cap, dem_range, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio12, bio14")],
+      [468],
+      [370],
+      [0,643],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Phyteuma \ pseudorbiculare_],
+      [1000],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, eastness, landcover, bedrock, HLI, northness, TPI, TRI, TWI, bio04, bio06, bio12, bio14")],
+      [546],
+      [396],
+      [0,623],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [13],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio07, bio12, bio14")],
+      [468],
+      [345],
+      [0,639],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio07, bio12, bio14")],
+      [546],
+      [379],
+      [0,688],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [13],
+      [#text("depth_to_bedrock, aspect, soil_water_cap, dem_range, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio12, bio14")],
+      [468],
+      [322],
+      [0,541],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Saxifraga \ blavii_],
+      [1000],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, eastness, landcover, bedrock, HLI, northness, TPI, TRI, TWI, bio04, bio06, bio12, bio14")],
+      [546],
+      [405],
+      [0,650],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [500],
+      [13],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio07, bio12, bio14")],
+      [468],
+      [374],
+      [0,571],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [200],
+      [14],
+      [#text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio07, bio12, bio14")],
+      [546],
+      [378],
+      [0,637],
+
+      table.hline(start: 1, end: 7, stroke: 0.25pt),
+
+      [100],
+      [13],
+      [#text("depth_to_bedrock, aspect, soil_water_cap, dem_range, landcover, bedrock, HLI, northness, TPI, TWI, bio06, bio12, bio14")],
+      [468],
+      [351],
+      [0,404],
+
+      table.hline(stroke: 1.2pt),
+    )
+  ],
+  caption: [
+    Souhrnná tabulka modelů určených k co nejvěrnějšímu vystižení současného rozšíření vhodných stanovišť. *$N_"pred"$* představuje absolutní počet prediktorů využitých k modelování, *$N_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$N_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
+  ],
+) <tab:esm_summary_2>
+
+
+
+
+
+#figure(
+  text(size: 8pt)[
+    #table(
+      columns: (13%, 8%, 43%, 10%, 8%, 8%, 10%),
+      align: (
+        left + horizon,
+        center + horizon,
+        left + horizon,
+        center + horizon,
+        center + horizon,
+        center + horizon,
+        center + horizon,
+      ),
+      inset: (3pt),
+      stroke: none,
+
+      table.header(
+        [*Druh*],
+        [*$N_"pred"$*],
+        [*Prediktory*],
+        [*Rozlišení*],
+        [*$N_"biv"$*],
+        [*$N_"TRUE"$*],
+        [*Somersovo $D$*],
+      ),
+
+      table.hline(stroke: 1.3pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Gentiana \ dinarica_],
+
+      table.cell(
+        rowspan: 4,
+        align: center + horizon,
+      )[10],
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[
+        #text("depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")
+      ],
+
+      [1000],
+      [270],
+      [181],
+      [0,640],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [500],
+      [270],
+      [225],
+      [0,688],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [200],
+      [270],
+      [215],
+      [0,590],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [100],
+      [270],
+      [223],
+      [0,702],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Gentiana \ tergestina_],
+
+      table.cell(
+        rowspan: 4,
+        align: center + horizon,
+      )[11],
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[
+        #text("soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")
+      ],
+
+      [1000],
+      [330],
+      [254],
+      [0,358],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [500],
+      [330],
+      [247],
+      [0,412],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [200],
+      [330],
+      [269],
+      [0,467],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [100],
+      [330],
+      [259],
+      [0,426],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Primula \ kitaibeliana_],
+
+      table.cell(
+        rowspan: 4,
+        align: center + horizon,
+      )[11],
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[
+        #text("depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, HLI, northness, TWI, bio06, bio12, bio14")
+      ],
+
+      [1000],
+      [330],
+      [262],
+      [0,514],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [500],
+      [330],
+      [260],
+      [0,665],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [200],
+      [330],
+      [248],
+      [0,895],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [100],
+      [330],
+      [253],
+      [0,895],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Phyteuma \ orbiculare_],
+
+      table.cell(
+        rowspan: 4,
+        align: center + horizon,
+      )[10],
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[
+        #text("depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")
+      ],
+
+      [1000],
+      [270],
+      [182],
+      [0,661],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [500],
+      [270],
+      [202],
+      [0,573],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [200],
+      [270],
+      [193],
+      [0,479],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [100],
+      [270],
+      [212],
+      [0,618],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Phyteuma \ pseudorbiculare_],
+
+      table.cell(
+        rowspan: 4,
+        align: center + horizon,
+      )[10],
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[
+        #text("depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")
+      ],
+
+      [1000],
+      [270],
+      [189],
+      [0,588],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [500],
+      [270],
+      [207],
+      [0,639],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [200],
+      [270],
+      [204],
+      [0,674],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [100],
+      [270],
+      [205],
+      [0,556],
+
+      table.hline(stroke: 0.8pt),
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[_Saxifraga \ blavii_],
+
+      table.cell(
+        rowspan: 4,
+        align: center + horizon,
+      )[10],
+
+      table.cell(
+        rowspan: 4,
+        align: left + horizon,
+      )[
+        #text("depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14")
+      ],
+
+      [1000],
+      [270],
+      [213],
+      [0,635],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [500],
+      [270],
+      [221],
+      [0,555],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [200],
+      [270],
+      [203],
+      [0,628],
+
+      table.hline(start: 3, end: 7, stroke: 0.25pt),
+      
+
+      [100],
+      [270],
+      [210],
+      [0,406],
+
+      table.hline(stroke: 1.2pt),
+    )
+  ],
+  caption: [
+    Souhrnná tabulka modelů založených na sadách prediktorů společných pro všechna prostorová rozlišení daného druhu. *$N_"pred"$* představuje absolutní počet prediktorů využitých k modelování, *$N_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$N_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
+  ],
+) <tab:esm_summary_common>
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // diskuse
 #pagebreak()

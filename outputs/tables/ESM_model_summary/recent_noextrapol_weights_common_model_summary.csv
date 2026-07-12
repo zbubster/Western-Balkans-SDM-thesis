@@ -1,0 +1,25 @@
+species,grain,n_predictors,predictors,n_candidate_biv_models,n_kept_biv_models,oof_somers_d
+Gentiana dinarica,1000,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,181,0.64
+Gentiana dinarica,500,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,225,0.688
+Gentiana dinarica,200,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,215,0.59
+Gentiana dinarica,100,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,223,0.702
+Gentiana tergestina,1000,11,"soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",330,254,0.358
+Gentiana tergestina,500,11,"soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",330,247,0.412
+Gentiana tergestina,200,11,"soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",330,269,0.467
+Gentiana tergestina,100,11,"soil_water_cap, dem_range, eastness, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",330,259,0.426
+Primula kitaibeliana,1000,11,"depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, HLI, northness, TWI, bio06, bio12, bio14",330,262,0.514
+Primula kitaibeliana,500,11,"depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, HLI, northness, TWI, bio06, bio12, bio14",330,260,0.665
+Primula kitaibeliana,200,11,"depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, HLI, northness, TWI, bio06, bio12, bio14",330,248,0.895
+Primula kitaibeliana,100,11,"depth_to_bedrock, soil_water_cap, dem_range, eastness, landcover, HLI, northness, TWI, bio06, bio12, bio14",330,253,0.895
+Phyteuma orbiculare,1000,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,182,0.661
+Phyteuma orbiculare,500,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,202,0.573
+Phyteuma orbiculare,200,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,193,0.479
+Phyteuma orbiculare,100,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,212,0.618
+Phyteuma pseudorbiculare,1000,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,189,0.588
+Phyteuma pseudorbiculare,500,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,207,0.639
+Phyteuma pseudorbiculare,200,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,204,0.674
+Phyteuma pseudorbiculare,100,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,205,0.556
+Saxifraga blavii,1000,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,213,0.635
+Saxifraga blavii,500,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,221,0.555
+Saxifraga blavii,200,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,203,0.628
+Saxifraga blavii,100,10,"depth_to_bedrock, soil_water_cap, landcover, bedrock, HLI, northness, TWI, bio06, bio12, bio14",270,210,0.406
