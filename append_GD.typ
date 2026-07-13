@@ -323,7 +323,7 @@
 
 #outline(title: [Obsah], depth: 5)
 
-= Modely extrapolované v čase
+= Modely na extrapolovatelných prediktorech
 
 #figure(
     grid(
@@ -1260,7 +1260,7 @@
 }
 
 #pagebreak()
-= Modely pro současný stav
+= Modely na všech prediktorech
 
 #figure(
     grid(
@@ -1499,7 +1499,7 @@
 #pagebreak()
 #set page(flipped: false)
 
-= Modely trénované na sdílených prediktorech
+= Modely na společných prediktorech
 
 #figure(
     grid(
