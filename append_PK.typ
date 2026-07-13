@@ -197,25 +197,25 @@
 
 
 
-#title([_Gentiana dinarica_])
+#title([_Primula kitaibeliana_])
 
 #outline(title: [Obsah], depth: 3)
 
 = Modely extrapolované v čase
 
 #figure(
-  image("outputs/summary/figures/predictor_contributions/recent_extrapol_weights_all_selected/GD/heatmap.png"),
+  image("outputs/summary/figures/predictor_contributions/recent_extrapol_weights_all_selected/PK/heatmap.png"),
   caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
 )
 
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 1000 m
+== _Primula kitaibeliana_, 1000 m
 === recent
 
 #figure(
   esm_shape_extrapol_all(
-  "GD",
+  "PK",
   1000,
   period: "recent",
   ssp: none
@@ -227,7 +227,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     1000,
     "complex",
     extrapolation: "extrapol",
@@ -240,7 +240,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "190"
   ),
@@ -251,7 +251,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "060"
   ),
@@ -263,7 +263,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2041-2070",
     ssp: 126,
@@ -274,7 +274,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2041-2070",
     ssp: 126,
@@ -287,7 +287,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2041-2070",
     ssp: 370,
@@ -298,7 +298,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2041-2070",
     ssp: 370,
@@ -311,7 +311,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2041-2070",
     ssp: 585,
@@ -322,7 +322,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2041-2070",
     ssp: 585,
@@ -336,7 +336,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2071-2100",
     ssp: 126,
@@ -347,7 +347,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2071-2100",
     ssp: 126,
@@ -360,7 +360,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2071-2100",
     ssp: 370,
@@ -371,7 +371,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2071-2100",
     ssp: 370,
@@ -384,7 +384,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2071-2100",
     ssp: 585,
@@ -395,7 +395,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     1000,
     period: "2071-2100",
     ssp: 585,
@@ -406,12 +406,12 @@
 
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 500 m
+== _Primula kitaibeliana_, 500 m
 === recent
 
 #figure(
   esm_shape_extrapol_all(
-  "GD",
+  "PK",
   500,
   period: "recent",
   ssp: none
@@ -423,7 +423,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     500,
     "complex",
     extrapolation: "extrapol",
@@ -436,7 +436,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "190"
   ),
@@ -447,7 +447,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "060"
   ),
@@ -459,7 +459,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2041-2070",
     ssp: 126,
@@ -470,7 +470,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2041-2070",
     ssp: 126,
@@ -483,7 +483,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2041-2070",
     ssp: 370,
@@ -494,7 +494,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2041-2070",
     ssp: 370,
@@ -507,7 +507,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2041-2070",
     ssp: 585,
@@ -518,7 +518,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2041-2070",
     ssp: 585,
@@ -532,7 +532,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2071-2100",
     ssp: 126,
@@ -543,7 +543,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2071-2100",
     ssp: 126,
@@ -556,7 +556,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2071-2100",
     ssp: 370,
@@ -567,7 +567,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2071-2100",
     ssp: 370,
@@ -580,7 +580,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2071-2100",
     ssp: 585,
@@ -591,7 +591,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     500,
     period: "2071-2100",
     ssp: 585,
@@ -602,12 +602,12 @@
 
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 200 m
+== _Primula kitaibeliana_, 200 m
 === recent
 
 #figure(
   esm_shape_extrapol_all(
-  "GD",
+  "PK",
   200,
   period: "recent",
   ssp: none
@@ -619,7 +619,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     200,
     "complex",
     extrapolation: "extrapol",
@@ -632,7 +632,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "190"
   ),
@@ -643,7 +643,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "060"
   ),
@@ -655,7 +655,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2041-2070",
     ssp: 126,
@@ -666,7 +666,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2041-2070",
     ssp: 126,
@@ -679,7 +679,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2041-2070",
     ssp: 370,
@@ -690,7 +690,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2041-2070",
     ssp: 370,
@@ -703,7 +703,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2041-2070",
     ssp: 585,
@@ -714,7 +714,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2041-2070",
     ssp: 585,
@@ -728,7 +728,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2071-2100",
     ssp: 126,
@@ -739,7 +739,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2071-2100",
     ssp: 126,
@@ -752,7 +752,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2071-2100",
     ssp: 370,
@@ -763,7 +763,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2071-2100",
     ssp: 370,
@@ -776,7 +776,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2071-2100",
     ssp: 585,
@@ -787,7 +787,7 @@
 
 #figure(
   esm_shape_extrapol_all(
-    "GD",
+    "PK",
     200,
     period: "2071-2100",
     ssp: 585,
@@ -798,12 +798,12 @@
 
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 100 m
+== _Primula kitaibeliana_, 100 m
 === recent
 
 #figure(
   esm_shape_extrapol_all(
-  "GD",
+  "PK",
   100,
   period: "recent",
   ssp: none
@@ -815,7 +815,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     100,
     "complex",
     extrapolation: "extrapol",
@@ -828,18 +828,18 @@
 = Modely pro současný stav
 
 #figure(
-  image("outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_all_selected/GD/heatmap.png"),
+  image("outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_all_selected/PK/heatmap.png"),
   caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
 )
 
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 1000 m
+== _Primula kitaibeliana_, 1000 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         1000,
         colin: "all_selected"
     ),
@@ -851,7 +851,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     1000,
     "complex",
     extrapolation: "noextrapol",
@@ -863,11 +863,11 @@
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 500 m
+== _Primula kitaibeliana_, 500 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         500,
         colin: "all_selected"
     ),
@@ -879,7 +879,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     500,
     "complex",
     extrapolation: "noextrapol",
@@ -891,11 +891,11 @@
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 200 m
+== _Primula kitaibeliana_, 200 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         200,
         colin: "all_selected"
     ),
@@ -907,7 +907,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     200,
     "complex",
     extrapolation: "noextrapol",
@@ -919,11 +919,11 @@
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 100 m
+== _Primula kitaibeliana_, 100 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         100,
         colin: "all_selected"
     ),
@@ -935,7 +935,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     100,
     "complex",
     extrapolation: "noextrapol",
@@ -950,18 +950,18 @@
 = Modely trénované na sdílených prediktorech
 
 #figure(
-  image("outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/GD/heatmap.png"),
+  image("outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PK/heatmap.png"),
   caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
 )
 
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 1000 m
+== _Primula kitaibeliana_, 1000 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         1000,
         colin: "common"
     ),
@@ -973,7 +973,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     1000,
     "complex",
     extrapolation: "noextrapol",
@@ -985,11 +985,11 @@
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 500 m
+== _Primula kitaibeliana_, 500 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         500,
         colin: "common"
     ),
@@ -1001,7 +1001,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     500,
     "complex",
     extrapolation: "noextrapol",
@@ -1013,11 +1013,11 @@
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 200 m
+== _Primula kitaibeliana_, 200 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         200,
         colin: "common"
     ),
@@ -1029,7 +1029,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     200,
     "complex",
     extrapolation: "noextrapol",
@@ -1041,11 +1041,11 @@
 #pagebreak()
 #set page(flipped: true)
 
-== _Gentiana dinarica_, 100 m
+== _Primula kitaibeliana_, 100 m
 
 #figure(
     esm_shape_noextrapol(
-        "GD",
+        "PK",
         100,
         colin: "common"
     ),
@@ -1057,7 +1057,7 @@
 
 #figure(
   response-curves-grid(
-    "GD",
+    "PK",
     100,
     "complex",
     extrapolation: "noextrapol",
