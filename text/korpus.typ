@@ -1795,7 +1795,7 @@ extrapol_all
   caption: [
     Souhrnná tabulka modelů založených na sadách prediktorů společných pro všechna prostorová rozlišení daného druhu. *$N_"pred"$* představuje absolutní počet prediktorů využitých k modelování, *$N_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$N_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
   ],
-) <tab:esm_summary_common>
+) <tab:esm_summary_3>
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // diskuse
