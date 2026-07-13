@@ -189,8 +189,117 @@
 }
 
 
+#let shape-plots-grid(
+  species,
+  grain,
+  period: "recent",
+  root: "/models",
+  manifest: "/models/structure_models.txt",
+  extrapolation: "extrapol",
+  colinearity: "all_selected",
+  columns: 3,
+  column-gap: 3pt,
+  row-gap: 5pt,
+) = {
+  let grain = str(grain)
+  let period = str(period)
 
+  // Kontrola období
+  if period != "recent" and period != "060" and period != "190" {
+    panic(
+      "Parametr period musí být \"recent\", \"060\" nebo \"190\"."
+    )
+  }
 
+  // Společné označení modelovací větve
+  let model-branch = (
+    extrapolation
+    + "_weights_"
+    + colinearity
+  )
+
+  // Recentní Shape
+  let relative-dir = if period == "recent" {
+    (
+      "./Shape/recent_"
+      + model-branch
+      + "/"
+      + species
+      + "/"
+      + grain
+      + "/"
+    )
+
+  // Hindcast Shape
+  } else {
+    (
+      "./Shape/hindcast_forecast_"
+      + model-branch
+      + "/"
+      + species
+      + "/"
+      + grain
+      + "/projections/hindcast/trace21k_-"
+      + period
+      + "/"
+    )
+  }
+
+  // Načtení cest z manifestu
+  let files = read(manifest)
+    .split("\n")
+    .map(line => line.trim())
+
+  // Výběr PNG grafů přímo v daném adresáři
+  files = files.filter(line => {
+    if line.starts-with(relative-dir) {
+      let filename = line.slice(relative-dir.len())
+
+      line.ends-with(".png") and not filename.contains("/")
+    } else {
+      false
+    }
+  })
+
+  // Abecední seřazení podle dvojic prediktorů
+  files = files.sorted()
+
+  if files.len() == 0 {
+    panic(
+      "Nenalezeny žádné grafy metriky Shape pro species="
+      + species
+      + ", grain="
+      + grain
+      + ", period="
+      + period
+      + ", větev="
+      + model-branch
+      + ". Hledaný adresář: "
+      + relative-dir
+    )
+  }
+
+  // Převod relativních cest na úplné cesty
+  let plots = files.map(file => {
+    let full-path = root + file.slice(1)
+
+    image(
+      full-path,
+      width: 100%,
+    )
+  })
+
+  // Výsledná mřížka
+  grid(
+    columns: (1fr,) * columns,
+    column-gutter: column-gap,
+    row-gutter: row-gap,
+    align: center + horizon,
+    inset: 0pt,
+    stroke: none,
+    ..plots,
+  )
+}
 
 
 
@@ -233,7 +342,20 @@
     extrapolation: "extrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    1000,
+    period: "recent",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 === 21k BP, LGM
@@ -247,6 +369,18 @@
   caption: [Projekce ESM (vlevo) & projekce metriky Shape (vpravo).]
 )
 
+#figure(
+  shape-plots-grid(
+    "GD",
+    1000,
+    period: "190",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
+)
+
 === 8k BP, HCO
 
 #figure(
@@ -256,6 +390,20 @@
     period: "060"
   ),
   caption: [Projekce ESM (vlevo) & projekce metriky Shape (vpravo).]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    1000,
+    period: "060",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 === 2041 ‒ 2070
@@ -429,7 +577,21 @@
     extrapolation: "extrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    500,
+    period: "recent",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 === 21k BP, LGM
@@ -443,6 +605,20 @@
   caption: [Projekce ESM (vlevo) & projekce metriky Shape (vpravo).]
 )
 
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    500,
+    period: "190",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
+)
+
 === 8k BP, HCO
 
 #figure(
@@ -452,6 +628,20 @@
     period: "060"
   ),
   caption: [Projekce ESM (vlevo) & projekce metriky Shape (vpravo).]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    500,
+    period: "060",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 === 2041 ‒ 2070
@@ -625,7 +815,21 @@
     extrapolation: "extrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    200,
+    period: "recent",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 === 21k BP, LGM
@@ -639,6 +843,20 @@
   caption: [Projekce ESM (vlevo) & projekce metriky Shape (vpravo).]
 )
 
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    200,
+    period: "190",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
+)
+
 === 8k BP, HCO
 
 #figure(
@@ -648,6 +866,20 @@
     period: "060"
   ),
   caption: [Projekce ESM (vlevo) & projekce metriky Shape (vpravo).]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    200,
+    period: "060",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 === 2041 ‒ 2070
@@ -821,7 +1053,21 @@
     extrapolation: "extrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    100,
+    period: "recent",
+    extrapolation: "extrapol",
+    colinearity: "all_selected",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 #pagebreak()
@@ -857,8 +1103,32 @@
     extrapolation: "noextrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
 )
+
+#pagebreak()
+
+#{
+  show figure: set block(breakable: true)
+
+  figure(
+    shape-plots-grid(
+      "GD",
+      1000,
+      period: "recent",
+      extrapolation: "noextrapol",
+      colinearity: "all_selected",
+      columns: 6,
+    ),
+    caption: [
+      Bivariátní zobrazení metriky Shape. Data představují 5% vzorek
+      prediktorových kombinací v daném rastru, barevná škála velikost
+      metriky Shape, kdy tmavší barva představuje kombinace vzdálenější
+      od trénovacích dat než barva světlejší. Zaznačena jsou také
+      pozorování druhu.
+    ],
+  )
+}
 
 #pagebreak()
 #set page(flipped: true)
@@ -885,8 +1155,32 @@
     extrapolation: "noextrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
 )
+
+#pagebreak()
+
+#{
+  show figure: set block(breakable: true)
+
+  figure(
+    shape-plots-grid(
+      "GD",
+      500,
+      period: "recent",
+      extrapolation: "noextrapol",
+      colinearity: "all_selected",
+      columns: 6,
+    ),
+    caption: [
+      Bivariátní zobrazení metriky Shape. Data představují 5% vzorek
+      prediktorových kombinací v daném rastru, barevná škála velikost
+      metriky Shape, kdy tmavší barva představuje kombinace vzdálenější
+      od trénovacích dat než barva světlejší. Zaznačena jsou také
+      pozorování druhu.
+    ],
+  )
+}
 
 #pagebreak()
 #set page(flipped: true)
@@ -913,8 +1207,32 @@
     extrapolation: "noextrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
 )
+
+#pagebreak()
+
+#{
+  show figure: set block(breakable: true)
+
+  figure(
+    shape-plots-grid(
+      "GD",
+      200,
+      period: "recent",
+      extrapolation: "noextrapol",
+      colinearity: "all_selected",
+      columns: 6,
+    ),
+    caption: [
+      Bivariátní zobrazení metriky Shape. Data představují 5% vzorek
+      prediktorových kombinací v daném rastru, barevná škála velikost
+      metriky Shape, kdy tmavší barva představuje kombinace vzdálenější
+      od trénovacích dat než barva světlejší. Zaznačena jsou také
+      pozorování druhu.
+    ],
+  )
+}
 
 #pagebreak()
 #set page(flipped: true)
@@ -941,8 +1259,32 @@
     extrapolation: "noextrapol",
     colinearity: "all_selected"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
 )
+
+#pagebreak()
+
+#{
+  show figure: set block(breakable: true)
+
+  figure(
+    shape-plots-grid(
+      "GD",
+      100,
+      period: "recent",
+      extrapolation: "noextrapol",
+      colinearity: "all_selected",
+      columns: 6,
+    ),
+    caption: [
+      Bivariátní zobrazení metriky Shape. Data představují 5% vzorek
+      prediktorových kombinací v daném rastru, barevná škála velikost
+      metriky Shape, kdy tmavší barva představuje kombinace vzdálenější
+      od trénovacích dat než barva světlejší. Zaznačena jsou také
+      pozorování druhu.
+    ],
+  )
+}
 
 #pagebreak()
 #set page(flipped: false)
@@ -979,7 +1321,21 @@
     extrapolation: "noextrapol",
     colinearity: "common"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    1000,
+    period: "recent",
+    extrapolation: "noextrapol",
+    colinearity: "common",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 #pagebreak()
@@ -1007,7 +1363,21 @@
     extrapolation: "noextrapol",
     colinearity: "common"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    500,
+    period: "recent",
+    extrapolation: "noextrapol",
+    colinearity: "common",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 #pagebreak()
@@ -1035,7 +1405,21 @@
     extrapolation: "noextrapol",
     colinearity: "common"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    200,
+    period: "recent",
+    extrapolation: "noextrapol",
+    colinearity: "common",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
 #pagebreak()
@@ -1063,6 +1447,20 @@
     extrapolation: "noextrapol",
     colinearity: "common"
   ),
-  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru. Sestaveny byly z ponechaných bivariátních modelů obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci fnálního ESM.]
+  caption: [Křivky odpovědí druhu: vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+
+#pagebreak()
+
+#figure(
+  shape-plots-grid(
+    "GD",
+    100,
+    period: "recent",
+    extrapolation: "noextrapol",
+    colinearity: "common",
+    columns: 6
+  ),
+  caption: [Bivariátní zobrazení metriky shape. Data představují 5% vzorek prediktorových kombinací v daném rastru, barevná škála velikost metriky Shape, kdy tmavší barva představuje kombinace vzdálenější od trénovacích dat než barva světlejší. Zaznačena jsou také pozorování druhu.]
 )
 
