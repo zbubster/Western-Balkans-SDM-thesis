@@ -313,7 +313,7 @@ V rámci této práce byly k trénování modelů rozšíření vhodných stanov
 + *půdní* prediktory rozvíjejí informaci o půdních poměrech na úrovni lokalit a je možné považovat je za ekologicky relevantnější než samotný geologický substrát [[[zdroj]]]
 + *krajinný pokryv* klasifikuje povrch Země do základních formačních skupin a jako jediný prediktor přináší do modelů informaci, která je vzdáleně schopna charakterizovat biotické faktory [[[zdroj]]]
 
-==== Klimatické prediktory
+==== Klimatické prediktory <chap:climate_pred>
 
 Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
@@ -399,7 +399,7 @@ MPI-ESM 1-2-HR @MPI-ESM1-2-HR,
 MRI-ESM2-0 @MRI-ESM2-0,
 &
 UKESM1-0-LL @UKESM1-0-LL)
-na základě různých emisních scénářů SSP (shared socioeconomic pathways: SSP1.26, SSP3.70 & SSP5.85 @oneil__cmip6_2016).
+na základě různých emisních scénářů SSP (shared socioeconomic pathways: SSP1-2.6, SSP3-7.0 & SSP5-8.5 @oneil__cmip6_2016).
 
 S ohledem na zachování metodické konzistence mezi jednotlivými časovými řezy byl pro projekci modelů na historické klimatické podmínky použit dataset CHELSA-TraCE21k-bioclim @chelsa_trace_data @chelsa_trace_model, který poskytuje klimatické rekonstrukce od posledního glaciálního maxima po současnost v časových krocích 100 let a prostorovém rozlišení 30 úhlových sekund (cca 1 km#super([2])).
 
@@ -761,10 +761,9 @@ Finální predikční výkonnost celého ensemble modelu byla vyjádřena pomoc�
 === Projekce v prostoru
 === Projekce v prostoru a čase
 
-Vypočítané modely byly promítnuty do dvou historických a jednoho budoucího časového řezu. [[[]]]
-Jako reprezentativní body v minulosti byly vybrány dva časové řezy: poslední glaciální maximum (LGM, 21k BP) a holocénní klimatické optimum (HCO, 8k BP). Jelikož se v obou případech jedná o sporné vymezení konkrétních událostí (např. #cite(<davis2003>, form: "prose") ukazují, že HCO se v jižní Evropě neprojevovalo tak silně jako v Evropě severní), je nutné vnímat zvolené časové řezy jako částečně arbitrární rozhodnutí.
+Vypočítané modely byly promítnuty do dvou historických a dvou budoucích časových řezů. Jako reprezentativní body v minulosti byly vybrány dva časové řezy: poslední glaciální maximum (LGM, 21k BP) a holocénní klimatické optimum (HCO, 8k BP). Jelikož se v obou případech jedná o sporné vymezení konkrétních událostí (např. #cite(<davis2003>, form: "prose") ukazují, že HCO se v jižní Evropě neprojevovalo tak silně jako v Evropě severní), je nutné vnímat zvolené časové řezy jako částečně arbitrární rozhodnutí.
 
-Pro vyjádření budoucí potenciální vhodnosti stanovišť byly jednotlivé projekce agregovány napříč použitými klimatickými projekčními modely, přičemž časové řezy a scénáře SSP byly ponechány odděleně. Agregace probíhala samostatně pro každou kombinaci druhu, prostorového rozlišení, časového řezu a scénáře SSP. Výsledná konsenzuální projekce byla vypočtena jako průměr predikované vhodnosti stanoviště z jednotlivých projekcí založených na různých earth system models. Současně byla pro stejnou sadu projekcí vypočtena směrodatná odchylka, jako vyjádření mezimodelové variability. Tento postup byl zvolen, jelikož projekce rozšíření vhodných stanovišť do budoucích klimatických podmínek jsou zatíženy nejen nejistotou spojenou se samotným modelem rozšíření, ale také s volbou klimatického modelu a emisního scénáře. Ačkoli v literatuře se obvykle přistupuje k sofistikovanějším metodám spojování predikcí i jednoduchá agregace může omezit závislost interpretace na jednom konkrétním klimatickém modelu @araujo_2007. @araujo_2005 [[[]]]
+Pro vyjádření budoucí potenciální vhodnosti stanovišť byly jednotlivé projekce agregovány napříč použitými klimatickými projekčními modely (earth system models, viz výše), přičemž časové řezy a scénáře SSP byly ponechány odděleně. Z možných časových řezů, připravených v rámci projektu CHELSA-BIOCLIM, byly ponechány pouze projekce do rozmezí 2041 ‒ 2070 & 2071 ‒ 2100. Agregace probíhala samostatně pro každou kombinaci druhu, prostorového rozlišení, časového řezu a scénáře SSP. Výsledná konsenzuální projekce byla vypočtena jako průměr predikované vhodnosti stanoviště z jednotlivých projekcí založených na různých earth system models. Současně byla pro stejnou sadu projekcí vypočtena směrodatná odchylka, jako vyjádření mezimodelové variability. Tento postup byl zvolen, jelikož projekce rozšíření vhodných stanovišť do budoucích klimatických podmínek jsou zatíženy nejen nejistotou spojenou se samotným modelem rozšíření, ale také s volbou klimatického modelu a emisního scénáře. Ačkoli v literatuře se obvykle přistupuje k sofistikovanějším metodám spojování predikcí i jednoduchá agregace může omezit závislost interpretace na jednom konkrétním klimatickém modelu @araujo_2007. @araujo_2005 [[[]]]
 
 Směrodatná odchylka zde tedy nepředstavuje variabilitu v modelech samotných, ale jenom prostorové vyjádření rozdílů mezi projekcemi založenými na různých klimatických modelech v rámci stejného scénáře SSP.
 
@@ -773,7 +772,7 @@ Směrodatná odchylka zde tedy nepředstavuje variabilitu v modelech samotných,
 Metoda Shape @shape_2023 představuje nástroj určený k posouzení míry extrapolace při prostorové či časové projekci modelů vhodnosti stanoviště.
 Jejím principem je porovnání podmínek prostředí v projekční oblasti s podmínkami, na jejichž základě byl model kalibrován.
 
-Pro každou rastrovou buňku, je v mnohorozměrném environmentálním prostoru vypočítána Mahalanobisova vzdálenost ke každému bodu z trénovací sady a z této množiny je pro daný bod vybrána ta nejnižší (@fig:shape *(a)*).
+Pro každou rastrovou buňku je v mnohorozměrném environmentálním prostoru vypočítána Mahalanobisova vzdálenost ke každému bodu z trénovací sady a z této množiny je pro daný bod vybrána ta nejnižší (@fig:shape *(a)*).
 Takto vypočtená vzdálenost je následně škálována disperzním faktorem trénovacích dat, čímž vzniká bezrozměrná metrika vyjadřující míru environmentální novosti dané lokality (@fig:shape *(b)*).
 Nízké hodnoty metriky Shape odpovídají podmínkám blízkým trénovacím datům, a tedy lokalitám, kde model interpoluje v rámci známého environmentálního prostoru.
 Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, které nejsou v trénovacích datech výrazněji zastoupeny, a predikce v daných lokalitách je proto zatížena vyšší nejistotou.
@@ -785,7 +784,7 @@ Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, 
   caption: [Grafické znázornění metody Shape v zjednodušeném dvourozměrném prostoru. *(a)* Reprezentuje výpočet Mahalanobisových vzdáleností mezi projekčním bodem a všemi trénovacími body. Nejnižší vzdálenost vyznačena oranžově. *(b)* Vyjádření metriky Shape _S#sub[pi]_ pro projekční body. _A_ značí disperzní faktor trénovacích dat. Vyšší hodnota _S#sub[pi]_ značí vyšší míru environmentální novosti a tudíž vyšší míru extrapolace modelu. Převzato z #cite(<shape_2023>, form: "prose")]
 ) <fig:shape>
 
-[[[realizace Shape v diplomce]]]
+V rámci této práce je metrika Shape hlavní metodou k posuzování míry extrapolace. Za tímto účelem byla její distribuce pro každý model i projekci vykreslena v prostoru, což umožňuje posuzovat věrohodnost predikce modelu na vybraných lokalitách, a v bivariátních grafechm které ukazují distribuci kombinací hodnot prediktorů ve dvourozměrném prostoru a unadňují posouzení dostatečnosti provzorkování gradientů.
 
 == Prohlášení k metodám
 
@@ -830,6 +829,18 @@ Po použití uvedených nástrojů umělé inteligence jsem důkladně revidoval
 Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejném repozitáři na GitHub na adrese #link("https://github.com/zbubster/Western-Balkans-SDM-thesis")[https://github.com/zbubster/Western-Balkans-SDM-thesis].
 
 [[[vytvořit release a odkazovat na něj]]]
+
+== Modelové sady
+
+Pro každý ze šesti studovaných druhů a každé ze čtyř prostorových rozlišení (1000 m, 500 m, 200 m, 100 m) byly vytvořeny tři samostatné varianty ensemble of small models (ESM), lišící se sadou vstupních prediktorů.
+
+První varianta zahrnovala pouze prediktory extrapolovatelné v čase. Modely natrénované na současných environmentálních podmínkách byly kromě projekce pro současné podmínky taktéž projektovány na dvě období minulosti (21k BP, LGM & 8k BP, HCO) a dvě období budoucnosti (2041-2070 & 2071-2100), přičemž pro každý řez v budoucnosti byly samostatně zpracovány tři scénáře sdílených socioekonomických trajektorií (SSP1-2.6, SSP3-7.0 a SSP5-8.5). Déle _Modely na extrapolovatelných prediktorech_.
+
+Druhá varianta vycházela ze všech vybraných prediktorů, včetně proměnných, které nebylo možné smysluplně přenášet v čase (např. krajinný pokryv, půdní prediktory). Tyto modely slouží především k co nejúplnějšímu popisu současného rozšíření vhodných stanovišť. Dále _Modely na všech prediktorech_.
+
+Třetí varianta byla založena na sadě prediktorů společné všem prostorovým rozlišením daného druhu (tj. splňovaly podmínky kolinearity pro ve všech rozlišeních). Tato varianta tak umožňuje porovnání vlivu velikosti prostorového měřítka na výsledky modelování. Dále _Modely na společných prediktorech_.
+
+Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálních ESM, ze kterých vzniklo 72 projekcí současné vhodnosti stanovišť a 192 časově extrapolovaných projekcí, tedy celkem 264 projekcí.
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
@@ -918,7 +929,7 @@ Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejn
 #pagebreak()
 #set page(flipped: false)
 
-extrapol_all
+== Modely na extrapolovatelných prediktorech
 
 #figure(
   text(size: 8pt)[
@@ -1192,10 +1203,7 @@ extrapol_all
 
 
 
-
-
-
-
+== Modely na všech prediktorech
 
 #figure(
   text(size: 8pt)[
@@ -1472,7 +1480,7 @@ extrapol_all
 ) <tab:esm_summary_2>
 
 
-
+== Modely na společných prediktorch
 
 
 #figure(
