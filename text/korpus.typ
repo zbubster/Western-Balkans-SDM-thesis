@@ -601,7 +601,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #extrapol_proj_grid(
   species: "GD",
   grain: 500,
-  caption: "[[[]]]"
+  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana dinarica v rozlišení 500 m (Somersovo D: 0,721)."
 )
 
 === _Gentiana tergestina_
@@ -609,7 +609,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #extrapol_proj_grid(
   species: "GT",
   grain: 200,
-  caption: "[[[]]]"
+  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana tergestina v rozlišení 200 m (Somersovo D: 0,48)."
 )
 
 === _Primula kitaibeliana_
@@ -617,7 +617,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #extrapol_proj_grid(
   species: "PK",
   grain: 200,
-  caption: "[[[]]]"
+  caption: "Projekce pro nejúspěšněnší ESM druhu Primula kitaibeliana v rozlišení 200 m (Somersovo D: 0,839)."
 )
 
 === _Phyteuma orbiculare_
@@ -625,7 +625,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #extrapol_proj_grid(
   species: "PO",
   grain: 1000,
-  caption: "[[[]]]"
+  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma orbiculare v rozlišení 1000 m (Somersovo D: 0,778)."
 )
 
 === _Phyteuma pseudorbiculare_
@@ -633,7 +633,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #extrapol_proj_grid(
   species: "PP",
   grain: 200,
-  caption: "[[[]]]"
+  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma pseudorbiculare v rozlišení 200 m (Somersovo D: 0,706)."
 )
 
 === _Saxifraga blavii_
@@ -641,7 +641,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #extrapol_proj_grid(
   species: "SB",
   grain: 1000,
-  caption: "[[[]]]"
+  caption: "Projekce pro nejúspěšněnší ESM druhu Saxifraga blavii v rozlišení 1000 m (Somersovo D: 0,693)."
 )
 
 == Modely na všech prediktorech
@@ -649,18 +649,73 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #import "typst/tables/res_noextrapol_all.typ": noextrapol_all_result_table
 #noextrapol_all_result_table
 
+#import "typst/functions/esm_shape_noextrapol_proj_grid.typ": esm_shape_noextrapol
 
 === _Gentiana dinarica_
 
+#figure(
+  esm_shape_noextrapol(
+    "GD",
+    1000,
+    colin: "all_selected"
+  ),
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana dinarica_ v rozlišení 1000 m (Somersovo D: 0,733). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+)
+
 === _Gentiana tergestina_
+
+#figure(
+  esm_shape_noextrapol(
+    "GT",
+    200,
+    colin: "all_selected"
+  ),
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana tergestina_ v rozlišení 200 m (Somersovo D: 0,519). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+)
 
 === _Primula kitaibeliana_
 
+#figure(
+  esm_shape_noextrapol(
+    "PK",
+    200,
+    colin: "all_selected"
+  ),
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Primula kitaibeliana_ v rozlišení 200 m (Somersovo D: 0,904). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+)
+
 === _Phyteuma orbiculare_
+
+#figure(
+  esm_shape_noextrapol(
+    "PO",
+    1000,
+    colin: "all_selected"
+  ),
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma orbiculare_ v rozlišení 1000 m (Somersovo D: 0,728). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+)
 
 === _Phyteuma pseudorbiculare_
 
+#figure(
+  esm_shape_noextrapol(
+    "PP",
+    200,
+    colin: "all_selected"
+  ),
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma pseudorbiculare_ v rozlišení 200 m (Somersovo D: 0,688). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+)
+
 === _Saxifraga blavii_
+
+#figure(
+  esm_shape_noextrapol(
+    "SB",
+    1000,
+    colin: "all_selected"
+  ),
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Saxifraga blavii_ v rozlišení 1000 m (Somersovo D: 0,65). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+)
 
 == Modely na společných prediktorch
 
