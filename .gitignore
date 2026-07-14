@@ -16,6 +16,9 @@
 /data/__COMPATIBILITY__/
 /data/__PREDICTORS_STACKS__/
 /models/
+/text/outputs/
+/text/models/
+/text/exports_untracked/
 
 
 # History files

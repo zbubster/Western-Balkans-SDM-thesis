@@ -2,13 +2,11 @@
   species,
   root: "../../models",
   manifest: "../../models/structure_models.txt",
-  columns: 3,
+  columns: 2,
   column-gap: 3pt,
   row-gap: 5pt,
   include-barplots: true,
 ) = {
-  let grain = str(grain)
-
   // structure_models.txt
   let relative-dir = ("./ESM/recent_noextrapol_weights_common/"
     + species + "/resp_curv_by_grain/"
