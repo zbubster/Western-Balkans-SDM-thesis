@@ -9,6 +9,7 @@ input_root <- here::here(
 )
 
 output_root <- here::here(
+  "text",
   "outputs",
   "ESM"
 )
@@ -18,7 +19,7 @@ plot_filename <- "OOF_prediction_common_grains.png"
 
 plot_width <- 6
 plot_height <- 5
-plot_dpi <- 300
+plot_dpi <- 200
 
 # Full species names used in plot titles
 species_names <- c(
@@ -278,6 +279,26 @@ make_common_grain_plot <- function(
     )
   )
   
+  # Number of valid observations for each reference class and grain
+  count_df <- stats::aggregate(
+    list(
+      n = plot_data$oof_pred
+    ),
+    by = list(
+      reference = plot_data$reference,
+      grain = plot_data$grain
+    ),
+    FUN = length
+  )
+  
+  count_df$label <- paste0(
+    "n=",
+    count_df$n
+  )
+  
+  # Place labels in a narrow strip above the boxplots
+  count_df$label_y <- 1.035
+  
   # Full species name
   species_full <- if (
     species %in% names(species_names)
@@ -336,26 +357,46 @@ make_common_grain_plot <- function(
       linewidth = 0.65,
       show.legend = FALSE
     ) +
+    # Number of observations above each boxplot
+    ggplot2::geom_text(
+      data = count_df,
+      ggplot2::aes(
+        x = reference,
+        y = label_y,
+        label = label,
+        group = grain
+      ),
+      position = dodge_position,
+      inherit.aes = FALSE,
+      size = 2.8,
+      vjust = 0.5,
+      colour = "black",
+      show.legend = FALSE
+    ) +
     ggplot2::scale_fill_manual(
       name = "Rozlišení [m]",
       values = grain_colours,
       breaks = grain_levels
     ) +
+    ggplot2::scale_y_continuous(
+      breaks = seq(
+        0,
+        1,
+        by = 0.2
+      )
+    ) +
     ggplot2::coord_cartesian(
-      ylim = c(0, 1)
+      ylim = c(0, 1.07),
+      clip = "off"
     ) +
     ggplot2::labs(
       title = species_full,
-      #subtitle = model_branch,
       x = "Reference",
       y = "Predikovaná vhodnost"
     ) +
     ggplot2::theme_linedraw() +
     ggplot2::theme(
       plot.title = ggplot2::element_text(
-        hjust = 0.5
-      ),
-      plot.subtitle = ggplot2::element_text(
         hjust = 0.5
       ),
       legend.position = "bottom",

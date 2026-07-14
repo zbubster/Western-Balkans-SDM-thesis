@@ -54,6 +54,10 @@
   heading(level: 1)[#title]
 }
 
+#import "typst/functions/extrapol_proj_grid.typ": extrapol_proj_grid
+#import "typst/functions/esm_shape_noextrapol_proj_grid.typ": esm_shape_noextrapol
+#import "typst/functions/respcurves_grid.typ": response-curves-grid
+
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // main page
 
@@ -594,8 +598,6 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #import "typst/tables/res_extrapol.typ": extrapol_result_table
 #extrapol_result_table
 
-#import "typst/functions/extrapol_proj_grid.typ": extrapol_proj_grid
-
 === _Gentiana dinarica_
 
 #extrapol_proj_grid(
@@ -649,8 +651,6 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #import "typst/tables/res_noextrapol_all.typ": noextrapol_all_result_table
 #noextrapol_all_result_table
 
-#import "typst/functions/esm_shape_noextrapol_proj_grid.typ": esm_shape_noextrapol
-
 === _Gentiana dinarica_
 
 #figure(
@@ -661,6 +661,23 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   ),
   caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana dinarica_ v rozlišení 1000 m (Somersovo D: 0,733). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
 )
+
+#[
+  #show figure.where(kind: image): set block(breakable: true)
+
+#figure(
+  response-curves-grid(
+    "GD",
+    1000,
+    "complex",
+    colinearity: "all_selected",
+    extrapolation: "noextrapol",
+    columns: 4
+  ),
+  caption: [Křivky odpovědí druhu _Gentiana dinarica_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+]
+
 
 === _Gentiana tergestina_
 
@@ -673,6 +690,22 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana tergestina_ v rozlišení 200 m (Somersovo D: 0,519). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
 )
 
+#[
+  #show figure.where(kind: image): set block(breakable: true)
+
+#figure(
+  response-curves-grid(
+    "GT",
+    200,
+    "complex",
+    colinearity: "all_selected",
+    extrapolation: "noextrapol",
+    columns: 4
+  ),
+  caption: [Křivky odpovědí druhu _Gentiana tergestina_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+]
+
 === _Primula kitaibeliana_
 
 #figure(
@@ -683,6 +716,22 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   ),
   caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Primula kitaibeliana_ v rozlišení 200 m (Somersovo D: 0,904). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
 )
+
+#[
+  #show figure.where(kind: image): set block(breakable: true)
+
+#figure(
+  response-curves-grid(
+    "PK",
+    200,
+    "complex",
+    colinearity: "all_selected",
+    extrapolation: "noextrapol",
+    columns: 4
+  ),
+  caption: [Křivky odpovědí druhu _Primul kitaibeliana_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+]
 
 === _Phyteuma orbiculare_
 
@@ -695,6 +744,22 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma orbiculare_ v rozlišení 1000 m (Somersovo D: 0,728). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
 )
 
+#[
+  #show figure.where(kind: image): set block(breakable: true)
+
+#figure(
+  response-curves-grid(
+    "PO",
+    1000,
+    "complex",
+    colinearity: "all_selected",
+    extrapolation: "noextrapol",
+    columns: 4
+  ),
+  caption: [Křivky odpovědí druhu _Phyteuma orbiculare_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+]
+
 === _Phyteuma pseudorbiculare_
 
 #figure(
@@ -705,6 +770,22 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   ),
   caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma pseudorbiculare_ v rozlišení 200 m (Somersovo D: 0,688). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
 )
+
+#[
+  #show figure.where(kind: image): set block(breakable: true)
+
+#figure(
+  response-curves-grid(
+    "PO",
+    200,
+    "complex",
+    colinearity: "all_selected",
+    extrapolation: "noextrapol",
+    columns: 4
+  ),
+  caption: [Křivky odpovědí druhu _Phyteuma pseudorbiculare_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+]
 
 === _Saxifraga blavii_
 
@@ -717,10 +798,27 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Saxifraga blavii_ v rozlišení 1000 m (Somersovo D: 0,65). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
 )
 
+#[
+  #show figure.where(kind: image): set block(breakable: true)
+
+#figure(
+  response-curves-grid(
+    "SB",
+    1000,
+    "complex",
+    colinearity: "all_selected",
+    extrapolation: "noextrapol",
+    columns: 4
+  ),
+  caption: [Křivky odpovědí druhu _Saxifraga blavii_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
+)
+]
+
 == Modely na společných prediktorch
 
 #import "typst/tables/res_noextrapol_common.typ": noextrapol_common_result_table
 #noextrapol_common_result_table
+
 
 
 === _Gentiana dinarica_
