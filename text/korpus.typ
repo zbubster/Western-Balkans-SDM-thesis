@@ -57,6 +57,7 @@
 #import "typst/functions/extrapol_proj_grid.typ": extrapol_proj_grid
 #import "typst/functions/esm_shape_noextrapol_proj_grid.typ": esm_shape_noextrapol
 #import "typst/functions/respcurves_grid.typ": response-curves-grid
+#import "typst/functions/respcurves_common_grid.typ": response-curves-common-grid
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // main page
@@ -819,19 +820,160 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #import "typst/tables/res_noextrapol_common.typ": noextrapol_common_result_table
 #noextrapol_common_result_table
 
-
-
 === _Gentiana dinarica_
+
+#figure(
+  image(
+    "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/GD/heatmap.png",
+    height: 40%
+    ),
+    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+)
+
+#figure(
+  image("outputs/ESM/recent_noextrapol_weights_common/GD/OOF_prediction_common_grains.png",
+  height: 30%
+  ),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+)
+
+#figure(
+  response-curves-common-grid(
+    "GD",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu _Gentiana dinarica_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
 
 === _Gentiana tergestina_
 
+#figure(
+  image(
+    "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/GT/heatmap.png",
+    height: 40%
+    ),
+    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+)
+
+#figure(
+  image("outputs/ESM/recent_noextrapol_weights_common/GT/OOF_prediction_common_grains.png",
+  height: 30%
+  ),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+)
+
+#figure(
+  response-curves-common-grid(
+    "GT",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu _Gentiana tergestina_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
+
 === _Primula kitaibeliana_
+
+#figure(
+  image(
+    "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PK/heatmap.png",
+    height: 40%
+    ),
+    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+)
+
+#figure(
+  image("outputs/ESM/recent_noextrapol_weights_common/PK/OOF_prediction_common_grains.png",
+  height: 30%
+  ),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+)
+
+#figure(
+  response-curves-common-grid(
+    "PK",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu _Primula kitaibeliana_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
 
 === _Phyteuma orbiculare_
 
+#figure(
+  image(
+    "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PO/heatmap.png",
+    height: 40%
+    ),
+    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+)
+
+#figure(
+  image("outputs/ESM/recent_noextrapol_weights_common/PO/OOF_prediction_common_grains.png",
+  height: 30%
+  ),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+)
+
+#figure(
+  response-curves-common-grid(
+    "PO",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu _Phyteuma orbiculare_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
+
 === _Phyteuma pseudorbiculare_
 
+#figure(
+  image(
+    "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PP/heatmap.png",
+    height: 40%
+    ),
+    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+)
+
+#figure(
+  image("outputs/ESM/recent_noextrapol_weights_common/PP/OOF_prediction_common_grains.png",
+  height: 30%
+  ),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+)
+
+#figure(
+  response-curves-common-grid(
+    "PP",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu _Phyteuma pseudorbiculare_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
 === _Saxifraga blavii_
+
+#figure(
+  image(
+    "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/SB/heatmap.png",
+    height: 40%
+    ),
+    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+)
+
+#figure(
+  image("outputs/ESM/recent_noextrapol_weights_common/SB/OOF_prediction_common_grains.png",
+  height: 30%
+  ),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+)
+
+#figure(
+  response-curves-common-grid(
+    "SB",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu _Saxifraga blavii_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // diskuse

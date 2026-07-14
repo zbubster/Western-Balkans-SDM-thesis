@@ -108,6 +108,7 @@
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
 #import "typst/functions/respcurves_grid.typ": response-curves-grid
+#import "typst/functions/respcurves_common_grid.typ": response-curves-common-grid
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
@@ -1441,6 +1442,15 @@
   image("outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/GD/heatmap.png"),
   caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
 )
+
+#figure(
+  response-curves-common-grid(
+    "GD",
+    columns: 3
+  ),
+  caption: [Křivky odpovědí druhu na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+)
+
 
 #pagebreak()
 #set page(flipped: true)
