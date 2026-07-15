@@ -255,6 +255,7 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 = Metodika
 == Prostorové vymezení práce
 == Druhy rostlin
+#v(5pt)
 
 _Gentiana tergestina_ Beck. #linebreak()
 _Gentiana tergestina_ je vytrvalá rostlina s nízkou, obvykle nevětvenou lodyhou zakončenou jedním sytě modrým květem. Listy jsou soustředěny především v přízemní růžici, lodyžní listy jsou menší a vyrůstají v 1-3 vstřícně uspořádaných párech (viz @fig:kytky *a*). Druh se vyskytuje převážně na subalpinských a alpinských loukách na vápenci. Těžiště rozšíření leží v horských oblastech Balkánského poloostrova, avšak druh je uváděin i mimo Balkán ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5 Přesné vymezení taxonu je dlouhodobě předmětem debat a v literatuře je možné se setkat i s označením _Gentiana verna_ subsp. _tergestina_. Molekulární studie však naznačují, že jde o dobře vymezený druh. @hammerli2007 @smycka2022tempo
@@ -280,15 +281,23 @@ _Saxifraga blavii_ je vytrvalá rostlina s obvykle větvenou lodyhou. Charakteri
 ) <fig:kytky>
 
 == Vstupní data
-=== Data o výskytech druhů
-==== Terénní sběr dat
+#v(5pt)
 
+Následující kapitola je věnována rozboru dvou základních datových vstupů do modelování rozšíření vhodných stanovišť. Jsou to data o výskytech druhů (@chap:observ_methods) sloužící jako zdroj odhadu závislosti (a zároveň i zdroj odhadu výkonnosti) a prediktory (@chap:preds_methods) na základě jejichž variability jsou závislosti odvozovány.
+
+=== Data o výskytech druhů <chap:observ_methods>
+
+V rámci této práce byla využita pozorování druhů získaná ze dvou hlavních zdrojů: (i) terénní práce & (ii) data z _Flora Croatica Database_ @flora_croatica_database.
+
+==== Terénní sběr dat
+#v(5pt)
 Terénní sběr výskytových dat probíhal na předem vybraných lokalitách, u nichž bylo na základě nadmořské výšky a charakteru prostředí předpokládáno zastoupení alpinské vegetace. Průzkum byl směřován především do horských oblastí nad 1700 metrů nad mořem. Jednotlivé trasy terénního průzkumu byly vedeny směrem k vrcholovým partiím a tak, aby co nejlépe pokrývaly variabilitu stanovištních podmínek, ideálně v severo-jižní orientaci.
 Při pohybu v terénu byly využívány zejména značené cesty, které umožňovaly lepší průchodnost terénem. Terénní práce probíhaly v letech 2020 ‒ 2023.
 
 Během průzkumu byly zaznamenávány presenční body nalezených fokálních druhů a v případě, že se studované druhy podél trasy nevyskytovaly, také body absenční. Poloha jednotlivých záznamů byla určena pomocí GPS/*v mobilním zařízení v aplikaci QField*/ v souřadnicovém systému WGS 84 (EPSG:4326). U každého záznamu byl kromě polohy zaznamenán identifikátor nálezu, název druhu, stručný popis lokality a datum sběru. V okolí přibližně 30 m od každého nálezu byla kontrolována přítomnost dalších fokálních druhů a při jejich nalezení pro ně byly zaznamenány samostatné presenční body. V úsecích, kde druh souvisle pokrýval delší část trasy, byly body zapisovány přibližně po 100 m.
 
 ==== Příprava výskytových dat
+#v(5pt)
 
 Výskytová data byla před modelováním převedena do jednotné podoby a připravena samostatně pro jednotlivé modelované druhy. V prvním kroku byly sjednoceny názvy taxonů a odstraněny nekonzistence vzniklé při zápisu terénních dat, jako na příklad překlepy a observační body s evidentně chybným prostorovým zaměřením.
 
@@ -303,12 +312,14 @@ V dalším kroku byly jednotlivým pozorováním přiřazeny váhy, aby byla př
 U presenčních záznamů byl dále zohledněn jejich zdroj @fletcher_2019 @zhang_2020. Presencím pocházejícím z provedených terénních prací byla přidělena oproti záznamům databázovým dvojnásobná váha. Důvodem k tomuto rozhodnutí byl předpoklad, že terénní sběr byl, na rozdíl od databázových položek, proveden přímo za účelem této práce a lokality byly vybírány tak, aby došlo k co možná nejlepšímu pokrytí studované oblasti. Databázová data byla naopak lokalizována výhradně na území Chorvatska a sbírána podle neznámé metodiky v odlišném časovém rozmezí.
 
 ==== Prostorová autokorelace výskytových dat <chap:CV>
+#v(5pt)
 
 Pro hodnocení výkonu modelů byly připraveny prostorově oddělené křížově-validační soubory výskytových dat (také CV ‒ cross-validační ‒ foldy). Tento proces byl proveden pro každou kombinaci druhu a prostorového rozlišení samostatně. Cílem tohoto dělení bylo omezit prostorovou autokorelaci výskytových dat a zamezit tak nadhodnocení predikční úspěšnosti. @dormann_2007 @bahn_2013 @roberts_2016
 
 Nejprve byla pomocí funkce _cv_spatial_autocor_ z balíčku _blockCV_ @blockCV odhadnuta prostorová autokorelace výskytových dat. Na základě vypočteného dosahu byla stanovena velikost prostorových bloků. Tyto bloky byly následně přiřazeny do cross-validačních foldů pomocí iterativního náhodného rozdělování tak, aby počet výskytových záznamů byl mezi foldy co nejvíce vyvážen. Druhou důležitou podmínkou bylo, aby v každém foldu byly pro daný druh jak presenční, tak absenční záznamy. Aby byly podmínky obě podmínky vyváženosti splněny, byl konečný počet cross-validačních foldů pro každý druh optimalizován zvlášť.
 
-=== Prediktory
+=== Prediktory <chap:preds_methods>
+#v(5pt)
 
 V rámci této práce byly k trénování modelů rozšíření vhodných stanovišť využity prediktory z pěti základních skupin:
 + *klimatické* prediktory charakterizující na hrubém měřítku variabilitu teploty a srážek
@@ -318,6 +329,7 @@ V rámci této práce byly k trénování modelů rozšíření vhodných stanov
 + *krajinný pokryv* klasifikuje povrch Země do základních formačních skupin a jako jediný prediktor přináší do modelů informaci, která je vzdáleně schopna charakterizovat biotické faktory [[[zdroj]]]
 
 ==== Klimatické prediktory <chap:climate_pred>
+#v(5pt)
 
 Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
@@ -346,6 +358,7 @@ S ohledem na zachování metodické konzistence mezi jednotlivými časovými ř
 Klimatické prediktory byly před vstupem do modelů prostorově sjednoceny s ostatními rastrovými vrstvami. Nejprve byly reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG:3035) a zarovnány na referenční rastr odpovídající nejhrubšímu použitému prostorovému rozlišení 1000 m, přičemž byla použita metoda nejbližšího souseda, aby nedocházelo k interpolaci. Takto připravené vrstvy byly následně převedeny do jemnějších modelovacích rozlišení tak, že každá jemnější dceřinná buňka přebírala hodnotu příslušné mateřské buňky. Tento postup zachoval původní informační obsah klimatických dat a zároveň umožnil jejich kombinaci s prediktory dostupnými v jemnějších prostorových rozlišeních.
 
 ==== Topografické prediktory
+#v(5pt)
 
 Pro analýzu topografie byl v této práci použit globální elevační dataset _Copernicus DEM 30_ s prostorovým rozlišením 30 m. @copernicus_DEM
 Tento model je odvozen z dat mise dálkového průzkumu Země TanDEM-X a poskytuje tak nejpřesnější prostorové i absolutní zaměření poměrů na daných lokalitách mezi prediktory využitými v této práci.
@@ -378,6 +391,7 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 #set page(flipped: false)
 
 ==== Horninový substrát
+#v(5pt)
 
 Geologické podloží je v této práci reprezentováno vrstvou GLiM (Global Lithological Map, @GLIM). Tento projekt poskytuje globální vektorovou mapu pevninských geologických jednotek.
 Pro spolehlivěší pokrytí jednotlivých skupin hornin výskytovými daty byla vrstva nejprve reklasifikována do 3 tříd: _karbonátové_, _silikátové_ a _smíšené_ podloží (viz @tab:pred_geo). Reklasifikace proběhla po vzoru práce #cite(<chauvier_2021>, form: "prose").
@@ -387,6 +401,7 @@ V druhém kroku byla reklasifikovaná vrstva rasterizována podle centroidu do v
 #pred_geo
 
 ==== Půdní prediktory
+#v(5pt)
 
 Pro doplnění prediktorové sádky o informaci o půdních poměrech byly použity tři vrstvy z databáze _SoilGrids250m_ @soilgrids_250m.
 Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v milimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10.
@@ -396,6 +411,7 @@ Originální rastrová data byla prostorově sjednocena s referenčními rastry,
 Vzhledem k tomu, že půdní charakteristiky jsou v čase relativně dynamické, byly tyto prediktory využity pouze k trénování modelů, jejichž účelem nebylo extrapolovat rozšíření vhodných stanovišť do historických podmínek, případně do budoucnosti, ale pouze charakterizovat co nejvěrněji současné rozšíření.
 
 ==== Krajinný pokryv
+#v(5pt)
 
 Krajinný pokryv je v této práci reprezentován datasetem ESA WorldCover 2021. Tato data představují globální klasifikaci zemského povrchu v prostorovém rozlišení 10 m založenou na snímcích družic Sentinel-1 a Sentinel-2 @landcover_data. Dataset byl v této práci použit jako kategorický prediktor zachycující současný biotopový stav lokalit.
 
@@ -408,6 +424,7 @@ Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená n
 
 == Příprava dat
 === Datové sady pro modelování, kolinearita prediktorů
+#v(5pt)
 
 Před samotným modelováním byly pro všechny environmentální prediktory upraveny prostorové parametry tak, aby výsledné vrstvy byly prostorově jednotné. Jednotlivé vrstvy prediktorů byly zarovnány na společné referenční rastry, reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035) a maskovány podle polygonu studovaného území. Prediktory byly podle typu dat převzorkovány nebo agregovány do prostorových rozlišení využitých v této práci, čímž vznikla sada vzájemně kompatibilních rastrových vrstev pro modelovací měřítka 100, 200, 500 a 1000 m.
 
@@ -451,6 +468,7 @@ Výsledkem filtrace byly dvě sady prediktorů pro každý druh. První sada zah
 Takto vytvořené soubory prediktorů posloužily přímo jako vstupní data do navazujících analýz, tedy do samotného procesu modelování rozšíření vhodných stanovišť.
 
 == Modelování vhodnosti stanoviště
+#v(5pt)
 
 Modely druhového rozšíření byly vytvářeny metodou ensemble of small models (_ESM_) podle metodiky #cite(<breiner_2015>, form: "prose"). Tento přístup byl zvolen kvůli relativně malému počtu pozorování modelovaných druhů a současně potřebě pracovat s větším množstvím environmentálních prediktorů. Vytvoření jednoho komplexního modelu obsahujícího všechny prediktory současně by v takové situaci mohlo vést k overfittingu. Metoda ESM tomuto riziku předchází tak, že namísto jednoho komplexního modelu vytváří všechny možné kombinace jednoduchých bivariátních modelů, které jsou testovány samostatně @lomba_2010 @breiner_2015.
 
@@ -495,7 +513,10 @@ Finální predikční výkonnost celého ensemble modelu byla vyjádřena pomoc�
 
 == Projekce
 === Projekce v prostoru
+#v(5pt)
+[[[]]]
 === Projekce v prostoru a čase
+#v(5pt)
 
 Vypočítané modely byly promítnuty do dvou historických a dvou budoucích časových řezů. Jako reprezentativní body v minulosti byly vybrány dva časové řezy: poslední glaciální maximum (LGM, 21k BP) a holocénní klimatické optimum (HCO, 8k BP). Jelikož se v obou případech jedná o sporné vymezení konkrétních událostí (např. #cite(<davis2003>, form: "prose") ukazují, že HCO se v jižní Evropě neprojevovalo tak silně jako v Evropě severní), je nutné vnímat zvolené časové řezy jako částečně arbitrární rozhodnutí.
 
@@ -504,6 +525,7 @@ Pro vyjádření budoucí potenciální vhodnosti stanovišť byly jednotlivé p
 Směrodatná odchylka zde tedy nepředstavuje variabilitu v modelech samotných, ale jenom prostorové vyjádření rozdílů mezi projekcemi založenými na různých klimatických modelech v rámci stejného scénáře SSP.
 
 == Metoda Shape jako odhad projekční extrapolace v prostoru
+#v(5pt)
 
 Metoda Shape @shape_2023 představuje nástroj určený k posouzení míry extrapolace při prostorové či časové projekci modelů vhodnosti stanoviště.
 Jejím principem je porovnání podmínek prostředí v projekční oblasti s podmínkami, na jejichž základě byl model kalibrován.
@@ -523,6 +545,7 @@ Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, 
 V rámci této práce je metrika Shape hlavní metodou k posuzování míry extrapolace. Za tímto účelem byla její distribuce pro každý model i projekci vykreslena v prostoru, což umožňuje posuzovat věrohodnost predikce modelu na vybraných lokalitách, a v bivariátních grafechm které ukazují distribuci kombinací hodnot prediktorů ve dvourozměrném prostoru a usnadňují posouzení dostatečnosti provzorkování gradientů.
 
 == Prohlášení k metodám
+#v(5pt)
 
 Veškeré analýzy byly provedeny v prostředí R, verze 4.2.2 ‒ Innocent and Trusting @R s využitím těchto balíčků: _terra_, _sf_, _tidyverse_, _maptiles_, _blockCV_, _openeo_,
 _collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _parallelly_, _Hmisc_, _gbm_, _mgcv_, _rpart_, _earth_, _ranger_, _maps_ & _spatialEco_. 
@@ -567,6 +590,7 @@ Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejn
 [[[vytvořit release a odkazovat na něj]]]
 
 == Modelové sady
+#v(5pt)
 
 Pro každý ze šesti studovaných druhů a každé ze čtyř prostorových rozlišení (1000 m, 500 m, 200 m, 100 m) byly vytvořeny tři samostatné varianty ensemble of small models (ESM), lišící se sadou vstupních prediktorů.
 
@@ -583,22 +607,28 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 #pagebreak()
 = Výsledky
 
-#pagebreak()
-#set page(flipped: true)
+#v(5pt)
+
+Níže prezentované výsledky jsou členěny do tří modelovacích větví. Tyto se liší sadou použitých environmentálních prediktorů, účelem vytvořených modelů a z těchto důvodů jsou odědělny do samostatných kapitol. V první části jsou prezentovány výsledky modelů založených na _extrapolovatelných prediktorech_ (@chap:res_extrapol), v druhé části modely na _všech dostupných_ prediktorech, které v daném rozlišení prošly podmínkami kolinearity (@chap:res_noextrapol_all) & ve poslední třetí části jsou prezentovány modely založené na _prediktorech společných_ všem prostorovým rozlišením u daného druhu (@chap:res_noextrapol_common).
+#v(-5pt)
+Všechny modelové sady byly trénovány na stejném základním souboru pozorování výskytu studovaných druhů, jehož velikost se však mezi prostorovými rozlišeními měnila v důsledku prostorové agregace a odstranění duplicitních záznamů. Počty presenčních a absenčních pozorování použitých při trénování modelů jsou shrnuty v @tab:observ.
+#v(-5pt)
+#line(length: 100%)
+#v(-10pt)
 
 #import "typst/tables/res_observ.typ": observ_table
 #observ_table
 
+== Modely na extrapolovatelných prediktorech <chap:res_extrapol>
 
-#pagebreak()
-#set page(flipped: false)
+#v(10pt)
 
-== Modely na extrapolovatelných prediktorech
+V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolovatelných prediktorech. Představené projekce tak představují odhad prostorového rozložení vhodnosti stanovišť v současnosti a jeho změn při projekci do odlišných klimatických podmínek minulosti či budoucnosti. Nejprve je uveden souhrnný přehled všech vytvořených modelů, soupis vybraných prediktorů, dále počet trénovaných a ponechaných bivariátních modelů a výsledné predikční výkonnosti vyjádřené pomocí souhrnného Somersova D (@tab:extrapol_result_table). Následně jsou výsledky jsou členěny podle jednotlivých studovaných druhů. Pro každý druh je zobrazen souhrnný mapový přehled projekcí nejúspěšnějšího ESM, tedy modelu s nejvyšší hodnotou Somersova D napříč hodnocenými prostorovými rozlišeními. Přehled zahrnuje projekci současné vhodnosti stanovišť, rekonstrukce pro poslední glaciální maximum a holocenní klimatické optimum a budoucí projekce pro období 2041–2070 & 2071–2100 podle scénářů SSP1-2.6, SSP3-7.0 a SSP5-8.5. Výstupy ostatních prostorových rozlišení, podrobné křivky odpovědí, mapy metriky Shape a další modelové výstupy pro jednotlivá období jsou uvedeny v druhově specifických přílohách.
 
 #import "typst/tables/res_extrapol.typ": extrapol_result_table
 #extrapol_result_table
 
-=== _Gentiana dinarica_
+=== _Gentiana dinarica_ ‒ 500 m
 
 #extrapol_proj_grid(
   species: "GD",
@@ -606,7 +636,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana dinarica v rozlišení 500 m (Somersovo D: 0,721)."
 )
 
-=== _Gentiana tergestina_
+=== _Gentiana tergestina_ ‒ 200 m
 
 #extrapol_proj_grid(
   species: "GT",
@@ -614,7 +644,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana tergestina v rozlišení 200 m (Somersovo D: 0,48)."
 )
 
-=== _Primula kitaibeliana_
+=== _Primula kitaibeliana_ ‒ 200 m
 
 #extrapol_proj_grid(
   species: "PK",
@@ -622,7 +652,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: "Projekce pro nejúspěšněnší ESM druhu Primula kitaibeliana v rozlišení 200 m (Somersovo D: 0,839)."
 )
 
-=== _Phyteuma orbiculare_
+=== _Phyteuma orbiculare_ ‒ 1000 m
 
 #extrapol_proj_grid(
   species: "PO",
@@ -630,7 +660,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma orbiculare v rozlišení 1000 m (Somersovo D: 0,778)."
 )
 
-=== _Phyteuma pseudorbiculare_
+=== _Phyteuma pseudorbiculare_ ‒ 200 m
 
 #extrapol_proj_grid(
   species: "PP",
@@ -638,7 +668,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma pseudorbiculare v rozlišení 200 m (Somersovo D: 0,706)."
 )
 
-=== _Saxifraga blavii_
+=== _Saxifraga blavii_ ‒ 1000 m
 
 #extrapol_proj_grid(
   species: "SB",
@@ -646,12 +676,16 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
   caption: "Projekce pro nejúspěšněnší ESM druhu Saxifraga blavii v rozlišení 1000 m (Somersovo D: 0,693)."
 )
 
-== Modely na všech prediktorech
+== Modely na všech prediktorech <chap:res_noextrapol_all>
+
+#v(10pt)
+
+V této kapitole jsou uvedeny výsledky modelů založených na všech prediktorech, které u daného druhy a v daném prostorovém rozlišení prošly filtrem kolinearity, avšak oproti @chap:res_extrapol jsou v této modelovací sadě zahrnuty i prediktory, u kterých není možné předpokládat stabilitu v čase (půdní, krajinný pokryv). V úvodu je uvedena souhrnná tabulka popisující prediktorové sady, počty trénovaných a ponechaných bivariátních modelů a predikční výkonnost všech kombinací druhu a prostorového rozlišení (@tab:noextrapol_all_result_table). V druhových podkapitolách je zobrazena projekce současné vhodnosti stanovišť vytvořená na základě nejúspěšnějšho ESM, doplněná prostorovým rozložením metriky Shape, která vyjadřuje míru environmentální odlišnosti projekčních podmínek od podmínek zastoupených v trénovacích datech a pro každý z vybraných modelů jsou následně vyobrazeny křivky odpovědí druhů. Výstupy ostatních prostorových rozlišení, včetně křivek odpovědí druhu, mapy & bivariátní grafy metriky Shape a další výstupy jsou uvedeny v druhově specifických přílohách.
 
 #import "typst/tables/res_noextrapol_all.typ": noextrapol_all_result_table
 #noextrapol_all_result_table
 
-=== _Gentiana dinarica_
+=== _Gentiana dinarica_ ‒ 1000 m
 
 #figure(
   esm_shape_noextrapol(
@@ -679,7 +713,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 ]
 
 
-=== _Gentiana tergestina_
+=== _Gentiana tergestina_ ‒ 200 m
 
 #figure(
   esm_shape_noextrapol(
@@ -706,7 +740,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 )
 ]
 
-=== _Primula kitaibeliana_
+=== _Primula kitaibeliana_ ‒ 200 m
 
 #figure(
   esm_shape_noextrapol(
@@ -733,7 +767,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 )
 ]
 
-=== _Phyteuma orbiculare_
+=== _Phyteuma orbiculare_ ‒ 1000 m
 
 #figure(
   esm_shape_noextrapol(
@@ -760,7 +794,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 )
 ]
 
-=== _Phyteuma pseudorbiculare_
+=== _Phyteuma pseudorbiculare_ ‒ 200 m
 
 #figure(
   esm_shape_noextrapol(
@@ -787,7 +821,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 )
 ]
 
-=== _Saxifraga blavii_
+=== _Saxifraga blavii_ ‒ 1000 m
 
 #figure(
   esm_shape_noextrapol(
@@ -814,7 +848,12 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 )
 ]
 
-== Modely na společných prediktorch
+#pagebreak()
+== Modely na společných prediktorch <chap:res_noextrapol_common>
+
+#v(10pt)
+
+V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na společných prediktorech pro daný druh napříč prostorovými rozlišeními. Tyto výstupy jsou určeny především k porovnání vlivu prostorového rozlišení na výsledky modelů. V úvodu je zobrazena souhrnná tabulka svou logikou odpovídající předchozím dvěma kapitolám. Následně u každého jednotlivého druhu je zobrazena variabilita v příspěvcích jednotlivých prediktorů napříč rozlišeními, krabicové diagramy reprezentující variabilitu v predikcích modelů a křivky odpovědí druhu napříč prosotorovými rozlišeními. Úplné prostorové projekce, mapy metriky Shape vč. bivariátních grafů, samostatné křivky odpovědí a další podrobné modelové výstupy jsou uvedeny v příslušných druhově specifických přílohách.
 
 #import "typst/tables/res_noextrapol_common.typ": noextrapol_common_result_table
 #noextrapol_common_result_table
