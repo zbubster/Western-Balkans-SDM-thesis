@@ -387,7 +387,7 @@
 }
 
 === 2041 ‒ 2070
-==== SSP1.26
+==== SSP1-2.6
 ===== Průměr predikcí
 #figure(
   esm_shape_extrapol_all(
@@ -413,7 +413,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP3.70
+==== SSP3-7.0
 ===== Průměr predikcí
 
 #figure(
@@ -440,7 +440,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP5.85
+==== SSP5-8.5
 ===== Průměr predikcí
 
 #figure(
@@ -468,7 +468,7 @@
 )
 
 === 2071 ‒ 2100
-==== SSP1.26
+==== SSP1-2.6
 ===== Průměr predikcí
 
 #figure(
@@ -495,7 +495,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP3.70
+==== SSP3-7.0
 ===== Průměr predikcí
 
 #figure(
@@ -522,7 +522,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP5.85
+==== SSP5-8.5
 ===== Průměr predikcí
 
 #figure(
@@ -675,7 +675,7 @@
 }
 
 === 2041 ‒ 2070
-==== SSP1.26
+==== SSP1-2.6
 ===== Průměr predikcí
 
 #figure(
@@ -702,7 +702,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP3.70
+==== SSP3-7.0
 ===== Průměr predikcí
 
 #figure(
@@ -729,7 +729,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP5.85
+==== SSP5-8.5
 ===== Průměr predikcí
 
 #figure(
@@ -757,7 +757,7 @@
 )
 
 === 2071 ‒ 2100
-==== SSP1.26
+==== SSP1-2.6
 ===== Průměr predikcí
 
 #figure(
@@ -784,7 +784,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP3.70
+==== SSP3-7.0
 ===== Průměr predikcí
 
 #figure(
@@ -811,7 +811,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP5.85
+==== SSP5-8.5
 ===== Průměr predikcí
 
 #figure(
@@ -962,7 +962,7 @@
 }
 
 === 2041 ‒ 2070
-==== SSP1.26
+==== SSP1-2.6
 ===== Průměr predikcí
 
 #figure(
@@ -989,7 +989,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP3.70
+==== SSP3-7.0
 ===== Průměr predikcí
 
 #figure(
@@ -1016,7 +1016,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP5.85
+==== SSP5-8.5
 ===== Průměr predikcí
 
 #figure(
@@ -1044,7 +1044,7 @@
 )
 
 === 2071 ‒ 2100
-==== SSP1.26
+==== SSP1-2.6
 ===== Průměr predikcí
 
 #figure(
@@ -1071,7 +1071,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP3.70
+==== SSP3-7.0
 ===== Průměr predikcí
 
 #figure(
@@ -1098,7 +1098,7 @@
   caption: [Směrodatná odchylka predikované vhodnosti stanoviště napříč modely globální cirkulace pro daný scénář SSP (vlevo) a směrodatná odchylka metriky Shape napříč týmiž modely (vpravo).]
 )
 
-==== SSP5.85
+==== SSP5-8.5
 ===== Průměr predikcí
 
 #figure(

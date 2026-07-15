@@ -230,7 +230,6 @@ SSP ‒ shared socioeconomic pathways, scénáře socioekonomického vývoje
 #set par(justify: true, leading: 0.65em, first-line-indent: 0.75cm)
 
 = Úvod
-== x
 
 [[[proximita prediktorů]]]
 
@@ -255,7 +254,7 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 #pagebreak()
 = Metodika
 == Prostorové vymezení práce
-== Druhy Rostlin
+== Druhy rostlin
 
 _Gentiana tergestina_ Beck. #linebreak()
 _Gentiana tergestina_ je vytrvalá rostlina s nízkou, obvykle nevětvenou lodyhou zakončenou jedním sytě modrým květem. Listy jsou soustředěny především v přízemní růžici, lodyžní listy jsou menší a vyrůstají v 1-3 vstřícně uspořádaných párech (viz @fig:kytky *a*). Druh se vyskytuje převážně na subalpinských a alpinských loukách na vápenci. Těžiště rozšíření leží v horských oblastech Balkánského poloostrova, avšak druh je uváděin i mimo Balkán ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5 Přesné vymezení taxonu je dlouhodobě předmětem debat a v literatuře je možné se setkat i s označením _Gentiana verna_ subsp. _tergestina_. Molekulární studie však naznačují, že jde o dobře vymezený druh. @hammerli2007 @smycka2022tempo
@@ -348,7 +347,7 @@ Klimatické prediktory byly před vstupem do modelů prostorově sjednoceny s os
 
 ==== Topografické prediktory
 
-Pro analýzu topografie byl v této práci použit globální elevační dataset _Copernicus DEM 30_ s prostorovým rozlišením 30 m#super([2]). @copernicus_DEM
+Pro analýzu topografie byl v této práci použit globální elevační dataset _Copernicus DEM 30_ s prostorovým rozlišením 30 m. @copernicus_DEM
 Tento model je odvozen z dat mise dálkového průzkumu Země TanDEM-X a poskytuje tak nejpřesnější prostorové i absolutní zaměření poměrů na daných lokalitách mezi prediktory využitými v této práci.
 
 Data byla získána prostřednictvím prostorového požadavku ve službě Copernicus Data Space Ecosystem @CDSE zprostředkovaného _openEO_ klientem v prostředí R. @openeo_R Stažené rastrové dlaždice byly následně sloučeny do mozaiky, reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035) a maskovány polygonem zájmového území.
@@ -390,7 +389,7 @@ V druhém kroku byla reklasifikovaná vrstva rasterizována podle centroidu do v
 ==== Půdní prediktory
 
 Pro doplnění prediktorové sádky o informaci o půdních poměrech byly použity tři vrstvy z databáze _SoilGrids250m_ @soilgrids_250m.
-Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v centimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10.
+Konkrétně šlo o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v milimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10.
 
 Originální rastrová data byla prostorově sjednocena s referenčními rastry, avšak vzhledem k tomu, že jsou poskytována v hrubším měřítku, než nejjemnější měřítko využité v této práci, byla data pro rozlišení 100 a 200 m interpolována pomocí bilineární funkce. V případě agregace originálních dat do rozlišení 500 a 1000 m byl vypočítán průměr hodnot původních buňek. V rámci zmíněných operací byla data projektována do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035).
 
@@ -416,7 +415,7 @@ Z takto připravených vrstev byly následně vytvořeny výchozí rastrové sou
 
 Na připravených souborech byla následně posouzena kolinearita prediktorů. Hodnoty prediktorů byly extrahovány pro tuto analýzu extrahovány dvojím způsobem: (i) z buňek pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil přístup první.
 
- Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ @collinear. V rámci procesu byla kolinearita posuzována pomocí párové Pearsnovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7 @dormann2013collinearity. Výsledky byly vizualizovány pomocí balíčku _corrplot_ @corrplot.
+ Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ @collinear. V rámci procesu byla kolinearita posuzována pomocí párové Pearsonovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7 @dormann2013collinearity. Výsledky byly vizualizovány pomocí balíčku _corrplot_ @corrplot.
 
 Automatizované rozhodování mezi kolineárními prediktory bylo doplněno předem stanoveným prioritním pořadím proměnných. Účelem tohoto pořadí bylo prioritizovat ekologicky relevantní prediktory a naopak upozadit prediktory s relativně komplikovanou interpretovatelností @soley_2024_TOPTENHAZARDS @dormann2013collinearity a evidentními artefakty (např. CHELSA-BIOCLIM: bio08, bio9 mají v oblasti Balkánského poloostrova velmi ostré prostorové přechody mezi hodnotami, které ‒ dle soukromé úvahy autora ‒ nemohou mít fyzikální opodstatnění).
 
@@ -471,7 +470,7 @@ $ "Somersovo D" = 2 times ("AUC" - 0.5) $
 
 Tato metrika vychází z běžně používaného AUC (_area under the receiver operating characteristic curve_), nabývá hodnot od _-1_ do _1_ a vyjadřuje diskriminační schopnost modelu, kde kladné hodnoty značí lepší než náhodné rozlišení presencí a absencí, zatímco nulové nebo záporné hodnoty ukazují na model s horší rozlišovací schopností než model náhodný.
 
-V dalším kroku byly hodnoty Somersova D pro daný bivariátní model zprůměrovány a podrobeny porovnání s hraniční hodnotou 0. Bivariátní modely s průměrným S-D $<=$ 0 byly z dalších ananlýz vyloučeny.
+V dalším kroku byly hodnoty Somersova D pro daný bivariátní model zprůměrovány a podrobeny porovnání s hraniční hodnotou 0. Bivariátní modely s průměrným S-D $<=$ 0 byly z dalších analýz vyloučeny.
 
 Z bivariátních modelů, které prošly sítem, byl sestaven algoritmický soubor predikcí (_algo-ESM_, viz @fig:ESM), přičemž příspěvek jednotlivých bivariátních modelů byl vážen jejich průměrným výkonem. Modely s vyšší hodnotou S-D tak měly v algo-ESM větší vliv než modely s nižší, avšak stále kladnou úspěšností. Soubor predikcí byl sestaven pro každý algoritmus samostatně.
 
@@ -504,7 +503,7 @@ Pro vyjádření budoucí potenciální vhodnosti stanovišť byly jednotlivé p
 
 Směrodatná odchylka zde tedy nepředstavuje variabilitu v modelech samotných, ale jenom prostorové vyjádření rozdílů mezi projekcemi založenými na různých klimatických modelech v rámci stejného scénáře SSP.
 
-== Metoda Shape jako odhad projekční extrpolace v prostoru
+== Metoda Shape jako odhad projekční extrapolace v prostoru
 
 Metoda Shape @shape_2023 představuje nástroj určený k posouzení míry extrapolace při prostorové či časové projekci modelů vhodnosti stanoviště.
 Jejím principem je porovnání podmínek prostředí v projekční oblasti s podmínkami, na jejichž základě byl model kalibrován.
@@ -521,7 +520,7 @@ Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, 
   caption: [Grafické znázornění metody Shape v zjednodušeném dvourozměrném prostoru. *(a)* Reprezentuje výpočet Mahalanobisových vzdáleností mezi projekčním bodem a všemi trénovacími body. Nejnižší vzdálenost vyznačena oranžově. *(b)* Vyjádření metriky Shape _S#sub[pi]_ pro projekční body. _A_ značí disperzní faktor trénovacích dat. Vyšší hodnota _S#sub[pi]_ značí vyšší míru environmentální novosti a tudíž vyšší míru extrapolace modelu. Převzato z #cite(<shape_2023>, form: "prose")]
 ) <fig:shape>
 
-V rámci této práce je metrika Shape hlavní metodou k posuzování míry extrapolace. Za tímto účelem byla její distribuce pro každý model i projekci vykreslena v prostoru, což umožňuje posuzovat věrohodnost predikce modelu na vybraných lokalitách, a v bivariátních grafechm které ukazují distribuci kombinací hodnot prediktorů ve dvourozměrném prostoru a unadňují posouzení dostatečnosti provzorkování gradientů.
+V rámci této práce je metrika Shape hlavní metodou k posuzování míry extrapolace. Za tímto účelem byla její distribuce pro každý model i projekci vykreslena v prostoru, což umožňuje posuzovat věrohodnost predikce modelu na vybraných lokalitách, a v bivariátních grafechm které ukazují distribuci kombinací hodnot prediktorů ve dvourozměrném prostoru a usnadňují posouzení dostatečnosti provzorkování gradientů.
 
 == Prohlášení k metodám
 
@@ -571,13 +570,13 @@ Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejn
 
 Pro každý ze šesti studovaných druhů a každé ze čtyř prostorových rozlišení (1000 m, 500 m, 200 m, 100 m) byly vytvořeny tři samostatné varianty ensemble of small models (ESM), lišící se sadou vstupních prediktorů.
 
-První varianta zahrnovala pouze prediktory extrapolovatelné v čase. Modely natrénované na současných environmentálních podmínkách byly kromě projekce pro současné podmínky taktéž projektovány na dvě období minulosti (21k BP, LGM & 8k BP, HCO) a dvě období budoucnosti (2041-2070 & 2071-2100), přičemž pro každý řez v budoucnosti byly samostatně zpracovány tři scénáře sdílených socioekonomických trajektorií (SSP1-2.6, SSP3-7.0 a SSP5-8.5). Déle _Modely na extrapolovatelných prediktorech_.
+První varianta zahrnovala pouze prediktory extrapolovatelné v čase. Modely natrénované na současných environmentálních podmínkách byly kromě projekce pro současné podmínky taktéž projektovány na dvě období minulosti (21k BP, LGM & 8k BP, HCO) a dvě období budoucnosti (2041-2070 & 2071-2100), přičemž pro každý řez v budoucnosti byly samostatně zpracovány tři scénáře sdílených socioekonomických trajektorií (SSP1-2.6, SSP3-7.0 a SSP5-8.5). Ačkoli modely této sady byly natrénovány ve všech 4 prostorových rozlišeních, projekce do historických/budoucích environmentálních podmínek byly provedeny pouze v rozlišeních 1000, 500 & 200 m. Déle _Modely na extrapolovatelných prediktorech_.
 
 Druhá varianta vycházela ze všech vybraných prediktorů, včetně proměnných, které nebylo možné smysluplně přenášet v čase (např. krajinný pokryv, půdní prediktory). Tyto modely slouží především k co nejúplnějšímu popisu současného rozšíření vhodných stanovišť. Dále _Modely na všech prediktorech_.
 
-Třetí varianta byla založena na sadě prediktorů společné všem prostorovým rozlišením daného druhu (tj. splňovaly podmínky kolinearity pro ve všech rozlišeních). Tato varianta tak umožňuje porovnání vlivu velikosti prostorového měřítka na výsledky modelování. Dále _Modely na společných prediktorech_.
+Třetí varianta byla založena na sadě prediktorů společné všem prostorovým rozlišením daného druhu (tj. splňovaly podmínky kolinearity pro daný druh ve všech rozlišeních). Tato varianta tak umožňuje porovnání vlivu velikosti prostorového měřítka na výsledky modelování. Dále _Modely na společných prediktorech_.
 
-Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálních ESM, ze kterých vzniklo 72 projekcí současné vhodnosti stanovišť a 192 časově extrapolovaných projekcí, tedy celkem 264 projekcí.
+Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálních ESM, ze kterých vzniklo 72 projekcí současné vhodnosti stanovišť, 36 historických projekcí a 540 budoucích projekcí (tyto jsou však zprůměrovány přes klimatické modely do 108 projekcí budoucích environmentílních podmínek). Celkem je tedy prezentováno 216 projekcí.
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
@@ -983,7 +982,7 @@ Napříč všemi druhy a rozlišeními bylo tedy celkem vytvořeno 72 finálníc
 V této práci byla z důvodu metodické konzistence zvolena jednotná datová sada CHELSA-BIOCLIM @chelsa_bioclim_data & CHELSA-TraCE21k @chelsa_trace_data pro současné, budoucí i historické projekce. Tento přístup zajišťuje srovnatelnost mezi jednotlivými časovými řezy, avšak nezachycuje nejistotu spojenou s volbou klimatického datasetu. V oblastech s vyšší geomorfologickou členitostí je přesnost klimatickcých modelů sporná a volba konkrétního klimatického datasetu ovlivňuje výsledné křivky odpovědí druhů na konkrétní environmentální faktory i rozlohu a rozmístění modelem predikovaných vhodných stanovišť @input_matters_matter_2019
 Pro vyšší důvěryhodnost projekcí je proto vhodné pracovat s více klimatickými modely a jednotlivé výsledky mezi sebou porovnávat. 
 
-Dalším problematickým aspektem globálních klimatických modelů jsou extrapolace klimatu do hisotrických období.
+Dalším problematickým aspektem globálních klimatických modelů jsou extrapolace klimatu do historických období.
 #cite(<rentier_2025>, form: "prose") ukázali, že rekonstrukce ekologických fenoménů na základě klimatických projekcí se silně odlišují mezi jednotlivými datasety i mezi rekonstrukcemi založenými na proxy ukazatelích, přičemž slabší výsledky se projevovaly u klimatických datasetů s hrubším měřítkem. 
 Chybovost klimatických modelů navíc vykazovala obecný trend k vyšším teplotám během LGM, obzvlášť v horských oblastech. @rentier_2025
 Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, a to pravděpodobně kvůli nadprůměrně složitému procesu interpolace a zjemnňování originálních dat z meteorologických stanic, který v případě odlehlých horských oblastí vytvéřel za velké množství statistického šumu s 
