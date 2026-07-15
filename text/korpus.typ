@@ -231,6 +231,22 @@ SSP ‒ shared socioeconomic pathways, scénáře socioekonomického vývoje
 
 = Úvod
 
+#v(10pt)
+
+Rozšíření druhů v geografickém prostoru je podmíněno řadou environmentálních a biotických faktorů, které nejsou napříč prostorem konstantní. Vhodnost konkrétního stanoviště pro konkrétní druh je mimo jiné dána kompatibilitou ekologické niky druhu a realizací klíčových proměnných prostředí. Vhodným nástrojem pro uchopení tohoto vztahu se zdají být modely rozšíření druhů (či také nikové modely rozšíření druhů, modely vhodnosti stanoviště, SDM), které se používají pro kvantifikaci závislosti výskytu druhů pozorovaných v geografickém prostoru na měnících se podmínkách prostředí @elith2009SDM.
+
+Ekologickým východiskem těchto modelů je koncept ekologické niky _sensu_ Hutchinson [[[]]]. V tomto pojetí lze niku chápat jako mnohorozměrný environmentální prostor zahrnující podmínky a zdroje vhodné pro dlouhodobé přetrvávání populace [[[]]], avšak nikoli bez výjimky. Pozorované rozšíření druhu totiž nemusí přesně odpovídat rozsahu environmentálních podmínek, které jsou pro daný druh limitující. Z části své _fundamentální_ niky ‒ rozsahu podmínek prostředí daný druh fyziologicky limitujících ‒ může být vyloučen biotickými interakcemi, případně v ní může absentovat v důsledku omezené disperze nebo historických událostí [[[]]]. V opačném případě může být druh přítomen i v podmínkách, které se s jeho fundamentální nikou neshodují, například díky imigraci ze zdrojových populací (_source-sink_ dynamika, [[[]]]). Výstupy z tradičních SDM proto téměř nikdy nelze interpretovat jako fundamentální niku druhu v kompletní podobě, ale spíše jako empirický odhad environmentální niky získaný porovnáním zaznamenaných výskytů s podmínkami dostupnými v rámci studovaného území v daném čase [[[]]]. Při interpretaci je však vhodné mít stále na paměti výše zmíněné faktory, které do sebe SDM v tradiční podobě neintegruje (biotické limitace, disperzní schopnosti atd.).
+
+Z koncepčního hlediska jsou modely SDM postaveny na předpokladu Hutchinsonovy duality [[[]]], podle níž každá lokalita v geografickém prostoru odpovídá určitému bodu v mnohorozměrném environmentálním prostoru, a zároveň stejná kombinace environmentálních podmínek může být zastoupena na více geograficky oddělených lokalitách [[[]]]. Díky tomuto předpokladu je možné vztahy mezi prostředím a výskytem druhu, odvozené v rámci modelovacího procesu SDM, projektovat v prostoru na lokality, které nebyly součástí trénovací části modelování. Tímto projektováním odvozených vztahů mezi druhem a prostředím vznikají souvislé mapy potenciálně vhodných stanovišť.
+
+Kromě interpolování vztahů druhu a prostředí v prostoru a na současných podmínkách prostředí, je teoreticky možné projektovat odvozené závislosti i v čase. Hlavním předpokladem (otázka je nakolik naplněným) je niková konzervativnost (_niche conservatism_), tedy že nároky druhu na podmínky prostředí jsou v čase konstantní [[[]]].
+
+[[[tím se přidává další vrstva ekologických předpokladů do SDM
+vztah který odvozujeme je poměrně dost pokřivený už v současnosti, natož když ho přeneseme do minulost/budoucnosti, kde mohlo docházet k úplně jiným interakcím na všech řádech
+nehledě na to, že prediktory, na kterých se ta projekce dělá, jsou samy o sobě zatíženy velikou nejistotou]]]
+
+[[[kvalita vstupních dat]]]
+
 [[[proximita prediktorů]]]
 
 Dalším důležitým prediktorem používaným v modelech rozšíření vhodných stanovišť je informace o geologickém podloží. Zohlednění substrátu přináší do modelu důležitou informaci, jelikož erozní procesy specifické pro daný horninový substrát přímo ovlivňují vlastnosti půdy. [[[citace? nebo obecná znalost?]]] Zejména u rostlin tak může zachycovat ekologické gradienty, které nejsou plně postižitelné klimatickými a topografickými proměnnými, přičemž zařazení geologického substrátu do modelu může zlepšit predikci rozšíření potenciálně vhodných stanovišť, obzvlášť v horských a geologicky heterogenních územích. @chauvier_2021 @dubuis_2012
@@ -254,6 +270,9 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 #pagebreak()
 = Metodika
 == Prostorové vymezení práce
+
+[[[]]]
+
 == Druhy rostlin
 #v(5pt)
 
@@ -853,7 +872,9 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
 
 #v(10pt)
 
-V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na společných prediktorech pro daný druh napříč prostorovými rozlišeními. Tyto výstupy jsou určeny především k porovnání vlivu prostorového rozlišení na výsledky modelů. V úvodu je zobrazena souhrnná tabulka svou logikou odpovídající předchozím dvěma kapitolám. Následně u každého jednotlivého druhu je zobrazena variabilita v příspěvcích jednotlivých prediktorů napříč rozlišeními, krabicové diagramy reprezentující variabilitu v predikcích modelů a křivky odpovědí druhu napříč prosotorovými rozlišeními. Úplné prostorové projekce, mapy metriky Shape vč. bivariátních grafů, samostatné křivky odpovědí a další podrobné modelové výstupy jsou uvedeny v příslušných druhově specifických přílohách.
+V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na společných prediktorech pro daný druh napříč prostorovými rozlišeními. Tyto výstupy jsou určeny především k porovnání vlivu prostorového rozlišení na výsledky modelů. V úvodu je zobrazena souhrnná tabulka (@tab:noextrapol_common_result_table) svou logikou odpovídající předchozím dvěma kapitolám. Následně u každého jednotlivého druhu je zobrazena variabilita v příspěvcích jednotlivých prediktorů napříč rozlišeními, krabicové diagramy reprezentující variabilitu v predikcích modelů a křivky odpovědí druhu napříč prosotorovými rozlišeními. Úplné prostorové projekce, mapy metriky Shape vč. bivariátních grafů, samostatné křivky odpovědí a další podrobné modelové výstupy jsou uvedeny v příslušných druhově specifických přílohách.
+
+#line(length: 100%)
 
 #import "typst/tables/res_noextrapol_common.typ": noextrapol_common_result_table
 #noextrapol_common_result_table
