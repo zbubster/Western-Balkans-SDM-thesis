@@ -16,8 +16,8 @@
 /data/__COMPATIBILITY__/
 /data/__PREDICTORS_STACKS__/
 /models/
-/text/outputs/
-/text/models/
+/outputs/
+/text/models/Shape/hindcast_forecast_extrapol_weights_all_selected/
 /text/exports_untracked/
 
 
