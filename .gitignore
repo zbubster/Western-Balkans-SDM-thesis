@@ -16,7 +16,8 @@
 /data/__COMPATIBILITY__/
 /data/__PREDICTORS_STACKS__/
 /models/
-/text/outputs/
+/outputs/
+
 /text/models/
 /text/exports_untracked/
 
