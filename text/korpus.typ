@@ -237,6 +237,10 @@ SSP ‒ shared socioeconomic pathways, scénáře socioekonomického vývoje
 
 Rozšíření druhů v geografickém prostoru je podmíněno řadou environmentálních a biotických faktorů, které nejsou napříč prostorem konstantní. Vhodnost konkrétního stanoviště pro konkrétní druh je mimo jiné dána kompatibilitou ekologické niky druhu a realizací klíčových proměnných prostředí. Vhodným nástrojem pro uchopení tohoto vztahu se zdají být modely rozšíření druhů (či také nikové modely rozšíření druhů, modely vhodnosti stanoviště, SDM), které se používají pro kvantifikaci závislosti výskytu druhů pozorovaných v geografickém prostoru na měnících se podmínkách prostředí @elith2009SDM @guisan2000predictive.
 
+== Teoretická východiska modelvání rozšíření vhodných stanovišť
+
+#v(10pt)
+
 Ekologickým východiskem těchto modelů je koncept ekologické niky _sensu_ Hutchinson @hutchinson1957concluding. V tomto pojetí lze niku chápat jako mnohorozměrný environmentální prostor zahrnující podmínky a zdroje vhodné pro dlouhodobé přetrvávání populace, avšak nikoli bez výjimky. Pozorované rozšíření druhu totiž nemusí přesně odpovídat rozsahu environmentálních podmínek, které jsou pro daný druh limitující. Z části své _fundamentální_ niky ‒ rozsahu podmínek prostředí daný druh fyziologicky limitujících ‒ může být vyloučen biotickými interakcemi, případně v ní může absentovat v důsledku omezené disperze nebo historických událostí @pulliam @soberon2005interpretation. V opačném případě může být druh přítomen i v podmínkách, které se s jeho fundamentální nikou neshodují, například díky imigraci ze zdrojových populací (_source-sink_ dynamika @pulliam1988sources). Výstupy z tradičních SDM proto téměř nikdy nelze interpretovat jako fundamentální niku druhu v kompletní podobě, ale spíše jako empirický odhad environmentální niky získaný porovnáním zaznamenaných výskytů s podmínkami dostupnými v rámci studovaného území v daném čase @guisan2000predictive @peterson2012species. Zároveň SDM modely pracují s implicitním předpokladem, že pozorované rozšíření druhu je v rovnováze s podmínkami prostředí, tedy že druh obsazuje většinu pro něj dostupných vhodných stanovišť a naopak převážně chybí tam, kde vhodné podmínky realizovány nejsou @guisan2000equilibrium.
 
 Z koncepčního hlediska jsou modely SDM postaveny na předpokladu Hutchinsonovy duality @hutchinson_duality, podle níž každá lokalita v geografickém prostoru odpovídá určitému bodu v mnohorozměrném environmentálním prostoru, a zároveň stejná kombinace environmentálních podmínek může být zastoupena na více geograficky oddělených lokalitách. Díky tomuto předpokladu je možné vztahy mezi prostředím a výskytem druhu, odvozené v rámci modelovacího procesu SDM, projektovat v prostoru na lokality, které nebyly součástí trénovací části modelování. Tímto projektováním odvozených vztahů mezi druhem a prostředím vznikají souvislé mapy potenciálně vhodných stanovišť @elith2009SDM.
@@ -247,7 +251,48 @@ Kromě interpolování vztahů druhu a prostředí v prostoru a na současných 
 vztah který odvozujeme je poměrně dost pokřivený už v současnosti, natož když ho přeneseme do minulost/budoucnosti, kde mohlo docházet k úplně jiným interakcím na všech řádech
 nehledě na to, že prediktory, na kterých se ta projekce dělá, jsou samy o sobě zatíženy velikou nejistotou]]]
 
-Navzdory výše zmíněným interpretčním omezením mají modely rozšíření vhodných stanovišť široké využití v základním i aplikovaném výzkumu. Mezi nejčastější využití patří snahy o popis vztahu mezi druhem a environmentálními gradienty, identifikace potenciálně vhodných stanovišť v prostoru (např. #cite(<mccune_2016_SDM_rare>, form: "prose")), podpora plánování územní ochrany včetně hodnocení hrozeb spojených s invazemi druhů @elith2009SDM. Nemalá pozornost je také věnována jejich využití při studiu historických změn areálů (např. #cite(<svenning_LGM_modelling>, form: "prose")) a při odhadu možných dopadů probíhající změny klimatu (např. #cite(<salako2019predicting>, form: "prose")). V těchto aplikacích však modely SDM nepředstavují náhradu za ekologickou znalost studovaného organismu a právě naopak sestavení, kontrola i interpretace modelu musí vycházet z biologicky odůvodněných předpokladů @austin2002spatial.
+== Dosavadní využití SDM v alpinském prostředí
+
+#v(10pt)
+
+Navzdory výše zmíněným interpretčním omezením mají modely rozšíření vhodných stanovišť široké využití v základním i aplikovaném výzkumu. Mezi nejčastější využití patří snahy o popis vztahu mezi druhem a environmentálními gradienty, identifikace potenciálně vhodných stanovišť v prostoru (např. #cite(<mccune_2016_SDM_rare>, form: "prose")), podpora plánování územní ochrany včetně hodnocení hrozeb spojených s invazemi druhů @elith2009SDM. Nemalá pozornost je také věnována jejich využití při studiu historických změn areálů (např. #cite(<svenning_LGM_modelling>, form: "prose")) a při odhadu možných dopadů probíhající změny klimatu (např. #cite(<salako2019predicting>, form: "prose"), #cite(<randin2009climate>, form: "prose")). V těchto aplikacích však modely SDM nepředstavují náhradu za ekologickou znalost studovaného organismu a právě naopak sestavení, kontrola i interpretace modelu musí vycházet z biologicky odůvodněných předpokladů @austin2002spatial.
+
+V kontextu vysokohorského prostředí představují modely SDM nenáročnou studijní metodu. Plné terénní zmapování areálů alpinských rostlin je obtížné, jelikož vysokohorská stanoviště jsou prostorově izolovaná a obtížně přístupná. Modely SDM tak umožňují doplnit bodové znalosti výskytu o souvislý odhad prostorového rozložení vhodných stanovišť a současně kvantifikovat vztahy mezi výskytem druhu a jednotlivými gradienty prostředí @guisan1998predicting. Ve vysokohorském prostředí bývají modely SDM užívány i k dalším výše zmíněným účelům. Predikované mapy vhodnosti umožňují vybrat lokality, na nichž je vyšší pravděpodobnost nalezení dosud neznámých populací, což může u vzácných druhů výrazně zvýšit efektivitu terénních prací. Takto nově získaná data navíc můžou zpětně sloužit ke zpřesnění výchozího modelu @guisan2006using. Mimo terénního průzkumu samotného mohou výstupy z SDM sloužt jako podklady k plánování územní ochrany. Zároveň je také možné posoudit, zda současná síť chráněných území zachová vhodná stanoviště také při očekávaném posunu areálů @chauvier2024transnational.
+
+Další významnou oblastí využití SDM u alpinských rostlin jsou projekce potenciálně vhodných stanovišť do minulých podmínek prostředí. Tyto studie se zpravidla soustřeďují na období od posledního glaciálního maxima po současnost a jejich cílem je rekonstruovat změny rozsahu a polohy vhodných stanovišť nebo identifikovat oblasti, které mohly během klimaticky nepříznivých období fungovat jako refugia @patsiou2014topo. Na příklad výsledky modelů podpořily možnost dlouhodobého přetrvávání druhu _Saxifraga florulenta_ v lokálních refugiích, jejichž podmínky se od regionálního klimatu lišily díky členitému reliéfu @patsiou2014topo. Podobně model _Edraianthus tenuifolius_ ze západního Balkánu identifikoval během posledního glaciálního maxima dvě oddělené oblasti vhodného prostředí, které odpovídaly prostorové struktuře zjištěné nezávislými morfologickými a fylogeografickými analýzami @glasnovic2018understanding.
+
+Projekce do budoucnosti jsou naproti tomu využívány především k odhadu dopadů klimatické změny na dostupnost vhodných stanovišť. Dosavadní studie evropské horské flóry předpovídají u mnoha druhů zmenšování a fragmentaci klimaticky vhodného území a jeho přesun směrem do vyšších nadmořských výšek, přičemž rozsah očekávaných změn se liší mezi druhy, pohořími i klimatickými scénáři @engler2011. Zároveň se ukazuje, že modely s jemným prostorovým rozlišením zpravidla zachycují více lokálně stabilních stanovišť než modely hrubšího měřítka. Tyto obvykle predikují jejich úplnou ztrátu @randin2009climate. Stejně tak jemné modely častěji predikují složitější kombinace úbytku, přetrvávání a vzniku nových potenciálně vhodných lokalit @rota2022topography.
+
+== Specifika SDM v alpinském prostředí
+
+#v(10pt)
+
+Modelování rozšíření vhodných stanovišť v alpinském prostředí má svá specifika, která přímo ovlivňují kalibraci a výkonnost modelu. Vysokohorské prostředí se vyznačuje výraznou heterogenitou reliéfu, což přímo vede s vysoké variabilitě klimatu a půdních poměrů a obecně k strmým environmentálním gradientům se specifickými mikrostanovištními podmínkami [[[]]]. Tato skutečnost je v literatuře obecně považována za důvod, proč jsou horské oblasi druhově relativně bohatší než homogenní nížiné oblasti [[[]]]. mountain-geobiodiversity hypothesis
+
+Výsledky opakovaně ukazují, že rozšíření alpinských rostlin není určováno pouze regionálním klimatem, ale silnou roli hraje také topografie, geologické podloží a další faktory, které vytvářejí mozaiku mikrostanovištních podmínek @rota2022topography.
+
+Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
+
+[[[měříto]]] @randin2009climate popisují, že modely s grain 25m ukazují, že stanoviště s vhodným mikroklimatem zůstanou v Alpách i po oterplení, proti tomu velkomeritkove modely rikaji, ze klima se zmeni natolik, ze tato stanoviste vymizi
+
+dostupnost dat v alpinu a na balkáně:
+pro řadu úzce rozšířených horských druhů jsou k dispozici pouze malé soubory přesně georeferencovaných a taxonomicky ověřených záznamů.
+
+== Základy SDM
+
+#v(10pt)
+
+Modely rozšíření druhů popisují vztah mezi pozorovaným výskytem druhu a podmínkami prostředí na známých lokalitách. Odhadnutý vztah je následně možné promítnout do geografického prostoru a vymezit oblasti s podobnými environmentálními podmínkami těm, na nichž byl druh zazanamenán. Výstupem je spojitá mapa potenciální vhodnosti stanovišť, kterou je však nutné interpretovat v kontextu použitých dat a dalších modelovacích parametrů @guisan2000predictive @elith2009SDM.
+
+Do modelů SDM vstupují dva základní typy dat. Prvním jsou georeferencované záznamy o přítomnosti druhu, které bývají doplněné o absence. Vzhledem k tomu, že do modelování obvykle vstupují data, která nebyla sebrána za tímto účelem, absence bývají nahrazovány _pseudoabsencemi_ (reprezentujícími prostředí, ve kterém se druh na základě apriorní znalosti nevyskytuje), případně _pozaďovými body_ (reprezentujícími dostupné environmentální kombinace v oblasti zájmu) @sillero2021common. Druhým typem vstupujících dat jsou environmentální prediktory, zpravidla reprezentované kontinuálními rastrovými vrstvami klimatu, topografie a dalších faktorů. Modelovací algoritmus z těchto dat odhaduje funkce odpovědi druhu na jednotlivé environmentální faktory @elith2009SDM.
+
+Před samotným modelování je vždy nutné učinit několik zásadních rozhodnutí, která silně ovlivňují výstupy modelů i jejich interpretaci. Jendím z nich je volba prostorového měřítka, tedy velikosti základní prostorové jednotky analýzy, tzv. _grain_. Vhodně zvolené měřítko musí odpovídat přesnosti lokalizace výskytových záznamů, prostorovému rozlišení prediktorů a škéle, na níž daný organismus na konrétní faktory prostředí reaguje @levin1992problem. Zatímco klima obvykle vymezuje rozšíření na širších měřítkách, topografie, vegetační struktura nebo půdní faktory mohou určovat vhodnost stanoviště na podstatně jemnější úrovni. Změna měřítka modelu tak může měnit zachycenou variabilitu prostředí, tvar odhadovaných vztahů i celkovou predikční výkonnost modelu @moudry2023scale.
+
+Dalším ze zásadních rozhodnutí je výběr prediktorů, který by měl vycházet z předem formulované ekologické hypotézy. V tomto kontextu je důležité uvědomnění, jak jednotlivé faktory prostředí působí na přežívání populací daného druhu. Nepřímé prediktory, jako jsou nadmořská výška nebo poloha ve svahu, mohou sice být v modelu velmi úspěšné, ale jejich konkrétní biologický význam může být jenom složitě interpretovatelný. Naopak přímé prediktory, reprezentující faktory prostředí s biologicky vysvětlitelným vlivem (např. dostupnost vody, _growing degree days_, limitující teploty), jsou většinou hůře dostupné v kontinuálním pokrytí prostoru, avšak poskytují lepší interpretovatelnost @guisan2000predictive. Volba prediktorů by tedy měla být podmíněna několika souběžnými kritérii: (i) účelu modelování, tedy zda jde o co nejvěrohodnější vystižení současného stavu a prostorovou predikci vhodnosti habitatů, či o přenositelnost modelu do jiných environmentálních podmínek a osvětlení rozdílů mezi současným versus minulým/budoucím rozšířením @merow2014we, pak (ii) jak působí jednotlivé prediktory na rozšíření druhu a jakým způsobem interpretovat odvozené vztahy, aby nedocházelo ke kořistění ekologie @houlahan2017priority a (iii) v neposlední řadě jaké jsou statistické vztahy mezi prediktory.
+
+== Vstupní data
+
+#v(10pt)
 
 // Vstupní data do modelování
 
@@ -255,9 +300,14 @@ Navzdory výše zmíněným interpretčním omezením mají modely rozšíření
 
 [[[proximita prediktorů]]]
 
-Dalším důležitým prediktorem používaným v modelech rozšíření vhodných stanovišť je informace o geologickém podloží. Zohlednění substrátu přináší do modelu důležitou informaci, jelikož erozní procesy specifické pro daný horninový substrát přímo ovlivňují vlastnosti půdy. [[[citace? nebo obecná znalost?]]] Zejména u rostlin tak může zachycovat ekologické gradienty, které nejsou plně postižitelné klimatickými a topografickými proměnnými, přičemž zařazení geologického substrátu do modelu může zlepšit predikci rozšíření potenciálně vhodných stanovišť, obzvlášť v horských a geologicky heterogenních územích. @chauvier_2021 @dubuis_2012
 
-Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
+Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. 
+
+Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
+
+
+
+Dalším důležitým prediktorem používaným v modelech rozšíření vhodných stanovišť je informace o geologickém podloží. Zohlednění substrátu přináší do modelu důležitou informaci, jelikož erozní procesy specifické pro daný horninový substrát přímo ovlivňují vlastnosti půdy. [[[citace? nebo obecná znalost?]]] Zejména u rostlin tak může zachycovat ekologické gradienty, které nejsou plně postižitelné klimatickými a topografickými proměnnými, přičemž zařazení geologického substrátu do modelu může zlepšit predikci rozšíření potenciálně vhodných stanovišť, obzvlášť v horských a geologicky heterogenních územích. @chauvier_2021 @dubuis_2012
 
 Kromě samotného typu geologického podloží mohou být pro modelování rozšíření vhodných stanovišť významné také konkrétní půdní vlastnosti, které mají na růst rostlin přímější vliv. Ku příkladu hloubka půdy, půdní reakce a schopnost půdy zadržovat vodu ovlivňují přežívání rostlin významně silněji než samotný druh horniny. Zahrnutí prediktorů charakterizujících takové vlastnosti půdy může vysvětlovat část variability, kterou není možné zachytit pouze klasifikovaným geologickým substrátem, a vést k lepším projekcím vhodných stanovišť v prostoru. @dubuis_2012
 
@@ -269,7 +319,7 @@ Z tohoto důvodu byly v této práci vedle geologické vrstvy GLiM využity tak�
 
 [[[studium změny klimatu je důležité proč]]]
 
-V odborné obci panuje obecná shoda, že probíhající globální klimatická změna může vést k elevačnímu posunu klimatických zón a návaznému zmenšení rozlohy (sub)alpinských biotopů. Taková změna by vedla k ohrožení druhů se slabou migrační schopností a druhů vyskytujících se v oblastech, kde již není možné migrovat do vyšších nadmořských výšek. @IPCC_2023
+V odborné obci panuje obecná shoda, že probíhající globální klimatická změna může vést k elevačnímu posunu klimatických zón a návaznému zmenšení rozlohy (sub)alpinských biotopů. Taková změna by vedla k ohrožení druhů se slabou migrační schopností a druhů vyskytujících se v oblastech, kde již není možné migrovat do vyšších nadmořských výšek. @IPCC_2023 @theurillat1998sensitivity
 
 == Cíle práce
 
@@ -467,7 +517,7 @@ Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená n
 
 Před samotným modelováním byly pro všechny environmentální prediktory upraveny prostorové parametry tak, aby výsledné vrstvy byly prostorově jednotné. Jednotlivé vrstvy prediktorů byly zarovnány na společné referenční rastry, reprojektovány do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035) a maskovány podle polygonu studovaného území. Prediktory byly podle typu dat převzorkovány nebo agregovány do prostorových rozlišení využitých v této práci, čímž vznikla sada vzájemně kompatibilních rastrových vrstev pro modelovací měřítka 100, 200, 500 a 1000 m.
 
-Z takto připravených vrstev byly následně vytvořeny výchozí rastrové soubory (stacks) obsahující všechny kandidátní environmentální prediktory dostupné pro dané prostorové rozlišení. Pro účely temporálních projekcí byla navíc připravena užší varianta prediktorových souborů, ze které byly vyloučeny prediktory reprezentujícíc v čase proměnlivé fenomény a tudíž nevhodné pro extrapolaci mimo současnost (krajinný pokryv a pedologické vrstvy).
+Z takto připravených vrstev byly následně vytvořeny výchozí rastrové soubory (stacks) obsahující všechny kandidátní environmentální prediktory dostupné pro dané prostorové rozlišení. Pro účely temporálních projekcí byla navíc připravena užší varianta prediktorových souborů, ze které byly vyloučeny prediktory reprezentující v čase proměnlivé fenomény a tudíž nevhodné pro extrapolaci mimo současnost (krajinný pokryv a pedologické vrstvy).
 
 Na připravených souborech byla následně posouzena kolinearita prediktorů. Hodnoty prediktorů byly extrahovány pro tuto analýzu extrahovány dvojím způsobem: (i) z buňek pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil přístup první.
 
@@ -1072,6 +1122,8 @@ Volba klimatického datasetu je tedy kruciální pro důvěryhodné modely souč
 V současné době je největší limitace datovými podklady, statistiku máme dostatečnou. Prediktorové sady vykazují značnou chybovost, obzvlášť v odlehlých oblastech. Geologické i půdní mapy jsou taky surově interpolované a založené na omezeném počtu pozorování. Nabízenou cestou jsou data z dálkového průzkumu Země, která se výše zmíněným nedostatkům vyhýbají: jsou měřena "přímo" na lokalitě, mají solidní časovou řadu a nadstandardní prostorové rozlišení. Na druhou stranu jsou produkty DPZ hůře ekologicky interpretovatelné a jejich zpracování vyžaduje vyšší nároky na výpočetní výkon.
 
 Ačkoliv využití DPZ jako prediktorů v SDM je v současnosti zkoumáno a dosavadní výsledky ukazují na sporné vylepšení modelů, v jiných oblastech monitoringu přírody a krajiny nastává jejich rozvoj. Příkladem může být efektivní monitorování sucha a požárů, 
+
+vylepšení výkonu modelu pomocí EO @schwager2021remote
 
 Modely je obecně potřeba interpretovat s opatrností.
 
