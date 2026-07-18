@@ -1,6 +1,6 @@
 // diplomka je věc
-// 
-// 
+//
+//
 // zakladni udaje
 
 #let author = "Jakub Rataj"
@@ -190,7 +190,7 @@ ESM ‒ ensemble of small models
 GLiM
 
 SDM ‒ species distribution modelling, modelování rozšíření druhů,
-#linebreak() #h(50pt) 
+#linebreak() #h(50pt)
 modelování rozšíření potenciálně vhodných stanovišť
 
 EO, DPZ ‒ Earth observing, dálkový průzkum Země
@@ -211,7 +211,7 @@ GAM ‒ generalized additive models, zobecněné aditivní modely
 
 AUC ‒ area under the receiver operating characteristic curve, plocha pod ROC křivkou
 
-GPS ‒ 
+GPS ‒
 
 CV ‒
 
@@ -241,36 +241,78 @@ Rozšíření druhů v geografickém prostoru je podmíněno řadou environment�
 
 #v(10pt)
 
-Ekologickým východiskem těchto modelů je koncept ekologické niky _sensu_ Hutchinson @hutchinson1957concluding. V tomto pojetí lze niku chápat jako mnohorozměrný environmentální prostor zahrnující podmínky a zdroje vhodné pro dlouhodobé přetrvávání populace, avšak nikoli bez výjimky. Pozorované rozšíření druhu totiž nemusí přesně odpovídat rozsahu environmentálních podmínek, které jsou pro daný druh limitující. Z části své _fundamentální_ niky ‒ rozsahu podmínek prostředí daný druh fyziologicky limitujících ‒ může být vyloučen biotickými interakcemi, případně v ní může absentovat v důsledku omezené disperze nebo historických událostí @pulliam @soberon2005interpretation. V opačném případě může být druh přítomen i v podmínkách, které se s jeho fundamentální nikou neshodují, například díky imigraci ze zdrojových populací (_source-sink_ dynamika @pulliam1988sources). Výstupy z tradičních SDM proto téměř nikdy nelze interpretovat jako fundamentální niku druhu v kompletní podobě, ale spíše jako empirický odhad environmentální niky získaný porovnáním zaznamenaných výskytů s podmínkami dostupnými v rámci studovaného území v daném čase @guisan2000predictive @peterson2012species. Zároveň SDM modely pracují s implicitním předpokladem, že pozorované rozšíření druhu je v rovnováze s podmínkami prostředí, tedy že druh obsazuje většinu pro něj dostupných vhodných stanovišť a naopak převážně chybí tam, kde vhodné podmínky realizovány nejsou @guisan2000equilibrium.
+Ekologickým východiskem těchto modelů je koncept ekologické niky _sensu_ Hutchinson @hutchinson1957concluding. V tomto pojetí lze niku chápat jako mnohorozměrný environmentální prostor zahrnující podmínky a zdroje vhodné pro dlouhodobé přetrvávání populace/*, avšak nikoli bez výjimky*/. Pozorované rozšíření druhu /*totiž*/ ale nemusí přesně odpovídat rozsahu environmentálních podmínek, které jsou pro daný druh limitující. Z části své _fundamentální_ niky ‒ rozsahu podmínek prostředí daný druh fyziologicky limitujících ‒ může být vyloučen biotickými interakcemi, případně v ní může absentovat v důsledku omezené disperze nebo historických událostí @pulliam @soberon2005interpretation. V opačném případě může být druh přítomen i v podmínkách, které se s jeho fundamentální nikou neshodují, například díky imigraci ze zdrojových populací (_source-sink_ dynamika @pulliam1988sources). Výstupy z tradičních SDM proto téměř nikdy nelze interpretovat jako fundamentální niku druhu v kompletní podobě, ale spíše jako empirický odhad environmentální niky získaný porovnáním zaznamenaných výskytů s podmínkami dostupnými v rámci studovaného území v daném čase @guisan2000predictive @peterson2012species. Zároveň SDM modely pracují s implicitním předpokladem, že pozorované rozšíření druhu je v rovnováze s podmínkami prostředí, tedy že druh obsazuje většinu pro něj dostupných vhodných stanovišť a naopak převážně chybí tam, kde vhodné podmínky realizovány nejsou @guisan2000equilibrium.
 
-Z koncepčního hlediska jsou modely SDM postaveny na předpokladu Hutchinsonovy duality @hutchinson_duality, podle níž každá lokalita v geografickém prostoru odpovídá určitému bodu v mnohorozměrném environmentálním prostoru, a zároveň stejná kombinace environmentálních podmínek může být zastoupena na více geograficky oddělených lokalitách. Díky tomuto předpokladu je možné vztahy mezi prostředím a výskytem druhu, odvozené v rámci modelovacího procesu SDM, projektovat v prostoru na lokality, které nebyly součástí trénovací části modelování. Tímto projektováním odvozených vztahů mezi druhem a prostředím vznikají souvislé mapy potenciálně vhodných stanovišť @elith2009SDM.
+Z koncepčního hlediska jsou modely SDM postaveny na předpokladu Hutchinsonovy duality @hutchinson_duality, podle níž každá lokalita v geografickém prostoru odpovídá určitému bodu v mnohorozměrném environmentálním prostoru, a zároveň stejná kombinace environmentálních podmínek může být zastoupena na více geograficky oddělených lokalitách. Díky tomuto předpokladu je možné vztahy mezi prostředím a výskytem druhu, odvozené v rámci modelovacího procesu SDM, projektovat v prostoru na lokality, které nebyly součástí trénovací části modelování. Tímto projektováním odvozených vztahů mezi druhem a prostředím vznikají souvislé mapy potenciálně vhodných stanovišť @elith2009SDM. Kromě interpolování vztahů druhu a prostředí v prostoru a na současných podmínkách prostředí, je teoreticky možné projektovat odvozené závislosti i v čase. Hlavním předpokladem pro takovou projekci je niková konzervativnost (_niche conservatism_), tedy že nároky druhu na podmínky prostředí jsou v čase konstantní @niche_conservatism @pearman2008niche.
 
-Kromě interpolování vztahů druhu a prostředí v prostoru a na současných podmínkách prostředí, je teoreticky možné projektovat odvozené závislosti i v čase. Hlavním předpokladem (otázka nakolik naplněným) je niková konzervativnost (_niche conservatism_), tedy že nároky druhu na podmínky prostředí jsou v čase konstantní @niche_conservatism @pearman2008niche.
-
+/*
 [[[tím se přidává další vrstva ekologických předpokladů do SDM
 vztah který odvozujeme je poměrně dost pokřivený už v současnosti, natož když ho přeneseme do minulost/budoucnosti, kde mohlo docházet k úplně jiným interakcím na všech řádech
 nehledě na to, že prediktory, na kterých se ta projekce dělá, jsou samy o sobě zatíženy velikou nejistotou]]]
+*/
+
+== Princip SDM
+
+#v(10pt)
+
+Jak bylo již naznačeno výše, modely rozšíření druhů popisují vztah mezi pozorovaným výskytem druhu a podmínkami prostředí na známých lokalitách. Odhadnutý vztah je následně možné promítnout do geografického prostoru a vymezit oblasti s podobnými environmentálními podmínkami těm, na nichž byl druh zazanamenán. Výstupem je spojitá mapa potenciální vhodnosti stanovišť, kterou je však nutné interpretovat v kontextu použitých dat a dalších modelovacích parametrů @guisan2000predictive @elith2009SDM.
+
+Do modelů SDM vstupují dva základní typy dat. Prvním jsou georeferencované záznamy o přítomnosti druhu, které bývají doplněné o absence. Vzhledem k tomu, že do modelování obvykle vstupují data, která nebyla sebrána za tímto účelem, absence bývají nahrazovány _pseudoabsencemi_ (reprezentujícími prostředí, ve kterém se druh na základě apriorní znalosti nevyskytuje), případně _pozaďovými body_ (reprezentujícími dostupné environmentální kombinace v geografické oblasti zájmu) @sillero2021common. Druhým typem vstupujících dat jsou environmentální prediktory, zpravidla reprezentované kontinuálními rastrovými vrstvami klimatu, topografie a dalších faktorů. Modelovací algoritmus z těchto dat odhaduje funkce odpovědi druhu na jednotlivé environmentální faktory @elith2009SDM.
+
+Před samotným modelování je vždy nutné učinit několik zásadních rozhodnutí, která silně ovlivňují výstupy modelů i jejich interpretaci. Jendím z nich je volba prostorového měřítka, tedy velikosti základní prostorové jednotky analýzy, tzv. _grain_. Vhodně zvolené měřítko musí odpovídat přesnosti lokalizace výskytových záznamů, prostorovému rozlišení prediktorů a škéle, na níž daný organismus na konrétní faktory prostředí reaguje @levin1992problem. Zatímco klima obvykle vymezuje rozšíření na širších měřítkách, topografie, vegetační struktura nebo půdní faktory mohou určovat vhodnost stanoviště na podstatně jemnější úrovni. Změna měřítka modelu tak může měnit zachycenou variabilitu prostředí, tvar odhadovaných vztahů i celkovou predikční výkonnost modelu @moudry2023scale.
+
+Dalším ze zásadních rozhodnutí je výběr prediktorů, který by měl vycházet z předem formulované ekologické hypotézy. V tomto kontextu je důležité uvědomnění, jak jednotlivé faktory prostředí působí na přežívání populací daného druhu. Nepřímé prediktory, jako jsou nadmořská výška nebo poloha ve svahu, mohou sice být v modelu velmi úspěšné, ale jejich konkrétní biologický význam může být jenom složitě interpretovatelný. Naopak přímé prediktory, reprezentující faktory prostředí s biologicky vysvětlitelným vlivem (např. dostupnost vody, _growing degree days_, limitující teploty), jsou většinou hůře dostupné v kontinuálním pokrytí prostoru, avšak poskytují lepší interpretovatelnost @guisan2000predictive. Volba prediktorů by tedy měla být podmíněna několika souběžnými kritérii: (i) účelu modelování, tedy zda jde o co nejvěrohodnější vystižení současného stavu a prostorovou predikci vhodnosti habitatů, či o přenositelnost modelu do jiných environmentálních podmínek a osvětlení rozdílů mezi současným versus minulým/budoucím rozšířením @merow2014we, pak (ii) jak působí jednotlivé prediktory na rozšíření druhu a jakým způsobem interpretovat odvozené vztahy, aby nedocházelo ke kořistění ekologie @houlahan2017priority a (iii) v neposlední řadě jaké jsou statistické vztahy mezi prediktory.
 
 == Dosavadní využití SDM v alpinském prostředí
 
 #v(10pt)
 
-Navzdory výše zmíněným interpretčním omezením mají modely rozšíření vhodných stanovišť široké využití v základním i aplikovaném výzkumu. Mezi nejčastější využití patří snahy o popis vztahu mezi druhem a environmentálními gradienty, identifikace potenciálně vhodných stanovišť v prostoru (např. #cite(<mccune_2016_SDM_rare>, form: "prose")), podpora plánování územní ochrany včetně hodnocení hrozeb spojených s invazemi druhů @elith2009SDM. Nemalá pozornost je také věnována jejich využití při studiu historických změn areálů (např. #cite(<svenning_LGM_modelling>, form: "prose")) a při odhadu možných dopadů probíhající změny klimatu (např. #cite(<salako2019predicting>, form: "prose"), #cite(<randin2009climate>, form: "prose")). V těchto aplikacích však modely SDM nepředstavují náhradu za ekologickou znalost studovaného organismu a právě naopak sestavení, kontrola i interpretace modelu musí vycházet z biologicky odůvodněných předpokladů @austin2002spatial.
+Navzdory zmíněným interpretčním omezením mají modely rozšíření vhodných stanovišť široké využití v základním i aplikovaném výzkumu. Mezi nejčastější využití patří snahy o popis vztahu mezi druhem a environmentálními gradienty, identifikace potenciálně vhodných stanovišť v prostoru (např. #cite(<mccune_2016_SDM_rare>, form: "prose")), podpora plánování územní ochrany včetně hodnocení hrozeb spojených s invazemi druhů @elith2009SDM. Nemalá pozornost je také věnována jejich využití při studiu historických změn areálů (např. #cite(<svenning_LGM_modelling>, form: "prose")) a při odhadu možných dopadů probíhající změny klimatu (např. #cite(<salako2019predicting>, form: "prose"), #cite(<randin2009climate>, form: "prose")). V těchto aplikacích však modely SDM nepředstavují náhradu za ekologickou znalost studovaného organismu, ale právě naopak sestavení, kontrola i interpretace modelu musí vycházet z biologicky odůvodněných předpokladů @austin2002spatial.
 
-V kontextu vysokohorského prostředí představují modely SDM nenáročnou studijní metodu. Plné terénní zmapování areálů alpinských rostlin je obtížné, jelikož vysokohorská stanoviště jsou prostorově izolovaná a obtížně přístupná. Modely SDM tak umožňují doplnit bodové znalosti výskytu o souvislý odhad prostorového rozložení vhodných stanovišť a současně kvantifikovat vztahy mezi výskytem druhu a jednotlivými gradienty prostředí @guisan1998predicting. Ve vysokohorském prostředí bývají modely SDM užívány i k dalším výše zmíněným účelům. Predikované mapy vhodnosti umožňují vybrat lokality, na nichž je vyšší pravděpodobnost nalezení dosud neznámých populací, což může u vzácných druhů výrazně zvýšit efektivitu terénních prací. Takto nově získaná data navíc můžou zpětně sloužit ke zpřesnění výchozího modelu @guisan2006using. Mimo terénního průzkumu samotného mohou výstupy z SDM sloužt jako podklady k plánování územní ochrany. Zároveň je také možné posoudit, zda současná síť chráněných území zachová vhodná stanoviště také při očekávaném posunu areálů @chauvier2024transnational.
+V kontextu vysokohorského prostředí představují modely SDM nenáročnou studijní metodu. Plné terénní zmapování areálů alpinských rostlin je obtížné, jelikož jsou vysokohorská stanoviště prostorově izolovaná a obtížně přístupná. Modely SDM tak umožňují doplnit bodové znalosti výskytu o souvislý odhad prostorového rozložení vhodných stanovišť a současně kvantifikovat vztahy mezi výskytem druhu a jednotlivými gradienty prostředí @guisan1998predicting. Ve vysokohorském prostředí bývají modely SDM užívány i k dalším výše zmíněným účelům. Predikované mapy vhodnosti umožňují vybrat lokality, na nichž je vyšší pravděpodobnost nalezení dosud neznámých populací, což může u vzácných druhů výrazně zvýšit efektivitu terénních prací. Takto nově získaná data navíc můžou zpětně sloužit ke zpřesnění výchozího modelu @guisan2006using. Mimo terénního průzkumu samotného mohou výstupy z SDM sloužt jako podklady k plánování územní ochrany. Zároveň je také možné posoudit, zda současná síť chráněných území zachová vhodná stanoviště také při očekávaném posunu areálů @chauvier2024transnational.
 
-Další významnou oblastí využití SDM u alpinských rostlin jsou projekce potenciálně vhodných stanovišť do minulých podmínek prostředí. Tyto studie se zpravidla soustřeďují na období od posledního glaciálního maxima po současnost a jejich cílem je rekonstruovat změny rozsahu a polohy vhodných stanovišť nebo identifikovat oblasti, které mohly během klimaticky nepříznivých období fungovat jako refugia @patsiou2014topo. Na příklad výsledky modelů podpořily možnost dlouhodobého přetrvávání druhu _Saxifraga florulenta_ v lokálních refugiích, jejichž podmínky se od regionálního klimatu lišily díky členitému reliéfu @patsiou2014topo. Podobně model _Edraianthus tenuifolius_ ze západního Balkánu identifikoval během posledního glaciálního maxima dvě oddělené oblasti vhodného prostředí, které odpovídaly prostorové struktuře zjištěné nezávislými morfologickými a fylogeografickými analýzami @glasnovic2018understanding.
+Další významnou oblastí využití SDM u alpinských rostlin jsou projekce potenciálně vhodných stanovišť do minulých podmínek prostředí. Tyto studie se zpravidla soustřeďují na období od posledního glaciálního maxima po současnost a jejich cílem je rekonstruovat změny rozsahu a polohy vhodných stanovišť nebo identifikovat oblasti, které mohly během klimaticky nepříznivých období fungovat jako refugia @patsiou2014topo. Na příklad, výsledky SDM modelů podpořily možnost dlouhodobého přetrvávání druhu _Saxifraga florulenta_ v lokálních refugiích v alpinu, jejichž podmínky se od regionálního klimatu lišily díky členitému reliéfu @patsiou2014topo. Podobně model pro _Edraianthus tenuifolius_ ze západního Balkánu identifikoval během posledního glaciálního maxima dvě oddělené oblasti vhodného prostředí, které odpovídaly prostorové struktuře zjištěné nezávislými morfologickými a fylogeografickými analýzami @glasnovic2018understanding.
 
-Projekce do budoucnosti jsou naproti tomu využívány především k odhadu dopadů klimatické změny na dostupnost vhodných stanovišť. Dosavadní studie evropské horské flóry předpovídají u mnoha druhů zmenšování a fragmentaci klimaticky vhodného území a jeho přesun směrem do vyšších nadmořských výšek, přičemž rozsah očekávaných změn se liší mezi druhy, pohořími i klimatickými scénáři @engler2011. Zároveň se ukazuje, že modely s jemným prostorovým rozlišením zpravidla zachycují více lokálně stabilních stanovišť než modely hrubšího měřítka. Tyto obvykle predikují jejich úplnou ztrátu @randin2009climate. Stejně tak jemné modely častěji predikují složitější kombinace úbytku, přetrvávání a vzniku nových potenciálně vhodných lokalit @rota2022topography.
+Projekce do budoucnosti jsou naproti tomu využívány především k odhadu dopadů klimatické změny na dostupnost vhodných stanovišť. Dosavadní studie evropské horské flóry předpovídají u mnoha druhů zmenšování a fragmentaci klimaticky vhodného území a jeho přesun směrem do vyšších nadmořských výšek, přičemž rozsah očekávaných změn se liší mezi druhy, pohořími i klimatickými scénáři @engler2011. Zároveň se ukazuje, že modely s jemným prostorovým rozlišením zpravidla zachycují více lokálně stabilních stanovišť než modely hrubšího měřítka. Modely v rozlišení 10' obvykle predikují jejich úplnou ztrátu @randin2009climate. Stejně tak jemné modely častěji predikují složitější kombinace úbytku, přetrvávání a vzniku nových potenciálně vhodných lokalit @rota2022topography.
 
 == Specifika SDM v alpinském prostředí
 
 #v(10pt)
 
-Modelování rozšíření vhodných stanovišť v alpinském prostředí má svá specifika, která přímo ovlivňují kalibraci a výkonnost modelu. Vysokohorské prostředí se vyznačuje výraznou heterogenitou reliéfu, což přímo vede s vysoké variabilitě klimatu a půdních poměrů a obecně k strmým environmentálním gradientům se specifickými mikrostanovištními podmínkami [[[]]]. Tato skutečnost je v literatuře obecně považována za důvod, proč jsou horské oblasi druhově relativně bohatší než homogenní nížiné oblasti [[[]]]. mountain-geobiodiversity hypothesis
+Modelování rozšíření vhodných stanovišť v alpinském prostředí má svá specifika, která přímo ovlivňují volbu prediktorů, prostorové rozlišení i množství dat potřebných ke kalibraci modelu. Horské oblasti se vyznačují výraznou heterogenitou reliéfu, geologického podloží, půdních poměrů a lokálního klimatu. Na krátkých prostorových vzdálenostech se zde mohou střídat svahy s odlišnou orientací a osluněním, sněhová výležiska, větrné hrany, skalní výchozy nebo místa s rozdílnou dostupností půdní vody. Tato heterogenita vytváří vysoký počet ekologicky odlišných mikrostanovišť a společně s historickými změnami klimatu a geologickým vývojem přispívá k vysoké diverzitě a endemismu horských oblastí @rahbek_2019_MGH @reihl_2019_MGH.
 
+=== _Grain_
+
+#v(7pt)
+
+Klíčovým problémem při modelování v horských oblastech je volba výše zmíněného rozlišení vstupních dat, tedy halvně prostorové velikosti jednotky, pro niž je výskyt druhu a hodnota environmentálního prediktoru reprezentována jediným údajem (_grain_). Jednotlivé faktory prostředí přitom ovlivňují rozšíření vhodných stanovišť na různých prostorových škálách: regionální klima zpravidla vymezuje širší hranice areálu, zatímco topografie rozhoduje o vhodnosti konkrétních stanovišť uvnitř pohoří. Při použití příliš hrubého rastru jsou tyto lokální rozdíly zprůměrovány, čímž mohou být potlačeny vzácné kombinace podmínek důležité zejména pro úzce specializované druhy @elith2009SDM @moudry2023scale.
+
+/*
+Stejná prostorová heterogenita, která činí horské oblasti zajímavými z hlediska endemismu a druhové bohatosti, však komplikuje zachycení vztahů mezi druhem a prostředím. Významnou vlastností vstupních dat je jejich zrnitost, kdy v rámci zjednodušení (a nedostupnosti skutečných hodnot) uchováváme pro větší plochu stejnou informaci. Neexistuje přitom jediné univerzálně optimální rozlišení, na jehož úrovni by druh na podmínky prostředí reagoval. Na příklad zatímco regionální klima omezuje rozšíření především na větších škálách, v rámci jednotlivých pohoří mohou vznikat vlivem topografie mikrostanovištní podmínky úspěšně potlačující regionální klimatické poměry @rota2022topography.
+*/
+
+Změna zrnitosti navíc neovlivňuje pouze prostorové vykreslení výsledku, ale také samotné vztahy odhadované modelem. Ve studii postavené na modelování virtuálních druhů s předem známými křivkami odpovědí dosahovaly modely nejlepších výsledků zpravidla při rozlišení odpovídajícím měřítku, na němž byl vztah definován. S rostoucí velikostí buněk se měnila relativní důležitost prediktorů, význam nadmořské výšky rostl, zatímco význam orientace svahu klesal. Modely na hrubších měřítcích než na kterých probíhal "skutečný" vztah druhu k prostředí současně výrazně nadhodnocovaly rozlohu vhodného prostředí, v krajním případě téměř čtrnáctinásobně. Tyto výsledky ukazují, že modely postavené na hrubých škálách (a tím pádem na homogenizovanějším prostředí) a s přijatelnou diskriminační schopností nemusí správně zachycovat prostorový rozsah ani strukturu a tvar ekologických vztahů @connor2018effects.
+
+Z toho však nevyplývá, že nejjemnější dostupné rozlišení je vždy nejvhodnější. Je třeba rozlišovat mezi nominální velikostí rastrové buňky a skutečným prostorovým informačním obsahem prediktoru. Řada globálních klimatických a půdních vrstev nepředstavuje přímé měření v každé buňce, ale prostorový model vytvořený interpolací určitého počtu bodových měření za pomoci topografie a dalších kovariát (např. #cite(<chelsa_bioclim_model>, form: "prose")). Jejich přesnost je přímo ovlivněna hustotou a rozmístěním měřicích stanic, použitou interpolační metodou a schopností modelu zachytit lokální podmínky. V členitém horském terénu navíc standardní meteorologická měření často nereprezentují mikroklima skutečně působící na rostliny @guisan2000predictive. Převzorkování takové vrstvy do jemnějšího rastru ‒ na příklad jak jsem provedl v této práci ‒ nevytváří novou informaci, ale pouze prostorově zjemňuje již modelovaný odhad. Naproti tomu data dálkového průzkumu Země, letecké snímkování nebo LiDAR poskytují relativně přesné měření zemského povrchu, z něhož lze v jemném rozlišení odvodit proměnné typu digitální model reliéfu, strukturu vegetace, spektrální indexy či krajinný pokryv @leitao2019improving @schwager2021remote. V kontextu měřítka ‒ _grainu_ ‒ studie je také nutné uvažovat přesnost a prostorové rozlišení výskytových dat. Výsledky studií naznačují, že u druhů vázaných na vzácná nebo maloplošná stanoviště je vhodné upřednostnit jemnější prediktory i tehdy, jsou-li výskytová data dostupná v hrubším rozlišení, zatímco u druhů asociovaných s široce rozšířenými podmínkami mohou být dostačující i prediktory hrubší @simova2019fine. Dopady změny rozlišení je vhodné posuzovat _apriori_ pomocí prostorové autokorelace, případně podle měnícího se zastoupení úrovní faktorových prediktorů. Další cestou je zohlednění většího množství rozlišení v jednom modelu, což může zachytit působení různorodých procesů na odlišných prostorových škálách. Na druhou stranu pozorované zvýšení predikční výkonnosti víceškálových modelů bývá zpravidla pouze mírné a užitečných výsledků lze dosáhnout i pomocí modelu v jediném měřítku @moudry2023scale.
+
+=== Výskytová data
+
+#v(7pt)
+
+Pro studium areálů alpinských rostlin je dalším významným omezením dostupnost kvalitních výskytových dat. Velká část alpinských endemitů má přirozeně malý areál a malý počet populací, přičemž jejich stanoviště bývají izolovaná a obtížně přístupná [[[]]]. Datové soubory jsou proto často tvořeny malým počtem přesně zaměřených terénních pozorování doplněných herbářovými nebo databázovými záznamy. Tyto zdroje mohou být nerovnoměrně rozmístěné ‒ soustředěné v blízkosti cest a známých botanických lokalit ‒ a mohou obsahovat rozdílnou polohovou nebo taxonomickou přesnost. V západobalkánských horách je tento problém zvlášť relevantní, jelikož jsou v důsledku historického vývoje obecně méně navštěvované odbornou obcí [[[gbif??]]].
+
+Malá velikost vzorku zvyšuje nejistotu parametrů a citlivost modelu na jednotlivá pozorování. Na příklad #cite(<wisz2008effects>, form: "prose") při porovnání dvanácti modelovacích metod zjistili, že s klesajícím počtem pozorování klesala průměrná predikční výkonnost a rostla variabilita výsledků mezi druhy a algoritmy. Výsledky modelů s počtem pozorování $"< 30"$ neposkytovaly u žádného z testovaných algoritmů konzistentní výsledky, přičemž problém se zesiloval s rostoucím počtem prediktorů. Autoři tento trend vysvětlují jako nemožnost omezeného souboru pozorování dostatečně reprezentovat odpověď druhu na prostředí. Jednou z možností, jak snížit riziko spojené s modelováním na malém souboru observačnbích dat, je kalibrování velkého množství jednoduchých modelů s pouze několika prediktory a následné vážené spojení jejich predikcí @lomba_2010.
+
+Spolehlivost SDM v alpinském prostředí je tedy výsledkem společného působení ekologického měřítka studovaného druhu, velikosti _grain_ a kvality environmentálních prediktorů a přesnosti i reprezentativnosti výskytových dat. Jemné rozlišení může zachytit lokální gradienty a mikrorefugia, ale pouze tehdy, pokud mu odpovídá skutečný informační obsah vstupních prediktorových vrstev. Rozsah a kvalita souboru observačních dat zase přímo ovlivňuje, do jaké míry jsme modelem schopni popsat chování druhu na gradientech prostředí a jaká ze statistických technik je pro daná data nejvhodnější.
+
+== Alpinum a Balkán
+
+#v(10pt)
+
+[[[]]]
 Výsledky opakovaně ukazují, že rozšíření alpinských rostlin není určováno pouze regionálním klimatem, ale silnou roli hraje také topografie, geologické podloží a další faktory, které vytvářejí mozaiku mikrostanovištních podmínek @rota2022topography.
 
+[[[]]]
 Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
 [[[měříto]]] @randin2009climate popisují, že modely s grain 25m ukazují, že stanoviště s vhodným mikroklimatem zůstanou v Alpách i po oterplení, proti tomu velkomeritkove modely rikaji, ze klima se zmeni natolik, ze tato stanoviste vymizi
@@ -278,17 +320,7 @@ Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů j
 dostupnost dat v alpinu a na balkáně:
 pro řadu úzce rozšířených horských druhů jsou k dispozici pouze malé soubory přesně georeferencovaných a taxonomicky ověřených záznamů.
 
-== Základy SDM
 
-#v(10pt)
-
-Modely rozšíření druhů popisují vztah mezi pozorovaným výskytem druhu a podmínkami prostředí na známých lokalitách. Odhadnutý vztah je následně možné promítnout do geografického prostoru a vymezit oblasti s podobnými environmentálními podmínkami těm, na nichž byl druh zazanamenán. Výstupem je spojitá mapa potenciální vhodnosti stanovišť, kterou je však nutné interpretovat v kontextu použitých dat a dalších modelovacích parametrů @guisan2000predictive @elith2009SDM.
-
-Do modelů SDM vstupují dva základní typy dat. Prvním jsou georeferencované záznamy o přítomnosti druhu, které bývají doplněné o absence. Vzhledem k tomu, že do modelování obvykle vstupují data, která nebyla sebrána za tímto účelem, absence bývají nahrazovány _pseudoabsencemi_ (reprezentujícími prostředí, ve kterém se druh na základě apriorní znalosti nevyskytuje), případně _pozaďovými body_ (reprezentujícími dostupné environmentální kombinace v oblasti zájmu) @sillero2021common. Druhým typem vstupujících dat jsou environmentální prediktory, zpravidla reprezentované kontinuálními rastrovými vrstvami klimatu, topografie a dalších faktorů. Modelovací algoritmus z těchto dat odhaduje funkce odpovědi druhu na jednotlivé environmentální faktory @elith2009SDM.
-
-Před samotným modelování je vždy nutné učinit několik zásadních rozhodnutí, která silně ovlivňují výstupy modelů i jejich interpretaci. Jendím z nich je volba prostorového měřítka, tedy velikosti základní prostorové jednotky analýzy, tzv. _grain_. Vhodně zvolené měřítko musí odpovídat přesnosti lokalizace výskytových záznamů, prostorovému rozlišení prediktorů a škéle, na níž daný organismus na konrétní faktory prostředí reaguje @levin1992problem. Zatímco klima obvykle vymezuje rozšíření na širších měřítkách, topografie, vegetační struktura nebo půdní faktory mohou určovat vhodnost stanoviště na podstatně jemnější úrovni. Změna měřítka modelu tak může měnit zachycenou variabilitu prostředí, tvar odhadovaných vztahů i celkovou predikční výkonnost modelu @moudry2023scale.
-
-Dalším ze zásadních rozhodnutí je výběr prediktorů, který by měl vycházet z předem formulované ekologické hypotézy. V tomto kontextu je důležité uvědomnění, jak jednotlivé faktory prostředí působí na přežívání populací daného druhu. Nepřímé prediktory, jako jsou nadmořská výška nebo poloha ve svahu, mohou sice být v modelu velmi úspěšné, ale jejich konkrétní biologický význam může být jenom složitě interpretovatelný. Naopak přímé prediktory, reprezentující faktory prostředí s biologicky vysvětlitelným vlivem (např. dostupnost vody, _growing degree days_, limitující teploty), jsou většinou hůře dostupné v kontinuálním pokrytí prostoru, avšak poskytují lepší interpretovatelnost @guisan2000predictive. Volba prediktorů by tedy měla být podmíněna několika souběžnými kritérii: (i) účelu modelování, tedy zda jde o co nejvěrohodnější vystižení současného stavu a prostorovou predikci vhodnosti habitatů, či o přenositelnost modelu do jiných environmentálních podmínek a osvětlení rozdílů mezi současným versus minulým/budoucím rozšířením @merow2014we, pak (ii) jak působí jednotlivé prediktory na rozšíření druhu a jakým způsobem interpretovat odvozené vztahy, aby nedocházelo ke kořistění ekologie @houlahan2017priority a (iii) v neposlední řadě jaké jsou statistické vztahy mezi prediktory.
 
 == Vstupní data
 
@@ -301,7 +333,7 @@ Dalším ze zásadních rozhodnutí je výběr prediktorů, který by měl vych�
 [[[proximita prediktorů]]]
 
 
-Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce. 
+Jedním z důležitých metodických rozhodnutí při přípravě environmentálních prediktorů je volba klimatického datasetu pro současné, budoucí a historické projekce.
 
 Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
@@ -328,7 +360,7 @@ V odborné obci panuje obecná shoda, že probíhající globální klimatická 
 Hlavním cílem této práce je pomocí SDM modelů popsat vztahy mezi výskytem zájmových rostlin hor západního Balkánu a podmínkami prostředí reprezentovanými volně dostupnými prediktory. Na základě těchto modelů následně vytvořit projekce reprezentující současné rozšíření vhodných stanovišť, potenciální rozšíření vhodných stanovišť v limitujících obdobích postglaciální historie & provést projekce do hypotetických podmínek budoucích.
 
 #block(
-  inset: (left: 20pt)
+  inset: (left: 20pt),
 )[
   + Shromáždit ekologicky relevantní prediktory pro modelování rozšíření vhodných stanovišť & vhodná výskytová data v dostatečném množství a kvalitě.
   + Sestavit druhově specifické modely potenciálně vhodných stanovišť v různých prosotorových rozlišeních a posoudit jejich úspěšnost.
@@ -370,7 +402,7 @@ _Saxifraga blavii_ je vytrvalá rostlina s obvykle větvenou lodyhou. Charakteri
 
 #figure(
   image("obj/pic/kytky.png"),
-  caption: [Studované druhy rostlin. *a*: _Gentinana tergestina_ Beck., *b*: _Gentiana dinarica_ Beck., *c*: _Primula kitaibeliana_ Schott., *d* & *e*: _Saxifraga blavii_ Beck., *f*: _Phyteuma orbiculare_ L. & *g*: _Phyteuma pseudorbiculare_ Pant. #linebreak() Foto *c* převzato od Felix Puff, *e* & *f* od Jana Smyčky, *a*, *b*, *d* & *g* autor.]
+  caption: [Studované druhy rostlin. *a*: _Gentinana tergestina_ Beck., *b*: _Gentiana dinarica_ Beck., *c*: _Primula kitaibeliana_ Schott., *d* & *e*: _Saxifraga blavii_ Beck., *f*: _Phyteuma orbiculare_ L. & *g*: _Phyteuma pseudorbiculare_ Pant. #linebreak() Foto *c* převzato od Felix Puff, *e* & *f* od Jana Smyčky, *a*, *b*, *d* & *g* autor.],
 ) <fig:kytky>
 
 == Vstupní data
@@ -424,7 +456,7 @@ V rámci této práce byly k trénování modelů rozšíření vhodných stanov
 ==== Klimatické prediktory <chap:climate_pred>
 #v(5pt)
 
-Pro tuto práci byl zvolen dataset CHELSA @chelsa_bioclim_model @chelsa_bioclim_data, a to především kvůli jeho vhodnosti pro modelování v topograficky členitých oblastech. @bobrowski_2017 
+Pro tuto práci byl zvolen dataset CHELSA @chelsa_bioclim_model @chelsa_bioclim_data, a to především kvůli jeho vhodnosti pro modelování v topograficky členitých oblastech. @bobrowski_2017
 
 Dataset CHELSA-BIOCLIM je globální klimatický dataset s vysokým prostorovým rozlišením 30 úhlových sekund (cca 1 km#super([2])).
 Vychází z hrubších klimatických dat, která jsou zpřesněna pomocí topografických modelů, jejichž využití umožňuje kromě výpočtu vlivu nadmořské výšky i zohlednění topografické sitace na proudění vzduchu. V táto práci jsou využity bioklimatické charakteristiky podchycující roční a sezónní variability klimatu v prostoru (bio01-bio19). @chelsa_bioclim_model
@@ -457,7 +489,7 @@ Data byla získána prostřednictvím prostorového požadavku ve službě Coper
 Topografické prediktory využité v této práci lze rozdělit do dvou skupin podle toho, jak popisují prostorové fenomény. První skupina charakterizuje vztah cílové buňky k jejímu okolí pomocí pohyblivého okna 3*3 buňky, tedy lokální topografický kontext. Druhá skupina popisuje vnitřní elevační variabilitu dané buňky při převodu z jemnějšího na hrubší prostorové měřítko. Přehled topografických prediktorů viz @tab:pred_dem.
 
 Pro první skupinu byl nejprve vytvořen DEM odpovídajícícho měřítka pomocí agregace původních dat _Copernicus DEM 30_. Hodnoty byly agregovány podle mediánu. Z takto vzniklého modelu byly pomocí _terra::terrain_ @terra vypočteny vrstvy _slope_, _aspect_, _TPI_, _TRI_, _TRIriley_, _TRIrmsd_, _roughness_ a _flowdir_.
-_TPI_ vyjadřuje rozdíl mezi výškou středové buňky a průměrem okolních buněk @TPI_weiss2001. Kladné hodnoty indexu značí lokálně vyvýšené pozice, například hřbety, a záporné hodnoty lokální sníženiny. Hodnoty okolo nuly představují plochý terén. 
+_TPI_ vyjadřuje rozdíl mezi výškou středové buňky a průměrem okolních buněk @TPI_weiss2001. Kladné hodnoty indexu značí lokálně vyvýšené pozice, například hřbety, a záporné hodnoty lokální sníženiny. Hodnoty okolo nuly představují plochý terén.
 _TRI_ průměr absolutních výškových rozdílů mezi středovou buňkou a okolím a _roughness_ rozdíl mezi maximální a minimální hodnotou v rámci pohyblivého okna. Prediktory _TRI_riley_ & _TRI_rmsd_ jsou deriváty jednoduššího _TRI_ snažící se lépe zachytit elevační variabilitu v geomorfologicky členitých oblastech. Jde o odmocninu součtu čtvercových rozdílů (_TRI_riley_, @TRI) a o odmocninu průměru čtvercových rozdílů (_TRI_rmsd_, @wilson_2007_GDAL).
 
 Tato skupina topografických prediktorů byla následně rozšířena o prediktory _eastness_ a _northness_ odvozené z orientace svahu (_aspect_) jako sinus, respektive kosinus orientace svahu převedené na radiány. Tyto proměnné vyjadřují východo-západní a severo-jižní složky orientace svahu. V navazujících modelech byly použity jako zástupné prediktory za _aspect_ samotný, jelikož tento prediktor vykazuje kruhový charakter (360° = 0°) a není vhodný pro běžné algoritmy @wilson_2007_GDAL.
@@ -471,7 +503,7 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 #set page(flipped: true)
 
 #[
-  #show figure.where(kind: table): set block(breakable: true) 
+  #show figure.where(kind: table): set block(breakable: true)
   #import "typst/tables/pred_dem.typ": pred_dem
   #pred_dem
 ]
@@ -521,7 +553,7 @@ Z takto připravených vrstev byly následně vytvořeny výchozí rastrové sou
 
 Na připravených souborech byla následně posouzena kolinearita prediktorů. Hodnoty prediktorů byly extrahovány pro tuto analýzu extrahovány dvojím způsobem: (i) z buňek pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil přístup první.
 
- Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ @collinear. V rámci procesu byla kolinearita posuzována pomocí párové Pearsonovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7 @dormann2013collinearity. Výsledky byly vizualizovány pomocí balíčku _corrplot_ @corrplot.
+Pro každý druh a každé prostorové rozlišení byl na extrahovaných vzorcích proveden poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ @collinear. V rámci procesu byla kolinearita posuzována pomocí párové Pearsonovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahová hodnota maximální povolené korelace byla stanovena na r = 0.7 a maximální VIF = 7 @dormann2013collinearity. Výsledky byly vizualizovány pomocí balíčku _corrplot_ @corrplot.
 
 Automatizované rozhodování mezi kolineárními prediktory bylo doplněno předem stanoveným prioritním pořadím proměnných. Účelem tohoto pořadí bylo prioritizovat ekologicky relevantní prediktory a naopak upozadit prediktory s relativně komplikovanou interpretovatelností @soley_2024_TOPTENHAZARDS @dormann2013collinearity a evidentními artefakty (např. CHELSA-BIOCLIM: bio08, bio9 mají v oblasti Balkánského poloostrova velmi ostré prostorové přechody mezi hodnotami, které ‒ dle soukromé úvahy autora ‒ nemohou mít fyzikální opodstatnění).
 
@@ -535,21 +567,21 @@ Automatizované rozhodování mezi kolineárními prediktory bylo doplněno p�
   [
     #set par(justify: false)
     #emph[bio06], #emph[bio05], #emph[bio10], #emph[bio11], #emph[scd], #emph[landcover], #emph[northness], #emph[bio14], #emph[bio12], #emph[HLI], #emph[TWI], #emph[dem_range], #emph[dem_sd], #emph[slope], #emph[TPI], #emph[TRI], #emph[TRI_riley], #emph[TRI_rmsd], #emph[bio18], #emph[bio19], #emph[bio04], #emph[bio01], #emph[bedrock], #emph[eastness], #emph[dem_median], #emph[aspect], #emph[depth_to_bedrock], #emph[pH_in_H2O], #emph[soil_water_cap], #emph[bio02], #emph[bio03], #emph[bio15]
-    ],
+  ],
   [
     #set par(justify: false)
     #emph[bio08], #emph[bio09], #emph[flowdir]
-    ],
+  ],
 
   [*Temporální extrapolace*],
   [
     #set par(justify: false)
     #emph[bio10], #emph[bio11], #emph[northness], #emph[scd], #emph[bio06], #emph[bio05], #emph[dem_sd], #emph[dem_range], #emph[TPI], #emph[TRI], #emph[TRI_riley], #emph[TRI_rmsd], #emph[bio18], #emph[bio19], #emph[bio04], #emph[bio01], #emph[slope], #emph[eastness], #emph[bedrock], #emph[dem_median], #emph[aspect], #emph[bio02], #emph[bio03], #emph[bio15]
-    ],
+  ],
   [
     #set par(justify: false)
     #emph[bio08], #emph[bio09], #emph[landcover], #emph[pH_in_H2O], #emph[HLI], #emph[soil_water_cap], #emph[depth_to_bedrock], #emph[TWI], #emph[flowdir]
-    ],
+  ],
 )
 
 Výsledkem filtrace byly dvě sady prediktorů pro každý druh. První sada zahrnovala všechny prediktory vybrané analýzou kolinearity, přičemž byl brán zřetel pouze na kolineární strukturu v dané kobinaci druh-prostorové rozlišení. Druhá sada byla omezena pouze na prediktory, které byly pro daný druh vybrány konzistentně napříč všemi prostorovými rozlišeními. Tato druhá společná sada umožnila srovnávat modely mezi různými prostorovými rozlišeními buňek, tj. modely trénované na stejné prediktorové sadě, avšak s jiným rozlišením. [[[]]]
@@ -566,7 +598,7 @@ Modelování probíhalo samostatně pro jednotlivé druhy a pro jednotlivá pros
 Samotný modelovací proces začal vytvořením všech dostupných bivariátních kombinací pro každý použitý algoritmus:
 
 $
-N_"modelů" = N_"biv. kombinací prediktorů" times N_"algoritmů"
+  N_"modelů" = N_"biv. kombinací prediktorů" times N_"algoritmů"
 $
 
 Pro všechny rostlinné druhy a pro všechna rozlišení prediktorů bo použito těchto 6 algoritmů: zobecněné lineární modely (_GLM_, #cite(<R>, form: "prose")), boosted regression trees (_GBM_, #cite(<gbm>, form: "prose")), zobecněné aditivní modely (_GAM_, #cite(<mgcv>, form: "prose")), klasifikační stromy (_CTA_, #cite(<rpart>, form: "prose")), multivariate adaptive regression splines (_MARS_, #cite(<earth>, form: "prose")) a random forest (_RF_, #cite(<ranger>, form: "prose")).
@@ -586,7 +618,7 @@ Predikce takto sestavených algo-ESM byla následně znovu vyhodnocena podle tes
 Po dokončení validačního procesu byly ponechané bivariátní modely znovu trénovány na celém dostupném datasetu. Tento krok zajistil, že finální ESM model využíval pro odhad vztahu mezi výskytem druhu a prostředím všechna cenná dostupná data. Relativní příspěvky jednotlivých bivariátních modelů natrénovaných na celém datasetu byly váženy přes váhy získané v prvním kroku sestavování algo-ESM a zároveň přes váhu algoritmu jako celku. Efektivní příspěvek bivariátního modelu je možné vyjádřit jako:
 
 $
-w_"efektivní" = w_"bivariátní model" times w_"mateřský algo-ESM"
+  w_"efektivní" = w_"bivariátní model" times w_"mateřský algo-ESM"
 $
 
 kde $w_"efektivní"$ vyjadřuje intenzitu příspěvku bivariátního modelu do celkového ESM, $w_"bivariátní model"$ vyjadřuje váhu daného bivariátního modelu mezi všemi ostatními bivariátními modely stejného algoritmu a $w_"mateřský algo-ESM"$ vyjadřuje váhu celého algoritmu.
@@ -597,7 +629,7 @@ Finální predikční výkonnost celého ensemble modelu byla vyjádřena pomoc�
   image("obj/pic/ESM_schema.png", height: 90%),
   caption: [
     Schematické znázornění modelovacího procesu ESM.
-  ]
+  ],
 ) <fig:ESM>
 
 == Projekce
@@ -628,7 +660,7 @@ Oproti tomu vysoké hodnoty ukazují, že projekce je prováděna do podmínek, 
 
 #figure(
   image("obj/pic/shape.jpg"),
-  caption: [Grafické znázornění metody Shape v zjednodušeném dvourozměrném prostoru. *(a)* Reprezentuje výpočet Mahalanobisových vzdáleností mezi projekčním bodem a všemi trénovacími body. Nejnižší vzdálenost vyznačena oranžově. *(b)* Vyjádření metriky Shape _S#sub[pi]_ pro projekční body. _A_ značí disperzní faktor trénovacích dat. Vyšší hodnota _S#sub[pi]_ značí vyšší míru environmentální novosti a tudíž vyšší míru extrapolace modelu. Převzato z #cite(<shape_2023>, form: "prose")]
+  caption: [Grafické znázornění metody Shape v zjednodušeném dvourozměrném prostoru. *(a)* Reprezentuje výpočet Mahalanobisových vzdáleností mezi projekčním bodem a všemi trénovacími body. Nejnižší vzdálenost vyznačena oranžově. *(b)* Vyjádření metriky Shape _S#sub[pi]_ pro projekční body. _A_ značí disperzní faktor trénovacích dat. Vyšší hodnota _S#sub[pi]_ značí vyšší míru environmentální novosti a tudíž vyšší míru extrapolace modelu. Převzato z #cite(<shape_2023>, form: "prose")],
 ) <fig:shape>
 
 V rámci této práce je metrika Shape hlavní metodou k posuzování míry extrapolace. Za tímto účelem byla její distribuce pro každý model i projekci vykreslena v prostoru, což umožňuje posuzovat věrohodnost predikce modelu na vybraných lokalitách, a v bivariátních grafechm které ukazují distribuci kombinací hodnot prediktorů ve dvourozměrném prostoru a usnadňují posouzení dostatečnosti provzorkování gradientů.
@@ -637,7 +669,7 @@ V rámci této práce je metrika Shape hlavní metodou k posuzování míry extr
 #v(5pt)
 
 Veškeré analýzy byly provedeny v prostředí R, verze 4.2.2 ‒ Innocent and Trusting @R s využitím těchto balíčků: _terra_, _sf_, _tidyverse_, _maptiles_, _blockCV_, _openeo_,
-_collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _parallelly_, _Hmisc_, _gbm_, _mgcv_, _rpart_, _earth_, _ranger_, _maps_ & _spatialEco_. 
+_collinear_, _corrplot_, _rnaturalearth_, _flexsdm_, _foreach_, _doParallel_, _parallelly_, _Hmisc_, _gbm_, _mgcv_, _rpart_, _earth_, _ranger_, _maps_ & _spatialEco_.
 
 [[[doplnit]]]
 
@@ -648,10 +680,10 @@ Vizualizace a kontrola výstupních rastrů probíhala v programu QGIS, verze 3.
 Část výpočtů byla provedena s využitím výpočetních zdrojů MetaCentra.
 
 #align(
-  center
+  center,
 )[
   #block(
-    width: 90%
+    width: 90%,
   )[
     Computational resources were provided by the e-INFRA CZ project (ID:90254), supported by the Ministry of Education, Youth and Sports of the Czech Republic.
   ]
@@ -662,10 +694,10 @@ Vizualizace a kontrola výstupních rastrů probíhala v programu QGIS, verze 3.
 Prohlašuji, že při přípravě předložené práce byly použity následující nástroje AI uvedenými způsoby:
 
 #align(
-  left
+  left,
 )[
   #block(
-    width: 80%
+    width: 80%,
   )[
     *ChatGPT* v období *1. 11. 2025 – #datum*, popis použití: generování kódu k analýze dat, generování kódu využitého k sazbě práce, vyhledávání publikací a zpracování výtahů z nich, návrhy textů.
   ]
@@ -722,7 +754,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "GD",
   grain: 500,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana dinarica v rozlišení 500 m (Somersovo D: 0,721)."
+  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana dinarica v rozlišení 500 m (Somersovo D: 0,721).",
 )
 
 === _Gentiana tergestina_ ‒ 200 m
@@ -730,7 +762,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "GT",
   grain: 200,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana tergestina v rozlišení 200 m (Somersovo D: 0,48)."
+  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana tergestina v rozlišení 200 m (Somersovo D: 0,48).",
 )
 
 === _Primula kitaibeliana_ ‒ 200 m
@@ -738,7 +770,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "PK",
   grain: 200,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Primula kitaibeliana v rozlišení 200 m (Somersovo D: 0,839)."
+  caption: "Projekce pro nejúspěšněnší ESM druhu Primula kitaibeliana v rozlišení 200 m (Somersovo D: 0,839).",
 )
 
 === _Phyteuma orbiculare_ ‒ 1000 m
@@ -746,7 +778,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "PO",
   grain: 1000,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma orbiculare v rozlišení 1000 m (Somersovo D: 0,778)."
+  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma orbiculare v rozlišení 1000 m (Somersovo D: 0,778).",
 )
 
 === _Phyteuma pseudorbiculare_ ‒ 200 m
@@ -754,7 +786,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "PP",
   grain: 200,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma pseudorbiculare v rozlišení 200 m (Somersovo D: 0,706)."
+  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma pseudorbiculare v rozlišení 200 m (Somersovo D: 0,706).",
 )
 
 === _Saxifraga blavii_ ‒ 1000 m
@@ -762,7 +794,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "SB",
   grain: 1000,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Saxifraga blavii v rozlišení 1000 m (Somersovo D: 0,693)."
+  caption: "Projekce pro nejúspěšněnší ESM druhu Saxifraga blavii v rozlišení 1000 m (Somersovo D: 0,693).",
 )
 
 == Modely na všech prediktorech <chap:res_noextrapol_all>
@@ -780,25 +812,25 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
   esm_shape_noextrapol(
     "GD",
     1000,
-    colin: "all_selected"
+    colin: "all_selected",
   ),
-  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana dinarica_ v rozlišení 1000 m (Somersovo D: 0,733). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana dinarica_ v rozlišení 1000 m (Somersovo D: 0,733). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.],
 )
 
 #[
   #show figure.where(kind: image): set block(breakable: true)
 
-#figure(
-  response-curves-grid(
-    "GD",
-    1000,
-    "complex",
-    colinearity: "all_selected",
-    extrapolation: "noextrapol",
-    columns: 4
-  ),
-  caption: [Křivky odpovědí druhu _Gentiana dinarica_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
-)
+  #figure(
+    response-curves-grid(
+      "GD",
+      1000,
+      "complex",
+      colinearity: "all_selected",
+      extrapolation: "noextrapol",
+      columns: 4,
+    ),
+    caption: [Křivky odpovědí druhu _Gentiana dinarica_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.],
+  )
 ]
 
 
@@ -808,25 +840,25 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
   esm_shape_noextrapol(
     "GT",
     200,
-    colin: "all_selected"
+    colin: "all_selected",
   ),
-  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana tergestina_ v rozlišení 200 m (Somersovo D: 0,519). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Gentiana tergestina_ v rozlišení 200 m (Somersovo D: 0,519). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.],
 )
 
 #[
   #show figure.where(kind: image): set block(breakable: true)
 
-#figure(
-  response-curves-grid(
-    "GT",
-    200,
-    "complex",
-    colinearity: "all_selected",
-    extrapolation: "noextrapol",
-    columns: 4
-  ),
-  caption: [Křivky odpovědí druhu _Gentiana tergestina_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
-)
+  #figure(
+    response-curves-grid(
+      "GT",
+      200,
+      "complex",
+      colinearity: "all_selected",
+      extrapolation: "noextrapol",
+      columns: 4,
+    ),
+    caption: [Křivky odpovědí druhu _Gentiana tergestina_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.],
+  )
 ]
 
 === _Primula kitaibeliana_ ‒ 200 m
@@ -835,25 +867,25 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
   esm_shape_noextrapol(
     "PK",
     200,
-    colin: "all_selected"
+    colin: "all_selected",
   ),
-  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Primula kitaibeliana_ v rozlišení 200 m (Somersovo D: 0,904). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Primula kitaibeliana_ v rozlišení 200 m (Somersovo D: 0,904). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.],
 )
 
 #[
   #show figure.where(kind: image): set block(breakable: true)
 
-#figure(
-  response-curves-grid(
-    "PK",
-    200,
-    "complex",
-    colinearity: "all_selected",
-    extrapolation: "noextrapol",
-    columns: 4
-  ),
-  caption: [Křivky odpovědí druhu _Primul kitaibeliana_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
-)
+  #figure(
+    response-curves-grid(
+      "PK",
+      200,
+      "complex",
+      colinearity: "all_selected",
+      extrapolation: "noextrapol",
+      columns: 4,
+    ),
+    caption: [Křivky odpovědí druhu _Primul kitaibeliana_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.],
+  )
 ]
 
 === _Phyteuma orbiculare_ ‒ 1000 m
@@ -862,25 +894,25 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
   esm_shape_noextrapol(
     "PO",
     1000,
-    colin: "all_selected"
+    colin: "all_selected",
   ),
-  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma orbiculare_ v rozlišení 1000 m (Somersovo D: 0,728). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma orbiculare_ v rozlišení 1000 m (Somersovo D: 0,728). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.],
 )
 
 #[
   #show figure.where(kind: image): set block(breakable: true)
 
-#figure(
-  response-curves-grid(
-    "PO",
-    1000,
-    "complex",
-    colinearity: "all_selected",
-    extrapolation: "noextrapol",
-    columns: 4
-  ),
-  caption: [Křivky odpovědí druhu _Phyteuma orbiculare_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
-)
+  #figure(
+    response-curves-grid(
+      "PO",
+      1000,
+      "complex",
+      colinearity: "all_selected",
+      extrapolation: "noextrapol",
+      columns: 4,
+    ),
+    caption: [Křivky odpovědí druhu _Phyteuma orbiculare_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.],
+  )
 ]
 
 === _Phyteuma pseudorbiculare_ ‒ 200 m
@@ -889,25 +921,25 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
   esm_shape_noextrapol(
     "PP",
     200,
-    colin: "all_selected"
+    colin: "all_selected",
   ),
-  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma pseudorbiculare_ v rozlišení 200 m (Somersovo D: 0,688). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Phyteuma pseudorbiculare_ v rozlišení 200 m (Somersovo D: 0,688). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.],
 )
 
 #[
   #show figure.where(kind: image): set block(breakable: true)
 
-#figure(
-  response-curves-grid(
-    "PO",
-    200,
-    "complex",
-    colinearity: "all_selected",
-    extrapolation: "noextrapol",
-    columns: 4
-  ),
-  caption: [Křivky odpovědí druhu _Phyteuma pseudorbiculare_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
-)
+  #figure(
+    response-curves-grid(
+      "PO",
+      200,
+      "complex",
+      colinearity: "all_selected",
+      extrapolation: "noextrapol",
+      columns: 4,
+    ),
+    caption: [Křivky odpovědí druhu _Phyteuma pseudorbiculare_ v rozlišení 200 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.],
+  )
 ]
 
 === _Saxifraga blavii_ ‒ 1000 m
@@ -916,25 +948,25 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
   esm_shape_noextrapol(
     "SB",
     1000,
-    colin: "all_selected"
+    colin: "all_selected",
   ),
-  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Saxifraga blavii_ v rozlišení 1000 m (Somersovo D: 0,65). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.]
+  caption: [Vlevo projekce nejúspěšnějšího ESM pro druh _Saxifraga blavii_ v rozlišení 1000 m (Somersovo D: 0,65). Vpravo prostorová ditribuce metriky Shape pro data, na která byl model projektován.],
 )
 
 #[
   #show figure.where(kind: image): set block(breakable: true)
 
-#figure(
-  response-curves-grid(
-    "SB",
-    1000,
-    "complex",
-    colinearity: "all_selected",
-    extrapolation: "noextrapol",
-    columns: 4
-  ),
-  caption: [Křivky odpovědí druhu _Saxifraga blavii_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.]
-)
+  #figure(
+    response-curves-grid(
+      "SB",
+      1000,
+      "complex",
+      colinearity: "all_selected",
+      extrapolation: "noextrapol",
+      columns: 4,
+    ),
+    caption: [Křivky odpovědí druhu _Saxifraga blavii_ v rozlišení 1000 m. Vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru (plná linka). Sestaveny byly z ponechaných bivariátních modelů (tenké linky) obsahujících příslušný prediktor, kdy jejich predikce byly nejprve váženě agregovány v rámci jednotlivých algoritmů a následně mezi algoritmy podle jejich vah v rámci finálního ESM.],
+  )
 ]
 
 #pagebreak()
@@ -954,24 +986,22 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #figure(
   image(
     "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/GD/heatmap.png",
-    height: 40%
-    ),
-    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+    height: 40%,
+  ),
+  caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.],
 )
 
 #figure(
-  image("outputs/ESM/recent_noextrapol_weights_common/GD/OOF_prediction_common_grains.png",
-  height: 30%
-  ),
-  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+  image("outputs/ESM/recent_noextrapol_weights_common/GD/OOF_prediction_common_grains.png", height: 30%),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.],
 )
 
 #figure(
   response-curves-common-grid(
     "GD",
-    columns: 3
+    columns: 3,
   ),
-  caption: [Křivky odpovědí druhu _Gentiana dinarica_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+  caption: [Křivky odpovědí druhu _Gentiana dinarica_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.],
 )
 
 
@@ -980,24 +1010,22 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #figure(
   image(
     "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/GT/heatmap.png",
-    height: 40%
-    ),
-    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+    height: 40%,
+  ),
+  caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.],
 )
 
 #figure(
-  image("outputs/ESM/recent_noextrapol_weights_common/GT/OOF_prediction_common_grains.png",
-  height: 30%
-  ),
-  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+  image("outputs/ESM/recent_noextrapol_weights_common/GT/OOF_prediction_common_grains.png", height: 30%),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.],
 )
 
 #figure(
   response-curves-common-grid(
     "GT",
-    columns: 3
+    columns: 3,
   ),
-  caption: [Křivky odpovědí druhu _Gentiana tergestina_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+  caption: [Křivky odpovědí druhu _Gentiana tergestina_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.],
 )
 
 
@@ -1006,24 +1034,22 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #figure(
   image(
     "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PK/heatmap.png",
-    height: 40%
-    ),
-    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+    height: 40%,
+  ),
+  caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.],
 )
 
 #figure(
-  image("outputs/ESM/recent_noextrapol_weights_common/PK/OOF_prediction_common_grains.png",
-  height: 30%
-  ),
-  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+  image("outputs/ESM/recent_noextrapol_weights_common/PK/OOF_prediction_common_grains.png", height: 30%),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.],
 )
 
 #figure(
   response-curves-common-grid(
     "PK",
-    columns: 3
+    columns: 3,
   ),
-  caption: [Křivky odpovědí druhu _Primula kitaibeliana_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+  caption: [Křivky odpovědí druhu _Primula kitaibeliana_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.],
 )
 
 
@@ -1032,24 +1058,22 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #figure(
   image(
     "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PO/heatmap.png",
-    height: 40%
-    ),
-    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+    height: 40%,
+  ),
+  caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.],
 )
 
 #figure(
-  image("outputs/ESM/recent_noextrapol_weights_common/PO/OOF_prediction_common_grains.png",
-  height: 30%
-  ),
-  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+  image("outputs/ESM/recent_noextrapol_weights_common/PO/OOF_prediction_common_grains.png", height: 30%),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.],
 )
 
 #figure(
   response-curves-common-grid(
     "PO",
-    columns: 3
+    columns: 3,
   ),
-  caption: [Křivky odpovědí druhu _Phyteuma orbiculare_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+  caption: [Křivky odpovědí druhu _Phyteuma orbiculare_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.],
 )
 
 
@@ -1058,24 +1082,22 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #figure(
   image(
     "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/PP/heatmap.png",
-    height: 40%
-    ),
-    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+    height: 40%,
+  ),
+  caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.],
 )
 
 #figure(
-  image("outputs/ESM/recent_noextrapol_weights_common/PP/OOF_prediction_common_grains.png",
-  height: 30%
-  ),
-  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+  image("outputs/ESM/recent_noextrapol_weights_common/PP/OOF_prediction_common_grains.png", height: 30%),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.],
 )
 
 #figure(
   response-curves-common-grid(
     "PP",
-    columns: 3
+    columns: 3,
   ),
-  caption: [Křivky odpovědí druhu _Phyteuma pseudorbiculare_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+  caption: [Křivky odpovědí druhu _Phyteuma pseudorbiculare_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.],
 )
 
 === _Saxifraga blavii_
@@ -1083,24 +1105,22 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #figure(
   image(
     "outputs/summary/figures/predictor_contributions/recent_noextrapol_weights_common/SB/heatmap.png",
-    height: 40%
-    ),
-    caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.]
+    height: 40%,
+  ),
+  caption: [Relativní příspěvek jednotlivých prediktorů do finálního ESM. Jednotlivé příspěvky byly odvozeny z efektivních vah ponechaných bivariátních modelů ve finálním ensemble, přičemž váha každého bivariátního modelu byla rovným dílem rozdělena mezi oba prediktory.],
 )
 
 #figure(
-  image("outputs/ESM/recent_noextrapol_weights_common/SB/OOF_prediction_common_grains.png",
-  height: 30%
-  ),
-  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.]
+  image("outputs/ESM/recent_noextrapol_weights_common/SB/OOF_prediction_common_grains.png", height: 30%),
+  caption: [Krabicové grafy představují rozložení predikovaných hodnot mezi jednotlivými úrovněmi prostorového rozlišení. Predikce pro absence a presence jsou zobrazeny odděleně, přičemž barva reprezentuje dané prostorové rozlišení.],
 )
 
 #figure(
   response-curves-common-grid(
     "SB",
-    columns: 3
+    columns: 3,
   ),
-  caption: [Křivky odpovědí druhu _Saxifraga blavii_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.]
+  caption: [Křivky odpovědí druhu _Saxifraga blavii_ na měnící se podmínky prostředí napříč prostorovými rozlišeními. Tato jsou vyznačena barevně. Křivky vyjadřují změnu průměrné pravděpodobnosti výskytu druhu na gradientu daného prediktoru.],
 )
 
 
@@ -1110,18 +1130,18 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 = Diskuse
 
 V této práci byla z důvodu metodické konzistence zvolena jednotná datová sada CHELSA-BIOCLIM @chelsa_bioclim_data & CHELSA-TraCE21k @chelsa_trace_data pro současné, budoucí i historické projekce. Tento přístup zajišťuje srovnatelnost mezi jednotlivými časovými řezy, avšak nezachycuje nejistotu spojenou s volbou klimatického datasetu. V oblastech s vyšší geomorfologickou členitostí je přesnost klimatickcých modelů sporná a volba konkrétního klimatického datasetu ovlivňuje výsledné křivky odpovědí druhů na konkrétní environmentální faktory i rozlohu a rozmístění modelem predikovaných vhodných stanovišť @input_matters_matter_2019
-Pro vyšší důvěryhodnost projekcí je proto vhodné pracovat s více klimatickými modely a jednotlivé výsledky mezi sebou porovnávat. 
+Pro vyšší důvěryhodnost projekcí je proto vhodné pracovat s více klimatickými modely a jednotlivé výsledky mezi sebou porovnávat.
 
 Dalším problematickým aspektem globálních klimatických modelů jsou extrapolace klimatu do historických období.
-#cite(<rentier_2025>, form: "prose") ukázali, že rekonstrukce ekologických fenoménů na základě klimatických projekcí se silně odlišují mezi jednotlivými datasety i mezi rekonstrukcemi založenými na proxy ukazatelích, přičemž slabší výsledky se projevovaly u klimatických datasetů s hrubším měřítkem. 
+#cite(<rentier_2025>, form: "prose") ukázali, že rekonstrukce ekologických fenoménů na základě klimatických projekcí se silně odlišují mezi jednotlivými datasety i mezi rekonstrukcemi založenými na proxy ukazatelích, přičemž slabší výsledky se projevovaly u klimatických datasetů s hrubším měřítkem.
 Chybovost klimatických modelů navíc vykazovala obecný trend k vyšším teplotám během LGM, obzvlášť v horských oblastech. @rentier_2025
-Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, a to pravděpodobně kvůli nadprůměrně složitému procesu interpolace a zjemnňování originálních dat z meteorologických stanic, který v případě odlehlých horských oblastí vytvéřel za velké množství statistického šumu s 
+Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, a to pravděpodobně kvůli nadprůměrně složitému procesu interpolace a zjemnňování originálních dat z meteorologických stanic, který v případě odlehlých horských oblastí vytvéřel za velké množství statistického šumu s
 
 Volba klimatického datasetu je tedy kruciální pro důvěryhodné modely současného a rekonstrukci historického rozšíření vhodných stanovišť.
 
 V současné době je největší limitace datovými podklady, statistiku máme dostatečnou. Prediktorové sady vykazují značnou chybovost, obzvlášť v odlehlých oblastech. Geologické i půdní mapy jsou taky surově interpolované a založené na omezeném počtu pozorování. Nabízenou cestou jsou data z dálkového průzkumu Země, která se výše zmíněným nedostatkům vyhýbají: jsou měřena "přímo" na lokalitě, mají solidní časovou řadu a nadstandardní prostorové rozlišení. Na druhou stranu jsou produkty DPZ hůře ekologicky interpretovatelné a jejich zpracování vyžaduje vyšší nároky na výpočetní výkon.
 
-Ačkoliv využití DPZ jako prediktorů v SDM je v současnosti zkoumáno a dosavadní výsledky ukazují na sporné vylepšení modelů, v jiných oblastech monitoringu přírody a krajiny nastává jejich rozvoj. Příkladem může být efektivní monitorování sucha a požárů, 
+Ačkoliv využití DPZ jako prediktorů v SDM je v současnosti zkoumáno a dosavadní výsledky ukazují na sporné vylepšení modelů, v jiných oblastech monitoringu přírody a krajiny nastává jejich rozvoj. Příkladem může být efektivní monitorování sucha a požárů,
 
 vylepšení výkonu modelu pomocí EO @schwager2021remote
 
@@ -1139,11 +1159,13 @@ vhodná by byla terénní validace a potvrzování/vyvracení výsledků, jiní 
 #pagebreak()
 = Literatura
 #v(12pt)
-#bibliography((
-  "lit/literatura.bib",
-  "lit/software.bib",
-  "lit/predictors.bib",
-  "lit/plants.bib"
-),
+#bibliography(
+  (
+    "lit/literatura.bib",
+    "lit/software.bib",
+    "lit/predictors.bib",
+    "lit/plants.bib",
+  ),
   style: "copernicus",
-  title: none)
+  title: none,
+)
