@@ -305,24 +305,27 @@ Malá velikost vzorku zvyšuje nejistotu parametrů a citlivost modelu na jednot
 
 Spolehlivost SDM v alpinském prostředí je tedy výsledkem společného působení ekologického měřítka studovaného druhu, velikosti _grain_ a kvality environmentálních prediktorů a přesnosti i reprezentativnosti výskytových dat. Jemné rozlišení může zachytit lokální gradienty a mikrorefugia, ale pouze tehdy, pokud mu odpovídá skutečný informační obsah vstupních prediktorových vrstev. Rozsah a kvalita souboru observačních dat zase přímo ovlivňuje, do jaké míry jsme modelem schopni popsat chování druhu na gradientech prostředí a jaká ze statistických technik je pro daná data nejvhodnější.
 
-== Alpinum a Balkán
+== Balkánský poloostrov a balkánské alpinum
 
 #v(10pt)
 
-[[[]]]
-Výsledky opakovaně ukazují, že rozšíření alpinských rostlin není určováno pouze regionálním klimatem, ale silnou roli hraje také topografie, geologické podloží a další faktory, které vytvářejí mozaiku mikrostanovištních podmínek @rota2022topography.
+Balkánský poloostrov je území v jihovýchodní Evropě ležící jižně od linie řek Soča, Sáva, Dunaj a mezi Jaderským, Jónským, Egejským a Černým mořem. Horské systémy západní části poloostrova tvoří především Dinaridy, které z jihu navazují na Julské Alpy a pokračují přes Slovinsko, Chorvatsko, Bosnu a Hercegovinu a Černou Horu do severní Albánie. Nejvyšším bodem Dinarid je Maja e Jezercës dosahující výšky 2694 m n. m. Směrem k jihovýchodu na Dinaridy navazují Albanidy a Helenidy, jejichž součástí jsou mimo jiné pohoří Šar planina a Pindos. Tyto systémy společně vytvářejí téměř souvislý horský oblouk táhnoucí se podél západního okraje poloostrova k Egejskému moři @ager_geology_1980.
 
-[[[]]]
-Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
+Současná podoba geologické skladby balkánských hor byla primárně utvářena alpinskou orogenezí. Okrajové části Dinarid jsou charakteristické mocnými vrstvami druhohorních vápenců a dolomitů, na nichž se vyvinul výrazný krasový reliéf. Vedle karbonátových hornin se však ve vnitřních i okrajových částech Dinarid uplatňují také flyšové sedimenty, metamorfované horniny a granitové či vulkanické komplexy menšího rozsahu. Albanidy a Helenidy jsou geologicky pestřejší a zahrnují střídání karbonátových příkrovů, flyšových pánví, rozsáhlých ofiolitových komplexů a krystalinických jednotek @ager_geology_1980.
 
-[[[měříto]]] @randin2009climate popisují, že modely s grain 25m ukazují, že stanoviště s vhodným mikroklimatem zůstanou v Alpách i po oterplení, proti tomu velkomeritkove modely rikaji, ze klima se zmeni natolik, ze tato stanoviste vymizi
+Klima Balkánského poloostrova má přechodný charakter mezi mediteránními podmínkami na jihozápadě a temperátním klimatem v severních a vnitrozemských oblastech. Jižní a přímořské části se vyznačují teplými suchými léty, přičemž většina srážek připadá na chladnější zimní období. Oproti tomu směrem do vnitrozemí narůstá kontinentalita, zimní teploty klesají a větší část srážek připadá na vegetační období @kostopoulou2009evaluation. Tyto regionální klimatické gradienty úspěšně přetváří horský reliéf, který na krátkých vzdálenostech vytváří výrazné rozdíly mezi různými expozicemi svahu i mezi jednotlivými výškovými stupni @peneva2023mediterranean.
 
-dostupnost dat v alpinu a na balkáně:
-pro řadu úzce rozšířených horských druhů jsou k dispozici pouze malé soubory přesně georeferencovaných a taxonomicky ověřených záznamů.
+Současné rozšíření alpinského bezlesí západní části Balkánského poloostrova je rozděleno do izolovaných ostrovů přirozeně bezlesé vegetace, přičemž se nachází pouze v nejvyšších částech jednotlivých horských masivů. Jeho významnější oblasti se nacházejí zejména v Dinaridech v pohoří Vranica, Durmitor a Prokletije, dále v soustavě Šar planina–Korab–Pindos @stevanovic2009distribution. Prostorový rozsah a výšková poloha alpina se mezi těmito oblastmi liší v závislosti na regionálních klimatických podmínkách, vzdálenosti od moře i historii hospodaření @brandes2024timberlines.
+
+Během posledního glaciálního maxima byly nejvyšší části západobalkánských pohoří pokryty karovými a údolními ledovci a současně došlo k celkovému posunu vegetačních stupňů směrem do nižších nadmořských výšek. Alpinské druhy sestupovaly na úpatí hor a do okolní otevřené periglaciální krajiny, kde se nacházely klimatické podmínky obdobné dnešnímu alpinu. Zalednění pravděpodobně nebylo souvislé a mezi ledovci mohly zůstávat nezaledněné plochy příznivých stanovišť k udržování populací vysokohroských rostlin ‒ tzv. _nunataky_ @holderegger2009discussion[[[Blytt_1882]]]. Část populací vysokohorských rostlin tak mohla přežívat ve vyšších polohách v izolovaných mikrorefugiích, zatímco jiné populace přetrvávaly v podhůří nebo na okrajích zaledněných oblastí @hughes2011glacial @spaniel2022plant. Během postglaciálního oteplování ledovce postupně ustupovaly a klimaticky vhodné podmínky pro alpinské druhy se přesouvaly zpět do vyšších nadmořských výšek. Rostliny tak z nižších refugií znovu kolonizovaly odkryté vrcholové partie a zároveň vzestup horní hranice lesa zmenšoval rozlohu otevřených stanovišť v nižších částech horských masivů. Původně rozsáhlejší a místy propojené podhorské areály se proto během holocénu postupně rozpadaly na menší, vzájemně izolované populace soustředěné v nejvyšších částech jednotlivých pohoří @birks2008alpines @spaniel2022plant.
+
+Tento scénář ilustruje studie na balkánském horském endemitu _Campanula orbelica_, který roste v alpinských trávnících na silikátovém podloží. U tohoto druhy byly rozlišeny tři geograficky odlišné genetické linie: v pohoří Pirin, v Rile a dalších východobalkánských masivech a v západněji položených pohořích Šar planina a Korab. Projekce modelu SDM do posledního glaciálního maxima ukázala rozšíření vhodných podmínek do nižších poloh a možné propojení dnešních areálů v Rile a Pirinu, nikoli však vznik souvislého areálu napříč celým Balkánem @ronikier2023high. Obdobná fylogeografická disjunkce byla zjištěna u západobalkánského endemitu _Cerastium dinaricum_, jehož současné rozšíření tvoří několik malých a navzájem izolovaných populací v Dinaridech. Tyto populace se dělí do dvou diferencovaných skupin, přičemž populace v jihovýchodní části areálu se dále dělí do několika menších genetických skupin. Současná fragmentace tohoto druhu je pravděpodobně výsledkem opakovaných výškových posunů areálu a jeho stažení do nejvyšších poloh během holocénního oteplování @kutnjak2014escaping. Oba příklady ukazují, že současné ostrůvkovité rozšíření balkánských alpinských rostlin není pouze výsledkem dnešních ekologických podmínek, ale uchovává také genetické stopy dlouhodobé pleistocenní izolace a rozdílného vývoje populací v jednotlivých horských masivech.
+
+Z hlediska budoucí perspektivy je balkánské alpinum silně ohrožené probíhající změnou klimatu. V odborné obci panuje obecná shoda, že současný trend může vést k elevačnímu posunu klimatických zón a návaznému zmenšení rozlohy (sub)alpinských biotopů. Taková změna by vedla k ohrožení druhů se slabou migrační schopností a druhů vyskytujících se v oblastech, kde již není možné migrovat do vyšších nadmořských výšek @IPCC_2023 @theurillat1998sensitivity. V Dinaridech a dalších balkánských pohořích může být tento problém aktuálnější než ve vysokých Alpách, jelikož balkánské horské masivy dosahují nižších nadmořských výšek a fyzická hranice potenciálního elevačního posunu je umístěna níže. Na příklad již výše zmíněné modely pro druh _Cerastium dinaricum_ predikují ztrátu 73 % současné rozlohy vhodných stanovišť do roku 2080 @kutnjak2014escaping.
 
 
-
-== Vstupní data
+/*
+== [[[Poznámky obecné]]]
 
 #v(10pt)
 
@@ -337,8 +340,6 @@ Jedním z důležitých metodických rozhodnutí při přípravě environmentál
 
 Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
 
-
-
 Dalším důležitým prediktorem používaným v modelech rozšíření vhodných stanovišť je informace o geologickém podloží. Zohlednění substrátu přináší do modelu důležitou informaci, jelikož erozní procesy specifické pro daný horninový substrát přímo ovlivňují vlastnosti půdy. [[[citace? nebo obecná znalost?]]] Zejména u rostlin tak může zachycovat ekologické gradienty, které nejsou plně postižitelné klimatickými a topografickými proměnnými, přičemž zařazení geologického substrátu do modelu může zlepšit predikci rozšíření potenciálně vhodných stanovišť, obzvlášť v horských a geologicky heterogenních územích. @chauvier_2021 @dubuis_2012
 
 Kromě samotného typu geologického podloží mohou být pro modelování rozšíření vhodných stanovišť významné také konkrétní půdní vlastnosti, které mají na růst rostlin přímější vliv. Ku příkladu hloubka půdy, půdní reakce a schopnost půdy zadržovat vodu ovlivňují přežívání rostlin významně silněji než samotný druh horniny. Zahrnutí prediktorů charakterizujících takové vlastnosti půdy může vysvětlovat část variability, kterou není možné zachytit pouze klasifikovaným geologickým substrátem, a vést k lepším projekcím vhodných stanovišť v prostoru. @dubuis_2012
@@ -352,6 +353,16 @@ Z tohoto důvodu byly v této práci vedle geologické vrstvy GLiM využity tak�
 [[[studium změny klimatu je důležité proč]]]
 
 V odborné obci panuje obecná shoda, že probíhající globální klimatická změna může vést k elevačnímu posunu klimatických zón a návaznému zmenšení rozlohy (sub)alpinských biotopů. Taková změna by vedla k ohrožení druhů se slabou migrační schopností a druhů vyskytujících se v oblastech, kde již není možné migrovat do vyšších nadmořských výšek. @IPCC_2023 @theurillat1998sensitivity
+
+[[[]]]
+Výsledky opakovaně ukazují, že rozšíření alpinských rostlin není určováno pouze regionálním klimatem, ale silnou roli hraje také topografie, geologické podloží a další faktory, které vytvářejí mozaiku mikrostanovištních podmínek @rota2022topography.
+
+[[[]]]
+Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů jsou obvykle konzistentní, zejména díky silné vazbě teploty a nadmořské výšky. Výraznější rozdíly se však objevují u srážkových proměnných, jejichž prostorové rozložení je v horském prostředí ovlivněno lokální cirkulací vzduchu, která je pod rozlišovací schopností globálních klimatických modelů. @bobrowski_2017 @fierke_2024
+
+[[[měříto]]] @randin2009climate popisují, že modely s grain 25m ukazují, že stanoviště s vhodným mikroklimatem zůstanou v Alpách i po oterplení, proti tomu velkomeritkove modely rikaji, ze klima se zmeni natolik, ze tato stanoviste vymizi
+
+*/
 
 == Cíle práce
 
@@ -1148,6 +1159,14 @@ vylepšení výkonu modelu pomocí EO @schwager2021remote
 Modely je obecně potřeba interpretovat s opatrností.
 
 vhodná by byla terénní validace a potvrzování/vyvracení výsledků, jiní to dělali a mělo to i úspěch @mccune_2016_SDM_rare
+
+Mountains of W Dinaric Alps in Croatia
+and W Bosnia (SNEZ, VELE, DINA,
+KLEK, and CINC). These are moder-
+ately high limestone mountains, but the
+high number of Arctic-Alpine species
+present may be caused by their proxim-
+ity to the Alps. Stevanovic Div and dist arctalp balkans
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // závěr
