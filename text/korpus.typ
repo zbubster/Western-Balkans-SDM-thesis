@@ -8,7 +8,7 @@
 #let title_en = "nazev AJ"
 
 #let thesis_type = "Diplomová práce"
-#let supervisor = "Mgr. Jan Smyčka PhD."
+#let supervisor = "Mgr. Jan Smyčka Ph.D."
 #let place = "Praha"
 #let year = "2026"
 #let datum = datetime.today().display("[day]. [month]. [year]")
@@ -193,7 +193,7 @@ SDM ‒ species distribution modelling, modelování rozšíření druhů,
 #linebreak() #h(50pt)
 modelování rozšíření potenciálně vhodných stanovišť
 
-EO, DPZ ‒ Earth observing, dálkový průzkum Země
+EO, DPZ ‒ Earth observation, dálkový průzkum Země
 
 S-D ‒ Somersovo D
 
@@ -261,7 +261,7 @@ Do modelů SDM vstupují dva základní typy dat (viz @fig:schema_sdm*(a)*). Prv
 
 #figure(
   image("obj/pic/sdm_schema_CZ.png", width: 80%),
-  caption: [Schematické znázornění modelovacího procesu SDM. *(a)* Do modelu vstupují výskytová data v podobě georeferencovaných bodů a rastrové prediktory představujícíc variabilitu environmentálních podmínek v prostoru. *(b)* Z kombinací prediktorů asociovaných s presencí/absencí druhu je vypočtena odpověď druhu na měnící se podmínky prostředí. *(c)* Odvozené vztahy je možné vykreslit v environmentálním prostoru a *(d)* projektovat do prostoru geografického. Schema upraveno podle #cite(<soley_2024_TOPTENHAZARDS>, form: "prose")]
+  caption: [Schématické znázornění modelovacího procesu SDM. *(a)* Do modelu vstupují výskytová data v podobě georeferencovaných bodů a rastrové prediktory představující variabilitu environmentálních podmínek v prostoru. *(b)* Z kombinací prediktorů asociovaných s presencí/absencí druhu je vypočtena odpověď druhu na měnící se podmínky prostředí. *(c)* Odvozené vztahy je možné vykreslit v environmentálním prostoru a *(d)* projektovat do prostoru geografického. Schéma upraveno podle #cite(<soley_2024_TOPTENHAZARDS>, form: "prose")]
 ) <fig:schema_sdm>
 
 Před samotným modelováním je vždy nutné učinit několik zásadních rozhodnutí, která silně ovlivňují výstupy modelů i jejich interpretaci. Jedním z nich je volba prostorového měřítka, tedy velikosti základní prostorové jednotky analýzy, tzv. _grain_. Vhodně zvolené měřítko musí odpovídat přesnosti lokalizace výskytových záznamů, prostorovému rozlišení prediktorů a škále, na níž daný organismus na konkrétní faktory prostředí reaguje @levin1992problem. Zatímco klima obvykle vymezuje rozšíření na širších měřítkách, topografie, vegetační struktura nebo půdní faktory mohou určovat vhodnost stanoviště na podstatně jemnější úrovni. Změna měřítka modelu tak může měnit zachycenou variabilitu prostředí, tvar odhadovaných vztahů i celkovou predikční výkonnost modelu @moudry2023scale.
@@ -411,10 +411,10 @@ Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů j
 #v(5pt)
 
 _Gentiana tergestina_ Beck. #linebreak()
-_Gentiana tergestina_ je vytrvalá rostlina s nízkou, obvykle nevětvenou lodyhou zakončenou jedním sytě modrým květem. Listy jsou soustředěny především v přízemní růžici, lodyžní listy jsou menší a vyrůstají v 1-3 vstřícně uspořádaných párech (viz @fig:kytky *a*). Druh se vyskytuje převážně na subalpinských a alpinských loukách na vápenci. Těžiště rozšíření leží v horských oblastech Balkánského poloostrova, avšak druh je uváděin i mimo Balkán ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5 Přesné vymezení taxonu je dlouhodobě předmětem debat a v literatuře je možné se setkat i s označením _Gentiana verna_ subsp. _tergestina_. Molekulární studie však naznačují, že jde o dobře vymezený druh. @hammerli2007 /*@smycka2022tempo*/
+_Gentiana tergestina_ je vytrvalá rostlina s nízkou, obvykle nevětvenou lodyhou zakončenou jedním sytě modrým květem. Listy jsou soustředěny především v přízemní růžici, lodyžní listy jsou menší a vyrůstají v 1-3 vstřícně uspořádaných párech (viz @fig:kytky *a*). Druh se vyskytuje převážně na subalpinských a alpinských loukách na vápenci. Těžiště rozšíření leží v horských oblastech Balkánského poloostrova, avšak druh je uváděn i mimo Balkán ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5 Přesné vymezení taxonu je dlouhodobě předmětem debat a v literatuře je možné se setkat i s označením _Gentiana verna_ subsp. _tergestina_. Molekulární studie však naznačují, že jde o dobře vymezený druh. @hammerli2007 /*@smycka2022tempo*/
 
 _Gentiana dinarica_ Beck. #linebreak()
-_Gentiana dinarica_ je vytrvalý zástupce rodu hořců (_Gentiana_) s přízemní růžicí široce eliptických listů a výraznými tmavěmodrými trubkovitými květy (viz @fig:kytky *b*). Ekologicky je vázána především na suché subalpinské a alpinské louky na vápencovém podloží. Vyskytuje se v horách západního Balkánu, avšak podobně jako u _G_. _tergestina_ se nejdná o čistě balkánský endemit, jelikož je jeho výskyt uváděn také ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5
+_Gentiana dinarica_ je vytrvalý zástupce rodu hořců (_Gentiana_) s přízemní růžicí široce eliptických listů a výraznými tmavěmodrými trubkovitými květy (viz @fig:kytky *b*). Ekologicky je vázána především na suché subalpinské a alpinské louky na vápencovém podloží. Vyskytuje se v horách západního Balkánu, avšak podobně jako u _G_. _tergestina_ se nejedná o čistě balkánský endemit, jelikož je jeho výskyt uváděn také ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5
 
 _Phyteuma orbiculare_ L. #linebreak()
 _Phyteuma orbiculare_ je vytrvalá bylina, charakteristická jednoduchou lodyhou a kulovitým květenstvím tvořeným modrými až tmavě fialovými květy (viz @fig:kytky *f*). Na rozdíl od balkánského druhu P. pseudorbiculare jde o šířeji rozšířený evropský taxon. Ekologicky je spojen především s travinnými stanovišti, včetně subalpinských a alpinských trávníků. @tutin_4
@@ -423,14 +423,14 @@ _Phyteuma pseudorbiculare_ Pant. #linebreak()
 _Phyteuma pseudorbiculare_ je vytrvalý balkánský endemit příbuzný široce rozšířenému druhu _P_. _orbiculare_ a sesterský druhu _P_. _sieberi_ @smycka2022tempo @schneeweiss2013. Od druhu _P_. _orbiculare_, se kterým se vyskytuje v rámci Balkánského poloostrova na podobných lokalitách, se odlišuje mimo jiné tvarem listů a velmi krátkými, případně zcela chybějícími řapíky (viz @fig:kytky *g*). Kvete sytě modrými květy a roste především na alpinských pastvinách, na bázemi bohatém podloží. @tutin_4 @josifovic_6
 
 _Primula kitaibeliana_ Schott #linebreak()
-_Primula kitaibeliana_ je vytrvalá rostlina z rodu prvosenek (_Primula_). Druh je endemický pro západní Balkán s disjunktním rozšířením v pohoří Velebit a v centrální části Bosny a Hercegoviny. Vytváří listovou růžici a krátkou lodyhu nesoucí růžové (viz @fig:kytky *c*). Roste na kamenitých pastvinách a ve skalních štěrbinách, převážně na vápencovém podloží. @zhang2004
+_Primula kitaibeliana_ je vytrvalá rostlina z rodu prvosenek (_Primula_). Druh je endemický pro západní Balkán s disjunktním rozšířením v pohoří Velebit a v centrální části Bosny a Hercegoviny. Vytváří listovou růžici a krátkou lodyhu nesoucí růžové květy (viz @fig:kytky *c*). Roste na kamenitých pastvinách a ve skalních štěrbinách, převážně na vápencovém podloží. @zhang2004
 
 _Saxifraga blavii_ Beck. #linebreak()
 _Saxifraga blavii_ je vytrvalá rostlina s obvykle větvenou lodyhou. Charakteristická je drobná přízemní růžice a olistěná žlaznatě chlupatá lodyha nesoucí větší množství bílých květů. Listy jsou podlouhlé a bývají zakončené třemi špičkami (viz @fig:kytky *d* & *e*). Druh je vázán na disturbovaná vysokohorská stanoviště, zejména skalky a sutě. Vyskytuje se výhradně v horách západního Balkánu. @tutin_1 @josifovic_4
 
 #figure(
   image("obj/pic/kytky.png"),
-  caption: [Studované druhy rostlin. *a*: _Gentinana tergestina_ Beck., *b*: _Gentiana dinarica_ Beck., *c*: _Primula kitaibeliana_ Schott., *d* & *e*: _Saxifraga blavii_ Beck., *f*: _Phyteuma orbiculare_ L. & *g*: _Phyteuma pseudorbiculare_ Pant. #linebreak() Foto *c* převzato od Felix Puff, *e* & *f* od Jana Smyčky, *a*, *b*, *d* & *g* autor.],
+  caption: [Studované druhy rostlin. *a*: _Gentiana tergestina_ Beck., *b*: _Gentiana dinarica_ Beck., *c*: _Primula kitaibeliana_ Schott., *d* & *e*: _Saxifraga blavii_ Beck., *f*: _Phyteuma orbiculare_ L. & *g*: _Phyteuma pseudorbiculare_ Pant. #linebreak() Foto *c* převzato od Felix Puff, *e* & *f* od Jana Smyčky, *a*, *b*, *d* & *g* autor.],
 ) <fig:kytky>
 
 == Vstupní data
@@ -440,7 +440,9 @@ Následující kapitola je věnována rozboru dvou základních datových vstup�
 
 === Data o výskytech druhů <chap:observ_methods>
 
-V rámci této práce byla využita pozorování druhů získaná ze dvou hlavních zdrojů: (i) terénní práce & (ii) data z _Flora Croatica Database_ @flora_croatica_database.
+V rámci této práce byla využita pozorování druhů získaná ze dvou hlavních zdrojů:
++ terénní práce provedené za účelem sběru dat pro modelování rozšíření vhodných stanovišť
++ data z _Flora Croatica Database_ @flora_croatica_database.
 
 ==== Terénní sběr dat
 #v(5pt)
@@ -452,7 +454,7 @@ Během průzkumu jsem zaznamenával presenční body nalezených fokálních dru
 ==== Příprava výskytových dat
 #v(5pt)
 
-Výskytová data jsem před modelováním převedl do jednotné podoby a připravil samostatně pro jednotlivé modelované druhy. V prvním kroku jsem sjednotil názvy taxonů a odstranil nekonzistence vzniklé při zápisu terénních dat, jako na příklad překlepy a observační body s evidentně chybným prostorovým zaměřením. Pro každý fokální druh jsem následně vytvořil samostatnou vrstvu obsahující všechny dostupné presence a absence, přičemž za absence daného druhu jsem považoval globální absence (žádný z fokálních druhů se na lokalitě navyskytuje) a presence jiných druhů (na loklitě se vyskytuje druh X → absence pro všechny ostatní druhy). Terénní data druhů _Gentiana tergestina_ a _Primula kitaibeliana_ jsem rozšířil o externí nálezové záznamy z _Flora Croatica Database_ @flora_croatica_database, které nesly pouze informaci o přítomnosti. Tyto záznamy jsem proto do dat zahrnul až později a výhradně jako presence. Z databáze jsem vybral pouze pozorování georeferencovaná podle GPS.
+Výskytová data jsem před modelováním převedl do jednotné podoby a připravil samostatně pro jednotlivé modelované druhy. V prvním kroku jsem sjednotil názvy taxonů a odstranil nekonzistence vzniklé při zápisu terénních dat, jako na příklad překlepy a observační body s evidentně chybným prostorovým zaměřením. Pro každý fokální druh jsem následně vytvořil samostatnou vrstvu obsahující všechny dostupné presence a absence, přičemž za absence daného druhu jsem považoval globální absence (žádný z fokálních druhů se na lokalitě nevyskytuje) a presence jiných druhů (na lokalitě se vyskytuje druh X → absence pro všechny ostatní druhy). Terénní data druhů _Gentiana tergestina_ a _Primula kitaibeliana_ jsem rozšířil o externí nálezové záznamy z _Flora Croatica Database_ @flora_croatica_database, které nesly pouze informaci o přítomnosti. Tyto záznamy jsem proto do dat zahrnul až později a výhradně jako presence. Z databáze jsem vybral pouze pozorování georeferencovaná podle GPS.
 
 Takto sestavené datové sady jsem následně porovnal s referenčními rastry prediktorů ve všech využitých prostorových rozlišeních. Na výskytová data jsem aplikoval filtr, jehož účelem bylo, aby pro každou buňku referenčního rastru, která se překrývá s výskytovými daty, byl zachován pouze jeden výskytový záznam. V případě, že do jedné buňky spadalo více observačních dat, upřednostňoval jsem presence před absencemi. Výsledkem byly sady výskytových dat ve stejném prostorovém rozlišení jako sady prediktorů, očištěné o nadbytečné absenční body (eventuelně očištěné i o body presenční, pokud spadalo více záznamů stejného druhu do identické rastrové buňky).
 
@@ -525,8 +527,8 @@ Tyto prediktory tak nezachycují topografický kontext lokality, ale heterogenit
 #v(5pt)
 
 Geologické podloží je v této práci reprezentováno vrstvou GLiM (Global Lithological Map, @GLIM). Tento projekt poskytuje globální vektorovou mapu pevninských geologických jednotek.
-Pro spolehlivěší pokrytí jednotlivých skupin hornin výskytovými daty jsem vrstva nejprve reklasifikoval do 3 tříd: _karbonátové_, _silikátové_ a _smíšené_ podloží (viz @tab:pred_geo). Metodiku reklasifikace jsem převzal z práce #cite(<chauvier_2021>, form: "prose").
-V druhém kroku jsem reklasifikovanou vrstvu rasterizoval podle centroidu do všech využitých rozlišení buňek s využitím souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035).
+Pro spolehlivější pokrytí jednotlivých skupin hornin výskytovými daty jsem vrstva nejprve reklasifikoval do 3 tříd: _karbonátové_, _silikátové_ a _smíšené_ podloží (viz @tab:pred_geo). Metodiku reklasifikace jsem převzal z práce #cite(<chauvier_2021>, form: "prose").
+V druhém kroku jsem reklasifikovanou vrstvu rasterizoval podle centroidu do všech využitých rozlišení buněk s využitím souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035).
 
 #import "typst/tables/pred_geo.typ": pred_geo
 #pred_geo
@@ -534,7 +536,7 @@ V druhém kroku jsem reklasifikovanou vrstvu rasterizoval podle centroidu do vš
 ==== Půdní prediktory
 #v(5pt)
 
-Pro doplnění prediktorové sádky o informaci o půdních poměrech jsem použil tři vrstvy z databáze _SoilGrids250m_ @soilgrids_250m.
+Pro doplnění prediktorové sady o informaci o půdních poměrech jsem použil tři vrstvy z databáze _SoilGrids250m_ @soilgrids_250m.
 Konkrétně jde o absolutní hloubku k podloží (_absolute depth to bedrock_), udávanou v milimetrech, dostupnou vodní kapacitu do bodu vadnutí (_derived available soil water capacity until wilting point_), vyjádřenou jako objemový podíl, a půdní reakci měřenou ve vodě (_soil pH in H#sub("2")O_), zapsanou jako pH*10. Originální rastrová data jsem prostorově sjednotil s referenčními rastry a převedl do souřadnicového systému ETRS89-extended / LAEA Europe (EPSG: 3035). Protože byla zdrojová data poskytována v hrubším prostorovém rozlišení, než jaké jsem použil v nejjemnějších variantách modelů, hodnoty pro rozlišení 100 a 200 m jsem odvodil pomocí bilineární interpolace. Při převodu do rozlišení 500 a 1000 m jsem naopak vypočítal průměr hodnot původních buněk. Vzhledem k tomu, že se půdní charakteristiky mohou v čase měnit, využil jsem tyto prediktory pouze při trénování modelů zaměřených na co nejvěrnější charakterizaci současného rozšíření vhodných stanovišť.
 
 ==== Krajinný pokryv
@@ -553,7 +555,7 @@ Podobně jako DEM je i vrstva kategorizovaného krajinného pokryvu založená n
 
 Z individuálně připravených vrstev jsem následně vytvořil výchozí rastrové soubory (stacks) obsahující všechny kandidátní environmentální prediktory dostupné pro dané prostorové rozlišení. Pro účely temporálních projekcí jsem navíc připravil užší varianta prediktorových souborů, ze které jsem vyloučil prediktory reprezentující v čase proměnlivé fenomény a tudíž nevhodné pro extrapolaci mimo současnost (viz @tab:pred_sets).
 
-V dalším kroku jsem na připravených souborech posuzoval kolinearitu mezi jednotlivými prediktory. Hodnoty prediktorů jsem pro tuto analýzu extrahoval dvojím způsobem: (i) z buňek pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil přístup první.
+V dalším kroku jsem na připravených souborech posuzoval kolinearitu mezi jednotlivými prediktory. Hodnoty prediktorů jsem pro tuto analýzu extrahoval dvojím způsobem: (i) z buněk pozorování jednotlivých druhů a (ii) v náhodně vybraném vzorku 50 tisíců buněk studovaného území. Dichotomie tohoto vzorkování měla v prvním případě předejít kolinearitě v datech, která přímo vstupují do modelu a ve druhém případě obecné kolinearitě, kterou by kvůli specifickým podmínkám vzorkovaných lokalit neodhalil přístup první.
 
 Pro každý druh a každé prostorové rozlišení jsem na extrahovaných vzorcích provedl poloautomatizovaný výběr proměnných s využitím balíčku _collinear_ @collinear. V rámci procesu jsem kolinearitu posuzoval pomocí párové Pearsonovy korelace a podle faktoru inflace variance (VIF, variance inflation factor). Prahovou hodnotu maximální povolené korelace jsem stanovil na |R| = 0.7 a maximální VIF = 7 @dormann2013collinearity. Automatizované rozhodování mezi kolineárními prediktory jsem doplnil předem stanoveným prioritním pořadím proměnných. Účelem tohoto pořadí bylo prioritizovat ekologicky relevantní prediktory a naopak upozadit prediktory s relativně komplikovanou interpretovatelností @soley_2024_TOPTENHAZARDS @dormann2013collinearity a evidentními artefakty (např. CHELSA-BIOCLIM: bio08, bio9 mají v oblasti Balkánského poloostrova velmi ostré prostorové přechody mezi hodnotami, které nemohou mít fyzikální opodstatnění). Výsledky výběru prediktorů jsem pro následnou kontrolu vizualizoval pomocí balíčku _corrplot_ @corrplot.
 
@@ -623,7 +625,7 @@ Finální predikční výkonnost celého ensemble modelu jsem vyjádřil pomocí
 #figure(
   image("obj/pic/ESM_schema.png", height: 90%),
   caption: [
-    Schematické znázornění modelovacího procesu ESM.
+    Schématické znázornění modelovacího procesu ESM.
   ],
 ) <fig:ESM>
 
@@ -700,13 +702,13 @@ Skripty využité v rámci této diplomové práce jsou dohledatelné ve veřejn
 
 Pro každý ze šesti studovaných druhů a každé ze čtyř prostorových rozlišení (1000 m, 500 m, 200 m a 100 m) jsem vytvořil tři samostatné varianty ensemble of small models (ESM), které se lišily sadou vstupních prediktorů.
 
-+ První varianta zahrnovala pouze prediktory extrapolovatelné v čase. Modely natrénované na současných environmentálních podmínkách jsem kromě současnosti projektoval také do dvou období minulosti (21k BP, LGM a 8k BP, HCO) a dvou období budoucnosti (2041–2070 a 2071–2100). Pro každý budoucí časový řez jsem samostatně zpracoval tři scénáře sdílených socioekonomických trajektorií (SSP1-2.6, SSP3-7.0 a SSP5-8.5). Ačkoli jsem modely této sady natrénoval ve všech čtyřech prostorových rozlišeních, projekce do historických a budoucích environmentálních podmínek jsem vytvořil pouze v rozlišeních 1000, 500 a 200 m. Déle _Modely na extrapolovatelných prediktorech_.
++ První varianta zahrnovala pouze prediktory extrapolovatelné v čase. Modely natrénované na současných environmentálních podmínkách jsem kromě současnosti projektoval také do dvou období minulosti (21k BP, LGM a 8k BP, HCO) a dvou období budoucnosti (2041–2070 a 2071–2100). Pro každý budoucí časový řez jsem samostatně zpracoval tři scénáře sdílených socioekonomických trajektorií (SSP1-2.6, SSP3-7.0 a SSP5-8.5). Ačkoli jsem modely této sady natrénoval ve všech čtyřech prostorových rozlišeních, projekce do historických a budoucích environmentálních podmínek jsem vytvořil pouze v rozlišeních 1000, 500 a 200 m. Dále _Modely na extrapolovatelných prediktorech_.
 
 + Druhá varianta vycházela ze všech vybraných prediktorů, včetně proměnných, které nebylo možné smysluplně přenášet v čase, například krajinného pokryvu a půdních prediktorů. Tyto modely jsem použil především k co nejúplnějšímu popisu současného rozšíření vhodných stanovišť. Dále _Modely na všech prediktorech_.
 
 + Třetí varianta byla založena na sadě prediktorů společné všem prostorovým rozlišením daného druhu, tedy prediktorů splňujících podmínky kolinearity ve všech rozlišeních. Tato varianta mi umožnila porovnat vliv prostorového rozlišení na výsledky modelování. Dále _Modely na společných prediktorech_.
 
-Napříč všemi druhy a rozlišeními jsem tedy celkem vytvořil 72 finálních ESM, ze kterých vzniklo 72 projekcí současné vhodnosti stanovišť, 36 historických projekcí a 540 budoucích projekcí (tyto jsem však zprůměroval přes klimatické modely do 108 projekcí budoucích environmentílních podmínek). Celkem tedy v rámci této práce prezentuji 216 projekcí.
+Napříč všemi druhy a rozlišeními jsem tedy celkem vytvořil 72 finálních ESM, ze kterých vzniklo 72 projekcí současné vhodnosti stanovišť, 36 historických projekcí a 540 budoucích projekcí (tyto jsem však zprůměroval přes klimatické modely do 108 projekcí budoucích environmentálních podmínek). Celkem tedy v rámci této práce prezentuji 216 projekcí.
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // výsledky
@@ -715,7 +717,7 @@ Napříč všemi druhy a rozlišeními jsem tedy celkem vytvořil 72 finálních
 
 #v(5pt)
 
-Níže prezentované výsledky jsou členěny do tří modelovacích větví. Tyto se liší sadou použitých environmentálních prediktorů, účelem vytvořených modelů a z těchto důvodů jsou odědělny do samostatných kapitol. V první části jsou prezentovány výsledky modelů založených na _extrapolovatelných prediktorech_ (@chap:res_extrapol), v druhé části modely na _všech dostupných_ prediktorech, které v daném rozlišení prošly podmínkami kolinearity (@chap:res_noextrapol_all) & ve poslední třetí části jsou prezentovány modely založené na _prediktorech společných_ všem prostorovým rozlišením u daného druhu (@chap:res_noextrapol_common).
+Níže prezentované výsledky jsou členěny do tří modelovacích větví. Tyto se liší sadou použitých environmentálních prediktorů, účelem vytvořených modelů a z těchto důvodů jsou odděleny do samostatných kapitol. V první části jsou prezentovány výsledky modelů založených na _extrapolovatelných prediktorech_ (@chap:res_extrapol), v druhé části modely na _všech dostupných_ prediktorech, které v daném rozlišení prošly podmínkami kolinearity (@chap:res_noextrapol_all) & ve poslední třetí části jsou prezentovány modely založené na _prediktorech společných_ všem prostorovým rozlišením u daného druhu (@chap:res_noextrapol_common).
 #v(-5pt)
 Všechny modelové sady byly trénovány na stejném základním souboru pozorování výskytu studovaných druhů, jehož velikost se však mezi prostorovými rozlišeními měnila v důsledku prostorové agregace a odstranění duplicitních záznamů. Počty presenčních a absenčních pozorování použitých při trénování modelů jsou shrnuty v @tab:observ.
 #v(-5pt)
@@ -739,7 +741,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "GD",
   grain: 500,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana dinarica v rozlišení 500 m (Somersovo D: 0,721).",
+  caption: "Projekce pro nejúspěšnější ESM druhu Gentiana dinarica v rozlišení 500 m (Somersovo D: 0,721).",
 )
 
 === _Gentiana tergestina_ ‒ 200 m
@@ -747,7 +749,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "GT",
   grain: 200,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Gentiana tergestina v rozlišení 200 m (Somersovo D: 0,48).",
+  caption: "Projekce pro nejúspěšnější ESM druhu Gentiana tergestina v rozlišení 200 m (Somersovo D: 0,48).",
 )
 
 === _Primula kitaibeliana_ ‒ 200 m
@@ -755,7 +757,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "PK",
   grain: 200,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Primula kitaibeliana v rozlišení 200 m (Somersovo D: 0,839).",
+  caption: "Projekce pro nejúspěšnější ESM druhu Primula kitaibeliana v rozlišení 200 m (Somersovo D: 0,839).",
 )
 
 === _Phyteuma orbiculare_ ‒ 1000 m
@@ -763,7 +765,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "PO",
   grain: 1000,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma orbiculare v rozlišení 1000 m (Somersovo D: 0,778).",
+  caption: "Projekce pro nejúspěšnější ESM druhu Phyteuma orbiculare v rozlišení 1000 m (Somersovo D: 0,778).",
 )
 
 === _Phyteuma pseudorbiculare_ ‒ 200 m
@@ -771,7 +773,7 @@ V rámci této kapitoly jsou uvedeny výsledky modelů založených na extrapolo
 #extrapol_proj_grid(
   species: "PP",
   grain: 200,
-  caption: "Projekce pro nejúspěšněnší ESM druhu Phyteuma pseudorbiculare v rozlišení 200 m (Somersovo D: 0,706).",
+  caption: "Projekce pro nejúspěšnější ESM druhu Phyteuma pseudorbiculare v rozlišení 200 m (Somersovo D: 0,706).",
 )
 
 === _Saxifraga blavii_ ‒ 1000 m
@@ -955,11 +957,11 @@ V této kapitole jsou uvedeny výsledky modelů založených na všech prediktor
 ]
 
 #pagebreak()
-== Modely na společných prediktorch <chap:res_noextrapol_common>
+== Modely na společných prediktorech <chap:res_noextrapol_common>
 
 #v(10pt)
 
-V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na společných prediktorech pro daný druh napříč prostorovými rozlišeními. Tyto výstupy jsou určeny především k porovnání vlivu prostorového rozlišení na výsledky modelů. V úvodu je zobrazena souhrnná tabulka (@tab:noextrapol_common_result_table) svou logikou odpovídající předchozím dvěma kapitolám. Následně u každého jednotlivého druhu je zobrazena variabilita v příspěvcích jednotlivých prediktorů napříč rozlišeními, krabicové diagramy reprezentující variabilitu v predikcích modelů a křivky odpovědí druhu napříč prosotorovými rozlišeními. Úplné prostorové projekce, mapy metriky Shape vč. bivariátních grafů, samostatné křivky odpovědí a další podrobné modelové výstupy jsou uvedeny v příslušných druhově specifických přílohách.
+V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na společných prediktorech pro daný druh napříč prostorovými rozlišeními. Tyto výstupy jsou určeny především k porovnání vlivu prostorového rozlišení na výsledky modelů. V úvodu je zobrazena souhrnná tabulka (@tab:noextrapol_common_result_table) svou logikou odpovídající předchozím dvěma kapitolám. Následně u každého jednotlivého druhu je zobrazena variabilita v příspěvcích jednotlivých prediktorů napříč rozlišeními, krabicové diagramy reprezentující variabilitu v predikcích modelů a křivky odpovědí druhu napříč prostorovými rozlišeními. Úplné prostorové projekce, mapy metriky Shape vč. bivariátních grafů, samostatné křivky odpovědí a další podrobné modelové výstupy jsou uvedeny v příslušných druhově specifických přílohách.
 
 #line(length: 100%)
 
@@ -1114,13 +1116,13 @@ V poslední kapitole výsledků jsou uvedeny výstupy modelů založených na sp
 #pagebreak()
 = Diskuse
 
-V této práci byla z důvodu metodické konzistence zvolena jednotná datová sada CHELSA-BIOCLIM @chelsa_bioclim_data & CHELSA-TraCE21k @chelsa_trace_data pro současné, budoucí i historické projekce. Tento přístup zajišťuje srovnatelnost mezi jednotlivými časovými řezy, avšak nezachycuje nejistotu spojenou s volbou klimatického datasetu. V oblastech s vyšší geomorfologickou členitostí je přesnost klimatickcých modelů sporná a volba konkrétního klimatického datasetu ovlivňuje výsledné křivky odpovědí druhů na konkrétní environmentální faktory i rozlohu a rozmístění modelem predikovaných vhodných stanovišť @input_matters_matter_2019
+V této práci byla z důvodu metodické konzistence zvolena jednotná datová sada CHELSA-BIOCLIM @chelsa_bioclim_data & CHELSA-TraCE21k @chelsa_trace_data pro současné, budoucí i historické projekce. Tento přístup zajišťuje srovnatelnost mezi jednotlivými časovými řezy, avšak nezachycuje nejistotu spojenou s volbou klimatického datasetu. V oblastech s vyšší geomorfologickou členitostí je přesnost klimatických modelů sporná a volba konkrétního klimatického datasetu ovlivňuje výsledné křivky odpovědí druhů na konkrétní environmentální faktory i rozlohu a rozmístění modelem predikovaných vhodných stanovišť @input_matters_matter_2019
 Pro vyšší důvěryhodnost projekcí je proto vhodné pracovat s více klimatickými modely a jednotlivé výsledky mezi sebou porovnávat.
 
 Dalším problematickým aspektem globálních klimatických modelů jsou extrapolace klimatu do historických období.
 #cite(<rentier_2025>, form: "prose") ukázali, že rekonstrukce ekologických fenoménů na základě klimatických projekcí se silně odlišují mezi jednotlivými datasety i mezi rekonstrukcemi založenými na proxy ukazatelích, přičemž slabší výsledky se projevovaly u klimatických datasetů s hrubším měřítkem.
 Chybovost klimatických modelů navíc vykazovala obecný trend k vyšším teplotám během LGM, obzvlášť v horských oblastech. @rentier_2025
-Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, a to pravděpodobně kvůli nadprůměrně složitému procesu interpolace a zjemnňování originálních dat z meteorologických stanic, který v případě odlehlých horských oblastí vytvéřel za velké množství statistického šumu s
+Dataset CHELSA-TraCE21k ve zmíněné studii vykazoval v horských oblastech nejhorší výsledky, a to pravděpodobně kvůli nadprůměrně složitému procesu interpolace a zjemňování originálních dat z meteorologických stanic, který v případě odlehlých horských oblastí vytvářel za velké množství statistického šumu s
 
 Volba klimatického datasetu je tedy kruciální pro důvěryhodné modely současného a rekonstrukci historického rozšíření vhodných stanovišť.
 
