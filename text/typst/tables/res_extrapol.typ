@@ -13,10 +13,10 @@
       table.header(
         [*Druh*],
         [*Rozlišení*],
-        [*$N_"pred"$*],
+        [*$P_"pred"$*],
         [*Prediktory*],
-        [*$N_"biv"$*],
-        [*$N_"TRUE"$*],
+        [*$M_"biv"$*],
+        [*$M_"TRUE"$*],
         [*Somersovo $D$*],
       ),
 
@@ -264,7 +264,7 @@
     )
   ],
   caption: [
-    Souhrnná tabulka pro modely určené k extrapolaci odvozené závislosti mezi výskytem druhu a prostředím v čase. *$N_"pred"$* představuje absoultní počet prediktorů využitých k modelování, *$N_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$N_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
+    Souhrnná tabulka pro modely určené k extrapolaci odvozené závislosti mezi výskytem druhu a prostředím v čase. *$P_"pred"$* představuje absoultní počet prediktorů využitých k modelování, *$M_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$M_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
   ],
 ) <tab:extrapol_result_table>
 ]

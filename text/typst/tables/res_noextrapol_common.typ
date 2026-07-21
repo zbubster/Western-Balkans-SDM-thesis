@@ -18,11 +18,11 @@
 
       table.header(
         [*Druh*],
-        [*$N_"pred"$*],
+        [*$P_"pred"$*],
         [*Prediktory*],
         [*Rozlišení*],
-        [*$N_"biv"$*],
-        [*$N_"TRUE"$*],
+        [*$M_"biv"$*],
+        [*$M_"TRUE"$*],
         [*Somersovo $D$*],
       ),
 
@@ -318,7 +318,7 @@
     )
   ],
   caption: [
-    Souhrnná tabulka modelů založených na sadách prediktorů společných pro všechna prostorová rozlišení daného druhu. *$N_"pred"$* představuje absolutní počet prediktorů využitých k modelování, *$N_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$N_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
+    Souhrnná tabulka modelů založených na sadách prediktorů společných pro všechna prostorová rozlišení daného druhu. *$P_"pred"$* představuje absolutní počet prediktorů využitých k modelování, *$M_"biv"$* počet trénovaných bivariátních modelů (počet unikátních dvojic (PRED#sub("i") × PRED#sub("j")) × počet algoritmů), *$M_"TRUE"$* počet bivariátních modelů využitých k fitování finálního ESM, tj. modelů prošlých všemi filtry během trénování, & *Somersovo $D$* představuje souhrnný výkon modelu.
   ],
 ) <tab:noextrapol_common_result_table>
 ]

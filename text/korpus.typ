@@ -411,7 +411,7 @@ Srovnávací studie ukazují, že teplotní proměnné klimatických datasetů j
 #v(5pt)
 
 _Gentiana tergestina_ Beck. #linebreak()
-_Gentiana tergestina_ je vytrvalá rostlina s nízkou, obvykle nevětvenou lodyhou zakončenou jedním sytě modrým květem. Listy jsou soustředěny především v přízemní růžici, lodyžní listy jsou menší a vyrůstají v 1-3 vstřícně uspořádaných párech (viz @fig:kytky *a*). Druh se vyskytuje převážně na subalpinských a alpinských loukách na vápenci. Těžiště rozšíření leží v horských oblastech Balkánského poloostrova, avšak druh je uváděin i mimo Balkán ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5 Přesné vymezení taxonu je dlouhodobě předmětem debat a v literatuře je možné se setkat i s označením _Gentiana verna_ subsp. _tergestina_. Molekulární studie však naznačují, že jde o dobře vymezený druh. @hammerli2007 @smycka2022tempo
+_Gentiana tergestina_ je vytrvalá rostlina s nízkou, obvykle nevětvenou lodyhou zakončenou jedním sytě modrým květem. Listy jsou soustředěny především v přízemní růžici, lodyžní listy jsou menší a vyrůstají v 1-3 vstřícně uspořádaných párech (viz @fig:kytky *a*). Druh se vyskytuje převážně na subalpinských a alpinských loukách na vápenci. Těžiště rozšíření leží v horských oblastech Balkánského poloostrova, avšak druh je uváděin i mimo Balkán ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5 Přesné vymezení taxonu je dlouhodobě předmětem debat a v literatuře je možné se setkat i s označením _Gentiana verna_ subsp. _tergestina_. Molekulární studie však naznačují, že jde o dobře vymezený druh. @hammerli2007 /*@smycka2022tempo*/
 
 _Gentiana dinarica_ Beck. #linebreak()
 _Gentiana dinarica_ je vytrvalý zástupce rodu hořců (_Gentiana_) s přízemní růžicí široce eliptických listů a výraznými tmavěmodrými trubkovitými květy (viz @fig:kytky *b*). Ekologicky je vázána především na suché subalpinské a alpinské louky na vápencovém podloží. Vyskytuje se v horách západního Balkánu, avšak podobně jako u _G_. _tergestina_ se nejdná o čistě balkánský endemit, jelikož je jeho výskyt uváděn také ze střední Itálie a Pyrenejí. @tutin_3 @josifovic_5
@@ -470,9 +470,9 @@ Pro hodnocení výkonu modelů jsem připravil prostorově oddělené cross-vali
 V rámci této práce jsem k trénování modelů rozšíření vhodných stanovišť využil prediktory z pěti základních skupin:
 + *klimatické* prediktory charakterizující na hrubém měřítku variabilitu teploty a srážek
 + *topografické* prediktory jejichž účelem je postihnout jemnější variabilitu mikrostanovišťních podmínek
-+ *horninový* substrát sloužící jako základní charakteristika geologických poměrů na regionální úrovni
-+ *půdní* prediktory rozvíjejí informaci o půdních poměrech na úrovni lokalit a je možné považovat je za ekologicky relevantnější než samotný geologický substrát [[[zdroj]]]
-+ *krajinný pokryv* klasifikuje povrch Země do základních formačních skupin a jako jediný prediktor přináší do modelů informaci, která je vzdáleně schopna charakterizovat biotické faktory [[[zdroj]]]
++ *horninový* substrát sloužící jako základní charakteristika geologických poměrů na regionální úrovni, zároveň jde o prediktor, který na je rozdíl o půdních charakteristik možné využít při extrapolaci modelů v čase
++ *půdní* prediktory rozvíjejí informaci o půdních poměrech na úrovni lokalit a je možné považovat je za ekologicky relevantnější než samotný geologický substrát, ale zároveň nejsou vhodné pro extrapolaci modelu v čase @guisan2000predictive
++ *krajinný pokryv* klasifikuje povrch Země do základních formačních skupin a jako jediný prediktor přináší do modelů informaci, která je vzdáleně schopna charakterizovat biotické faktory, ale podobně jako půdní prediktory jej není možné přenášet v čase
 
 ==== Klimatické prediktory <chap:climate_pred>
 #v(5pt)
@@ -610,7 +610,7 @@ Tato metrika vychází z běžně používaného AUC (_area under the receiver o
 
 V dalším kroku jsem hodnoty Somersova D pro daný bivariátní model zprůměroval a porovnal s hraniční hodnotou 0. Bivariátní modely s průměrným S-D $<=$ 0 jsem z dalších analýz vyloučil. Z modelů, které prošly sítem, jsem sestavil algoritmický soubor predikcí (_algo-ESM_, viz @fig:ESM), přičemž jsem příspěvek jednotlivých bivariátních modelů vážil jejich průměrným výkonem. Modely s vyšší hodnotou S-D tak měly v algo-ESM větší vliv než modely s nižší, avšak stále kladnou úspěšností. Soubor predikcí jsem sestavil pro každý algoritmus samostatně. Predikci takto sestavených algo-ESM jsem následně znovu vyhodnotil podle testovacích částí předpřipravených CV foldů a analogicky jako v kroku výše jsem vypočítal průměrné Somersovo D pro daný algo-ESM a porovnal jej s hraniční hodnotou, přičemž algo-ESM s průměrným S-D $<=$ 0 jsem z dalších analýz opět vyloučil. Pokud v tomto kroku nastala situace, že S-D#sub("algo-ESM") $<=$ 0, vyloučil jsem v daném běhu celou větev algoritmu z modelovacího procesu.
 
-Po dokončení validačního procesu jsem ponechané bivariátní modely znovu natrénoval na celém dostupném datasetu. Tento krok zajistil, že finální ESM model využíval pro odhad vztahu mezi výskytem druhu a prostředím všechna cenná dostupná data. Relativní příspěvky jednotlivých bivariátních modelů natrénovaných na celém datasetu jsem vážil pomocí vah získaných v prvním kroku sestavování algo-ESM a zároveň pomocí váhy algoritmu jako celku. Efektivní příspěvek bivariátního modelu je možné vyjádřit jako:
+Po dokončení validačního procesu jsem nadále postupoval dle metodiky #cite(<breiner_2015>, form: "prose") a ponechané bivariátní modely znovu natrénoval na celém dostupném datasetu. Tento krok zajistil, že finální ESM model využíval pro odhad vztahu mezi výskytem druhu a prostředím všechna cenná dostupná data. Relativní příspěvky jednotlivých bivariátních modelů natrénovaných na celém datasetu jsem vážil pomocí vah získaných v prvním kroku sestavování algo-ESM a zároveň pomocí váhy algoritmu jako celku. Efektivní příspěvek bivariátního modelu je možné vyjádřit jako:
 
 $
   w_"efektivní" = w_"bivariátní model" times w_"mateřský algo-ESM"
@@ -684,7 +684,7 @@ Prohlašuji, že při přípravě předložené práce byly použity následují
   #block(
     width: 80%,
   )[
-    *ChatGPT* v období *1. 11. 2025 – #datum*, popis použití: generování kódu k analýze dat, generování kódu využitého k sazbě práce, vyhledávání publikací a zpracování výtahů z nich, návrhy textů.
+    *ChatGPT* v období *1. 11. 2025 – #datum*, popis použití: Kód využitý ke zpracování dat a jejich analýze jsem částečně vytvářel s pomocí velkého jazykového modelu ChatGPT. Tento model jsem dále částečně používal k vyhledávání odborných publikací, návrhům textů této práce a jazykovým korekturám.
   ]
 ]
 Po použití uvedených nástrojů umělé inteligence jsem důkladně revidoval a upravil obsah podle potřeby a plně přejímám odpovědnost za výslednou podobu práce.
