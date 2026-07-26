@@ -4,8 +4,8 @@
 // zakladni udaje
 
 #let author = "Jakub Rataj"
-#let title_cz = "nazev"
-#let title_en = "nazev AJ"
+#let title_cz = "Modelování rozšíření balkánských horských endemitů"
+#let title_en = "Distribution modeling of endemic species of the Balkans peninsula"
 
 #let thesis_type = "Diplomová práce"
 #let supervisor = "Mgr. Jan Smyčka Ph.D."
@@ -74,7 +74,7 @@
 
 #align(center)[
   Studijní program:
-  #v(1mm)
+  #v(-1mm)
   Botanika ‒ Geobotanika
 ]
 
@@ -85,30 +85,30 @@
 #v(10mm)
 
 #align(center)[
-  *Bc. Jakub Rataj*
+  *Jakub Rataj*
 ]
 
 #v(5mm)
 
 #align(center)[
-  [[[[nazev]]]]
-  #v(1mm)
-  [[[[nazev_AJ]]]]
+  #title_cz
+  #v(-1mm)
+  #title_en
 ]
 
-#v(7mm)
+#v(10mm)
 
 #align(center)[
   Typ závěrečné práce:
-  #v(1.5mm)
+  #v(-1mm)
   Diplomová práce
 ]
 
-#v(5mm)
+#v(10mm)
 
 #align(center)[
   Vedoucí práce:
-  #v(1.5mm)
+  #v(-1mm)
   #supervisor
 ]
 
@@ -116,7 +116,7 @@
 
 #align(center)[Praha, 2026]
 
-//#v(0.3fr)
+#v(0.3fr)
 
 // # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 // prohlaseni, podekovani
@@ -327,6 +327,10 @@ Během posledního glaciálního maxima byly nejvyšší části západobalkáns
 Tento scénář ilustruje studie na balkánském horském endemitu _Campanula orbelica_, který roste v alpinských trávnících na silikátovém podloží. U tohoto druh byly rozlišeny tři geograficky odlišné genetické linie: v pohoří Pirin, v Rile a dalších východobalkánských masivech a v západněji položených pohořích Šar planina a Korab. Projekce modelu SDM do posledního glaciálního maxima ukázala rozšíření vhodných podmínek do nižších poloh a možné propojení dnešních areálů v Rile a Pirinu, nikoli však vznik souvislého areálu napříč celým Balkánem @ronikier2023high. Obdobná fylogeografická disjunkce byla zjištěna u západobalkánského endemitu _Cerastium dinaricum_, jehož současné rozšíření tvoří několik malých a navzájem izolovaných populací v Dinaridech. Tyto populace se dělí do dvou diferencovaných skupin, přičemž populace v jihovýchodní části areálu se dále dělí do několika menších genetických skupin. Současná fragmentace tohoto druhu je pravděpodobně výsledkem opakovaných výškových posunů areálu a jeho stažení do nejvyšších poloh během holocénního oteplování @kutnjak2014escaping. Oba příklady ukazují, že současné ostrůvkovité rozšíření balkánských alpinských rostlin není pouze výsledkem dnešních ekologických podmínek, ale uchovává také genetické stopy dlouhodobé pleistocenní izolace a rozdílného vývoje populací v jednotlivých horských masivech.
 
 Z hlediska budoucí perspektivy je balkánské alpinum silně ohrožené probíhající změnou klimatu. V odborné obci panuje obecná shoda, že současný trend může vést k elevačnímu posunu klimatických zón a návaznému zmenšení rozlohy (sub)alpinských biotopů. Taková změna by vedla k ohrožení druhů se slabou migrační schopností a druhů vyskytujících se v oblastech, kde již není možné migrovat do vyšších nadmořských výšek @IPCC_2023 @theurillat1998sensitivity. V Dinaridech a dalších balkánských pohořích může být tento problém aktuálnější než ve vysokých Alpách, jelikož balkánské horské masivy dosahují nižších nadmořských výšek a fyzická hranice potenciálního elevačního posunu je umístěna níže. Na příklad již výše zmíněné modely pro druh _Cerastium dinaricum_ predikují ztrátu 73 % současné rozlohy vhodných stanovišť do roku 2080 @kutnjak2014escaping.
+
+/*
+Palaeoekologická data z centrálních Dinarid dokládají etablování smíšených smrko-jedlových lesů v horním montánním stupni již kolem 9500 cal BP a studie z dalších evropských pohoří ukazují, že během holocenního teplotního maxima mohla hranice lesa dosahovat výrazně vyšších poloh než dnes (Cagliero et al. 2023; Schwörer et al. 2014). Pro druh otevřených skalních a suťových stanovišť tak mohlo oteplení znamenat současně zmenšení klimaticky vhodného prostoru a zvýšení konkurenčního tlaku okolní vegetace.
+*/
 
 == Cíle práce
 
@@ -1152,7 +1156,7 @@ Nápadným výsledkem byla mimořádně silná závislost diskriminační schopn
 
 Silný nárůst výkonnosti směrem k 200 m je nicméně ekologicky zajímavý vzhledem k charakteru stanovišť druhu. _Primula kitaibeliana_ je popisována především z kamenitých pastvin a skalních štěrbin @zhang2004, tedy z prostorově omezených habitatů, jejichž signál může být při hrubé agregaci ztracen. Na druhou stranu další zjemnění ze 200 na 100 m již modelovou výkonnost nezlepšovalo, což odpovídá poznatku, že nejjemnější dostupné rozlišení nemusí být automaticky optimální @manzoor2018species.
 
-U nejúspěšnějších modelů Primula kitaibeliana se napříč modelovacími větvemi opakovala především vazba na poměrně úzce vymezenou kombinaci klimatických podmínek. Ve větvi založené na všech dostupných prediktorech patřily mezi nejvýznamnější proměnné _minimální měsíční průměr teplot v průběhu roku_ (bio06), _roční úhrn srážek_ (bio12) a _nejnižší měsíční úhrn srážek v průběhu roku_ (bio14), jejichž křivky vykazovaly zřetelná optima. Predikovaná vhodnost byla nízká při velmi chladných zimách, prudce vzrůstala ke středně nízkým zimním teplotám a při nejmírnějších podmínkách opět klesala. Obdobně byla nejvyšší vhodnost spojena s ročními srážkami přibližně kolem 1800–2100 mm a se středními hodnotami srážek nejsuššího měsíce, zatímco výrazně sušší i vlhčí podmínky byly hodnoceny jako méně vhodné. Ve větvi se společnými prediktory byly tato optima velmi konzistetní napříč všemi rozlišeními. Analogický obraz poskytovala i větev určená pro časové projekce, přestože zde byly použity jiné klimatické proměnné. Mezi nejvýznamnější patřily _průměrná teplota nejteplejšího čtvrtletí_ (bio10), _srážky nejchladnějšího čtvrtletí_ (bio19), _teplotní sezonalita_ (bio04) a _srážky nejteplejšího čtvrtletí_ (bio18). Vhodnost byla velmi nízká při nejchladnějších letních podmínkách a výrazně rostla směrem k relativně teplejším horským létům, zatímco u bio18 a bio19 byla nejvyšší převážně ve středních částech srážkových gradientů a při jejich nejvyšších hodnotách opět klesala. Velmi konzistentní byla současně silná preference kategorie 1 horninového substrátu zahrnující karbonátové a bazické horniny, která dobře odpovídá uváděnému výskytu druhu na vápencových stanovištích @zhang2004. Zároveň ale k výsledné podobě modelů významěji přispívaly prediktory _hloubka půdy_ a _krajinný pokryv_, jejichž výsledky nepředstavují ekologicky rozumně interpretovatelné odpovědi. Dle modelů vzrůstala vhodnost se zvětšující se hloubkou půdy a zároveň byla nejvhodněji klasifikována kategorie 1 krajinného pokryvu (_Tree cover_). Tento výsledek je v rozporu s dosavadní znalostí ekologie druhu uváděného z otevřených horských pastvin a skalních štěrbin @zhang2004.
+U nejúspěšnějších modelů _Primula kitaibeliana_ se napříč modelovacími větvemi opakovala především vazba na poměrně úzce vymezenou kombinaci klimatických podmínek. Ve větvi založené na všech dostupných prediktorech patřily mezi nejvýznamnější proměnné _minimální měsíční průměr teplot v průběhu roku_ (bio06), _roční úhrn srážek_ (bio12) a _nejnižší měsíční úhrn srážek v průběhu roku_ (bio14), jejichž křivky vykazovaly zřetelná optima. Predikovaná vhodnost byla nízká při velmi chladných zimách, prudce vzrůstala ke středně nízkým zimním teplotám a při nejmírnějších podmínkách opět klesala. Obdobně byla nejvyšší vhodnost spojena s ročními srážkami přibližně kolem 1800–2100 mm a se středními hodnotami srážek nejsuššího měsíce, zatímco výrazně sušší i vlhčí podmínky byly hodnoceny jako méně vhodné. Ve větvi se společnými prediktory byly tato optima velmi konzistetní napříč všemi rozlišeními. Analogický obraz poskytovala i větev určená pro časové projekce, přestože zde byly použity jiné klimatické proměnné. Mezi nejvýznamnější patřily _průměrná teplota nejteplejšího čtvrtletí_ (bio10), _srážky nejchladnějšího čtvrtletí_ (bio19), _teplotní sezonalita_ (bio04) a _srážky nejteplejšího čtvrtletí_ (bio18). Vhodnost byla velmi nízká při nejchladnějších letních podmínkách a výrazně rostla směrem k relativně teplejším horským létům, zatímco u bio18 a bio19 byla nejvyšší převážně ve středních částech srážkových gradientů a při jejich nejvyšších hodnotách opět klesala. Velmi konzistentní byla současně silná preference kategorie 1 horninového substrátu zahrnující karbonátové a bazické horniny, která dobře odpovídá uváděnému výskytu druhu na vápencových stanovištích @zhang2004. Zároveň ale k výsledné podobě modelů významěji přispívaly prediktory _hloubka půdy_ a _krajinný pokryv_, jejichž výsledky nepředstavují ekologicky rozumně interpretovatelné odpovědi. Dle modelů vzrůstala vhodnost se zvětšující se hloubkou půdy a zároveň byla nejvhodněji klasifikována kategorie 1 krajinného pokryvu (_Tree cover_). Tento výsledek je v rozporu s dosavadní znalostí ekologie druhu uváděného z otevřených horských pastvin a skalních štěrbin @zhang2004.
 
 Modely tedy charakterizovaly druh _Primula kitaibeliana_ jako vázaný na karbonátové podloží a poměrně úzce vymezenou část bioklimatických gradientů v jejich středech. Tato představa je slučitelná s doloženým rozšířením druhu, které je omezeno na disjunktní oblasti Velebitu a centrální Bosny a Hercegoviny. Nezodpovězenou otázkou však zůstává, nakolik zřetelná optima klimatických křivek představují skutečné fyziologické limity druhu. Chladnější a srážkově bohatší části gradientů jsou v použitých datech zastoupeny absencemi z centrálních Dinarid, zatímco všechny modelované presence pocházejí ze západního Chorvatska. Model tak nutně vysvětluje extrémější podmínky vyšších oblastí Dinarid jako pro druh nevhodné. Takový výsledek může tedy opravdu znamenat, že druh se vyhýbá klimaticky extrémějším lokalitám, ale stejně tak reálné může být vysvětlení, že druh nekolonizoval vyšší polohy kvůli omezené disperzi, případně stanovištní historii.
 
@@ -1161,6 +1165,26 @@ Tento rozkol dobře ilustrují prostorové projekce odvozených vztahů. Součas
 Časové projekce se u druhu _Primula kitaibeliana_ chovají odlišně od ostatních studovaných druhů. Projekce do LGM naznačuje změnu prostorového rozložení vhodných stanovišť, kdy vhodnější podmínky zůstávají zachovány zejména v horských masivech podél jadranského pobřeží, zatímco v kontinentálnější části studovaného území jejich zastoupení klesá. Naopak v jižní části studovaného území, zejména v Albánii, dochází k nárůstu predikované vhodnosti. Ještě výraznější odlišnost od ostatních studovaných druhů představuje projekce do holocénního klimatického optima. Nedochází zde k rozsáhlému úbytku vhodnosti a naopak některé vysokohorské oblasti centrálních Dinarid, které jsou v současné projekci hodnoceny jako nevhodné, se stávají vhodnějšími. Opět ale dochází u této projekce k nárůstu hodnot metriky Shape, jejíž nízké hodnoty jsou lokalizovány téměř výhradně podél pobřeží Jadranu, což snižuje důvěryhodnost predikované vhodnosti v centrálních Dinaridech.
 
 Pro projekce do potenciálního budoucího klimatu modely nenaznačují plošný úbytek vhodných stanovišť, jako u jiných studovaných druhů, ale naopak zvýšení vhodnosti některých nejvyšších částí Dinarid, které jsou za současných podmínek hodnoceny jako nevhodné. Tento výsledek je tedy podobný projekci do HCO, avšak v případě budoucích projekcí nedosahuje metrika Shape tak vysokých hodnot. V tomto ohledu představuje _Primula kitaibeliana_ mezi studovanými druhy poměrně neobvyklý případ, jelikož u všech ostatních druhů budoucí projekce ukazují spíše zmenšování a fragmentaci vhodných stanovišť. Avšak při rychlosti současných klimatických změn a současném omezeném rozšíření druhu, jde jen těžko předpokládat, že by se druh do lokalit s potenciálním budoucím rozvojem vhodných stanovišť zvládl rozšířit.
+
+== _Saxifraga blavii_
+
+Pro modelování rozšíření _Saxifraga blavii_ bylo v závislosti na prostorovém rozlišení dostupných 53 až 88 presenčních a 219 až 513 absenčních pozorování, přičemž všechna pocházela z vlastního terénního průzkumu. Modely vykazovaly napříč všemi modelovacími větvemi poměrně dobrou diskriminační schopnost, přičemž nejvyššího Somersova D bylo vždy dosaženo při rozlišení 1000 m. Výkonnost modelů v rozlišení 200 m však byla ‒ zejména ve větvích se všemi a se společnými prediktory ‒ velmi podobná, zatímco výraznější pokles nastával až při rozlišení 100 m. Ačkoli se výkonnost modelů lišila, základní tvary odpovědí druhu na nejvýznamnější environmentální gradienty byly mezi jednotlivými velikostmi grain poměrně stabilní. Napříč modelovacími větvemi se opakovala především vazba na chladné a srážkově bohaté horské prostředí. V časově extrapolovatelné větvi měly největší příspěvek _průměrná teplota nejteplejšího čtvrtletí_ (bio10), _srážky nejchladnějšího čtvrtletí_ (bio19), _srážky nejteplejšího čtvrtletí_ (bio18) a horninový substrát. Predikovaná vhodnost výrazně klesala s rostoucí letní teplotou, zatímco u obou srážkových proměnných byly vyšší hodnoty vhodnosti spojeny převážně se střední až vlhčí částí gradientu. Analogický obraz poskytovaly modely zahrnující všechny dostupné prediktory, v nichž dominovaly _minimální teplota nejchladnějšího měsíce_ (bio06), krajinný pokryv, _roční úhrn srážek_ (bio12) a hroninový substrát. Také zde vhodnost prudce klesala směrem k mírnějším zimám a naopak rostla s ročním úhrnem srážek. Ve větvi se společnou sadou prediktorů byly tyto vztahy doplněny vysokým příspěvkem _srážek nejsuššího měsíce_ (bio14), přičemž tvary odpovědí bio06, bio12, bio14, krajinného pokryvu i podloží zůstávaly mezi rozlišeními velmi podobné. /*Při 200 m se mezi významnější prediktory ve větvi se všemi proměnnými zařadila také _roční teplotní amplituda_ (bio07), vyjazující nejvyšší vhodnost u vysokých hodnot teplotního rozsahu.*/ Odvozené reakce na gradienty prediktorů tak zachycují druh _Saxifraga blavii_ jako druh horských stanovišť repezentovaných vyššími úhrny srážek a průměrně nižšími teplotami, což je v souladu se známým rozšířením.
+
+Odpověd druhu na variabilitu krajinného pokryvu představu o ekologických preferencích druhu zajímavě dopplňuje. Nejvyšší vhodnost byla spojena především s kategorií 30 (_Grassland_) a následně s kategorií 60 (_Bare/sparse vegetation_), zatímco zalesněná stanoviště dosahovala podstatně nižších hodnot. Vzhledem k tomu, že v literatuře je druh chcrakterizován jako vázaný na disturbovaná horská stanoviště, skalky, sutě a skalní štěrbiny, je modelem predikovaná vhodnost v kategorii 60 (_Bare/sparse vegetation_) věrohodným výsledkem. V případě vyoké predikované vhodnosti u kategorie 30 (_Grassland_) se pravděpodobně jedná o vliv prostorového rozlišení @moudry2023scale. Druh _Saxifraga blavii_ se nevyskytuje přímo v zapojených trávnících, ale v malých disturbovaných ploškách, které jsou pod rozlišovací schopností jakéhokoliv z využitých prostorových rozlišení, včetně originálních dat krajinného pokryvu (10 m, @landcover_data). Tato představa je podpořena mou terénní zkušeností z rozlehlých horských plató masivu Sinjajevina.
+
+/*Murbeck (1891) ji popisoval jako rozšířenou v alpinském stupni vysokých hor jižní Bosny a Hercegoviny a uváděl ji z lokalit přibližně mezi 1600 a 2000 m n. m. Takové prostředí kombinuje nízké teploty s omezenou konkurencí zapojené vegetace a vysokou prostorovou heterogenitou substrátu. Vysokohorská vegetace Dinarid je ostatně tvořena nejen alpinskými trávníky, ale také rozsáhlým souborem azonálních skalních štěrbin a suťových společenstev, jejichž rozložení je silně strukturováno geologií, reliéfem a klimatem (Redžić 2012).*/
+
+Zvlášť zajímavý je v kontextu ekologické interpretace opakovaně vysoký příspěvek horninového substrátu. Model jednoznačně hodnotil jako nejvhodnější kategorii 1, která při použité reklasifikaci zahrnuje především karbonátové a další bazické horniny. To dobře odpovídá nálezům druhu na vápencových vysokohorských masivech i popisované stanovištní ekologii @josifovic_4. Na druhou stranu, v literatuře existuje i nález, který obligátní vazbu na karbonáty popírá: #cite(<novak1927ad>, form: "prose") zaznamenal početnou populaci v puklinách serpentinitových skal na severně orientovaném svahu hory Crni vrh nedaleko Zlatiboru v přibližně v 870 metrech nad mořem. Tento nález tak, navzdory svému stáří, rozporuje publikovanou vazbu druh na vápencová bezlesá stanoviště a poukazuje na případnou širší ekologickou amplitudu druhu.
+
+Prostorové projekce současné vhodnosti vymezují především horské masivy centrálních a jihovýchodních Dinarid a navazujících pohoří, zatímco nížiny a většina pobřežních oblastí jsou hodnoceny jako nevhodné. Ostrůvkovité rozložení predikovaných vhodných habitatů je očekávatelné vzhledem k rozložení alpina v horách západního Balkánu a k výše popsaným odpovědím druhu na gradienty prediktorů.
+
+Z časových projekcí je biogeograficky nejzajímavější výrazné rozšíření vhodných podmínek během posledního glaciálního maxima. Na rozdíl od současné predikované distribuce model předpovídá široký spojitý pás vyšší vhodnosti napříč větší částí Dinarid. Vzhledem k velmi silné negativní odpovědi na letní teplotu je pravděpodobným vysvětlením sestup klimaticky vhodných podmínek do nižších poloh a jejich rozšíření mimo dnešní alpinské ostrůvky @holderegger2009discussion @ronikier2023high. Podobné elevační posuny jsou předpokládány také u jiných západobalkánských vysokohorských endemitů. Na příklad u _Cerastium dinaricum_ byly klimatické oscilace spojené s výškovými posuny označeny za jeden z procesů formujících dnešní fragmentovaný areál a studie dalších balkánských alpinských druhů ukazují existenci více horských refugií a dlouhodobě izolovaných evolučních center @kutnjak2014escaping.
+
+Opačný obraz přináší projekce do holocenního klimatického optima, při níž predikovaná vhodná stanoviště ze studované oblasti téměř kompletně mizí. Takto silná reakce je dobře slučitelná s prudkým poklesem vhodnosti při vyšších letních a zimních teplotách. Vedle přímého klimatického omezení mohl rovněž důležitou roli hrát rozvoj lesní vegetace a obecný ústup bezlesých stanovišť. Na druhou stranu, v krajině pravděpodobně zůstala i stanoviště otevřená, která umožnila přežívání druhu a rozvoj jeho populací do stavu, ve kterém je vidíme dnes. Rozsah modelovaného ústupu je třeba hodnotit obezřetně navíc kvůli vysokým hodnotám Shape ve většině studovaného území. Tento výsledek naznačuje, že environmentální podmínky HCO jsou vzdáleny environmentálním podmínkám použitým pro trénování modelu a tudíž dochází k větší míře extrapolace odvozených vztahů.
+
+Rovněž budoucí projekce ukazují postupný ústup vhodných podmínek, jehož intenzita je však spojena spíše s emisním scénářem než časovým řezem. Rozdíly mezi SSP1-2.6, SSP3-7.0 a SSP5-8.5 jsou výraznější než rozdíly mezi obdobími 2041–2070 a 2071–2100 v rámci stejného scénáře. Se zvyšující se intenzitou scénáře zároveň v horských oblastech roste hodnota Shape, takže právě predikce nejsilnějšího úbytku jsou současně založeny na vyšší míře extrapolace.
+
+Ekologicky lze očekávaný ústup spojit s pravděpodobnou změnou charakteru jeho stanovišť. Dlouhodobá sledování evropských hor ukazují při oteplování nárůst vegetačního pokryvu a pronikání druhů nižších vegetačních stupňů do vysokohorského prostředí. Přímo na vápencových alpinských sutích v Apeninách byl zaznamenán nárůst montánních a subalpinských druhů a keříčků @frate2018climate. Současně však členitý skalní reliéf vytváří jemnou mikrostanovištní mozaiku a chladná mikrorefugia mohou některým alpinským rostlinám umožnit lokálně přetrvávat i tam, kde se makroklimatické podmínky stanou méně příznivými @scherrer2011topographically. Budoucí projekce je proto vhodné interpretovat jako předpokládané zmenšování regionálního klimatického prostoru vhodného pro druh než jako přímou předpověď zániku jednotlivých populací.
 
 #pagebreak()
 
